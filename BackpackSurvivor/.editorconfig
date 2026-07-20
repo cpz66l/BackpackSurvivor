@@ -1,0 +1,6 @@
+root = true
+
+# 所有 C# 源文件统一使用 UTF-8 with BOM
+# Visual Studio 2017+ 与 Rider 都会遵守此规则，新建/保存 .cs 文件时自动生效
+[*.cs]
+charset = utf-8-bom
