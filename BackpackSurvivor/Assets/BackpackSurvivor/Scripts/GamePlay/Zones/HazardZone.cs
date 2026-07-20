@@ -8,6 +8,7 @@ namespace BS.GamePlay.Zones
     {
         [SerializeField] private float damagePerSecond = 10f;
         [SerializeField] private float tickInterval = 0.5f;
+        [SerializeField] private Faction targetFaction = Faction.Player;//危险区的作用对象
 
         private readonly List<IDamageable> targetsInZone = new List<IDamageable>();
         private float tickTimer = 0f;
@@ -39,7 +40,7 @@ namespace BS.GamePlay.Zones
             IDamageable target = other.GetComponent<IDamageable>();
             if (target == null) return;
             //判断阵营
-            if (target.Faction != Faction.Player) return;
+            if (targetFaction != Faction.Neutral && target.Faction != targetFaction ) return;
             //登记进缓存，之后 tick 直接用，不再做物理查询
             if (!targetsInZone.Contains(target)) targetsInZone.Add(target);
         }

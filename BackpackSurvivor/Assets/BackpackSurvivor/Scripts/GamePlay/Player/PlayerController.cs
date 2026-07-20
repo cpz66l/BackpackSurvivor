@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //»ñÈ¡×é¼ş
+    //è·å–ç»„ä»¶
     private CharacterController cct;
     private InputReader ir;
-    //ÒÆ¶¯»òÊÓ½Ç
+    //ç§»åŠ¨æˆ–è§†è§’
     public float moveSpeed = 5f;
     private Vector3 moveDirection;
     private Vector3 lookDirection;
@@ -21,20 +21,20 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //ÒÆ¶¯
+        //ç§»åŠ¨
         if (ir.moveVector2 != Vector2.zero)
         {
             moveDirection.Set(ir.moveVector2.x, 0, ir.moveVector2.y);
-            moveDirection.Normalize();//¹éÒ»»¯£¬±ÜÃâĞ±ÏòÒÆ¶¯ËÙ¶È¹ı¿ì£»
-            moveDirection = Quaternion.Euler(0, -45, 0) * moveDirection;//Ğı×ª45¶È
-            cct.Move(moveDirection * moveSpeed * Time.deltaTime);//Ê¹ÓÃCharacterControllerÒÆ¶¯
+            moveDirection.Normalize();//å½’ä¸€åŒ–ï¼Œé¿å…æ–œå‘ç§»åŠ¨é€Ÿåº¦è¿‡å¿«ï¼›
+            moveDirection = Quaternion.Euler(0, -45, 0) * moveDirection;//æ—‹è½¬45åº¦
+            cct.Move(moveDirection * moveSpeed * Time.deltaTime);//ä½¿ç”¨CharacterControllerç§»åŠ¨
         }
-        //×ªÏò
+        //è½¬å‘
         if (ir.worldPoint != Vector3.zero)
         {
             lookDirection = ir.worldPoint - transform.position;
-            lookDirection.y = 0;//ºöÂÔyÖá
-            if (lookDirection.sqrMagnitude > 0.001f)//±ÜÃâ³ıÒÔ0
+            lookDirection.y = 0;//å¿½ç•¥yè½´
+            if (lookDirection.sqrMagnitude > 0.001f)//é¿å…é™¤ä»¥0
             {
                 Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
                 transform.rotation = Quaternion.RotateTowards(

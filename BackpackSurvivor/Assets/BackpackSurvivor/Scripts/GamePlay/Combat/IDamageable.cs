@@ -27,7 +27,8 @@ namespace BS.GamePlay.Combat
     public enum Faction//阵营枚举
     {
         Player,
-        Enemy
+        Enemy,
+        Neutral
     }
     public interface IDamageable
     {
