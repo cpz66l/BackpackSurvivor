@@ -469,6 +469,118 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 16, y: 26, z: -16}
+--- !u!1 &736303178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 736303179}
+  - component: {fileID: 736303182}
+  - component: {fileID: 736303181}
+  - component: {fileID: 736303180}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &736303179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736303178}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 0.04, z: 0.5399}
+  m_LocalScale: {x: 0.3286756, y: 0.25239784, z: 0.085935555}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1759852925}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &736303180
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736303178}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &736303181
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736303178}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &736303182
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736303178}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &747923140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,12 +1316,12 @@ GameObject:
   - component: {fileID: 1502868895}
   - component: {fileID: 1502868893}
   m_Layer: 0
-  m_Name: Gun01
+  m_Name: AutoGun01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1502868892
 Transform:
   m_ObjectHideFlags: 0
@@ -1238,16 +1350,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d296fda591f7e248b9d74aab3b4c8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.AutoWeapon
-  attackInterval: 0.5
-  maxRange: 15
   projectileSpeed: 20
   damage: 5
   targetFaction: 1
   maxDistance: 20
+  firePoint: {fileID: 1449576854}
+  attackInterval: 0.5
+  maxRange: 15
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
-  firePoint: {fileID: 1449576854}
 --- !u!23 &1502868895
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1317,8 +1429,9 @@ GameObject:
   - component: {fileID: 1759852928}
   - component: {fileID: 1759852927}
   - component: {fileID: 1759852926}
+  - component: {fileID: 1759852929}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: ActiveGun01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1333,10 +1446,11 @@ Transform:
   m_GameObject: {fileID: 1759852924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05000019, z: 0.74}
-  m_LocalScale: {x: 0.39134, y: 0.37591, z: 0.68954}
+  m_LocalPosition: {x: 0.02, y: 0.04, z: 0.987}
+  m_LocalScale: {x: 0.25025016, y: 0.26224986, z: 0.76214725}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 736303179}
   m_Father: {fileID: 2091678858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1759852926
@@ -1417,6 +1531,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759852924}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1759852929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759852924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8a3056f65b2ed4da7e597e6704b852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveWeapon
+  projectileSpeed: 50
+  damage: 30
+  targetFaction: 1
+  maxDistance: 30
+  firePoint: {fileID: 736303179}
+  fireInterval: 1
 --- !u!1 &2061221972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,8 +1582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ba16a6ae165264cbaaab93a6a540b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveVector2: {x: 0, y: 0}
-  worldPoint: {x: 0, y: 0, z: 0}
 --- !u!143 &2061221974
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1534,6 +1664,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b3053efc-6b19-4c34-8b79-6bec2d96abac
     m_ActionName: 'PlayerNormal/MousePosition[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2061221973}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b87ef52f-3c0a-4b9f-b067-770f6bacd947
+    m_ActionName: 'PlayerNormal/Attack[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerNormal
@@ -1555,6 +1701,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   lookDirection: {x: 0, y: 0, z: 0}
   rotateSpeed: 720
+  bodyPivot: {fileID: 0}
 --- !u!4 &2061221977
 Transform:
   m_ObjectHideFlags: 0

@@ -2,21 +2,16 @@
 
 namespace BS.GamePlay.Combat
 {
-    public class AutoWeapon : MonoBehaviour
+    public class AutoWeapon : WeaponBase
     {
         //武器参数
-        [SerializeField] private float attackInterval = 0.5f;
-        [SerializeField] private float maxRange = 15f;
-        [SerializeField] private float projectileSpeed = 20f;
-        [SerializeField] private float damage = 5f;
-        [SerializeField] private Faction targetFaction = Faction.Enemy;
-        [SerializeField] private float maxDistance = 30f;
+        [SerializeField] protected float attackInterval = 0.5f;
+        [SerializeField] private float maxRange = 15f;        
         //枪身旋转
         [SerializeField] private float rotationSpeed = 720f;
         [SerializeField] private float fireAngleTolerance = 3f;//开枪允许的最大偏差
         //枪身位置与枪口位置
         [SerializeField] private Transform aimPivot;
-        [SerializeField] private Transform firePoint;
 
         private float attackTimer = 0f;
         private IDamageable currentTarget;
@@ -59,14 +54,6 @@ namespace BS.GamePlay.Combat
             Fire((currentTarget.Position - firePoint.position).normalized);
         }
 
-        private void Fire(Vector3 direction)
-        {
-            //创造一个空物体，在枪口的位置
-            GameObject bulletObj = new GameObject("bullet");
-            bulletObj.transform.position = firePoint.position;
-            //挂上 Projectile 组件（此刻它的 Awake 立即执行：造出黄色小球视觉）
-            Projectile bullet = bulletObj.AddComponent<Projectile>();
-            bullet.Initialize(projectileSpeed, damage, targetFaction, maxDistance, direction, 0f, gameObject);
-        }
+        
     }
 }
