@@ -9,14 +9,19 @@ public class PlayerController : MonoBehaviour
     private CharacterController cct;
     private InputReader ir;
     //移动或视角
-    public float moveSpeed = 5f;
-    private Vector3 moveDirection;
-    private Vector3 lookDirection;
-    public float rotateSpeed = 360f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private Vector3 moveDirection;
+    [SerializeField] private Vector3 lookDirection;
+    [SerializeField] private float rotateSpeed = 360f;
+    [SerializeField] private Transform bodyPivot ;
+
     void Start()
     {
         cct = GetComponent<CharacterController>();
         ir = GetComponent<InputReader>();
+
+        //获取子模型transform
+        bodyPivot = transform.Find("Model");
     }
 
     void Update()
@@ -37,8 +42,9 @@ public class PlayerController : MonoBehaviour
             if (lookDirection.sqrMagnitude > 0.001f)//避免除以0
             {
                 Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation,
+                // 只旋转角色Model视觉。Gun 与 Model 作为同级子物体时可以各自控制朝向。
+                bodyPivot.rotation = Quaternion.RotateTowards(
+                    bodyPivot.rotation,
                     targetRotation,
                     rotateSpeed * Time.deltaTime
                 );

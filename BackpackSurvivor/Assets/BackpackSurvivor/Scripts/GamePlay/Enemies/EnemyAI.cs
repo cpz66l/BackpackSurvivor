@@ -45,8 +45,10 @@ namespace BS.GamePlay.Enemies
 
         private void Update()
         {
-            if (playerTf == null || playerHealth.IsDead) return;
-            Vector3 toPlayer = playerTf.position - transform.position;
+            if (playerTf == null || playerHealth == null || playerHealth.IsDead) return;
+
+            // 模型或碰撞体可能相对根节点有偏移，距离应以实际受击中心计算。
+            Vector3 toPlayer = playerHealth.Position - health.Position;
             toPlayer.y = 0;
             float distance = toPlayer.magnitude;//取向量模长
 
@@ -73,11 +75,21 @@ namespace BS.GamePlay.Enemies
 
         }
 
+        private void OnEnable()
+        {
+            TargetRegistry.Register(health);
+            Debug.Log($"敌人数量:{TargetRegistry.Count}");
+        }
+
+        private void OnDisable()
+        {
+            TargetRegistry.Unregister(health);
+        }
         private void Die()
         {
             Debug.Log($"{gameObject.name} 被击杀");
             health.OnDeath -= Die;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

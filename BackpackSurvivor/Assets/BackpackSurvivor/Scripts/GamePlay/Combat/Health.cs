@@ -11,15 +11,32 @@ namespace BS.GamePlay.Combat
         //血量
         [SerializeField] private float maxHp = 100f;
         private float currentHp;
+        //位置
+        [SerializeField] private Transform aimPoint;
+        private Collider cachedCollider;
         //阵营
         [SerializeField] private Faction faction;
         //接口实现
         public Faction Faction => faction;
         public bool IsDead => currentHp <= 0f;
-        public Vector3 Position => transform.position;
+        public Vector3 Position
+        {
+            get
+            {
+                if (aimPoint != null) return aimPoint.position;
+                if (cachedCollider != null) return cachedCollider.bounds.center;
+                return transform.position;
+            }
+        }
 
         void Awake()
         {
+            cachedCollider = GetComponent<Collider>();
+            if (cachedCollider == null)
+            {
+                cachedCollider = GetComponentInChildren<Collider>();
+            }
+
             currentHp = maxHp;
         }
         public void TakeDamage(DamageInfo info)
