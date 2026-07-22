@@ -24,8 +24,8 @@ namespace BS.GamePlay.Combat
             if (fireTimer > fireInterval && ir.AttackHeld)
             {
                 Vector3 direction = ir.worldPoint - firePoint.position;
-                if (direction.sqrMagnitude < 0.0001f) return;
                 direction.y = 0f;
+                if (direction.sqrMagnitude < 0.0001f) return;
                 Fire(direction.normalized);
                 fireTimer = 0f;
             }

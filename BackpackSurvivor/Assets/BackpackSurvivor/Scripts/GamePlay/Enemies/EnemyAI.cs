@@ -1,12 +1,13 @@
 ﻿using BS.GamePlay.Combat;
 using UnityEngine;
+using BS.Core;
 
 namespace BS.GamePlay.Enemies
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(Health))]//组件契约
     //确保挂载EnemyAI脚本时，自动挂上。
-    public class EnemyAI : MonoBehaviour
+    public class EnemyAI : MonoBehaviour, IPoolable
     {
         //追击
         [SerializeField] private float moveSpeed = 3f;
@@ -22,6 +23,13 @@ namespace BS.GamePlay.Enemies
         private Transform playerTf;
         private Health playerHealth;
         private float attackTimer = 0f;
+
+        //对象池
+        private ObjectPool pool;
+        public void SetPool(ObjectPool p) => pool = p;
+        //对应的敌人认领对应的池子
+        //若不是从对象池出来的敌人，p =null,即pool =null;
+        //后续无法调用pool.Return();
 
         private void Awake()
         {
@@ -39,8 +47,7 @@ namespace BS.GamePlay.Enemies
             }
             playerTf = player.transform;//查询位置
             playerHealth = player.GetComponent<Health>();//方便查询死亡状态
-            //订阅死亡事件
-            health.OnDeath += Die;
+
         } 
 
         private void Update()
@@ -77,19 +84,36 @@ namespace BS.GamePlay.Enemies
 
         private void OnEnable()
         {
-            TargetRegistry.Register(health);
-            Debug.Log($"敌人数量:{TargetRegistry.Count}");
+            TargetRegistry.Register(health);//注册
+            //订阅死亡事件
+            health.OnDeath += Die;
         }
 
         private void OnDisable()
         {
-            TargetRegistry.Unregister(health);
+            TargetRegistry.Unregister(health);//注销
+            health.OnDeath -= Die;
         }
         private void Die()
         {
-            Debug.Log($"{gameObject.name} 被击杀");
-            health.OnDeath -= Die;
-            gameObject.SetActive(false);
+            //防御，防止忘设pool，或者是没经过池子的敌人
+            if (pool != null) pool.Return(gameObject);
+            else gameObject.SetActive(false);
+            //没有池子地址的敌人Die(),调用pool.Return(),会瞬间NRE
+        }
+
+        /// <summary>
+        /// 从池子出队，重置血量与攻击计时器等
+        /// </summary>
+        public void OnGetFromPool()
+        {
+            health.ResetToFull();
+            attackTimer = 0f;
+        }
+
+        public void OnReturnPool()
+        {
+            
         }
     }
 }

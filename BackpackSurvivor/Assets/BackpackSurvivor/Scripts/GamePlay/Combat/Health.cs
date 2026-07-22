@@ -56,5 +56,9 @@ namespace BS.GamePlay.Combat
             }
         }
 
+        public void ResetToFull()
+        {
+            currentHp = maxHp;
+        }
     }
 }

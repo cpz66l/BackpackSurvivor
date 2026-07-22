@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using BS.Core;
 
 namespace BS.GamePlay.Combat
 {
-    public class Projectile : MonoBehaviour
+    public class Projectile : MonoBehaviour,IPoolable
     {
         [SerializeField] private float speed = 15f;
         [SerializeField] private float damage = 10f;
@@ -14,7 +15,10 @@ namespace BS.GamePlay.Combat
         private float passDistance = 0f;
         private GameObject attacker;
         private readonly RaycastHit[] hitBuffer = new RaycastHit[8];
-
+        //对象池
+        private ObjectPool pool;
+        public void SetPool(ObjectPool p) => pool = p;
+        
         //视觉组件
         private GameObject _visualModel;//子弹模型
 
@@ -134,10 +138,16 @@ namespace BS.GamePlay.Combat
 
         private void DestroyBullet()
         {
+            if(pool != null) pool.Return(gameObject);
+            else Destroy(gameObject);//（无池兜底，和敌人同款守卫）
+        }
 
-            //后续可换成进入对象池
-
-            Destroy(gameObject);//销毁子弹
+        //实现接口
+        public void OnGetFromPool()
+        {
+        }
+        public void OnReturnPool()
+        {
         }
     }
 }
