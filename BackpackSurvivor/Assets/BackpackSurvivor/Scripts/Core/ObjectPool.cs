@@ -93,7 +93,7 @@ namespace BS.Core
                 return;
             }
 
-            //调用 IPoolable 归还回调
+            //调用 IPoolable 进行归还的回调
             IPoolable poolable = obj.GetComponent<IPoolable>();
             if (poolable != null)
             {

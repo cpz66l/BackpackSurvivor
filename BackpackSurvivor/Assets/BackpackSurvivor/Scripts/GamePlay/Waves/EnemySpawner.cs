@@ -1,12 +1,12 @@
 ﻿using BS.GamePlay.Combat;
 using UnityEngine;
 using BS.Core;
+using BS.GamePlay.Player;
 
 namespace BS.GamePlay.Waves
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private float spawnInterval = 5f;
         [SerializeField] private float maxAlive = 10f;
         [SerializeField] private float spawnOutsideRadius = 15f;
