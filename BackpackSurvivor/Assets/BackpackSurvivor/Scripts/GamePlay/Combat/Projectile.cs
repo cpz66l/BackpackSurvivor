@@ -145,6 +145,7 @@ namespace BS.GamePlay.Combat
         //实现接口
         public void OnGetFromPool()
         {
+
         }
         public void OnReturnPool()
         {

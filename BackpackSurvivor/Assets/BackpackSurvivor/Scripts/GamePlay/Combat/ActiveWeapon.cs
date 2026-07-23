@@ -22,6 +22,7 @@ namespace BS.GamePlay.Combat
         private void Update()
         {
             fireTimer += Time.deltaTime;
+            //开火
             if (fireTimer > fireInterval && ir.AttackHeld)
             {
                 Vector3 direction = ir.worldPoint - firePoint.position;

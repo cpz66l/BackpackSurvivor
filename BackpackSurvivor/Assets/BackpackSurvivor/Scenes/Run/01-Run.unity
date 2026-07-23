@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.AutoWeapon
   projectileSpeed: 20
-  damage: 5
+  damage: 50
   targetFaction: 1
   maxDistance: 20
   firePoint: {fileID: 1846149510}
@@ -535,6 +535,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429229872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &406584506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406584508}
+  - component: {fileID: 406584507}
+  m_Layer: 0
+  m_Name: LootManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &406584507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406584506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c48357963ca194da4381dfead8e252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.LootManager
+  lootTable: {fileID: 11400000, guid: 7b5682700bf06fd409a3b4a4b60b5b9b, type: 2}
+  dropPool: {fileID: 1370697071}
+  pityThreshold: 10
+--- !u!4 &406584508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406584506}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.77313, y: 0, z: 7.16816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411701055
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,13 +702,14 @@ Transform:
   m_GameObject: {fileID: 429229870}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.98, z: 0.021}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 396808960}
   - {fileID: 758860770}
-  m_Father: {fileID: 2061221977}
+  - {fileID: 1370697070}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &736303178
 GameObject:
@@ -1119,6 +1167,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1370697069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1370697070}
+  - component: {fileID: 1370697071}
+  m_Layer: 0
+  m_Name: DropItem01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1370697070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370697069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 429229872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1370697071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370697069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adab50532def1b4c9cee47b3a1f2311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
+  prefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+  prewarmCount: 30
 --- !u!1 &1422957826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.AutoWeapon
   projectileSpeed: 20
-  damage: 5
+  damage: 50
   targetFaction: 1
   maxDistance: 20
   firePoint: {fileID: 1449576854}
@@ -1504,7 +1598,7 @@ Transform:
   m_GameObject: {fileID: 1759852924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.88}
+  m_LocalPosition: {x: 0, y: 0.238, z: 0.88}
   m_LocalScale: {x: 0.25025016, y: 0.26224986, z: 0.76214725}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2001,7 +2095,6 @@ Transform:
   - {fileID: 2091678858}
   - {fileID: 1502868892}
   - {fileID: 271500048}
-  - {fileID: 429229872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2061221978
@@ -2163,7 +2256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b61354f0726e34c9c669d69368b224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Waves.EnemySpawner
-  enemyPrefab: {fileID: 160483715351843250, guid: d8db95cfd9c99854b943d6c0e6f419be, type: 3}
   spawnInterval: 1
   maxAlive: 10
   spawnOutsideRadius: 15
@@ -2193,7 +2285,9 @@ SceneRoots:
   - {fileID: 411701057}
   - {fileID: 203844589}
   - {fileID: 2143128367}
+  - {fileID: 406584508}
   - {fileID: 1422957830}
+  - {fileID: 429229872}
   - {fileID: 2061221977}
   - {fileID: 1110683783}
   - {fileID: 388428331}

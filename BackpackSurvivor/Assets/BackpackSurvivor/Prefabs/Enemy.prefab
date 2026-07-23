@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.Health
   maxHp: 50
-  aimPoint: {fileID: 0}
+  aimPoint: {fileID: 8983183630362178128}
   faction: 1
 --- !u!114 &2630887428214243033
 MonoBehaviour:

@@ -1,5 +1,4 @@
-﻿using BS.GamePlay.Combat;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace BS.GamePlay.Combat

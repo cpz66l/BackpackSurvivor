@@ -1,6 +1,8 @@
-﻿using BS.GamePlay.Combat;
+﻿using BS.Core;
+using BS.GamePlay.Combat;
+using BS.GamePlay.Loot;
+using UnityEditor.EditorTools;
 using UnityEngine;
-using BS.Core;
 
 namespace BS.GamePlay.Enemies
 {
@@ -23,6 +25,8 @@ namespace BS.GamePlay.Enemies
         private Transform playerTf;
         private Health playerHealth;
         private float attackTimer = 0f;
+        //掉落物管理
+        private LootManager lootManager;
 
         //对象池
         private ObjectPool pool;
@@ -47,6 +51,7 @@ namespace BS.GamePlay.Enemies
             }
             playerTf = player.transform;//查询位置
             playerHealth = player.GetComponent<Health>();//方便查询死亡状态
+
 
         } 
 
@@ -96,6 +101,7 @@ namespace BS.GamePlay.Enemies
         }
         private void Die()
         {
+            lootManager.TrySpawnDrop(health.Position);
             //防御，防止忘设pool，或者是没经过池子的敌人
             if (pool != null) pool.Return(gameObject);
             else gameObject.SetActive(false);
@@ -109,11 +115,12 @@ namespace BS.GamePlay.Enemies
         {
             health.ResetToFull();
             attackTimer = 0f;
+            lootManager = FindAnyObjectByType<LootManager>();
         }
 
         public void OnReturnPool()
         {
-            
+
         }
     }
 }
