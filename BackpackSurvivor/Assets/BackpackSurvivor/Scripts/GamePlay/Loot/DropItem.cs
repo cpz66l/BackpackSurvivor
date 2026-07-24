@@ -1,6 +1,8 @@
 ﻿using BS.Core;
 using BS.Data;
+using System;
 using UnityEngine;
+using static BS.Data.LootTableData;
 
 namespace BS.GamePlay.Loot
 {
@@ -8,16 +10,19 @@ namespace BS.GamePlay.Loot
     {
         [SerializeField] private float rotateSpeed = 180f;
         [SerializeField] private float survivalTime = 10f;
-        [SerializeField] private Rarity rarity = Rarity.Common;
+        [SerializeField] private LootEntry lootEntry;
 
         private float survivalTimer = 0f;
         //对象池
         private ObjectPool pool;
         public void SetPool(ObjectPool p) => pool = p;
-
+        //引用
+        private PickUpMagnet pum;
         //视觉组件
         private GameObject _visualModel;//Loot模型
         private Renderer rd;
+        //事件声明
+        public static event Action<LootEntry> OnCollected;
 
         private void Awake()
         {
@@ -36,6 +41,8 @@ namespace BS.GamePlay.Loot
             {
                 rd.material.color = Color.yellow;
             }
+
+            pum = GetComponent<PickUpMagnet>();
         }
 
 
@@ -50,10 +57,10 @@ namespace BS.GamePlay.Loot
 
         }
 
-        public void Initialize(Rarity rarity)
+        public void Initialize(LootEntry lootEntry)
         {
-            this.rarity = rarity;
-            switch (rarity)
+            this.lootEntry = lootEntry;
+            switch (lootEntry.rarity)
             {
                 case Rarity.Common:
                     rd.material.color = Color.white;                 // 白
@@ -73,15 +80,22 @@ namespace BS.GamePlay.Loot
             }
         }
 
-        private void Recycle()
+        public void Recycle()
         {
             if (pool != null) pool.Return(gameObject);
             else Destroy(gameObject);//（无池兜底）
         }
 
+        public void Collect()                                 
+        {
+            OnCollected?.Invoke(lootEntry);// 喊话，带上自己的身份
+            Recycle();// 然后回池
+        }
+
         public void OnGetFromPool()
         {
             survivalTimer = 0f;
+            pum.StateReset();
         }
         public void OnReturnPool()
         {

@@ -62,10 +62,10 @@ namespace BS.GamePlay.Enemies
             // 模型或碰撞体可能相对根节点有偏移，距离应以实际受击中心计算。
             Vector3 toPlayer = playerHealth.Position - health.Position;
             toPlayer.y = 0;
-            float distance = toPlayer.magnitude;//取向量模长
+            float sqrDistance = toPlayer.sqrMagnitude;//取向量模长
 
-            if (distance > viewRange) return;
-            else if (distance > attackRange)
+            if (sqrDistance > viewRange * viewRange) return;
+            else if (sqrDistance > attackRange * attackRange)
             {
                 //转向玩家
                 Quaternion lookTarget = Quaternion.LookRotation(toPlayer);

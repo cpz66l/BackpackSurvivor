@@ -1,5 +1,6 @@
 ﻿using BS.Core;
 using BS.Data;
+using System;
 using UnityEngine;
 using static BS.Data.LootTableData;
 namespace BS.GamePlay.Loot
@@ -24,7 +25,7 @@ namespace BS.GamePlay.Loot
             LootEntry entry = lootRoller.Roll(lootTable);
             if (entry == null) return;
             DropItem dropItem = dropPool.Get(position).GetComponent<DropItem>();
-            dropItem.Initialize(entry.rarity);
+            dropItem.Initialize(entry);
         }
     }
 }

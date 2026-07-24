@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: BasicEnemyLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
   entries:
-  - dropPrefab: {fileID: 0}
+  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 0
     weight: 84
-  - dropPrefab: {fileID: 0}
+  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 1
     weight: 10
-  - dropPrefab: {fileID: 0}
+  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 2
     weight: 5
-  - dropPrefab: {fileID: 0}
+  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
     weight: 1

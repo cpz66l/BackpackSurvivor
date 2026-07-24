@@ -1226,6 +1226,7 @@ GameObject:
   - component: {fileID: 1422957828}
   - component: {fileID: 1422957827}
   - component: {fileID: 1422957831}
+  - component: {fileID: 1422957832}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1342,6 +1343,18 @@ MonoBehaviour:
   damagePerSecond: 20
   tickInterval: 0.5
   targetFaction: 1
+--- !u!114 &1422957832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422957826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0caf9a4133400647afd112efc6171a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.PickupLogger
 --- !u!1 &1449576853
 GameObject:
   m_ObjectHideFlags: 0

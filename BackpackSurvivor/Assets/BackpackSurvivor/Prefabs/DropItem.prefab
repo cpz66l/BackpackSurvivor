@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5470660836246947251}
   - component: {fileID: 1394282939794510802}
+  - component: {fileID: -1467304095191980818}
   m_Layer: 0
   m_Name: DropItem
   m_TagString: Untagged
@@ -46,4 +47,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   rotateSpeed: 180
   survivalTime: 10
-  rarity: 0
+  lootEntry:
+    dropPrefab: {fileID: 0}
+    rarity: 0
+    weight: 0
+--- !u!114 &-1467304095191980818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901897680390709044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2c86b4c8174294e844f023a191e151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.PickUpMagnet
+  attractRange: 5
+  collectRange: 1
+  acceleration: 15
+  maxSpeed: 20
