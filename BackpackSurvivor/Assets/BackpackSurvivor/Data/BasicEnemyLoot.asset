@@ -13,15 +13,27 @@ MonoBehaviour:
   m_Name: BasicEnemyLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
   entries:
-  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+  - id: "\u82AF\u7247"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 0
-    weight: 84
-  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    weight: 60
+    width: 1
+    height: 1
+  - id: "\u533B\u7597\u5305"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 1
-    weight: 10
-  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    weight: 25
+    width: 2
+    height: 1
+  - id: "\u624B\u67AA"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 2
-    weight: 5
-  - dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    weight: 14
+    width: 2
+    height: 2
+  - id: "\u6B65\u67AA"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
     weight: 1
+    width: 2
+    height: 4

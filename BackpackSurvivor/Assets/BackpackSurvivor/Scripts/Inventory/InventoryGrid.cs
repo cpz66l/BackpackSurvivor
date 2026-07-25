@@ -5,23 +5,27 @@ namespace BS.Inventory {
     {
         public event Action OnChanged;
 
-        private readonly int width;
-        private readonly int height;
+        public int Width { get; }
+        public int Height { get; }
         private readonly Item[,] cells;// 二维数组，注意逗号语法
+
+        public Item this[int x, int y] => GetItemAt(x, y);
+        //这里只用this直接指的是这个InventoryGrid背包网格，后续可以直接使用grid[x,y]读取cells[x,y]的内容了
 
         public InventoryGrid(int width, int height)
         {
             //初始化数组 
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
             cells = new Item[width, height];
             //cells[x, y]，x 在前
         }
 
+        //基础API
         public bool CanPlaceAt(int x, int y, Item item)
         {
             if (item == null) return false;
-            if (x < 0 || y < 0 || x + item.Width > width || y + item.Height > height)
+            if (x < 0 || y < 0 || x + item.Width > Width || y + item.Height > Height)
                 return false;
             for(int i = 0; i < item.Width; i++)
             {
@@ -54,9 +58,9 @@ namespace BS.Inventory {
         {
             if(item == null) return;
             bool isRemove = false;
-            for(int i = 0; i < width; i++)
+            for(int i = 0; i < Width; i++)
             {
-                for(int j = 0; j < height; j++)
+                for(int j = 0; j < Height; j++)
                 {
                     if(cells[i, j] == item)
                     {
@@ -70,9 +74,9 @@ namespace BS.Inventory {
 
         public bool Contains(Item item)
         {
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     if (cells[i, j] == item)
                     {
@@ -84,15 +88,15 @@ namespace BS.Inventory {
         }
         public Item GetItemAt(int x, int y)
         {
-            if(x<0 ||y<0 ||x>=width ||y>=height) return null;
+            if(x<0 ||y<0 ||x>=Width ||y>=Height) return null;
             return cells[x,y];
         }
 
         public bool TryFindFreeArea(Item item, out int x, out int y)
         {
-            for(int j = 0; j < height; j++)
+            for(int j = 0; j < Height; j++)
             {
-                for(int i = 0; i< width; i++)
+                for(int i = 0; i< Width; i++)
                 {
                     if(CanPlaceAt(i,j, item))
                     {
@@ -106,6 +110,24 @@ namespace BS.Inventory {
             x = -1;
             y = -1;
             return false;
+        }
+
+        //拖拽
+        public bool TryGetAnchor(Item item, out int x, out int y)
+        {
+            for (int j = 0; j < Height; j++)
+            {
+                for (int i = 0; i < Width; i++)
+                {
+                    if (cells[i,j] == item)
+                    {
+                        x = i;
+                        y = j;
+                        return true;
+                    }
+                }
+            }
+            x = -1; y = -1; return false;
         }
     }
 }

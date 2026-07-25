@@ -1,5 +1,6 @@
 ﻿using BS.Core;
 using BS.Data;
+using BS.Inventory;
 using System;
 using UnityEngine;
 using static BS.Data.LootTableData;

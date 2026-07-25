@@ -1,4 +1,5 @@
 ﻿using BS.Data;
+using BS.Inventory;
 using System;
 using static BS.Data.LootTableData;
 

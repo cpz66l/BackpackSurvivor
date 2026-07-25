@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using BS.Inventory;
 
 namespace BS.Data
 {
@@ -13,6 +13,9 @@ namespace BS.Data
         //嵌套类,掉落物条目
         [Serializable] public class LootEntry
         {
+            [Tooltip("名字")]
+            public string id;
+
             [Tooltip("掉落的预制体")]
             public GameObject dropPrefab;
 
@@ -21,6 +24,12 @@ namespace BS.Data
 
             [Tooltip("权重值（越大掉落概率越高）")]
             public int weight;
+
+            [Tooltip("宽度")]
+            public int width = 1;
+
+            [Tooltip("高度")]
+            public int height = 1;
         }
 
         [Tooltip("所有可能的掉落条目")]
@@ -46,14 +55,7 @@ namespace BS.Data
             }
         }
     }
-    public enum Rarity
-    {
-        Common,     // 白色
-        Uncommon,   // 绿色
-        Rare,       // 蓝色
-        Epic,       // 紫色
-        Legendary   // 金色
-    }
+   
 }
 
 

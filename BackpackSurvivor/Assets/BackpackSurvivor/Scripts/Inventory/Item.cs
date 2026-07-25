@@ -3,14 +3,17 @@
     public class Item
     {
         public string Id { get;}
+        public Rarity Rarity { get;}
         public int Width { get;}
         public int Height { get;}
 
-        public Item(string id, int width, int height)
+
+        public Item(string id, Rarity rarity, int width, int height)
         {
-            Id = Id;
-            Width = Width;
-            Height = Height;
+            Id = id;
+            Width = width;
+            Height = height;
+            Rarity = rarity;
         }
     }
 }
