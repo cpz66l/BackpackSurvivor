@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 namespace BS.Core
 {
     public interface IPoolable

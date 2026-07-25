@@ -1,7 +1,7 @@
 ﻿using BS.Core;
+using BS.Data;
 using BS.GamePlay.Combat;
 using BS.GamePlay.Loot;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 namespace BS.GamePlay.Enemies
@@ -19,6 +19,8 @@ namespace BS.GamePlay.Enemies
         [SerializeField] private float attackInterval = 3f;
         [SerializeField] private float contactDamage = 10f;
         [SerializeField] private float knockbackForce = 1f;
+        //掉落物束
+        [SerializeField] private LootTableData lootTable;
 
         private CharacterController cc;
         private Health health;
@@ -101,7 +103,7 @@ namespace BS.GamePlay.Enemies
         }
         private void Die()
         {
-            lootManager.TrySpawnDrop(health.Position);
+            lootManager.TrySpawnDrop(health.Position , lootTable);
             //防御，防止忘设pool，或者是没经过池子的敌人
             if (pool != null) pool.Return(gameObject);
             else gameObject.SetActive(false);

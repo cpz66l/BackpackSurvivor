@@ -88,11 +88,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Enemies.EnemyAI
   moveSpeed: 3
-  viewRange: 30
+  viewRange: 35
   attackRange: 1.5
   attackInterval: 1.5
   contactDamage: 10
   knockbackForce: 1
+  lootTable: {fileID: 11400000, guid: 7b5682700bf06fd409a3b4a4b60b5b9b, type: 2}
 --- !u!1 &8089801822254650812
 GameObject:
   m_ObjectHideFlags: 0

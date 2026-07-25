@@ -1,5 +1,5 @@
 ﻿using BS.Core;
-using BS.Data;
+using BS.GamePlay.Interaction;
 using BS.Inventory;
 using System;
 using UnityEngine;
@@ -7,23 +7,23 @@ using static BS.Data.LootTableData;
 
 namespace BS.GamePlay.Loot
 {
-    public class DropItem : MonoBehaviour, IPoolable
+    public class DropItem : MonoBehaviour, IPoolable ,ICollectable,IInteractable
     {
+        //事件声明
+        public static event Action<LootEntry> OnCollected;
+        //字段
         [SerializeField] private float rotateSpeed = 180f;
-        [SerializeField] private float survivalTime = 10f;
         [SerializeField] private LootEntry lootEntry;
-
+        [SerializeField] private float survivalTime = 60f;
         private float survivalTimer = 0f;
         //对象池
         private ObjectPool pool;
         public void SetPool(ObjectPool p) => pool = p;
-        //引用
-        private PickUpMagnet pum;
+
         //视觉组件
         private GameObject _visualModel;//Loot模型
         private Renderer rd;
-        //事件声明
-        public static event Action<LootEntry> OnCollected;
+        
 
         private void Awake()
         {
@@ -42,8 +42,6 @@ namespace BS.GamePlay.Loot
             {
                 rd.material.color = Color.yellow;
             }
-
-            pum = GetComponent<PickUpMagnet>();
         }
 
 
@@ -55,7 +53,6 @@ namespace BS.GamePlay.Loot
             {
                 Recycle();
             }
-
         }
 
         public void Initialize(LootEntry lootEntry)
@@ -80,7 +77,18 @@ namespace BS.GamePlay.Loot
                     break;
             }
         }
+        //交互
+        public string GetPrompt()
+        {
+            string prompt = $"按 E 拾取 {lootEntry.id}";
+            return prompt;
+        }
+        public void Interact()
+        {
+            Collect();
+        }
 
+        //回收与收集
         public void Recycle()
         {
             if (pool != null) pool.Return(gameObject);
@@ -96,7 +104,6 @@ namespace BS.GamePlay.Loot
         public void OnGetFromPool()
         {
             survivalTimer = 0f;
-            pum.StateReset();
         }
         public void OnReturnPool()
         {

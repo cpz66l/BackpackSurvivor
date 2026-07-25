@@ -18,7 +18,7 @@ namespace BS.GamePlay.Loot
         //引用
         private Transform playerTf;
         private Health playerHealth;
-        private DropItem dropItem;
+        private ICollectable collectable;
         //状态字段
         private MagnetState magentState = MagnetState.Idle;
 
@@ -26,7 +26,7 @@ namespace BS.GamePlay.Loot
 
         private void Awake()
         {
-            dropItem = GetComponent<DropItem>();
+            collectable = GetComponent<ICollectable>();
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             playerTf = player.transform;
             playerHealth = player.GetComponent<Health>();
@@ -53,7 +53,7 @@ namespace BS.GamePlay.Loot
 
                     if (sqrDistance <= collectRange * collectRange)
                     {
-                        dropItem.Collect();
+                        collectable.Collect();
                     }
                     break;
             }

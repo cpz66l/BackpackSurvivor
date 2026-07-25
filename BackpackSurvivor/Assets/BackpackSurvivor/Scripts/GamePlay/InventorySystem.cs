@@ -2,6 +2,7 @@
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.Inventory;
+using System;
 using UnityEngine;
 using static BS.Data.LootTableData;
 namespace BS.GamePlay
@@ -16,9 +17,16 @@ namespace BS.GamePlay
             playerHealth = FindAnyObjectByType<PlayerController>().GetComponent<Health>();
             Grid = new InventoryGrid(6,8);
         }
-
-        private void OnEnable() => DropItem.OnCollected += HandleCollected;
-        private void OnDisable() => DropItem.OnCollected -= HandleCollected;
+        private void OnEnable()
+        {
+            DropItem.OnCollected += HandleCollected;
+            XpOrb.OnCollected += HandleCurrency;
+        }
+        private void OnDisable()
+        {
+            DropItem.OnCollected -= HandleCollected;
+            XpOrb.OnCollected -= HandleCurrency;
+        }
 
         private void HandleCollected(LootEntry entry)
         {
@@ -33,6 +41,12 @@ namespace BS.GamePlay
                 Debug.Log("背包已满");
             }
            
+        }
+
+        private void HandleCurrency(LootEntry entry)
+        {
+            if (entry == null) return;
+            Debug.Log($"经验 +{entry.amount}");
         }
     }
 }

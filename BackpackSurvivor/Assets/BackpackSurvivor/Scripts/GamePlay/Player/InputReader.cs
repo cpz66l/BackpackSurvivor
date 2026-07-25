@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace BS.GamePlay.Player
 {
     public class InputReader : MonoBehaviour
     {
+        public event Action OnInteract;
         //外部读取属性
         public Vector2 moveVector2 { get; private set; }
         public Vector3 worldPoint { get; private set; }
@@ -41,6 +43,10 @@ namespace BS.GamePlay.Player
         {
             if (ctx.performed) AttackHeld = true;
             else if (ctx.canceled) AttackHeld = false;
+        }
+        public void Interact(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed) OnInteract?.Invoke();
         }
     }
 }

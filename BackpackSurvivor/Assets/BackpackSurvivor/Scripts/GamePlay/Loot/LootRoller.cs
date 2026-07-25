@@ -1,6 +1,7 @@
 ﻿using BS.Data;
 using BS.Inventory;
 using System;
+using System.Collections.Generic;
 using static BS.Data.LootTableData;
 
 namespace BS.GamePlay.Loot
@@ -21,6 +22,29 @@ namespace BS.GamePlay.Loot
         {
             this.pityThreshold = pityThreshold;
             pityCount = 0;
+        }
+
+        /// <summary>
+        /// 根据掉落频道进行一次抽取
+        /// </summary>
+        /// <param name="bundle">掉落频道</param>
+        /// <returns>选中的频道，若无有效条目则返回 null</returns>
+        public List<LootEntry> RollBundle(LootTableData bundle)
+        {
+            List<LootEntry> entries = new List<LootEntry>();
+            // 若频道为空或无效，直接返回 null
+            if (bundle == null || bundle.channels == null || bundle.channels.Length == 0)
+                return entries;
+            foreach (var c in bundle.channels)
+            {
+                if(UnityEngine.Random.value < c.probability)
+                {
+                    LootEntry entry = Roll(c.subTable);
+                    if (entry != null)
+                        entries.Add(entry);
+                }
+            }
+            return entries;
         }
 
         /// <summary>
@@ -56,10 +80,11 @@ namespace BS.GamePlay.Loot
             }
             //全表抽取
             LootEntry result = PickByWeight(table.entries);
+            if (result == null) return null;
             //中蓝以上保底也清零
-            if ((int)result.rarity >= (int)Rarity.Rare) pityCount = 0;
+            if (result.category == DropCategory.Equipment && (int)result.rarity >= (int)Rarity.Rare) pityCount = 0;
             //没中则奖池累计
-            else pityCount++;
+            else if(result.category == DropCategory.Equipment) pityCount++;
 
             return result;
         }
