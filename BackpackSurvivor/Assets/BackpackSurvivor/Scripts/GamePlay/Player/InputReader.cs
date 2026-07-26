@@ -7,6 +7,7 @@ namespace BS.GamePlay.Player
     public class InputReader : MonoBehaviour
     {
         public event Action OnInteract;
+        public event Action OnRotate;
         //外部读取属性
         public Vector2 moveVector2 { get; private set; }
         public Vector3 worldPoint { get; private set; }
@@ -47,6 +48,10 @@ namespace BS.GamePlay.Player
         public void Interact(InputAction.CallbackContext ctx)
         {
             if (ctx.performed) OnInteract?.Invoke();
+        }
+        public void Rotate(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed) OnRotate?.Invoke();
         }
     }
 }

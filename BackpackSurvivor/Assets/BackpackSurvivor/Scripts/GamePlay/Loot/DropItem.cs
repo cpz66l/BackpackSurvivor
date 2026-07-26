@@ -19,15 +19,18 @@ namespace BS.GamePlay.Loot
         [SerializeField] private float flightDuration = 0.4f;// 飞行时长
         [SerializeField] private float arcHeight = 2f;// 抛物线峰值高度
         private float survivalTimer = 0f;
-        private Collider itemCollider;
         private bool isCollected;
+
+        private Collider itemCollider;
+        private InventorySystem inventorySystem;
+        
         //对象池
         private ObjectPool pool;
         public void SetPool(ObjectPool p) => pool = p;
 
         //视觉组件
         private GameObject _visualModel;//Loot模型
-        private Renderer rd;
+        private Renderer modelRb;
         
 
         private void Awake()
@@ -42,13 +45,14 @@ namespace BS.GamePlay.Loot
             Destroy(_visualModel.GetComponent<Collider>());
 
             //添加简单材质以便视觉识别
-            rd = _visualModel.GetComponent<Renderer>();
-            if (rd != null)
+            modelRb = _visualModel.GetComponent<Renderer>();
+            if (modelRb != null)
             {
-                rd.material.color = Color.yellow;
+                modelRb.material.color = Color.yellow;
             }
             //缓存根物体碰撞器
             itemCollider = GetComponent<Collider>();
+            inventorySystem = FindAnyObjectByType<InventorySystem>();
         }
 
 
@@ -68,19 +72,19 @@ namespace BS.GamePlay.Loot
             switch (lootEntry.rarity)
             {
                 case Rarity.Common:
-                    rd.material.color = Color.white;                 // 白
+                    modelRb.material.color = Color.white;                 // 白
                     break;
                 case Rarity.Uncommon:
-                    rd.material.color = Color.green;                 // 绿
+                    modelRb.material.color = Color.green;                 // 绿
                     break;
                 case Rarity.Rare:
-                    rd.material.color = Color.blue;                  // 蓝
+                    modelRb.material.color = Color.blue;                  // 蓝
                     break;
                 case Rarity.Epic:
-                    rd.material.color = new Color(0.6f, 0.2f, 0.9f); // 紫
+                    modelRb.material.color = new Color(0.6f, 0.2f, 0.9f); // 紫
                     break;
                 case Rarity.Legendary:
-                    rd.material.color = new Color(1f, 0.84f, 0f);    // 金
+                    modelRb.material.color = new Color(1f, 0.84f, 0f);    // 金
                     break;
             }
         }
@@ -113,9 +117,15 @@ namespace BS.GamePlay.Loot
             string prompt = $"按 E 拾取 {lootEntry.id}";
             return prompt;
         }
-        public void Interact()
+        public bool Interact()
         {
-            Collect();
+            if (inventorySystem.CanAccept(lootEntry))
+            {
+                Collect();
+                return true;
+            }
+            Debug.Log("背包已满");
+            return false;
         }
 
         //回收与收集

@@ -9,7 +9,7 @@ namespace BS.GamePlay.Loot {
     {
         [SerializeField] private string chestName = "宝箱";        // "宝箱" / "隐藏宝箱"
         [SerializeField] private LootTableData lootBundle; // 束表
-        [SerializeField] private Renderer chestModel;     //变色用
+        [SerializeField] private Renderer modelRb;     //变色用
         [SerializeField] private Transform dropPoint;
         [SerializeField] private float survivalTime = 30f;
         [SerializeField] private float scatterRadius = 0.8f;
@@ -30,9 +30,9 @@ namespace BS.GamePlay.Loot {
         private void Awake()
         {
             lootManager = FindAnyObjectByType<LootManager>();
-            chestModel = GetComponentInChildren<Renderer>();
+            modelRb = GetComponentInChildren<Renderer>();
             chestCollider = GetComponent<Collider>();
-            originalColor = chestModel.material.color;
+            originalColor = modelRb.material.color;
         }
 
         private void Update()
@@ -50,7 +50,7 @@ namespace BS.GamePlay.Loot {
         public void Initialize(string name, Color color, LootTableData bundle)
         {
             chestName = name;
-            chestModel.material.color = color;
+            modelRb.material.color = color;
             lootBundle = bundle;
         }
         public string GetPrompt()
@@ -59,16 +59,16 @@ namespace BS.GamePlay.Loot {
             return prompt ;
         }
         
-        public void Interact()
+        public bool Interact()
         {
-            if(opened) return;
+            if(opened) return false;
             opened = true;
             //关闭碰撞器，避免再次检测
             chestCollider.enabled = false;
             //变灰淡色
-            if (chestModel != null)
+            if (modelRb != null)
             {
-                chestModel.material.color = Color.black;
+                modelRb.material.color = Color.black;
             }
             //生成物品
             //drops先拿到总共生成的物品
@@ -80,6 +80,7 @@ namespace BS.GamePlay.Loot {
                 Vector3 target = transform.position + new Vector3(offset.x, 0, offset.y);
                 d.GetComponent<DropItem>()?.PlayScatterFlight(dropPoint == null ? transform.position : dropPoint.position, target);
             }
+            return true;
         }
 
         public void Recycle()
@@ -93,7 +94,7 @@ namespace BS.GamePlay.Loot {
             survivalTimer = 0f;
             opened = false;
             chestCollider.enabled = true;
-            chestModel.material.color = originalColor;
+            modelRb.material.color = originalColor;
             ActiveCount++;
         }
 

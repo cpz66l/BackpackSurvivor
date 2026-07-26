@@ -106,7 +106,23 @@ namespace BS.Inventory {
                     }
                 }
             }
+            //反转再遍历一边
+            item.Rotate();
+            for (int j = 0; j < Height; j++)
+            {
+                for (int i = 0; i < Width; i++)
+                {
+                    if (CanPlaceAt(i, j, item))
+                    {
+                        x = i;
+                        y = j;
+                        return true;
+                    }
+                }
+            }
             //没找到CanPlaceAt
+            // 双失败：转回去，物归原样
+            item.Rotate();
             x = -1;
             y = -1;
             return false;

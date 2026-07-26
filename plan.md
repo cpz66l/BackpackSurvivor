@@ -34,10 +34,10 @@
 - 第 10 课 背包 UI：拖拽 + 放置预览 + 冲突提示（UI 只是数据投影）✅
 - 第 11 课 掉落分层 + 拾取分化（对齐搜打撤设想与 GDD 191/201/718 行）：经验球（复用 PickUpMagnet 磁吸）+ 敌人分级掉落表（普通=经验球为主/精英=蓝装地板/Boss 专属表）+ 两级束表（先掷品类再掷子表）+ 保底修正（装备掷骰才计保底）+ IInteractable 交互系统（E 键：地面装备摘磁吸改为近身提示+按键拾取，收货口 OnCollected 不变）✅
 - 第 12 课 容器搜刮：宝箱/隐藏宝箱（必出装备，隐藏箱绿装地板，GDD 11.5/11.6；宝箱实现 IInteractable 复用 E 交互）✅（含追加：宝箱池化+残骸计时回收、ChestSpawner 击杀触发+等级掷骰+拒绝采样、飞出散落协程、MapBounds 40m 圆形竞技场+玩家 clamp）
-- 第 12.5 课 背包交互补丁课（2026-07-26 用户提出插入）：① 提示框全屏透明面板吃射线（BUG-006，CanvasGroup blocksRaycasts 系统化解法）② 丢弃功能（拖出面板松手=世界丢弃；LootManager 提炼 SpawnEntry 公共生成口；Item→LootEntry 还原+往返保真；散落协程复用）③ R 键旋转 ④ 收货口请求-确认（吞物品治本）
-- 第 13 课 合并升级 + 第一条邻接联动（前置清账并入 12.5 课）
+- 第 13 课 背包交互补丁课 ✅（2026-07-26 用户提出插入并定序）：① 提示框全屏透明面板吃射线（BUG-006，CanvasGroup blocksRaycasts 系统化解法）② 丢弃功能（拖出面板松手=世界丢弃；LootManager 提炼 SpawnEntry 公共生成口；Item→LootEntry 还原+往返保真；散落协程复用）③ R 键旋转（Item Rotated 标志位+TryFindFreeArea 内置双朝向诚实契约；BUG-008 OnEnable 早于 Start）④ 收货口请求-确认（IInteractable.Interact 改 bool+CanAccept 侦察兵+满包 DiscardToWorld 兜底，吞物品治本；BUG-007 闪字三连环）⑤ 轻量优化模块：MapBounds 迁 Scripts/Core/、Faction.neutral→Neutral 顺手清债
+- 第 14 课 合并升级 + 第一条邻接联动（前置清账已随第 13 课全部结清）◀ 当前
 - 可选增强挂账：附近战利品面板（塔科夫式 loot panel，背包打开时拖拽地面物品入包，纯 UI 层拖拽复用现有三态）
-- 第 11 课挂账（按优先级）：① 拾取失败吞物品→收货口改请求-确认（Interact 先问背包能否容纳，失败留地上+提示）；② R 键旋转（Item width/height 交换+UI 同步，合并课前必做）；③ Gold 频道落地；④ 提示框世界空间化
+- 第 11 课挂账余量：①②已随第 13 课结清；剩余 ③ Gold 频道落地；④ 提示框世界空间化
 原则：背包先写纯数据二维网格 + 单元测试，UI 只是投影。
 边界：主动撤离是 GDD 明确的 MVP 暂缓项（文档 966 行）；MVP 的"撤"= 积分结算，不提前做。
 

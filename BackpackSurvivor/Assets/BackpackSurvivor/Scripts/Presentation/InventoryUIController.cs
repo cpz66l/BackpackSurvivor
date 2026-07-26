@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BS.GamePlay;
+using BS.GamePlay.Player;
 using BS.Inventory;
-using BS.GamePlay;
+using UnityEngine;
 namespace BS.Presentation
 {
     public class InventoryUIController : MonoBehaviour
@@ -9,9 +10,11 @@ namespace BS.Presentation
         [SerializeField] private ItemView itemViewPrefab;    // 拖预制体
         [SerializeField] private float step = 70f;           // 64格 + 2缝
         [SerializeField] private InventorySystem inventorySystem;
+        [SerializeField] private RectTransform bagPanel;   // Inspector 拖背包底框
 
         private InventoryGrid grid;
         private bool isDragging = false;
+        private InputReader inputReader;
 
         //拖拽相关
         private Item dragItem;
@@ -19,12 +22,22 @@ namespace BS.Presentation
         private int oldX, oldY;// 旧锚点（回滚用）
         private int targetX, targetY;// 当前鼠标悬停的目标格子
 
+
+        private void Awake()
+        {
+            inputReader = FindAnyObjectByType<InputReader>();
+        }
         private void Start ()
         {
             grid = inventorySystem.Grid;
             grid.OnChanged += Redraw;
             Redraw();
         }
+
+        //订阅监听R键旋转
+        private void OnEnable() { inputReader.OnRotate += HandleRotate; }
+        private void OnDisable() { inputReader.OnRotate -= HandleRotate; }
+
 
         private void Redraw ()
         {
@@ -64,6 +77,7 @@ namespace BS.Presentation
         }
 
         //拖拽接口
+        //监听鼠标按下瞬间，获取选中的物品
         public void BeginDrag(Item item, ItemView view)
         {
             //获取oldX和oldY
@@ -81,6 +95,7 @@ namespace BS.Presentation
 
         }
 
+        //监听鼠标持续按下时，让物品图标跟随，并计算目标位置
         public void Dragging(Vector2 pointerPos)
         {
             if (!isDragging || ghost == null) return;
@@ -99,33 +114,59 @@ namespace BS.Presentation
             ghost.SetValidColor(canPlace);
         }
 
-        public void EndDrag()
+        //监听鼠标松手时，将物品置位或丢弃
+        public void EndDrag(Vector2 pointerPos)
         {
             if (!isDragging) return;
-
             isDragging = false;
 
+            // 面板外松手 = 丢弃到世界（第三结局，最优先判）
+            if (!RectTransformUtility.RectangleContainsScreenPoint(bagPanel, pointerPos, null))
+            {
+                inventorySystem.DiscardToWorld(dragItem);
+                Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
+                dragItem = null;
+                ghost = null;
+                return;
+            }
+
             if (grid.CanPlaceAt(targetX, targetY, dragItem))
-                grid.Place(targetX, targetY, dragItem); 
+                grid.Place(targetX, targetY, dragItem); //有位置就放下
 
             else if (grid.CanPlaceAt(oldX, oldY, dragItem))
-                grid.Place(oldX, oldY, dragItem); // 回滚到旧位置
+                grid.Place(oldX, oldY, dragItem); // 新位置不存在回滚到旧位置
 
             else if (grid.TryFindFreeArea(dragItem, out int fx, out int fy)
-                && grid.Place(fx, fy, dragItem)) { }
+                && grid.Place(fx, fy, dragItem)) { }//旧位置也被占了就找新位置
 
-            else 
+            else
             {
-                isDragging = true;// 包真的满了：不丢东西，继续手持
-                return;// 别清 dragItem/ghost
-             }
+                //背包满了直接丢弃到世界
+                inventorySystem.DiscardToWorld(dragItem);
+                Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
+                dragItem = null;
+                ghost = null;
+                return;
+            }
 
             // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
             dragItem = null;
             ghost = null;
         }
 
+        //旋转90度
+        private void HandleRotate()
+        {
+            if (!isDragging || dragItem == null) return;// 非拖拽时按 R 无效
+            dragItem.Rotate();
+            // ghost 尺寸跟着换（top-left pivot 不动，位置不跳）
+            ghost.GetComponent<RectTransform>().sizeDelta =
+                new Vector2(dragItem.Width * step, dragItem.Height * step);
+            // 红绿判定立刻重算：targetX/Y 没变，但宽高效互换了
+            ghost.SetValidColor(grid.CanPlaceAt(targetX, targetY, dragItem));
+        }
 
+        //Redraw()重绘时调用
         private void DestroyAllChilden(RectTransform parent)
         {
             //倒序删除，不然索引会乱

@@ -23,30 +23,36 @@ namespace BS.GamePlay.Loot
         //怪物死亡时调用
         public List<GameObject> TrySpawnDrop(Vector3 position , LootTableData bundle)
         {
-            List<GameObject> gameObjects = new List<GameObject>();
+            List<GameObject> spawned = new List<GameObject>();
             List<LootEntry> list = lootRoller.RollBundle(bundle);
             foreach (LootEntry entry in list)
             {
-                if (entry == null) continue;
-                if (entry.category == DropCategory.Equipment)
-                {
-                    DropItem dropItem = dropPool.Get(position).GetComponent<DropItem>();
-                    dropItem.Initialize(entry);
-                    gameObjects.Add(dropItem.gameObject);
-                }
-                else if(entry.category == DropCategory.Xp)
-                {
-                    Vector2 randomOffset = Random.insideUnitCircle * offset;
-                    Vector3 pos = position + new Vector3(randomOffset.x,0, randomOffset.y);
-                    XpOrb xpOrb = currencyPool.Get(pos).GetComponent<XpOrb>();
-                    xpOrb.Initialize(entry);
-                }
-                else if(entry.category == DropCategory.Gold)
-                {
-
-                }
+                GameObject go = SpawnEntry(entry, position);
+                if (go != null) spawned.Add(go);
             }
-            return gameObjects;
+            return spawned;
+        }
+
+        // 新的公共口：手里已有 entry 时用（丢弃、以后商店、GM 工具都走这）
+        public GameObject SpawnEntry(LootEntry entry, Vector3 position)
+        {
+            if (entry == null) return null;
+
+            if (entry.category == DropCategory.Equipment)
+            {
+                DropItem dropItem = dropPool.Get(position).GetComponent<DropItem>();
+                dropItem.Initialize(entry);
+                return dropItem.gameObject;
+            }
+            else if (entry.category == DropCategory.Xp)
+            {
+                Vector2 randomOffset = Random.insideUnitCircle * offset;
+                Vector3 pos = position + new Vector3(randomOffset.x, 0, randomOffset.y);
+                XpOrb xpOrb = currencyPool.Get(pos).GetComponent<XpOrb>();
+                xpOrb.Initialize(entry);
+                return xpOrb.gameObject;
+            }
+            return null;   // Gold 挂账分支
         }
     }
 }

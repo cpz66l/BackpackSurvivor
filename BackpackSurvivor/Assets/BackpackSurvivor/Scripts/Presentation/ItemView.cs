@@ -47,7 +47,7 @@ namespace BS.Presentation
 
         public void OnPointerDown(PointerEventData e) => controller.BeginDrag(item, this);
         public void OnDrag(PointerEventData e) => controller.Dragging(e.position);
-        public void OnPointerUp(PointerEventData e) => controller.EndDrag();
+        public void OnPointerUp(PointerEventData e) => controller.EndDrag(e.position);
 
         public void SetValidColor(bool canPlace)
         {

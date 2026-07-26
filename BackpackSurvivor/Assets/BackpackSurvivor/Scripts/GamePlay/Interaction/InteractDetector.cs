@@ -9,6 +9,7 @@ namespace BS.GamePlay.Interaction
     {
         //事件
         public event Action<IInteractable> OnTargetChanged;
+        public event Action OnInteractFailed;
 
         [SerializeField] private float detectionRadius = 2.25f;
         [SerializeField] private LayerMask interactableLayerMask;
@@ -87,11 +88,17 @@ namespace BS.GamePlay.Interaction
         private void Interact()
         {
             if (CurrentTarget == null) return;
-            CurrentTarget.Interact();
-            //交互后立即重置
+            bool success = CurrentTarget.Interact();
+            if (!success) 
+            {
+                OnInteractFailed?.Invoke();
+                return;
+            }
+            // 失败：目标留着、提示留着，玩家整理完背包还能再试
+            //交互成功后立即重置
             previousTarget = null;
             CurrentTarget = null;
-            OnTargetChanged?.Invoke(null);   // 提示框立即隐藏
+            OnTargetChanged?.Invoke(null);// 提示框立即隐藏
         }
     }
 }
