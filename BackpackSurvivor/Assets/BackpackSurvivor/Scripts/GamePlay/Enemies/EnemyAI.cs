@@ -2,6 +2,7 @@
 using BS.Data;
 using BS.GamePlay.Combat;
 using BS.GamePlay.Loot;
+using System;
 using UnityEngine;
 
 namespace BS.GamePlay.Enemies
@@ -11,6 +12,8 @@ namespace BS.GamePlay.Enemies
     //确保挂载EnemyAI脚本时，自动挂上。
     public class EnemyAI : MonoBehaviour, IPoolable
     {
+        //播报死亡
+        public static event Action OnEnemyDied;
         //追击
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private float viewRange = 10f;//视野范围
@@ -103,6 +106,9 @@ namespace BS.GamePlay.Enemies
         }
         private void Die()
         {
+            //广播死亡
+            OnEnemyDied?.Invoke();
+            //生成掉落物
             lootManager.TrySpawnDrop(health.Position , lootTable);
             //防御，防止忘设pool，或者是没经过池子的敌人
             if (pool != null) pool.Return(gameObject);

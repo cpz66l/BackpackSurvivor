@@ -69,11 +69,9 @@ namespace BS.GamePlay.Loot
                 if (eligible.Length > 0)
                 {
                     LootEntry selected = PickByWeight(eligible);
-                    if (selected != null)
-                    {
+                    if (selected == null) return null;
                         pityCount = 0;
                         return selected;
-                    }
                     // 若没有高级条目（数据异常），降级为全表抽取，但依然清零保底（视为保底已用）
                     // 可在此处记录警告日志，但为稳健继续执行
                 }
@@ -81,6 +79,7 @@ namespace BS.GamePlay.Loot
             //全表抽取
             LootEntry result = PickByWeight(table.entries);
             if (result == null) return null;
+
             //中蓝以上保底也清零
             if (result.category == DropCategory.Equipment && (int)result.rarity >= (int)Rarity.Rare) pityCount = 0;
             //没中则奖池累计

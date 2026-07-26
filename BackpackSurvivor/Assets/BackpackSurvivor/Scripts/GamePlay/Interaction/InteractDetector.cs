@@ -88,6 +88,10 @@ namespace BS.GamePlay.Interaction
         {
             if (CurrentTarget == null) return;
             CurrentTarget.Interact();
+            //交互后立即重置
+            previousTarget = null;
+            CurrentTarget = null;
+            OnTargetChanged?.Invoke(null);   // 提示框立即隐藏
         }
     }
 }

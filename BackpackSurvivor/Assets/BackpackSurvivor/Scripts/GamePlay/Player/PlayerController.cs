@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BS.Core;
+using UnityEngine;
 
 namespace BS.GamePlay.Player
 {
@@ -15,12 +16,16 @@ namespace BS.GamePlay.Player
         [SerializeField] private Transform bodyPivot;
 
         private const float CameraYawOffset = -45f; // 等距相机的固定偏航角
+        private MapBounds mapBounds;
 
-        void Start()
+        private void Awake()
         {
             cct = GetComponent<CharacterController>();
             ir = GetComponent<InputReader>();
-
+            mapBounds = FindAnyObjectByType<MapBounds>();
+        }
+        void Start()
+        {
             //获取子模型transform
             bodyPivot = transform.Find("Model");
         }
@@ -34,6 +39,7 @@ namespace BS.GamePlay.Player
                 moveDirection.Normalize();//归一化，避免斜向移动速度过快；
                 moveDirection = Quaternion.Euler(0, CameraYawOffset, 0) * moveDirection;//旋转45度
                 cct.Move(moveDirection * moveSpeed * Time.deltaTime);//使用CharacterController移动
+                transform.position = mapBounds.ClampToInside(transform.position);//将玩家位置限制在地图内
             }
             //转向
             if (ir.worldPoint != Vector3.zero)

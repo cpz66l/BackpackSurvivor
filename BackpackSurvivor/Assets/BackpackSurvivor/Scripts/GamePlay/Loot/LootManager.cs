@@ -21,8 +21,9 @@ namespace BS.GamePlay.Loot
 
 
         //怪物死亡时调用
-        public void TrySpawnDrop(Vector3 position , LootTableData bundle)
+        public List<GameObject> TrySpawnDrop(Vector3 position , LootTableData bundle)
         {
+            List<GameObject> gameObjects = new List<GameObject>();
             List<LootEntry> list = lootRoller.RollBundle(bundle);
             foreach (LootEntry entry in list)
             {
@@ -31,6 +32,7 @@ namespace BS.GamePlay.Loot
                 {
                     DropItem dropItem = dropPool.Get(position).GetComponent<DropItem>();
                     dropItem.Initialize(entry);
+                    gameObjects.Add(dropItem.gameObject);
                 }
                 else if(entry.category == DropCategory.Xp)
                 {
@@ -44,6 +46,7 @@ namespace BS.GamePlay.Loot
 
                 }
             }
+            return gameObjects;
         }
     }
 }

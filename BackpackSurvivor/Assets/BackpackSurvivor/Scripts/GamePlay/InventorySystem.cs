@@ -2,7 +2,6 @@
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.Inventory;
-using System;
 using UnityEngine;
 using static BS.Data.LootTableData;
 namespace BS.GamePlay

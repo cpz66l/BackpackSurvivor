@@ -11,6 +11,7 @@ namespace BS.GamePlay.Loot
         //字段
         [SerializeField] private float survivalTime = 15f;
         private float survivalTimer = 0f;
+        private bool isCollected = false;
         //对象池
         private ObjectPool pool;
         public void SetPool(ObjectPool p) => pool = p;
@@ -18,6 +19,7 @@ namespace BS.GamePlay.Loot
         {
             pum.StateReset();
             survivalTimer = 0f;
+            isCollected = false;
         }
         public void OnReturnPool()
         {
@@ -70,6 +72,8 @@ namespace BS.GamePlay.Loot
         }
         public void Collect()
         {
+            if (isCollected) return;   // 幂等守卫
+            isCollected = true;
             OnCollected?.Invoke(lootEntry);// 喊话，带上自己的身份
             Recycle();// 然后回池
         }

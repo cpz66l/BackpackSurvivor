@@ -1797,7 +1797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.LootManager
   dropPool: {fileID: 1370697071}
   currencyPool: {fileID: 434503457}
-  pityThreshold: 3
+  pityThreshold: 10
   offset: 0.8
 --- !u!4 &406584508
 Transform:
@@ -2092,6 +2092,7 @@ Transform:
   - {fileID: 758860770}
   - {fileID: 1370697070}
   - {fileID: 434503456}
+  - {fileID: 1789796587}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434503455
@@ -4106,13 +4107,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422957826}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.38268343, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.9, y: 8.9, z: 8.9}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1626334004}
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
 --- !u!1 &1449576853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4627,6 +4628,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588209258}
   m_CullTransparentMesh: 1
+--- !u!1 &1626334002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1626334004}
+  - component: {fileID: 1626334003}
+  m_Layer: 0
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1626334003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626334002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd5635d0c1a4714181855d6fbe50187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.MapBounds
+  radius: 60
+--- !u!4 &1626334004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626334002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1422957830}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1631656410
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,6 +5182,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785488903}
   m_CullTransparentMesh: 1
+--- !u!1 &1789796586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1789796587}
+  - component: {fileID: 1789796588}
+  m_Layer: 0
+  m_Name: Chest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1789796587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789796586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 429229872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789796588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789796586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adab50532def1b4c9cee47b3a1f2311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
+  prefab: {fileID: 796225406192712556, guid: 98cb5c2ff5442254a858d58b13a77647, type: 3}
+  prewarmCount: 5
 --- !u!1 &1833457289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,8 +6337,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2143128367}
   - component: {fileID: 2143128366}
+  - component: {fileID: 2143128368}
   m_Layer: 0
-  m_Name: EnemySpanwManager
+  m_Name: SpanwManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6277,13 +6371,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143128365}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2143128368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143128365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a9d6fd6c1b9664bb6f051872c12683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.ChestSpawner
+  tiers:
+  - chestName: "\u666E\u901A\u5B9D\u7BB1"
+    color: {r: 1, g: 1, b: 1, a: 0}
+    bundle: {fileID: 11400000, guid: ae37b176165f70646ab1a33334673950, type: 2}
+    weight: 60
+  - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+    color: {r: 0.6797162, g: 0.9169811, b: 0.40658593, a: 0}
+    bundle: {fileID: 11400000, guid: 26529690c14be774aa69e20e6c163f43, type: 2}
+    weight: 30
+  - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+    color: {r: 0.32229975, g: 0.5812063, b: 0.89433956, a: 0}
+    bundle: {fileID: 11400000, guid: 651d2f22e319ee44aaf1173491160d7f, type: 2}
+    weight: 10
+  chestPool: {fileID: 1789796588}
+  killsToSpawn: 20
+  minDistToPlayer: 20
+  maxAttempts: 10
+  maxFieldCount: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -6294,7 +6418,7 @@ SceneRoots:
   - {fileID: 1328712793}
   - {fileID: 2143128367}
   - {fileID: 406584508}
-  - {fileID: 1422957830}
+  - {fileID: 1626334004}
   - {fileID: 429229872}
   - {fileID: 2061221977}
   - {fileID: 142128202}

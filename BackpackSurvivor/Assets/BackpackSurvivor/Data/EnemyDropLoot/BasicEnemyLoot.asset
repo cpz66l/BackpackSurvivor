@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b294446e5ff3164db1def38dba77c82, type: 3}
-  m_Name: EliteEquipDrops
+  m_Name: BasicEnemyLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
-  channels: []
+  channels:
+  - probability: 1
+    subTable: {fileID: 11400000, guid: 33cdb701f993e634b864b1a870bfec42, type: 2}
+  - probability: 0.05
+    subTable: {fileID: 11400000, guid: a58ed44a0afd4e044996d6e218a17394, type: 2}
   entries: []

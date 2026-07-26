@@ -1,5 +1,4 @@
-﻿
-namespace BS.GamePlay.Interaction
+﻿namespace BS.GamePlay.Interaction
 {
     public interface IInteractable
     {
