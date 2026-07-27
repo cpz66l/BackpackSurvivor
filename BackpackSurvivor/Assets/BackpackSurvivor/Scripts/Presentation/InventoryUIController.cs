@@ -2,6 +2,7 @@
 using BS.GamePlay.Player;
 using BS.Inventory;
 using UnityEngine;
+using System.Collections.Generic;
 namespace BS.Presentation
 {
     public class InventoryUIController : MonoBehaviour
@@ -43,6 +44,10 @@ namespace BS.Presentation
         {
             if (isDragging) return;// 拖拽期间，数据变化攒着不画
 
+            //邻接扫描
+            List<AdjacencyEffect> effects = grid.ScanAdjacency(adjacencyRules);
+            
+
             //清空表现
             DestroyAllChilden(itemLayer);//清场：销毁 itemLayer 所有子物体
 
@@ -72,6 +77,11 @@ namespace BS.Presentation
                     //绑定数据
                     if(itemView != null)
                         itemView.Bind(item , step ,this);
+
+                    //计算联接口产生效果的UI投影
+                    ConnectableSides visibleSides = item.GetWorldConnectableSides();
+                    ConnectableSides activeSides = GetActiveSides(item, effects);
+                    itemView.SetConnectors(visibleSides, activeSides);
                 }
             }
         }
@@ -110,8 +120,10 @@ namespace BS.Presentation
             targetX = Mathf.FloorToInt(localPos.x / step);
             targetY = Mathf.FloorToInt(-localPos.y / step);// y 翻转
 
-            bool canPlace = grid.CanPlaceAt(targetX, targetY, dragItem);
-            ghost.SetValidColor(canPlace);
+            //判断拖拽位置合法性
+            bool rightful = (grid.CanPlaceAt(targetX, targetY, dragItem) 
+                || grid.CanMerge(dragItem, grid.GetItemAt(targetX, targetY)));
+            ghost.SetValidColor(rightful);
         }
 
         //监听鼠标松手时，将物品置位或丢弃
@@ -129,15 +141,31 @@ namespace BS.Presentation
                 ghost = null;
                 return;
             }
+            //合成
+            if(!grid.CanPlaceAt(targetX, targetY, dragItem))
+            {
+                Item targetItem = grid.GetItemAt(targetX, targetY);
+                if(grid.TryMerge(dragItem , targetItem))
+                {
+                    // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
+                    dragItem = null;
+                    ghost = null;
+                    return;
+                }
+            }
 
+            //放置
+            //松手时有位置，判断放置
             if (grid.CanPlaceAt(targetX, targetY, dragItem))
                 grid.Place(targetX, targetY, dragItem); //有位置就放下
 
+            // 新位置不存在，回滚到旧位置
             else if (grid.CanPlaceAt(oldX, oldY, dragItem))
-                grid.Place(oldX, oldY, dragItem); // 新位置不存在回滚到旧位置
+                grid.Place(oldX, oldY, dragItem); 
 
+            //旧位置也被占了就找新位置
             else if (grid.TryFindFreeArea(dragItem, out int fx, out int fy)
-                && grid.Place(fx, fy, dragItem)) { }//旧位置也被占了就找新位置
+                && grid.Place(fx, fy, dragItem)) { }
 
             else
             {
@@ -176,5 +204,37 @@ namespace BS.Presentation
                 Destroy(child.gameObject);
             }
         }
+
+        //获得UI投影需要表现变化的边
+        private ConnectableSides GetActiveSides(Item item, List<AdjacencyEffect> effects)
+        {
+            ConnectableSides activeSides = ConnectableSides.None;
+            foreach(var effect in effects)//找到item对应的effect,并获取effect激活的边
+            {
+                if (effect.ItemA == item)
+                    activeSides |= effect.SideA;
+                if (effect.ItemB == item)
+                    activeSides |= effect.SideB;
+            }
+            return activeSides;
+        }
+
+        //临时规则表
+        private readonly List<AdjacencyRule> adjacencyRules = new List<AdjacencyRule>
+{
+    new AdjacencyRule(
+        ItemTag.Pistol,
+        ConnectableSides.Right,
+        ItemTag.Pistol,
+        ConnectableSides.Left,
+        AdjacencyEffectId.DualWield),
+
+    new AdjacencyRule(
+        ItemTag.Pistol,
+        ConnectableSides.Left,
+        ItemTag.Pistol,
+        ConnectableSides.Right,
+        AdjacencyEffectId.DualWield)
+};
     }
 }

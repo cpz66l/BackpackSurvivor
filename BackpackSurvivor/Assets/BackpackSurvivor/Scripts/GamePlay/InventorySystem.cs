@@ -33,15 +33,17 @@ namespace BS.GamePlay
         public bool CanAccept(LootEntry entry)
         {
             if (entry == null) return false;
-            Item probe = new Item(entry.id, entry.rarity, entry.width, entry.height);
-            if(Grid.TryFindFreeArea(probe, out _, out _)) return true;
+            //Item probe = new Item(entry.id, entry.rarity, entry.width, entry.height);
+            Item probe = CreateItemFromLootEntry(entry);//测试
+            if (Grid.TryFindFreeArea(probe, out _, out _)) return true;
             return false;
         }
 
         private void HandleCollected(LootEntry entry)
         {
             if(entry == null) return;
-            Item item = new Item(entry.id ,entry.rarity ,entry.width,entry.height);
+            //Item item = new Item(entry.id ,entry.rarity ,entry.width,entry.height);
+            Item item = CreateItemFromLootEntry(entry);//测试
             if (Grid.TryFindFreeArea(item, out int x, out int y))
             {
                 Grid.Place(x, y, item);
@@ -79,6 +81,21 @@ namespace BS.GamePlay
             Vector2 offset = Random.insideUnitCircle * 2f;              // 抛到身旁 2m 内
             Vector3 to = new Vector3(from.x + offset.x, 0.5f, from.z + offset.y);
             go.GetComponent<DropItem>()?.PlayScatterFlight(from, to);
+        }
+
+        //测试，一会删
+        private Item CreateItemFromLootEntry(LootEntry entry)
+        {
+            Item item;
+            if (entry.id == "手枪")
+            {
+                item = new Item("手枪",Rarity.Rare,2,2, ItemTag.Pistol, ConnectableSides.Left | ConnectableSides.Right);
+            }
+            else
+            {
+                item = new Item(entry.id, entry.rarity, entry.width, entry.height);
+            }
+            return item;
         }
     }
 }
