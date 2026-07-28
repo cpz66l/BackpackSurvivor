@@ -3,6 +3,7 @@ using BS.GamePlay.Player;
 using BS.Inventory;
 using UnityEngine;
 using System.Collections.Generic;
+using BS.GamePlay.Combat;
 namespace BS.Presentation
 {
     public class InventoryUIController : MonoBehaviour
@@ -16,22 +17,26 @@ namespace BS.Presentation
         private InventoryGrid grid;
         private bool isDragging = false;
         private InputReader inputReader;
+        private BackpackWeaponActivator backpackWeaponActivator;
 
         //拖拽相关
         private Item dragItem;
         private ItemView ghost;// 被拖的那个视图
         private int oldX, oldY;// 旧锚点（回滚用）
         private int targetX, targetY;// 当前鼠标悬停的目标格子
+        private bool needsRedrawAfterDrag; //拖拽期间漏掉重绘的补偿机制
 
 
         private void Awake()
         {
             inputReader = FindAnyObjectByType<InputReader>();
+            backpackWeaponActivator = FindAnyObjectByType<BackpackWeaponActivator>();
         }
         private void Start ()
         {
             grid = inventorySystem.Grid;
             grid.OnChanged += Redraw;
+            needsRedrawAfterDrag = false;
             Redraw();
         }
 
@@ -42,8 +47,12 @@ namespace BS.Presentation
 
         private void Redraw ()
         {
-            if (isDragging) return;// 拖拽期间，数据变化攒着不画
-
+            if (isDragging)
+            {
+                needsRedrawAfterDrag = true;
+                return;// 拖拽期间，数据变化攒着不画
+            }
+            needsRedrawAfterDrag = false;
             //邻接扫描
             List<AdjacencyEffect> effects = grid.ScanAdjacency(adjacencyRules);
             
@@ -75,13 +84,18 @@ namespace BS.Presentation
                     rect.anchoredPosition = new Vector2(x * step, -y * step);
 
                     //绑定数据
-                    if(itemView != null)
-                        itemView.Bind(item , step ,this);
+                    if (itemView == null) return;
+                    itemView.Bind(item , step ,this);
 
                     //计算联接口产生效果的UI投影
                     ConnectableSides visibleSides = item.GetWorldConnectableSides();
                     ConnectableSides activeSides = GetActiveSides(item, effects);
                     itemView.SetConnectors(visibleSides, activeSides);
+
+                    //判断是否要投影武器激活效果UI
+
+                    itemView.SetActiveWeapon(backpackWeaponActivator.IsWeaponItemActive(item));
+
                 }
             }
         }
@@ -132,6 +146,7 @@ namespace BS.Presentation
             if (!isDragging) return;
             isDragging = false;
 
+
             // 面板外松手 = 丢弃到世界（第三结局，最优先判）
             if (!RectTransformUtility.RectangleContainsScreenPoint(bagPanel, pointerPos, null))
             {
@@ -139,6 +154,7 @@ namespace BS.Presentation
                 Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
                 dragItem = null;
                 ghost = null;
+                if (needsRedrawAfterDrag) Redraw(); //在不会触发Redraw的路劲判断是否需要重绘
                 return;
             }
             //合成
@@ -150,6 +166,7 @@ namespace BS.Presentation
                     // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
                     dragItem = null;
                     ghost = null;
+                    if (needsRedrawAfterDrag) Redraw(); //在不会触发Redraw的路劲判断是否需要重绘
                     return;
                 }
             }
@@ -174,6 +191,7 @@ namespace BS.Presentation
                 Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
                 dragItem = null;
                 ghost = null;
+                if (needsRedrawAfterDrag) Redraw(); //在不会触发Redraw的路劲判断是否需要重绘
                 return;
             }
 
@@ -191,7 +209,11 @@ namespace BS.Presentation
             ghost.GetComponent<RectTransform>().sizeDelta =
                 new Vector2(dragItem.Width * step, dragItem.Height * step);
             // 红绿判定立刻重算：targetX/Y 没变，但宽高效互换了
-            ghost.SetValidColor(grid.CanPlaceAt(targetX, targetY, dragItem));
+            bool rightful = (grid.CanPlaceAt(targetX, targetY, dragItem)
+                || grid.CanMerge(dragItem, grid.GetItemAt(targetX, targetY)));
+            ghost.SetValidColor(rightful);
+            //根据新尺寸sizeDelta再重排接口点和激活角标;
+            ghost.UpdateOverlayLayout(step);
         }
 
         //Redraw()重绘时调用

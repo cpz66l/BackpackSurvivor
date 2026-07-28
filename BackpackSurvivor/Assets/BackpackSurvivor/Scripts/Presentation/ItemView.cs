@@ -16,6 +16,7 @@ namespace BS.Presentation
         [SerializeField] private Image rightConnector;
         [SerializeField] private Image bottomConnector;
         [SerializeField] private Image leftConnector;
+        [SerializeField] private Image activeWeaponUI;  //武器激活UI效果
 
         private Item item;
         public Item Item => item;
@@ -46,6 +47,7 @@ namespace BS.Presentation
                     bg.color = new Color(1f, 0.84f, 0f);    // 金
                     break;
             }
+            UpdateOverlayLayout(step);
         }
 
 
@@ -84,6 +86,37 @@ namespace BS.Presentation
                 connector.color = new Color(1f, 0.78f, 0.15f, 1f);
             else
                 connector.color = new Color(0.55f, 0.55f, 0.55f, 0.9f);//灰色
+        }
+
+        //设置激活武器效果UI
+        public void SetActiveWeapon(bool isActive)
+        {
+            if(activeWeaponUI == null) return;
+            activeWeaponUI.gameObject.SetActive(isActive);
+        }
+
+        public void UpdateOverlayLayout(float step)
+        {
+            float connectorSize = Mathf.Clamp(step * 0.16f, 10f, 14f);
+            float activeMarkerSize = Mathf.Clamp(step * 0.28f, 18f, 24f);
+            float inset = Mathf.Clamp(step * 0.1f, 6f, 8f);
+
+            LayoutImage(topConnector, new Vector2(0.5f, 1), new Vector2(0, -inset), connectorSize);
+            LayoutImage(rightConnector, new Vector2(1, 0.5f), new Vector2(-inset, 0), connectorSize);
+            LayoutImage(bottomConnector, new Vector2(0.5f, 0), new Vector2(0, inset), connectorSize);
+            LayoutImage(leftConnector, new Vector2(0, 0.5f), new Vector2(inset, 0), connectorSize);
+            LayoutImage(activeWeaponUI, new Vector2(0, 1), new Vector2(inset, -inset), activeMarkerSize);
+        }
+        private void LayoutImage(Image image, Vector2 anchor,
+            Vector2 position, float size)
+        {
+            if(image == null) return;
+            RectTransform rect = image.rectTransform;
+            rect.anchorMax = anchor;
+            rect.anchorMin = anchor;
+            rect.pivot = new Vector2(0.5f,0.5f);
+            rect.anchoredPosition = position;
+            rect.sizeDelta = new Vector2(size, size);
         }
     }
 }

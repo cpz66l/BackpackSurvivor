@@ -151,7 +151,7 @@ namespace BS.Inventory {
         }
 
 
-        //合并纯数据 API
+        //合并,纯数据 API
 
         //先判断
         public bool CanMerge(Item source, Item target)
@@ -255,6 +255,26 @@ namespace BS.Inventory {
             }
         }
 
-        
+        //获取背包武器
+        // 返回顺序即激活优先级：从上到下、从左到右；同一物品只返回一次。
+        public List<Item> GetUniqueItems()
+        {
+            List<Item> placedItems = new List<Item>();
+            HashSet<Item> itemSet = new HashSet<Item>();
+
+            for(int y = 0; y < Height; y++)
+            {
+                for(int x = 0; x < Width; x++)
+                {
+                    if (cells[x,y] == null) continue;
+                    Item item = cells[x,y];
+                    if (itemSet.Contains(item)) continue;
+                    itemSet.Add(item);
+                    placedItems.Add(item);
+                }
+            }
+
+            return placedItems;
+        }
     }
 }
