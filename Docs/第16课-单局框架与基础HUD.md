@@ -2,7 +2,7 @@
 
 > 课程周期：2026-07-29
 > 前置：第 15 课背包武器激活
-> 关键词：GameSession、RunTimer、GameState、HUD 快照、事件刷新、暂停恢复、胜负入口、15 分钟 Demo 骨架
+> 关键词：GameSession、RunTimer、GameState、HUD 快照、血量 HUD、事件刷新、暂停恢复、胜负入口、15 分钟 Demo 骨架
 
 ---
 
@@ -32,10 +32,11 @@
 
 ### 任务 4 · 基础 HUD
 
-- 新增 `RunHudView`，负责显示时间、经验、等级和状态文本。
-- HUD 只消费 `GameSession` 的只读属性和事件，不修改本局数据。
+- 新增 `RunHudView`，负责显示血量、时间、经验、等级和状态文本。
+- HUD 消费 `GameSession` 的只读属性/事件，也订阅玩家 `Health.OnHealthChanged`，不直接修改任何局内数据。
 - `OnEnable` 订阅事件，`OnDisable` 镜像退订。
 - `Start()` 主动拉一次当前快照，解决事件广播和 UI 初始化的执行顺序问题。
+- `Health` 暴露 `CurrentHp / MaxHp / OnHealthChanged`，HUD 用 Slider 和 HP 文本显示当前血量。
 
 ### 任务 5 · 暂停 / 继续边界
 
@@ -233,6 +234,22 @@ public void Pause(InputAction.CallbackContext ctx)
 
 这里不写 `Time.timeScale`。输入层只负责把按键翻译成“暂停意图”，是否允许暂停、暂停后世界怎么停，由 `GameSession` 裁决。
 
+
+### Health：血量变化事件
+
+```csharp
+public float CurrentHp => currentHp;
+public float MaxHp => maxHp;
+public event Action<float, float> OnHealthChanged;
+```
+
+```csharp
+currentHp = Mathf.Clamp(currentHp - info.damage, 0f, maxHp);
+OnHealthChanged?.Invoke(currentHp, maxHp);
+```
+
+血量 HUD 不每帧轮询，而是由 `Health` 在血量变化时广播。这样受伤、重置血量、未来回血都能走同一条 UI 更新链路。
+
 ### RunHudView：订阅事件 + 拉取快照
 
 ```csharp
@@ -278,7 +295,7 @@ State = Running
   ↓
 广播初始 XP / 时间 / 状态
   ↓
-RunHudView 显示 15:00、XP、Lv
+RunHudView 显示 HP、15:00、XP、Lv
 ```
 
 ### 时间胜利链路
@@ -333,6 +350,18 @@ OnXpChanged(totalXp, level)
 RunHudView 刷新 XP / Lv
 ```
 
+### 血量 HUD 链路
+
+```text
+Health.TakeDamage() / ResetToFull()
+  ↓
+OnHealthChanged(currentHp, maxHp)
+  ↓
+RunHudView.HandleHealthChanged()
+  ↓
+hpSlider.normalizedValue = current / max
+hpText 显示 HP current/max
+```
 ### 暂停恢复链路
 
 ```text
@@ -370,7 +399,7 @@ RunHudView 显示 / 隐藏 PAUSED
 
 ### 3. 为什么 HUD 不直接读 Time.time 或经验球？
 
-HUD 是表现层。它应该显示“已经被规则层整理好的结果”，而不是自己去拼规则。
+HUD 是表现层。它应该显示“已经被规则层整理好的结果”，而不是自己去拼规则。血量也一样：`Health` 负责血量事实和变化事件，HUD 只把 `CurrentHp / MaxHp` 投影成 Slider 和文本。
 
 如果 HUD 自己读时间、自己加经验，后面做暂停、升级、结算、重开时会出现多个状态主人。现在 HUD 只订阅 `GameSession`，信息源单一，bug 面就小很多。
 
@@ -434,7 +463,7 @@ Esc 是按键，Pause 是玩家意图，真正能不能暂停是局内规则。
 > RunTimer 只表达时间事实，GameSession 才表达玩法裁决。这样计时器可以复用，未来如果有 Boss 战、撤离胜利、加时机制，都不用改计时器本身。
 
 **Q3：HUD 为什么不自己计算倒计时和经验？**
-> HUD 是表现层，不能成为第二个状态主人。它只订阅 GameSession 的事件并显示结果，这样数据来源唯一，暂停、胜负、重开时不会出现 UI 和逻辑不一致。
+> HUD 是表现层，不能成为第二个状态主人。它订阅 GameSession 的局内事件，也订阅 Health 的血量变化事件，只显示结果，不裁决规则。这样暂停、胜负、重开和血量变化都不会出现 UI 与逻辑不一致。
 
 **Q4：为什么 HUD 既订阅事件，又在 Start 主动刷新？**
 > 订阅事件只能保证后续变化，不能保证不会错过初始化广播。Start 主动拉一次 GameSession 当前快照，可以解决 Unity 生命周期顺序导致的初始显示空值问题。
@@ -454,7 +483,7 @@ Esc 是按键，Pause 是玩家意图，真正能不能暂停是局内规则。
 
 1. 新增局内规则时，先问“谁是状态主人”，不要让 HUD、输入、掉落各自改状态。
 2. 普通 C# 类优先承载纯算法；需要场景生命周期时再用 `MonoBehaviour`。
-3. 事件订阅必须镜像退订，特别是 `Health.OnDeath`、`XpOrb.OnCollected`、`InputReader.OnPause`。
+3. 事件订阅必须镜像退订，特别是 `Health.OnDeath`、`Health.OnHealthChanged`、`XpOrb.OnCollected`、`InputReader.OnPause`。
 4. UI 初始化用“订阅事件 + 拉当前快照”，不要只靠某一次广播。
 5. 新 Input System 新增 Action 后，必须检查 PlayerInput 的 UnityEvent 是否真的接上。
 6. 状态机分支要互斥，状态改变后不要继续命中下一条判断。
@@ -491,6 +520,6 @@ Esc 是按键，Pause 是玩家意图，真正能不能暂停是局内规则。
 
 **第 18 课**：波次导演与 15 分钟节奏雏形。让第 16 课建立的 15 分钟时钟真正驱动刷怪强度、精英出现和终局压力。
 
-**提交前检查**：确认 `GameState.cs / RunTimer.cs / GameSession.cs / RunHudView.cs` 及对应 `.meta` 都进入提交；`GameInput.inputactions` 已保存 Pause 动作；`01-Run.unity` 已保存 `GameSession`、HUD 和 PlayerInput 接线；`runDurationSeconds` 最终为 `900`；提交前继续跑 using 闸。
+**提交前检查**：确认 `GameState.cs / RunTimer.cs / GameSession.cs / RunHudView.cs` 及对应 `.meta` 都进入提交；`Health.cs` 已保存 `CurrentHp / MaxHp / OnHealthChanged`；`GameInput.inputactions` 已保存 Pause 动作；`01-Run.unity` 已保存 `GameSession`、HUD、血量 Slider/HP 文本和 PlayerInput 接线；`runDurationSeconds` 最终为 `900`；提交前继续跑 using 闸。
 
 **本课 commit 建议**：`第16课 单局框架与基础HUD`
