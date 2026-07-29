@@ -8,6 +8,7 @@ namespace BS.GamePlay.Player
     {
         public event Action OnInteract;
         public event Action OnRotate;
+        public event Action OnPause;
         //外部读取属性
         public Vector2 moveVector2 { get; private set; }
         public Vector3 worldPoint { get; private set; }
@@ -49,9 +50,15 @@ namespace BS.GamePlay.Player
         {
             if (ctx.performed) OnInteract?.Invoke();
         }
+
         public void Rotate(InputAction.CallbackContext ctx)
         {
             if (ctx.performed) OnRotate?.Invoke();
+        }
+
+        public void Pause(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed) OnPause?.Invoke();
         }
     }
 }
