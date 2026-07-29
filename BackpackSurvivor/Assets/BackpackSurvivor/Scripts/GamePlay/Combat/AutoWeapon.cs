@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BS.GamePlay.Stats;
+using UnityEngine;
 
 namespace BS.GamePlay.Combat
 {
@@ -21,6 +22,7 @@ namespace BS.GamePlay.Combat
             //缓存枪身与枪口位置，如果没有就返回武器根位置
             if (aimPivot == null) aimPivot = transform;
             if (firePoint == null) firePoint = aimPivot;
+            CacheStats();
         }
 
         private void LateUpdate()
@@ -44,13 +46,14 @@ namespace BS.GamePlay.Combat
                 rotationSpeed * Time.deltaTime
             );
 
+            float finalAttackInterval = attackInterval / stats.FireRateMultiplier;
             attackTimer += Time.deltaTime;
-            if (attackTimer < attackInterval) return;
+            if (attackTimer < finalAttackInterval) return;
 
             // 枪口尚未对准时先不开火，避免视觉方向和真实弹道明显分离。
             if (Quaternion.Angle(aimPivot.rotation, targetRotation) > fireAngleTolerance) return;
 
-            attackTimer -= attackInterval;
+            attackTimer -= finalAttackInterval;
             Fire((currentTarget.Position - firePoint.position).normalized);
         }
 

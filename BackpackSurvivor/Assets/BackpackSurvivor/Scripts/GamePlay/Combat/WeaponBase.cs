@@ -1,6 +1,6 @@
-﻿using BS.GamePlay.Combat;
+﻿using BS.Core;
+using BS.GamePlay.Stats;
 using UnityEngine;
-using BS.Core;
 
 namespace BS.GamePlay.Combat
 {
@@ -13,7 +13,12 @@ namespace BS.GamePlay.Combat
 
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected ObjectPool bulletPool;
+        protected PlayerRunStats stats;
 
+        private void Awake()
+        {
+            CacheStats();
+        }
         protected void Fire(Vector3 direction)
         {
             if (bulletPool != null)
@@ -21,7 +26,8 @@ namespace BS.GamePlay.Combat
                 // 池子路线：Get 已把子弹摆到指定位置并激活
                 Projectile bullet = bulletPool.Get(firePoint.position).GetComponent<Projectile>();
                 //重置参数
-                bullet.Initialize(projectileSpeed, damage, targetFaction, maxDistance, direction, 0f, gameObject);
+                float finalDamage = damage * stats.DamageMultiplier;
+                bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
             }
             else //无池兜底
             {
@@ -30,8 +36,16 @@ namespace BS.GamePlay.Combat
                 bulletObj.transform.position = firePoint.position;
                 //挂上 Projectile 组件（此刻它的 Awake 立即执行：造出黄色小球视觉）
                 Projectile bullet = bulletObj.AddComponent<Projectile>();
-                bullet.Initialize(projectileSpeed, damage, targetFaction, maxDistance, direction, 0f, gameObject);
+                float finalDamage = damage * stats.DamageMultiplier;
+                bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
             }
+        }
+
+        protected void CacheStats()
+        {
+            stats = GetComponentInParent<PlayerRunStats>();
+            if (stats == null)
+                stats = FindAnyObjectByType<PlayerRunStats>();
         }
     }
 }

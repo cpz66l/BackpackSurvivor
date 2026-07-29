@@ -1,13 +1,15 @@
 ﻿using BS.Core;
+using BS.GamePlay.Stats;
 using UnityEngine;
 
 namespace BS.GamePlay.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        //获取组件
+        //获取引用
         private CharacterController cct;
         private InputReader ir;
+        private PlayerRunStats stats;
         //移动或视角
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private Vector3 moveDirection;
@@ -23,6 +25,7 @@ namespace BS.GamePlay.Player
             cct = GetComponent<CharacterController>();
             ir = GetComponent<InputReader>();
             mapBounds = FindAnyObjectByType<MapBounds>();
+            stats = GetComponent<PlayerRunStats>();
         }
         void Start()
         {
@@ -38,7 +41,8 @@ namespace BS.GamePlay.Player
                 moveDirection.Set(ir.moveVector2.x, 0, ir.moveVector2.y);
                 moveDirection.Normalize();//归一化，避免斜向移动速度过快；
                 moveDirection = Quaternion.Euler(0, CameraYawOffset, 0) * moveDirection;//旋转45度
-                cct.Move(moveDirection * moveSpeed * Time.deltaTime);//使用CharacterController移动
+                float finalMoveSpeed = moveSpeed * stats.MoveSpeedMultiplier;
+                cct.Move(moveDirection * finalMoveSpeed * Time.deltaTime);//使用CharacterController移动
                 transform.position = mapBounds.ClampToInside(transform.position);//将玩家位置限制在地图内
             }
             //转向
