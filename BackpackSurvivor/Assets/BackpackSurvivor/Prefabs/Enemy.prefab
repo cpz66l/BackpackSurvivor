@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8896235946526968872}
   - component: {fileID: 8865378551761331476}
   - component: {fileID: 2630887428214243033}
+  - component: {fileID: 6469595895916834022}
+  - component: {fileID: -4418715424499048813}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -94,6 +96,37 @@ MonoBehaviour:
   contactDamage: 10
   knockbackForce: 1
   lootTable: {fileID: 11400000, guid: 7b5682700bf06fd409a3b4a4b60b5b9b, type: 2}
+--- !u!114 &6469595895916834022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160483715351843250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f3f9ba99a1a4b40938a0a40f1736bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.DamageFlashView
+  health: {fileID: 8865378551761331476}
+  renderers: []
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.08
+--- !u!114 &-4418715424499048813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160483715351843250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2d082ea232c354091fc6739ca72b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.DamageNumberSpawner
+  health: {fileID: 8865378551761331476}
+  damageNumberPool: {fileID: 0}
+  spawnAnchor: {fileID: 1291841095048906720}
 --- !u!1 &8089801822254650812
 GameObject:
   m_ObjectHideFlags: 0

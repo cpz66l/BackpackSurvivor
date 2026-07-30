@@ -2894,6 +2894,8 @@ GameObject:
   - component: {fileID: 411701057}
   - component: {fileID: 411701056}
   - component: {fileID: 411701058}
+  - component: {fileID: 411701060}
+  - component: {fileID: 411701059}
   m_Layer: 0
   m_Name: CM_PlayerCamera
   m_TagString: Untagged
@@ -2978,6 +2980,38 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 16, y: 26, z: -16}
+--- !u!114 &411701059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411701055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854d7a2dd39f9aa4f961eba38e96e476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShakePlayer
+  noise: {fileID: 411701060}
+  defaultAmplitude: 0
+  defaultFrequency: 0
+--- !u!114 &411701060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411701055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &421929431
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,6 +3196,7 @@ Transform:
   - {fileID: 1370697070}
   - {fileID: 434503456}
   - {fileID: 1789796587}
+  - {fileID: 1811029635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434503455
@@ -5710,6 +5745,7 @@ GameObject:
   - component: {fileID: 1328712795}
   - component: {fileID: 1328712794}
   - component: {fileID: 1328712796}
+  - component: {fileID: 1328712797}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -5778,7 +5814,27 @@ MonoBehaviour:
   inputReader: {fileID: 2061221973}
   baseXpToNextLevel: 10
   xpGrowthPerLevel: 10
-  playerRunStats: {fileID: 0}
+  playerRunStats: {fileID: 2061221980}
+  sfx: {fileID: 1328712797}
+--- !u!114 &1328712797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328712790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a154c598f5c59945927bfc40cc2baf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.SfxPlayer
+  audioSource: {fileID: 0}
+  shootClip: {fileID: 0}
+  hitClip: {fileID: 0}
+  pickupXpClip: {fileID: 0}
+  levelUpClip: {fileID: 0}
+  hurtClip: {fileID: 0}
+  chestOpenClip: {fileID: 0}
 --- !u!1 &1365193788
 GameObject:
   m_ObjectHideFlags: 0
@@ -7672,6 +7728,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
   prefab: {fileID: 796225406192712556, guid: 98cb5c2ff5442254a858d58b13a77647, type: 3}
   prewarmCount: 5
+--- !u!1 &1811029634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811029635}
+  - component: {fileID: 1811029636}
+  - component: {fileID: 1811029637}
+  m_Layer: 0
+  m_Name: DamageNumberPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1811029635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811029634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 429229872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1811029636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811029634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adab50532def1b4c9cee47b3a1f2311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
+  prefab: {fileID: 2790718366841707936, guid: 30d5beb9681511748b9577098e21f054, type: 3}
+  prewarmCount: 30
+--- !u!114 &1811029637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811029634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d7d55cff6eefb40a15c9d5cc3fc575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.DamageNumberPoolProvider
+  damageNumberPool: {fileID: 1811029636}
 --- !u!1 &1833457289
 GameObject:
   m_ObjectHideFlags: 0
@@ -8499,6 +8615,8 @@ GameObject:
   - component: {fileID: 2061221978}
   - component: {fileID: 2061221979}
   - component: {fileID: 2061221980}
+  - component: {fileID: 2061221981}
+  - component: {fileID: 2061221982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8764,6 +8882,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1902c7319a55c244aefa44fca1c8d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Stats.PlayerRunStats
+--- !u!114 &2061221981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061221972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f3f9ba99a1a4b40938a0a40f1736bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.DamageFlashView
+  health: {fileID: 2061221978}
+  renderers: []
+  flashColor: {r: 0.9622642, g: 0.099857494, b: 0.099857494, a: 1}
+  flashDuration: 0.08
+--- !u!114 &2061221982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061221972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef6f85e604e73d468c427aa0e734e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.HurtSfxView
+  sfx: {fileID: 1328712797}
+  health: {fileID: 2061221978}
+  cameraShakePlayer: {fileID: 411701059}
+  duration: 0.12
+  amplitude: 1.5
+  frequency: 15
 --- !u!1 &2082155299
 GameObject:
   m_ObjectHideFlags: 0
@@ -9453,8 +9605,8 @@ SceneRoots:
   - {fileID: 1328712793}
   - {fileID: 2143128367}
   - {fileID: 406584508}
-  - {fileID: 1626334004}
   - {fileID: 429229872}
+  - {fileID: 1626334004}
   - {fileID: 2061221977}
   - {fileID: 142128202}
   - {fileID: 393321009}

@@ -119,4 +119,16 @@
 
 ---
 
-> 下一条从 BUG-010 开始。
+## BUG-010 · 伤害数字固定屏幕中心且没有正对摄像机（第 19 课）
+
+- **日期**：2026-07-30 · **所属系统**：战斗反馈 / 世界空间 UI（DamageNumberView + DamageNumber prefab）
+- **现象**：敌人受击后伤害数字会跳出，但最初位置一直在屏幕中间；改到世界附近后，又出现数字斜着、不正对屏幕的问题。
+- **复现步骤**：① 攻击敌人触发 `Health.OnDamaged` ② `DamageNumberSpawner` 从池中生成伤害数字 ③ 观察数字显示位置和朝向。
+- **排查过程**：先确认 `DamageInfo.hitPoint` 和生成位置不是固定值，再检查预制体 Canvas 设置；发现 Screen Space Canvas 不吃世界坐标语义。改为 World Space 后位置正确，但 World Space UI 不会自动朝向摄像机，于是继续补 Billboard。
+- **根因**：两个坐标系问题叠加：① Canvas 使用 Screen Space，导致世界坐标生成被 UI 屏幕空间解释；② World Space Canvas 保留自身旋转，不会自动面向主摄像机。
+- **修复**：DamageNumber 预制体改为 World Space Canvas，并调整缩放；`DamageNumberView` 在播放期间执行 `FaceCamera()`，让数字使用 `Camera.main.transform.rotation` 对齐摄像机。
+- **沉淀规则**：世界空间 UI 的三件套是 Render Mode、Scale、Billboard；位置对了不代表朝向也对。
+
+---
+
+> 下一条从 BUG-011 开始。

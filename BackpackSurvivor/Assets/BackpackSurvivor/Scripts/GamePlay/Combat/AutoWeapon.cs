@@ -23,6 +23,7 @@ namespace BS.GamePlay.Combat
             if (aimPivot == null) aimPivot = transform;
             if (firePoint == null) firePoint = aimPivot;
             CacheStats();
+            CacheSfx();
         }
 
         private void LateUpdate()

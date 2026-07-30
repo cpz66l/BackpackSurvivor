@@ -3,6 +3,7 @@ using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.GamePlay.Stats;
 using BS.GamePlay.Upgrades;
+using BS.Presentation;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace BS.GamePlay.Run
         private RunTimer timer;
         private GameState state = GameState.NotStarted;
         private LevelUpOptionGenerator levelUpOptionGenerator;
+        [SerializeField] private SfxPlayer sfx;
 
         //对外只读属性，给HUD
         public GameState State => state;
@@ -53,6 +55,8 @@ namespace BS.GamePlay.Run
             levelUpOptionGenerator = new LevelUpOptionGenerator();
             if(playerRunStats == null)
                 playerRunStats = FindAnyObjectByType<PlayerRunStats>();
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
         }
 
         private void OnEnable()
@@ -116,6 +120,7 @@ namespace BS.GamePlay.Run
             if (state != GameState.Running) return;
             int upLevelCount = levelProgress.AddXp(entry.amount);
             BroadcastXpChanged();
+            sfx?.PlayPickupXp();
             for (int i = 0; i < upLevelCount; i++)
             {
                 int reachedLevel = levelProgress.Level - upLevelCount + i + 1;
@@ -123,6 +128,7 @@ namespace BS.GamePlay.Run
             }
             if (upLevelCount > 0)
             {
+                sfx?.PlayLevelUp();
                 RequestLevelUpChoice(levelProgress.Level);
             }
         }

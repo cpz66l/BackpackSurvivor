@@ -1,5 +1,6 @@
 ﻿using BS.Core;
 using BS.GamePlay.Stats;
+using BS.Presentation;
 using UnityEngine;
 
 namespace BS.GamePlay.Combat
@@ -13,14 +14,18 @@ namespace BS.GamePlay.Combat
 
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected ObjectPool bulletPool;
+
+        protected SfxPlayer sfx;
         protected PlayerRunStats stats;
 
         private void Awake()
         {
             CacheStats();
+            CacheSfx();
         }
         protected void Fire(Vector3 direction)
         {
+            sfx?.PlayShoot();
             if (bulletPool != null)
             {
                 // 池子路线：Get 已把子弹摆到指定位置并激活
@@ -46,6 +51,11 @@ namespace BS.GamePlay.Combat
             stats = GetComponentInParent<PlayerRunStats>();
             if (stats == null)
                 stats = FindAnyObjectByType<PlayerRunStats>();
+        }
+        protected void CacheSfx()
+        {
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BS.Core;
 using BS.Data;
 using BS.GamePlay.Interaction;
+using BS.Presentation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +14,14 @@ namespace BS.GamePlay.Loot {
         [SerializeField] private Transform dropPoint;
         [SerializeField] private float survivalTime = 30f;
         [SerializeField] private float scatterRadius = 0.8f;
-
+        [SerializeField] private SfxPlayer sfx;
 
         private float survivalTimer = 0f;
         private Collider chestCollider;
         private LootManager lootManager;
         private bool opened = false;
         private Color originalColor;
+
         //宝箱数目
         public static int ActiveCount { get; private set; }
 
@@ -33,6 +35,8 @@ namespace BS.GamePlay.Loot {
             modelRb = GetComponentInChildren<Renderer>();
             chestCollider = GetComponent<Collider>();
             originalColor = modelRb.material.color;
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
         }
 
         private void Update()
@@ -70,6 +74,8 @@ namespace BS.GamePlay.Loot {
             {
                 modelRb.material.color = Color.black;
             }
+            //开宝箱音效
+            sfx?.PlayChestOpen();
             //生成物品
             //drops先拿到总共生成的物品
             List<GameObject> drops = lootManager.TrySpawnDrop(dropPoint == null ? transform.position : dropPoint.position, lootBundle);

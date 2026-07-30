@@ -1,5 +1,6 @@
 ﻿using BS.GamePlay.Player;
 using BS.GamePlay.Stats;
+using BS.Presentation;
 using UnityEngine;
 
 namespace BS.GamePlay.Combat
@@ -11,7 +12,6 @@ namespace BS.GamePlay.Combat
         //获取输入
         private InputReader ir;
 
-
         private float fireTimer = 0f;
 
         private void Awake()
@@ -20,6 +20,7 @@ namespace BS.GamePlay.Combat
             if (firePoint == null) firePoint = transform;
             fireTimer = fireInterval;
             CacheStats();
+            CacheSfx();
         }
 
 
