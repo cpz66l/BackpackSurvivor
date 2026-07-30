@@ -38,5 +38,11 @@ namespace BS.GamePlay.Waves
             }
         }
 
+        public void ApplyWaveSettings(float spawnInterval , float maxAlive)
+        {
+            if(spawnInterval < 0.1||maxAlive <=0) return;
+            this.spawnInterval = spawnInterval;
+            this.maxAlive = maxAlive;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BS.GamePlay.Combat;
 using BS.GamePlay.Player;
 using BS.GamePlay.Run;
+using BS.GamePlay.Waves;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +11,13 @@ namespace BS.Presentation
     public class RunHudView : MonoBehaviour
     {
         [SerializeField] private GameSession gameSession;
+        [SerializeField] private WaveDirector waveDirector;
 
         [SerializeField] private TextMeshProUGUI timeText;
         [SerializeField] private TextMeshProUGUI xpText;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI stateText;
+        [SerializeField] private TextMeshProUGUI waveText;
 
         //血量HUD
         [SerializeField] private Health playerHealth;
@@ -27,6 +30,8 @@ namespace BS.Presentation
                 gameSession = FindAnyObjectByType<GameSession>();
             if(playerHealth == null)
                 playerHealth =  FindAnyObjectByType<PlayerController>()?.GetComponent<Health>();
+            if(waveDirector == null)
+                waveDirector = FindAnyObjectByType<WaveDirector>();
         }
         private void OnEnable()
         {
@@ -38,6 +43,8 @@ namespace BS.Presentation
             }
             if (playerHealth != null)
                 playerHealth.OnHealthChanged += HandleHealthChanged;
+            if (waveDirector != null)
+                waveDirector.OnWaveStageChanged += HandleWaveStageChanged;
         }
         private void OnDisable()
         {
@@ -49,6 +56,8 @@ namespace BS.Presentation
             }
             if (playerHealth != null)
                 playerHealth.OnHealthChanged -= HandleHealthChanged;
+            if (waveDirector != null)
+                waveDirector.OnWaveStageChanged -= HandleWaveStageChanged;
         }
 
         private void Start()
@@ -117,5 +126,11 @@ namespace BS.Presentation
                 hpText.text = $"HP {Mathf.CeilToInt(currentHp)}/{Mathf.CeilToInt(maxHp)}";
         }
 
+        private void HandleWaveStageChanged(int stageIndex ,string stageName,Color displayColor)
+        {
+            if(waveText == null) return;
+            waveText.text = $"WAVE {stageIndex + 1} · {stageName}";
+            waveText.color = displayColor;
+        }
     }
 }

@@ -36,13 +36,11 @@ namespace BS.GamePlay.Combat
         {
             if (t == null || allTargets.Contains(t)) return;
             allTargets.Add(t);
-            Debug.Log($"注册");
         }
         public static void Unregister(IDamageable t)
         {
             if (!allTargets.Contains(t)) return;
             allTargets.Remove(t);
-            Debug.Log("注销");
         }
 
     }
