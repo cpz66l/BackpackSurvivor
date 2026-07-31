@@ -28,7 +28,7 @@ MonoBehaviour:
     rarity: 2
     weight: 20
     amount: 0
-    width: 2
+    width: 1
     height: 2
   - category: 2
     id: "\u6B65\u67AA"

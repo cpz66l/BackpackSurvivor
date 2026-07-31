@@ -54,8 +54,8 @@ namespace BS.Presentation
             }
             needsRedrawAfterDrag = false;
             //邻接扫描
-            List<AdjacencyEffect> effects = grid.ScanAdjacency(adjacencyRules);
-            
+            List<AdjacencyEffect> candidateEffects = grid.ScanAdjacency(AdjacencyRuleBook.Rules);
+            List<AdjacencyEffect> validEffects = AdjacencyEffectResolver.ResolveValidEffects(candidateEffects);
 
             //清空表现
             DestroyAllChilden(itemLayer);//清场：销毁 itemLayer 所有子物体
@@ -89,7 +89,7 @@ namespace BS.Presentation
 
                     //计算联接口产生效果的UI投影
                     ConnectableSides visibleSides = item.GetWorldConnectableSides();
-                    ConnectableSides activeSides = GetActiveSides(item, effects);
+                    ConnectableSides activeSides = GetActiveSides(item, validEffects);
                     itemView.SetConnectors(visibleSides, activeSides);
 
                     //判断是否要投影武器激活效果UI
@@ -241,22 +241,6 @@ namespace BS.Presentation
             return activeSides;
         }
 
-        //临时规则表
-        private readonly List<AdjacencyRule> adjacencyRules = new List<AdjacencyRule>
-{
-    new AdjacencyRule(
-        ItemTag.Pistol,
-        ConnectableSides.Right,
-        ItemTag.Pistol,
-        ConnectableSides.Left,
-        AdjacencyEffectId.DualWield),
-
-    new AdjacencyRule(
-        ItemTag.Pistol,
-        ConnectableSides.Left,
-        ItemTag.Pistol,
-        ConnectableSides.Right,
-        AdjacencyEffectId.DualWield)
-};
+        
     }
 }

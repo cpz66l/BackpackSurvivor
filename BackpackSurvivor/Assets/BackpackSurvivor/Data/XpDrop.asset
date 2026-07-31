@@ -19,6 +19,6 @@ MonoBehaviour:
     dropPrefab: {fileID: 8011176585733009980, guid: 6aa75f7bb29bcf74485223853e946e9c, type: 3}
     rarity: 0
     weight: 100
-    amount: 10
+    amount: 4
     width: 0
     height: 0
