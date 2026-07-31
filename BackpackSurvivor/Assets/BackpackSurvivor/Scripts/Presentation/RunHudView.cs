@@ -14,7 +14,7 @@ namespace BS.Presentation
         [SerializeField] private WaveDirector waveDirector;
 
         [SerializeField] private TextMeshProUGUI timeText;
-        [SerializeField] private TextMeshProUGUI xpText;
+        [SerializeField] private Image xpLoop;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI stateText;
         [SerializeField] private TextMeshProUGUI waveText;
@@ -32,6 +32,15 @@ namespace BS.Presentation
                 playerHealth =  FindAnyObjectByType<PlayerController>()?.GetComponent<Health>();
             if(waveDirector == null)
                 waveDirector = FindAnyObjectByType<WaveDirector>();
+            //关闭血条Slider可操控
+            if (hpSlider != null)
+            {
+                hpSlider.interactable = false;
+
+                Navigation navigation = hpSlider.navigation;
+                navigation.mode = Navigation.Mode.None;
+                hpSlider.navigation = navigation;
+            }
         }
         private void OnEnable()
         {
@@ -58,6 +67,7 @@ namespace BS.Presentation
                 playerHealth.OnHealthChanged -= HandleHealthChanged;
             if (waveDirector != null)
                 waveDirector.OnWaveStageChanged -= HandleWaveStageChanged;
+           
         }
 
         private void Start()
@@ -109,8 +119,12 @@ namespace BS.Presentation
 
         private void HandleXpChanged(int totalXp, int level,int currentXp ,int xpToNextLevel)
         {
-            xpText.text = $"XP {totalXp}";
-            levelText.text = $"Lv . {level}";
+            float ratio = 0f;
+            if (xpToNextLevel > 0)
+                ratio = Mathf.Clamp01((float)currentXp / xpToNextLevel);
+            if(xpLoop != null)
+                xpLoop.fillAmount = ratio;
+            levelText.text = level.ToString();
         }
 
         private void HandleHealthChanged(float currentHp ,float maxHp)

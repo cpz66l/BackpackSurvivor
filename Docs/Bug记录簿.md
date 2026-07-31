@@ -131,4 +131,16 @@
 
 ---
 
-> 下一条从 BUG-011 开始。
+## BUG-011 · HUD 血条 Slider 被 A/D 移动键控制（第 20 课）
+
+- **日期**：2026-07-31 · **所属系统**：HUD / UGUI 输入焦点（RunHudView + HpSlider + EventSystem）
+- **现象**：玩家按 A/D 左右移动时，血条 Slider 的显示也跟着变化，像是移动键在操控血条。
+- **复现步骤**：① Play 后让 HpSlider 可交互 ② 鼠标/键盘焦点落到 HpSlider 或 UI 导航选中它 ③ 按 A/D 或方向键 ④ 观察血条值被 UI 系统调整。
+- **排查过程**：先排除 PlayerController 和 Health 逻辑，因为玩家移动不应该写血量；随后检查场景中的 EventSystem，发现使用 InputSystemUIInputModule，且 HpSlider 仍是可交互 Slider，Navigation 为 Automatic。由此确认是 UI Move 输入在控制 Selectable。
+- **根因**：HpSlider 是 UGUI `Slider`，默认继承 `Selectable`，可被 EventSystem 选中并响应左右输入；但它在 HUD 中只是显示器，不应该接收玩家输入。
+- **修复**：将 HpSlider 的 `Interactable` 关闭，Navigation 改为 None；纯显示用 Image/TMP 关闭 Raycast Target，避免 HUD 控件参与 UI 焦点和导航。
+- **沉淀规则**：纯 HUD 控件必须退出交互系统；显示器不是输入控件，Slider/Button-like 组件默认会被 EventSystem 当成可操作对象。
+
+---
+
+> 下一条从 BUG-012 开始。

@@ -1,4 +1,5 @@
 ﻿using BS.GamePlay.Combat;
+using BS.GamePlay.Enemies;
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.GamePlay.Stats;
@@ -20,11 +21,13 @@ namespace BS.GamePlay.Run
 
         [SerializeField] private PlayerRunStats playerRunStats;
 
+        [SerializeField] private SfxPlayer sfx;
         private LevelProgress levelProgress;
         private RunTimer timer;
         private GameState state = GameState.NotStarted;
         private LevelUpOptionGenerator levelUpOptionGenerator;
-        [SerializeField] private SfxPlayer sfx;
+        private int killCount;
+
 
         //对外只读属性，给HUD
         public GameState State => state;
@@ -42,6 +45,7 @@ namespace BS.GamePlay.Run
         public event Action<int, int, int, int> OnXpChanged; //totalXp, level, currentXp, xpToNextLevel
         public event Action<int> OnLevelUp; //升级播报
         public event Action<List<LevelUpOption>> OnLevelUpChoiceRequested;//升级能力选择
+        public event Action<RunResult> OnRunEnded; //游戏结算
 
 
         private void Awake()
@@ -66,6 +70,7 @@ namespace BS.GamePlay.Run
             XpOrb.OnCollected += HandleXpCollected;
             if (inputReader != null)
                 inputReader.OnPause += TogglePause;
+            EnemyAI.OnEnemyDied += HandleEnemyDied;
         }
         private void OnDisable()
         {
@@ -74,6 +79,7 @@ namespace BS.GamePlay.Run
             XpOrb.OnCollected -= HandleXpCollected;
             if (inputReader != null)
                 inputReader.OnPause -= TogglePause;
+            EnemyAI.OnEnemyDied -= HandleEnemyDied;
             Time.timeScale = 1f;
         }
 
@@ -88,20 +94,21 @@ namespace BS.GamePlay.Run
             timer.Tick(Time.deltaTime);
             OnTimeChanged?.Invoke(timer.Elapsed ,timer.Remaining);
             if (timer.IsFinished)
-                SetState(GameState.Victory);
+                EndRun(GameState.Victory);
         }
-
+        //初始化
         public void StartRun()
         {
             playerRunStats.ResetToDefault();
             timer.Reset();
             levelProgress.Reset();
+            killCount = 0;
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
             BroadcastXpChanged();
             OnTimeChanged?.Invoke(timer.Elapsed,timer.Remaining);
         }
-
+        //设置状态
         private void SetState(GameState nextState)
         {
             if(state == nextState) return;
@@ -112,7 +119,7 @@ namespace BS.GamePlay.Run
         private void HandlePlayerDeath()
         {
             if(state != GameState.Running) return ;
-            SetState(GameState.Defeat);
+            EndRun(GameState.Defeat);
         }
         private void HandleXpCollected(LootEntry entry)
         {
@@ -177,17 +184,37 @@ namespace BS.GamePlay.Run
             else if (state == GameState.Paused)
                 ResumeRun();
         }
+        //暂停
         private void PauseRun()
         {
             if(state != GameState.Running) return;
             Time.timeScale = 0f;
             SetState(GameState.Paused);
         }
+        //继续
         private void ResumeRun()
         {
             if (state != GameState.Paused) return;
             Time.timeScale = 1f;
             SetState(GameState.Running);
+        }
+
+        //统计杀敌数目
+        private void HandleEnemyDied()
+        {
+            if (state != GameState.Running) return;
+
+            killCount++;
+        }
+
+        //结束设置
+        private void EndRun(GameState finalState)
+        {
+            if (state != GameState.Running) return;
+            SetState(finalState);
+            Time.timeScale = 0f;
+            RunResult runResult = new RunResult(finalState,Elapsed,Level,TotalXp,killCount);
+            OnRunEnded?.Invoke(runResult);//带入结算参数数据包
         }
     }
 }
