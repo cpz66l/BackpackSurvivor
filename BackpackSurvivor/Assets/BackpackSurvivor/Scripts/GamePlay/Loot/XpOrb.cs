@@ -39,7 +39,7 @@ namespace BS.GamePlay.Loot
             //创建简易Loot模型
             _visualModel = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             _visualModel.transform.SetParent(transform);//绑定模型的transform与掉落物的父子关系
-            _visualModel.transform.localScale = Vector3.one * 0.4f;
+            _visualModel.transform.localScale = Vector3.one * 0.1f;
             _visualModel.transform.localPosition = Vector3.zero;
 
             //移除碰撞器避免干扰射线检测 (本身不需要物理碰撞)

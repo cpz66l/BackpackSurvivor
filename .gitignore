@@ -42,3 +42,16 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Meshy export sidecar files kept out of Unity runtime commits.
+# Keep .glb and .glb.meta files tracked when used by prefabs/scenes.
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_final.png
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_final.png.meta
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_ContactSheet.png
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_ContactSheet.png.meta
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_manifest.json
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_manifest.json.meta
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_Manifest.json
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_Manifest.json.meta
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_PlacementGuide.md
+BackpackSurvivor/Assets/BackpackSurvivor/Art/Meshy/**/*_PlacementGuide.md.meta
