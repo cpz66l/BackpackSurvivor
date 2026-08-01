@@ -7,23 +7,28 @@ namespace BS.Presentation
     {
         [SerializeField] private Health health;
         [SerializeField] private Renderer[] renderers;
-        [SerializeField] private Color flashColor = Color.white;
         [SerializeField] private float flashDuration = 0.08f;
 
-        private Color[] originalColors;
+        [SerializeField] private Material flashMaterial; //直接换材质
+        private Material[][] originalMaterials;
+
         private Coroutine flashRoutine; //获得当前的协程，用于连续受击时停掉
 
-        //renderers与originalColors都用数组的是因为复杂一点的prefab不止一个Renderer
-        //所以需要依次获取子模型的Renderer，依次缓存，改变，重设颜色。确保受击效果的统一
         private void Awake()
         {
             if (health == null)
                 health = GetComponentInParent<Health>();
 
             if (renderers == null || renderers.Length == 0)
-                renderers = GetComponentsInChildren<Renderer>();
+                renderers = GetComponentsInChildren<Renderer>(true);
 
-            CacheOriginalColors();
+            originalMaterials = new Material[renderers.Length][];
+
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                if (renderers[i] == null) continue;
+                originalMaterials[i] = renderers[i].sharedMaterials;
+            }
         }
 
         private void OnEnable()
@@ -43,15 +48,7 @@ namespace BS.Presentation
                 flashRoutine = null;
             }
 
-            RestoreColors();
-        }
-        private void CacheOriginalColors()
-        {
-            originalColors = new Color[renderers.Length];
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                originalColors[i] = renderers[i].material.color;
-            }
+            RestoreMaterials();
         }
 
         private void HandleDamaged(DamageInfo info)
@@ -64,34 +61,45 @@ namespace BS.Presentation
 
         private IEnumerator FlashRoutine()
         {
-            SetColor(flashColor);
+            ApplyFlashMaterial();
 
             yield return new WaitForSeconds(Mathf.Max(0.01f, flashDuration));
 
-            RestoreColors();
+            RestoreMaterials();
             flashRoutine = null;
         }
 
-        private void SetColor(Color color)
+        private void ApplyFlashMaterial()
         {
-            for (int i = 0;i < renderers.Length;i++)
+            if (flashMaterial == null) return;
+
+            for (int i = 0; i < renderers.Length; i++)
             {
-                var renderer = renderers[i];
-                if(renderer == null) continue;
-                renderer.material.color = color;
+                Renderer renderer = renderers[i];
+                if (renderer == null) continue;
+
+                Material[] flashMaterials = new Material[renderer.sharedMaterials.Length];
+
+                for (int j = 0; j < flashMaterials.Length; j++)
+                    flashMaterials[j] = flashMaterial;
+
+                renderer.sharedMaterials = flashMaterials;
             }
         }
 
-        private void RestoreColors()
+        //清掉临时覆盖，材质自然回到原本颜色。
+        private void RestoreMaterials()
         {
-            if (renderers == null || originalColors == null ||
-                renderers.Length == 0 || originalColors.Length ==0) return;
+            if (renderers == null || originalMaterials == null) return;
+
             for (int i = 0; i < renderers.Length; i++)
             {
-                var renderer = renderers[i];
-                if(renderer == null) continue ;
-                renderer.material.color = originalColors[i];
+                if (renderers[i] == null) continue;
+                if (originalMaterials[i] == null) continue;
+
+                renderers[i].sharedMaterials = originalMaterials[i];
             }
         }
+
     }
 }

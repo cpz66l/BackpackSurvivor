@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -3454,7 +3454,7 @@ GameObject:
   - component: {fileID: 396808960}
   - component: {fileID: 396808959}
   m_Layer: 0
-  m_Name: Enemy01
+  m_Name: NormalEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3877,6 +3877,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 396808960}
+  - {fileID: 1287588238}
   - {fileID: 758860770}
   - {fileID: 1370697070}
   - {fileID: 434503456}
@@ -4428,7 +4429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 302.68195, y: 307.00012}
+  m_AnchoredPosition: {x: -0.000030518, y: 111}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629010129
@@ -5161,7 +5162,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -7496,6 +7497,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286316659}
   m_CullTransparentMesh: 1
+--- !u!1 &1287588236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1287588238}
+  - component: {fileID: 1287588237}
+  m_Layer: 0
+  m_Name: EliteEnemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1287588237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287588236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adab50532def1b4c9cee47b3a1f2311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
+  prefab: {fileID: 1942840081382482255, guid: 11b16e07e52951d4b854c584639e2348, type: 3}
+  prewarmCount: 15
+--- !u!4 &1287588238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287588236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 429229872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1293225171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8098169881513260187, guid: a93df3f105c83fd4fa5c29990fff0c74, type: 3}
@@ -11844,7 +11891,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -12084,9 +12131,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.DamageFlashView
   health: {fileID: 2061221978}
-  renderers: []
-  flashColor: {r: 0.9622642, g: 0.099857494, b: 0.099857494, a: 1}
+  renderers:
+  - {fileID: 2089233880}
   flashDuration: 0.08
+  flashMaterial: {fileID: 2100000, guid: 5b0fb0c46214f784da30e5f17377960f, type: 2}
 --- !u!114 &2061221982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12180,6 +12228,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082155299}
   m_CullTransparentMesh: 1
+--- !u!23 &2089233880 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7596054609887090473, guid: 821f6c49069f2ad41a13afb5a48d33df, type: 3}
+  m_PrefabInstance: {fileID: 674626225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2091678857
 GameObject:
   m_ObjectHideFlags: 0
@@ -12779,7 +12832,9 @@ MonoBehaviour:
   spawnOutsideRadius: 30
   spawnInsideRadius: 20
   playerTf: {fileID: 2061221977}
-  enemyPool: {fileID: 396808959}
+  normalEnemyPool: {fileID: 396808959}
+  eliteEnemyPool: {fileID: 1287588237}
+  eliteSpawnChance: 0
 --- !u!4 &2143128367
 Transform:
   m_ObjectHideFlags: 0
@@ -12809,17 +12864,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.ChestSpawner
   tiers:
   - chestName: "\u666E\u901A\u5B9D\u7BB1"
-    color: {r: 1, g: 1, b: 1, a: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
     bundle: {fileID: 11400000, guid: ae37b176165f70646ab1a33334673950, type: 2}
-    weight: 60
+    weight: 55
   - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
-    color: {r: 0.6797162, g: 0.9169811, b: 0.40658593, a: 0}
+    color: {r: 0.6797162, g: 0.9169811, b: 0.40658593, a: 1}
     bundle: {fileID: 11400000, guid: 26529690c14be774aa69e20e6c163f43, type: 2}
     weight: 30
   - chestName: "\u7A00\u6709\u5B9D\u7BB1"
-    color: {r: 0.32229975, g: 0.5812063, b: 0.89433956, a: 0}
+    color: {r: 0.32229975, g: 0.5812063, b: 0.89433956, a: 1}
     bundle: {fileID: 11400000, guid: 651d2f22e319ee44aaf1173491160d7f, type: 2}
     weight: 10
+  - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+    color: {r: 0.15300101, g: 0.25705582, b: 0.93207544, a: 1}
+    bundle: {fileID: 11400000, guid: 0416e9d1372167d478d81ce03832d9bd, type: 2}
+    weight: 5
   chestPool: {fileID: 1789796588}
   killsToSpawn: 20
   minDistToPlayer: 20
@@ -12843,33 +12902,89 @@ MonoBehaviour:
     maxAlive: 8
     stageName: "\u6D12\u6D12\u6C34"
     displayColor: {r: 1, g: 1, b: 1, a: 1}
-  - startTimeSeconds: 120
+    eliteSpawnChance: 0
+    chestKillsToSpawn: 10
+    chestMaxFieldCount: 2
+    chestTierWeights:
+    - chestName: "\u666E\u901A\u5B9D\u7BB1"
+      weight: 80
+    - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+      weight: 20
+    - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+      weight: 0
+    - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 0
+  - startTimeSeconds: 180
     spawnInterval: 1.5
     maxAlive: 15
     stageName: "\u7B80\u5355"
     displayColor: {r: 0.49411765, g: 0.8392157, b: 1, a: 1}
-  - startTimeSeconds: 300
-    spawnInterval: 1.2
+    eliteSpawnChance: 0.05
+    chestKillsToSpawn: 15
+    chestMaxFieldCount: 2
+    chestTierWeights:
+    - chestName: "\u666E\u901A\u5B9D\u7BB1"
+      weight: 65
+    - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+      weight: 30
+    - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+      weight: 5
+    - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 0
+  - startTimeSeconds: 360
+    spawnInterval: 0.6
     maxAlive: 20
     stageName: "\u666E\u901A"
     displayColor: {r: 1, g: 0.81960785, b: 0.4, a: 1}
-  - startTimeSeconds: 480
-    spawnInterval: 1
+    eliteSpawnChance: 0.1
+    chestKillsToSpawn: 25
+    chestMaxFieldCount: 3
+    chestTierWeights:
+    - chestName: "\u666E\u901A\u5B9D\u7BB1"
+      weight: 45
+    - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+      weight: 40
+    - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+      weight: 15
+    - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 0
+  - startTimeSeconds: 600
+    spawnInterval: 0.3
     maxAlive: 25
     stageName: "\u4E0A\u538B\u529B"
     displayColor: {r: 1, g: 0.54901963, b: 0.25882354, a: 1}
-  - startTimeSeconds: 660
-    spawnInterval: 0.7
-    maxAlive: 30
-    stageName: "\u56F0\u96BE"
-    displayColor: {r: 1, g: 0.3019608, b: 0.3019608, a: 1}
-  - startTimeSeconds: 840
-    spawnInterval: 0.35
-    maxAlive: 40
-    stageName: "\u4E0D\u53EF\u80FD"
-    displayColor: {r: 1, g: 0.18039216, b: 0.3882353, a: 1}
+    eliteSpawnChance: 0.2
+    chestKillsToSpawn: 30
+    chestMaxFieldCount: 4
+    chestTierWeights:
+    - chestName: "\u666E\u901A\u5B9D\u7BB1"
+      weight: 25
+    - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+      weight: 45
+    - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+      weight: 25
+    - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 5
+  - startTimeSeconds: 780
+    spawnInterval: 0.1
+    maxAlive: 35
+    stageName: "\u7EC8\u5C40"
+    displayColor: {r: 0.9622642, g: 0.1797436, b: 0.1797436, a: 1}
+    eliteSpawnChance: 0.3
+    chestKillsToSpawn: 35
+    chestMaxFieldCount: 5
+    chestTierWeights:
+    - chestName: "\u666E\u901A\u5B9D\u7BB1"
+      weight: 10
+    - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
+      weight: 35
+    - chestName: "\u7A00\u6709\u5B9D\u7BB1"
+      weight: 40
+    - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 15
   gameSession: {fileID: 1328712796}
   enemySpawner: {fileID: 2143128366}
+  chestSpawner: {fileID: 2143128368}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

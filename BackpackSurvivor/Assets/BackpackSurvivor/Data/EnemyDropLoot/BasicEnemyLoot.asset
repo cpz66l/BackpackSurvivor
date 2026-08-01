@@ -15,8 +15,8 @@ MonoBehaviour:
   channels:
   - probability: 1
     subTable: {fileID: 11400000, guid: 33cdb701f993e634b864b1a870bfec42, type: 2}
-  - probability: 0.05
+  - probability: 0.04
     subTable: {fileID: 11400000, guid: a58ed44a0afd4e044996d6e218a17394, type: 2}
-  - probability: 1
-    subTable: {fileID: 11400000, guid: fca669af801c4044f870139dc57b9408, type: 2}
+  - probability: 0.01
+    subTable: {fileID: 11400000, guid: 164bdb73d497b3c4991abb463be3e737, type: 2}
   entries: []

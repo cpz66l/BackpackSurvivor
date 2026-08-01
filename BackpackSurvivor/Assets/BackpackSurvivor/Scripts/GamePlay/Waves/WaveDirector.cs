@@ -1,4 +1,5 @@
-﻿using BS.GamePlay.Run;
+﻿using BS.GamePlay.Loot;
+using BS.GamePlay.Run;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,11 +16,17 @@ namespace BS.GamePlay.Waves
             public int maxAlive;
             public string stageName;
             public Color displayColor;
+            [Range(0f, 1f)] public float eliteSpawnChance;
+            public int chestKillsToSpawn;
+            public int chestMaxFieldCount;
+            public ChestSpawner.ChestTierWeight[] chestTierWeights;
         }
         [SerializeField] private List<WaveStage> waveStages;
 
         [SerializeField] private GameSession gameSession;
         [SerializeField] private EnemySpawner enemySpawner;
+        [SerializeField] private ChestSpawner chestSpawner;
+
         private int currentStageIndex = -1;
 
         private void Awake()
@@ -28,6 +35,8 @@ namespace BS.GamePlay.Waves
                 gameSession = FindAnyObjectByType<GameSession>();
             if(enemySpawner == null)
                 enemySpawner = GetComponent<EnemySpawner>();
+            if (chestSpawner == null)
+                chestSpawner = FindAnyObjectByType<ChestSpawner>();
         }
         
 
@@ -46,9 +55,19 @@ namespace BS.GamePlay.Waves
                     currentStageIndex = i;
                     if (stageIndex != currentStageIndex)
                     {
-                        enemySpawner.ApplyWaveSettings
+                        //改变敌人生成器的参数
+                        if (enemySpawner != null)
+                            enemySpawner.ApplyWaveSettings 
                             (waveStages[i].spawnInterval,
-                            waveStages[i].maxAlive);
+                            waveStages[i].maxAlive,
+                            waveStages[i].eliteSpawnChance);
+                        //改变宝箱生成器的参数
+                        if (chestSpawner != null)
+                            chestSpawner.ApplyWaveSettings 
+                            (waveStages[i].chestKillsToSpawn,
+                            waveStages[i].chestMaxFieldCount,
+                            waveStages[i].chestTierWeights);
+
                         OnWaveStageChanged?.Invoke(currentStageIndex,
                             waveStages[i].stageName, waveStages[i].displayColor);
                     }

@@ -155,4 +155,16 @@
 
 ---
 
-> 下一条从 BUG-013 开始。
+### BUG-013 · GLB 新模型受击后不再闪白（第 23 课）
+
+- **日期**：2026-08-02 · **所属系统**：战斗反馈 / 模型材质（DamageFlashView + Health.OnDamaged）
+- **现象**：替换基础 GLB 敌人模型后，敌人受击仍然扣血、跳伤害数字，但原本的白光反馈消失；手动拖 Renderer 也没有看到明显效果。
+- **复现步骤**：① 使用新导入的 NormalEnemy / EliteEnemy 模型 ② 玩家攻击敌人 ③ 观察伤害数字正常但敌人模型没有闪白。
+- **排查过程**：先怀疑 Renderer 没抓到，于是确认 `GetComponentsInChildren<Renderer>(true)`；再通过日志验证 `DamageFlashView.OnEnable`、`Health.TakeDamage`、`HandleDamaged` 都已触发，说明事件链路没断。最后把问题定位到材质表现路径：旧方案改 `renderer.material.color`，但 GLB 模型材质/Shader 不一定吃这个颜色属性。
+- **根因**：旧闪白方案依赖材质支持颜色属性，换成 GLB 新模型后，受击事件正常但材质颜色修改没有稳定可见效果。
+- **修复**：`DamageFlashView` 改为缓存每个 Renderer 的 `sharedMaterials`，受击时临时替换为 `flashMaterial`，等待 `flashDuration` 后恢复；`OnDisable()` 兜底恢复材质，防止池化对象带着闪白材质回池。
+- **沉淀规则（一句话）**：视觉反馈失效先分清“事件没来”还是“表现方式不生效”；跨模型/跨 Shader 的 Demo 反馈，临时材质替换比改颜色更稳。
+
+---
+
+> 下一条从 BUG-014 开始。
