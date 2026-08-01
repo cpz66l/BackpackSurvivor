@@ -9,6 +9,8 @@
         public bool Rotated { get; private set; }
         public ItemTag Tag { get;}
         public ConnectableSides LocalConnectableSides { get; }
+        public int ScoreValue { get;} // 分数价值
+        public float EffectValue { get; } // 战斗效果数值
 
         private readonly int baseWidth;    // 原始朝向的尺寸，存一份不动
         private readonly int baseHeight;
@@ -17,24 +19,11 @@
         public int Width => Rotated ? baseHeight : baseWidth;
         public int Height => Rotated ? baseWidth : baseHeight;
 
-        public Item(string id, Rarity rarity, int width, int height)
-        {
-            Id = id;
-            baseWidth = width;
-            baseHeight = height;
-            Rarity = rarity;
-            Rotated = false;
-            Level = 1;
-            MaxLevel = 3;
-            Tag = ItemTag.None;
-            LocalConnectableSides = ConnectableSides.None;
-        }
-
-        //新构造函数
         public Item(string id,
             Rarity rarity, int width, int height 
             , ItemTag itemTag ,
-            ConnectableSides connectableSides)
+            ConnectableSides connectableSides,
+            int scoreValue,float effectValue)
         {
             Id = id;
             baseWidth = width;
@@ -45,6 +34,8 @@
             MaxLevel = 3;
             Tag = itemTag;
             LocalConnectableSides = connectableSides;
+            ScoreValue = scoreValue;
+            EffectValue = effectValue;
         }
 
 

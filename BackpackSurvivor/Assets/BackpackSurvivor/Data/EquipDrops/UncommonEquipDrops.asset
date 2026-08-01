@@ -15,26 +15,86 @@ MonoBehaviour:
   channels: []
   entries:
   - category: 2
-    id: "\u533B\u7597\u5305"
+    id: "\u6B66\u5668\u96F6\u4EF6"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 1
-    weight: 75
-    amount: 0
-    width: 2
-    height: 1
-  - category: 2
-    id: "\u624B\u67AA"
-    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
-    rarity: 2
     weight: 20
     amount: 0
     width: 1
-    height: 2
+    height: 1
+    itemTag: 12
+    connectableSides: 0
+    scoreValue: 50
+    effectValue: 0
   - category: 2
-    id: "\u6B65\u67AA"
+    id: "\u52A0\u5BC6\u95E8\u7981\u5361"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
-    rarity: 3
+    rarity: 1
+    weight: 15
+    amount: 0
+    width: 1
+    height: 1
+    itemTag: 12
+    connectableSides: 0
+    scoreValue: 75
+    effectValue: 0
+  - category: 2
+    id: "\u6269\u5BB9\u5F39\u5323"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    rarity: 1
+    weight: 20
+    amount: 0
+    width: 1
+    height: 1
+    itemTag: 7
+    connectableSides: 1
+    scoreValue: 65
+    effectValue: 0.4
+  - category: 2
+    id: "\u6539\u88C5\u624B\u67AA"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    rarity: 1
+    weight: 15
+    amount: 0
+    width: 2
+    height: 1
+    itemTag: 1
+    connectableSides: 10
+    scoreValue: 75
+    effectValue: 0
+  - category: 2
+    id: "\u6218\u5730\u6025\u6551\u5305"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    rarity: 1
     weight: 5
     amount: 0
     width: 2
-    height: 3
+    height: 1
+    itemTag: 11
+    connectableSides: 0
+    scoreValue: 50
+    effectValue: 0
+  - category: 2
+    id: "\u6CF5\u52A8\u9730\u5F39\u67AA"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    rarity: 1
+    weight: 10
+    amount: 0
+    width: 3
+    height: 2
+    itemTag: 3
+    connectableSides: 5
+    scoreValue: 130
+    effectValue: 0
+  - category: 2
+    id: "\u7A81\u51FB\u6B65\u67AA"
+    dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
+    rarity: 1
+    weight: 15
+    amount: 0
+    width: 3
+    height: 2
+    itemTag: 2
+    connectableSides: 5
+    scoreValue: 120
+    effectValue: 0

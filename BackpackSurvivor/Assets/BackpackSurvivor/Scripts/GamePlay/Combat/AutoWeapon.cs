@@ -16,6 +16,7 @@ namespace BS.GamePlay.Combat
 
         private float attackTimer = 0f;
         private IDamageable currentTarget;
+        private float backpackFireRateMultiplier = 1f;
 
         private void Awake()
         {
@@ -47,7 +48,9 @@ namespace BS.GamePlay.Combat
                 rotationSpeed * Time.deltaTime
             );
 
-            float finalAttackInterval = attackInterval / stats.FireRateMultiplier;
+            //计算最终攻击间隔，考虑背包与等级加成
+            float finalAttackInterval = attackInterval / (stats.FireRateMultiplier * backpackFireRateMultiplier);
+
             attackTimer += Time.deltaTime;
             if (attackTimer < finalAttackInterval) return;
 
@@ -58,6 +61,9 @@ namespace BS.GamePlay.Combat
             Fire((currentTarget.Position - firePoint.position).normalized);
         }
 
-        
+        public void SetBackpackFireRateMultiplier(float multiplier)
+        {
+            backpackFireRateMultiplier = Mathf.Max(1f, multiplier);
+        }
     }
 }

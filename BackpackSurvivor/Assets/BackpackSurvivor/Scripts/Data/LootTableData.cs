@@ -45,6 +45,18 @@ namespace BS.Data
 
             [Tooltip("高度")]
             public int height = 1;
+
+            [Tooltip("背包物品标签")]
+            public ItemTag itemTag = ItemTag.None;
+
+            [Tooltip("可邻接方向")]
+            public ConnectableSides connectableSides = ConnectableSides.None;
+
+            [Tooltip("分数价值")]
+            public int scoreValue;
+
+            [Tooltip("战斗效果数值，例如 0.15 表示 +15%")]
+            public float effectValue;
         }
         [Tooltip("所有可能的掉落条目")]
         public LootEntry[] entries ;

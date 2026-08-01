@@ -143,4 +143,16 @@
 
 ---
 
-> 下一条从 BUG-012 开始。
+## BUG-012 · TMP 中文显示方块（第 22 课）
+
+- **日期**：2026-08-01 · **所属系统**：UI 字体 / TextMesh Pro（TMP Settings + TMP Font Asset）
+- **现象**：局内中文文本显示为方块，包括胜利/失败、背包提示、按钮文本等中文内容存在显示风险。
+- **复现步骤**：① 替换或删除原中文字体资产 ② 打开 `01-Run` 场景进入 Play ③ 观察 TMP 文本中的中文字符。
+- **排查过程**：先确认文本内容本身没问题，再全局扫描旧字体 GUID、旧 TMP 材质 fileID 和场景/prefab 的 `m_fontAsset / m_sharedMaterial` 引用；继续检查 `TMP Settings.asset` 的默认字体和 fallback，最后检查新 SDF 是否绑定源 TTF、是否开启 Dynamic Atlas 与 Multi Atlas。
+- **根因**：旧中文 SDF 字体资产无法稳定覆盖项目中文字形，且场景、prefab、TMP 默认设置中可能残留旧字体或旧材质引用；TMP 缺少 glyph 时就会显示方块。
+- **修复**：替换为 `SourceHanSansCN-Normal.ttf` 与 `SourceHanSansCN-Normal SDF.asset`；统一场景、`DamageNumber.prefab`、`ItemView.prefab` 的字体和材质引用；`TMP Settings.asset` 默认字体与 fallback 指向新 SDF；新 SDF 开启 Dynamic、Multi Atlas，并关闭 Build 时清空动态数据。
+- **沉淀规则**：中文显示方块要查整条字体资产链，不能只改单个 Text；字体、SDF、材质、TMP Settings 和 `.meta` 都是可复现工程的一部分。
+
+---
+
+> 下一条从 BUG-013 开始。

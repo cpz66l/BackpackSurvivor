@@ -33,7 +33,6 @@ namespace BS.GamePlay
         public bool CanAccept(LootEntry entry)
         {
             if (entry == null) return false;
-            //Item probe = new Item(entry.id, entry.rarity, entry.width, entry.height);
             Item probe = CreateItemFromLootEntry(entry);
             if (Grid.TryFindFreeArea(probe, out _, out _)) return true;
             return false;
@@ -42,7 +41,6 @@ namespace BS.GamePlay
         private void HandleCollected(LootEntry entry)
         {
             if(entry == null) return;
-            //Item item = new Item(entry.id ,entry.rarity ,entry.width,entry.height);
             Item item = CreateItemFromLootEntry(entry);
             if (Grid.TryFindFreeArea(item, out int x, out int y))
             {
@@ -72,7 +70,11 @@ namespace BS.GamePlay
                 rarity = item.Rarity,
                 width = item.Width,
                 height = item.Height,
-                amount = 1
+                amount = 1,
+                itemTag = item.Tag,
+                connectableSides = item.LocalConnectableSides,
+                scoreValue = item.ScoreValue,
+                effectValue = item.EffectValue,
             };
 
             Vector3 from = playerHealth.Position;                       // 玩家胸口（aimPoint）
@@ -83,19 +85,20 @@ namespace BS.GamePlay
             go.GetComponent<DropItem>()?.PlayScatterFlight(from, to);
         }
 
-        //临时物品定义入口
+        //物品定义入口
         private Item CreateItemFromLootEntry(LootEntry entry)
         {
-            Item item;
-            if (entry.id == "手枪")
-            {
-                item = new Item("手枪",Rarity.Rare,2,2, ItemTag.Pistol, ConnectableSides.Left | ConnectableSides.Right);
-            }
-            else
-            {
-                item = new Item(entry.id, entry.rarity, entry.width, entry.height);
-            }
-            return item;
+            if (entry == null) return null;
+
+            return new Item(
+                entry.id,
+                entry.rarity,
+                entry.width,
+                entry.height,
+                entry.itemTag,
+                entry.connectableSides,
+                entry.scoreValue,
+                entry.effectValue);
         }
     }
 }

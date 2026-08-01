@@ -20,7 +20,21 @@ namespace BS.Inventory
             ConnectableSides.Left,
             ItemTag.Pistol,
             ConnectableSides.Right,
-            AdjacencyEffectId.DualWield)
+            AdjacencyEffectId.DualWield),
+
+            new AdjacencyRule(
+            ItemTag.Rifle,
+            ConnectableSides.Down,
+            ItemTag.Magazine,
+            ConnectableSides.Up,
+            AdjacencyEffectId.FireRateBoost),
+
+            new AdjacencyRule(
+            ItemTag.Shotgun,
+            ConnectableSides.Down,
+            ItemTag.Magazine,
+            ConnectableSides.Up,
+            AdjacencyEffectId.FireRateBoost)
         };
     }
 }

@@ -12,7 +12,7 @@ namespace BS.Inventory
             if (candidateEffects == null) return validEffects;
 
             AddValidDualWieldEffects(candidateEffects,validEffects);//处理候选双持效果
-            // 当前真实结算只开放 DualWield；可堆叠效果在接入真实收益时再加入解析分支。
+            AddValidFireRateBoostEffects(candidateEffects, validEffects);
 
             return validEffects;
         }
@@ -36,7 +36,15 @@ namespace BS.Inventory
             }
         }
 
-        //其他需要筛选的效果后续补充
+        private static void AddValidFireRateBoostEffects(List<AdjacencyEffect> candidateEffects, List<AdjacencyEffect> validEffects)
+        {
+            foreach (AdjacencyEffect effect in candidateEffects)
+            {
+                if (effect == null) continue;
+                if (effect.EffectId != AdjacencyEffectId.FireRateBoost) continue;
 
+                validEffects.Add(effect);
+            }
+        }
     }
 }
