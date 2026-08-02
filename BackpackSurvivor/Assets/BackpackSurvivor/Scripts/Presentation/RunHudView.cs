@@ -18,6 +18,7 @@ namespace BS.Presentation
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI stateText;
         [SerializeField] private TextMeshProUGUI waveText;
+        [SerializeField] private TextMeshProUGUI goldText;
 
         //血量HUD
         [SerializeField] private Health playerHealth;
@@ -49,6 +50,7 @@ namespace BS.Presentation
                 gameSession.OnTimeChanged += HandleTimeChanged;
                 gameSession.OnXpChanged += HandleXpChanged;
                 gameSession.OnStateChanged += HandleStateChanged;
+                gameSession.OnGoldChanged += HandleGoldChanged;
             }
             if (playerHealth != null)
                 playerHealth.OnHealthChanged += HandleHealthChanged;
@@ -62,6 +64,7 @@ namespace BS.Presentation
                 gameSession.OnTimeChanged -= HandleTimeChanged;
                 gameSession.OnXpChanged -= HandleXpChanged;
                 gameSession.OnStateChanged -= HandleStateChanged;
+                gameSession.OnGoldChanged -= HandleGoldChanged;
             }
             if (playerHealth != null)
                 playerHealth.OnHealthChanged -= HandleHealthChanged;
@@ -79,6 +82,7 @@ namespace BS.Presentation
             HandleXpChanged(gameSession.TotalXp, gameSession.Level ,
                 gameSession.CurrentXp,gameSession.XpToNextLevel);
             HandleStateChanged(gameSession.State);
+            HandleGoldChanged(gameSession.TotalGold);
             }
             if (playerHealth != null)
                 HandleHealthChanged(playerHealth.CurrentHp, playerHealth.MaxHp);
@@ -145,6 +149,12 @@ namespace BS.Presentation
             if(waveText == null) return;
             waveText.text = $"WAVE {stageIndex + 1} · {stageName}";
             waveText.color = displayColor;
+        }
+
+        private void HandleGoldChanged(int totalGold)
+        {
+            if (goldText == null) return;   
+            goldText.text = $"{totalGold}";
         }
     }
 }

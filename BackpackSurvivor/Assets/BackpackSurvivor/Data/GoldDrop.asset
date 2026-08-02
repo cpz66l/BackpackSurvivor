@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b294446e5ff3164db1def38dba77c82, type: 3}
+  m_Name: GoldDrop
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
+  channels: []
+  entries:
+  - category: 1
+    id: "\u5C0F\u5806\u91D1\u5E01"
+    dropPrefab: {fileID: 6058938945725479274, guid: 06e1f71eca8a56f45bef31e5b453c917, type: 3}
+    rarity: 0
+    weight: 60
+    amount: 5
+    width: 0
+    height: 0
+    itemTag: 0
+    connectableSides: 0
+    scoreValue: 0
+    effectValue: 0
+  - category: 1
+    id: "\u4E00\u888B\u91D1\u5E01"
+    dropPrefab: {fileID: 6058938945725479274, guid: 06e1f71eca8a56f45bef31e5b453c917, type: 3}
+    rarity: 0
+    weight: 30
+    amount: 12
+    width: 0
+    height: 0
+    itemTag: 0
+    connectableSides: 0
+    scoreValue: 0
+    effectValue: 0
+  - category: 1
+    id: "\u5927\u888B\u91D1\u5E01"
+    dropPrefab: {fileID: 6058938945725479274, guid: 06e1f71eca8a56f45bef31e5b453c917, type: 3}
+    rarity: 0
+    weight: 10
+    amount: 25
+    width: 0
+    height: 0
+    itemTag: 0
+    connectableSides: 0
+    scoreValue: 0
+    effectValue: 0

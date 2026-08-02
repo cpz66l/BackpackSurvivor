@@ -27,6 +27,7 @@ namespace BS.GamePlay.Run
         private GameState state = GameState.NotStarted;
         private LevelUpOptionGenerator levelUpOptionGenerator;
         private int killCount;
+        private int totalGold;
 
 
         //对外只读属性，给HUD
@@ -38,6 +39,7 @@ namespace BS.GamePlay.Run
         public int Level => levelProgress.Level;
         public int CurrentXp => levelProgress.CurrentXp;
         public int XpToNextLevel => levelProgress.XpToNextLevel;
+        public int TotalGold => totalGold;
 
         //HUD 要靠事件刷新
         public event Action<GameState> OnStateChanged;
@@ -46,6 +48,7 @@ namespace BS.GamePlay.Run
         public event Action<int> OnLevelUp; //升级播报
         public event Action<List<LevelUpOption>> OnLevelUpChoiceRequested;//升级能力选择
         public event Action<RunResult> OnRunEnded; //游戏结算
+        public event Action<int> OnGoldChanged; //金币
 
 
         private void Awake()
@@ -71,6 +74,7 @@ namespace BS.GamePlay.Run
             if (inputReader != null)
                 inputReader.OnPause += TogglePause;
             EnemyAI.OnEnemyDied += HandleEnemyDied;
+            GoldOrb.OnCollected += HandleGoldCollected;
         }
         private void OnDisable()
         {
@@ -80,6 +84,7 @@ namespace BS.GamePlay.Run
             if (inputReader != null)
                 inputReader.OnPause -= TogglePause;
             EnemyAI.OnEnemyDied -= HandleEnemyDied;
+            GoldOrb.OnCollected -= HandleGoldCollected;
             Time.timeScale = 1f;
         }
 
@@ -103,10 +108,12 @@ namespace BS.GamePlay.Run
             timer.Reset();
             levelProgress.Reset();
             killCount = 0;
+            totalGold = 0;  
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
             BroadcastXpChanged();
             OnTimeChanged?.Invoke(timer.Elapsed,timer.Remaining);
+            OnGoldChanged?.Invoke(totalGold);
         }
         //设置状态
         private void SetState(GameState nextState)
@@ -176,6 +183,16 @@ namespace BS.GamePlay.Run
                 levelProgress.CurrentXp,
                 levelProgress.XpToNextLevel);
         }
+
+        private void HandleGoldCollected(LootEntry entry)
+        {
+            if(entry == null) return;
+            if (State != GameState.Running) return;
+            totalGold += entry.amount;
+            OnGoldChanged?.Invoke(totalGold);
+            //播放金币音效
+        }
+
 
         private void TogglePause()
         {

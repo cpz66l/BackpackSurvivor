@@ -58,7 +58,8 @@ MonoBehaviour:
     itemTag: 0
     connectableSides: 0
     scoreValue: 0
-  survivalTime: 60
+    effectValue: 0
+  survivalTime: 20
   flightDuration: 0.4
   arcHeight: 2
 --- !u!135 &-8905088783128996918

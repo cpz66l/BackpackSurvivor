@@ -8,7 +8,8 @@ namespace BS.GamePlay.Loot
     public class LootManager : MonoBehaviour
     {
         [SerializeField] private ObjectPool dropPool;
-        [SerializeField] private ObjectPool currencyPool;
+        [SerializeField] private ObjectPool xpOrbPool;
+        [SerializeField] private ObjectPool goldOrbPool;
         [SerializeField] private int pityThreshold = 10;//保底数
         [SerializeField] private float offset = 0.8f;
 
@@ -47,12 +48,22 @@ namespace BS.GamePlay.Loot
             else if (entry.category == DropCategory.Xp)
             {
                 Vector2 randomOffset = Random.insideUnitCircle * offset;
-                Vector3 pos = position + new Vector3(randomOffset.x, 0, randomOffset.y);
-                XpOrb xpOrb = currencyPool.Get(pos).GetComponent<XpOrb>();
+                Vector3 target = position + new Vector3(randomOffset.x, 0, randomOffset.y);
+                XpOrb xpOrb = xpOrbPool.Get(position).GetComponent<XpOrb>();
                 xpOrb.Initialize(entry);
+                xpOrb.PlayScatterFlight(position ,target);
                 return xpOrb.gameObject;
             }
-            return null;   // Gold 挂账分支
+            else if (entry.category == DropCategory.Gold)
+            {
+                Vector2 randomOffset = Random.insideUnitCircle * offset;
+                Vector3 target = position + new Vector3(randomOffset.x, 0, randomOffset.y);
+                GoldOrb goldOrb = goldOrbPool.Get(position).GetComponent<GoldOrb>();
+                goldOrb.Initialize(entry);
+                goldOrb.PlayScatterFlight(position ,target);
+                return goldOrb.gameObject;
+            }
+            return null;   
         }
     }
 }

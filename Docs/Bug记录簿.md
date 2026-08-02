@@ -167,4 +167,16 @@
 
 ---
 
-> 下一条从 BUG-014 开始。
+### BUG-014 · 字段改名导致 GoldOrb 池引用丢失，敌人死亡掉落时报 NRE（第 24 课）
+
+- **日期**：2026-08-02 · **所属系统**：掉落系统 / Unity 序列化 / 对象池（LootManager + GoldOrb Pool）
+- **现象**：击杀敌人后出现空引用，表面定位在 `EnemyAI` 的 `lootManager.TrySpawnDrop(health.Position, lootTable)` 调用附近；金币掉落分支无法正常生成。
+- **复现步骤**：① LootTable 中配置 Gold 掉落 ② Play 后击杀敌人 ③ 掉落流程进入 Gold 分支 ④ Console 报空引用。
+- **排查过程**：先排除 `EnemyAI` 和 `lootManager` 本身为空，因为其他掉落分支能工作；继续钻进 `LootManager.SpawnEntry()`，发现空引用发生在 Gold 分支取 `goldOrbPool.Get(position)` 时。再检查场景 Inspector/YAML，发现字段曾从拼写错误的 `glodOrbPool` 改成 `goldOrbPool`，旧序列化引用没有自动迁移。
+- **根因**：Unity 对 `[SerializeField] private` 字段按字段名序列化；字段改名后，场景中原来绑定到旧字段名的数据不会自动匹配到新字段，导致 `goldOrbPool` 变成 null。
+- **修复**：在 `01-Run.unity` 中重新给 `LootManager.goldOrbPool` 接入 GoldOrb 对象池并保存场景；后续同类字段改名可使用 `[FormerlySerializedAs("旧字段名")]` 保护引用迁移。
+- **沉淀规则（一句话）**：Unity 序列化字段改名后必须检查 Inspector 引用和 YAML 残留；NRE 的报错行是入口，不一定是真正为空的字段。
+
+---
+
+> 下一条从 BUG-015 开始。
