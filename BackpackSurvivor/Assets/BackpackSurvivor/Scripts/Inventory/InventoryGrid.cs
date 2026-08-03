@@ -276,5 +276,17 @@ namespace BS.Inventory {
 
             return placedItems;
         }
+
+        //计算背包中所有物品的总分数价值
+        public int GetTotalScoreValue()
+        {
+            int total = 0;
+            foreach (Item item in GetUniqueItems())
+            {
+                if (item == null) continue;
+                total += item.ScoreValue;
+            }
+            return total;
+        }
     }
 }

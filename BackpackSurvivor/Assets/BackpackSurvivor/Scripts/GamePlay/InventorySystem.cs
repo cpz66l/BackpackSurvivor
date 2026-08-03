@@ -73,8 +73,8 @@ namespace BS.GamePlay
                 amount = 1,
                 itemTag = item.Tag,
                 connectableSides = item.LocalConnectableSides,
-                scoreValue = item.ScoreValue,
-                effectValue = item.EffectValue,
+                scoreValue = item.BaseScoreValue,
+                effectValue = item.BaseEffectValue,
             };
 
             Vector3 from = playerHealth.Position;                       // 玩家胸口（aimPoint）

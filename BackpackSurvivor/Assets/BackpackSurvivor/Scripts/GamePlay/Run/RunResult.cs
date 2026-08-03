@@ -8,14 +8,16 @@
         public int Level { get; }
         public int TotalXp { get; }
         public int KillCount { get; }
+        public int BackpackValue { get; }
 
-        public RunResult(GameState finalState , float elapsed , int level , int totalXp , int killCount)
+        public RunResult(GameState finalState , float elapsed , int level , int totalXp , int killCount ,int backpackValue)
         {
             FinalState = finalState ;
             Elapsed = elapsed ;
             Level = level ;
             TotalXp = totalXp ;
             KillCount = killCount ;
+            BackpackValue = backpackValue;
         } 
 
 

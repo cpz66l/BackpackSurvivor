@@ -70,7 +70,8 @@ namespace BS.Presentation
                 $"存活时间：{FormatTime(runResult.Elapsed)}\r\n" +
                 $"等级：{runResult.Level}\r\n" +
                 $"总经验：{runResult.TotalXp}\r\n" +
-                $"击杀数：{runResult.KillCount}";
+                $"击杀数：{runResult.KillCount}\r\n" +
+                $"背包价值：￥{runResult.BackpackValue}";
         }
         //计算显示时间
         private string FormatTime(float seconds)

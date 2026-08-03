@@ -9,15 +9,19 @@
         public bool Rotated { get; private set; }
         public ItemTag Tag { get;}
         public ConnectableSides LocalConnectableSides { get; }
-        public int ScoreValue { get;} // 分数价值
-        public float EffectValue { get; } // 战斗效果数值
-
+       
         private readonly int baseWidth;    // 原始朝向的尺寸，存一份不动
         private readonly int baseHeight;
+        private readonly int baseScoreValue;
+        private readonly float baseEffectValue;
 
         // 宽高变成"按需换算"：标志说了算
         public int Width => Rotated ? baseHeight : baseWidth;
         public int Height => Rotated ? baseWidth : baseHeight;
+        public int ScoreValue => baseScoreValue * Level; // 分数价值
+        public float EffectValue => baseEffectValue * Level; // 战斗效果数值
+        public int BaseScoreValue => baseScoreValue; // 基础分数价值
+        public float BaseEffectValue => baseEffectValue; // 基础战斗效果数值    
 
         public Item(string id,
             Rarity rarity, int width, int height 
@@ -34,8 +38,8 @@
             MaxLevel = 3;
             Tag = itemTag;
             LocalConnectableSides = connectableSides;
-            ScoreValue = scoreValue;
-            EffectValue = effectValue;
+            baseScoreValue = scoreValue;
+            baseEffectValue = effectValue;
         }
 
 

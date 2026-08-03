@@ -4,6 +4,7 @@ using BS.Inventory;
 using UnityEngine;
 using System.Collections.Generic;
 using BS.GamePlay.Combat;
+using TMPro;
 namespace BS.Presentation
 {
     public class InventoryUIController : MonoBehaviour
@@ -13,6 +14,8 @@ namespace BS.Presentation
         [SerializeField] private float step = 70f;           // 64格 + 2缝
         [SerializeField] private InventorySystem inventorySystem;
         [SerializeField] private RectTransform bagPanel;   // Inspector 拖背包底框
+        [SerializeField] private TextMeshProUGUI totalValueText; //总价值文本
+        [SerializeField] private ItemTooltipView tooltipView; //item属性提示面板
 
         private InventoryGrid grid;
         private bool isDragging = false;
@@ -95,9 +98,11 @@ namespace BS.Presentation
                     //判断是否要投影武器激活效果UI
 
                     itemView.SetActiveWeapon(backpackWeaponActivator.IsWeaponItemActive(item));
-
+                    
                 }
             }
+
+            RefreshTotalValue();
         }
 
         //拖拽接口
@@ -116,6 +121,8 @@ namespace BS.Presentation
 
             // 将 ghost 提到网格视觉最上层
             ghost.transform.SetAsLastSibling();
+            //关闭提示面板，避免拖拽时提示面板挡住鼠标
+            HideTooltip();
 
         }
 
@@ -138,6 +145,7 @@ namespace BS.Presentation
             bool rightful = (grid.CanPlaceAt(targetX, targetY, dragItem) 
                 || grid.CanMerge(dragItem, grid.GetItemAt(targetX, targetY)));
             ghost.SetValidColor(rightful);
+
         }
 
         //监听鼠标松手时，将物品置位或丢弃
@@ -241,6 +249,28 @@ namespace BS.Presentation
             return activeSides;
         }
 
-        
+        private void RefreshTotalValue()
+        {
+            if (totalValueText == null) return;
+            if (grid == null) return;
+
+            totalValueText.text = $"背包价值：￥{grid.GetTotalScoreValue()}";
+        }
+
+        public void ShowTooltip(Item item, Vector2 screenPosition)
+        {
+            if(isDragging) return; //拖拽期间不显示提示面板
+            tooltipView?.Show(item, screenPosition);
+        }
+
+        public void MoveTooltip(Vector2 screenPosition)
+        {
+            tooltipView?.Move(screenPosition);
+        }
+
+        public void HideTooltip()
+        {
+            tooltipView?.Hide();
+        }
     }
 }

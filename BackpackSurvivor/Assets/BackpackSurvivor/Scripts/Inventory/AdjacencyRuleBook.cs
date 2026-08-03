@@ -34,6 +34,13 @@ namespace BS.Inventory
             ConnectableSides.Down,
             ItemTag.Magazine,
             ConnectableSides.Up,
+            AdjacencyEffectId.FireRateBoost),
+
+            new AdjacencyRule(
+            ItemTag.Pistol,
+            ConnectableSides.Left,
+            ItemTag.Magazine,
+            ConnectableSides.Up,
             AdjacencyEffectId.FireRateBoost)
         };
     }

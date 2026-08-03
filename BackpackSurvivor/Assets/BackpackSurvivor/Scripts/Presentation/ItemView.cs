@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace BS.Presentation
 {
-    public class ItemView : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+    public class ItemView : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler,IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
         [SerializeField] private Image bg;          // 自己身上的 Image
         [SerializeField] private TextMeshProUGUI label;  // 子物体的文字
@@ -23,12 +23,15 @@ namespace BS.Presentation
 
         private InventoryUIController controller;
 
+        //将UI显示层与Item绑定起来
         public void Bind(Item item ,float step , InventoryUIController ctrl)
         {
             controller = ctrl;
             this.item = item;
-            label.text = $"{item.Id} Lv.{item.Level}";
+            label.text = $"{item.Id} \r\n" +
+                $" Lv.{item.Level}";
             GetComponent<RectTransform>().sizeDelta = new Vector2(item.Width * step, item.Height * step);
+
             switch (item.Rarity)
             {
                 case Rarity.Common:
@@ -47,7 +50,9 @@ namespace BS.Presentation
                     bg.color = new Color(1f, 0.84f, 0f);    // 金
                     break;
             }
+            //更新联接口和武器激活UI布局
             UpdateOverlayLayout(step);
+
         }
 
 
@@ -106,6 +111,7 @@ namespace BS.Presentation
             LayoutImage(bottomConnector, new Vector2(0.5f, 0), new Vector2(0, inset), connectorSize);
             LayoutImage(leftConnector, new Vector2(0, 0.5f), new Vector2(inset, 0), connectorSize);
             LayoutImage(activeWeaponUI, new Vector2(0, 1), new Vector2(inset, -inset), activeMarkerSize);
+
         }
         private void LayoutImage(Image image, Vector2 anchor,
             Vector2 position, float size)
@@ -117,6 +123,21 @@ namespace BS.Presentation
             rect.pivot = new Vector2(0.5f,0.5f);
             rect.anchoredPosition = position;
             rect.sizeDelta = new Vector2(size, size);
+        }
+
+        //当鼠标进入时显示提示框，离开时隐藏提示框
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            controller.ShowTooltip(item, eventData.position);
+        }
+        public void OnPointerMove(PointerEventData eventData)
+        {
+            controller.MoveTooltip(eventData.position);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            controller.HideTooltip();
         }
     }
 }

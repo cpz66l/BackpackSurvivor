@@ -14,6 +14,7 @@ namespace BS.GamePlay.Run
     public class GameSession : MonoBehaviour
     {
         [SerializeField] private Health playerHealth;
+        [SerializeField] private InventorySystem inventorySystem;
         [SerializeField] private float runDurationSeconds = 900f;
         [SerializeField] private InputReader inputReader;
         [SerializeField] private int baseXpToNextLevel = 10;
@@ -64,6 +65,8 @@ namespace BS.GamePlay.Run
                 playerRunStats = FindAnyObjectByType<PlayerRunStats>();
             if (sfx == null)
                 sfx = FindAnyObjectByType<SfxPlayer>();
+            if(inventorySystem == null)
+                inventorySystem = FindAnyObjectByType<InventorySystem>();
         }
 
         private void OnEnable()
@@ -230,7 +233,10 @@ namespace BS.GamePlay.Run
             if (state != GameState.Running) return;
             SetState(finalState);
             Time.timeScale = 0f;
-            RunResult runResult = new RunResult(finalState,Elapsed,Level,TotalXp,killCount);
+            int backpackValue = 0;
+            if (inventorySystem != null && inventorySystem.Grid != null)
+                backpackValue = inventorySystem.Grid.GetTotalScoreValue();
+            RunResult runResult = new RunResult(finalState,Elapsed,Level,TotalXp,killCount, backpackValue);
             OnRunEnded?.Invoke(runResult);//带入结算参数数据包
         }
     }
