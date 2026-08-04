@@ -27,7 +27,7 @@ namespace BS.Presentation
         public void Play(float damage)
         {
             if (damageText != null)
-                damageText.text = Mathf.FloorToInt(damage).ToString();
+                damageText.text = Mathf.RoundToInt(damage).ToString();
 
             if (playRoutine != null)
                 StopCoroutine(playRoutine);

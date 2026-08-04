@@ -8,6 +8,9 @@ using UnityEngine;
 namespace BS.GamePlay.Loot {
     public class LootChest : MonoBehaviour,IInteractable,IPoolable
     {
+        //静态列表，全局的宝箱都可以使用
+        private static readonly List<LootChest> unopenedChests = new List<LootChest>();
+
         [SerializeField] private string chestName = "宝箱";        // "宝箱" / "隐藏宝箱"
         [SerializeField] private LootTableData lootBundle; // 束表
         [SerializeField] private Renderer modelRb;     //变色用
@@ -67,6 +70,7 @@ namespace BS.GamePlay.Loot {
         {
             if(opened) return false;
             opened = true;
+            unopenedChests.Remove(this);
             //关闭碰撞器，避免再次检测
             chestCollider.enabled = false;
             //变灰淡色
@@ -102,12 +106,36 @@ namespace BS.GamePlay.Loot {
             chestCollider.enabled = true;
             modelRb.material.color = originalColor;
             ActiveCount++;
+
+            if (!unopenedChests.Contains(this))
+                unopenedChests.Add(this);
         }
 
         public void OnReturnPool()
         {
             ActiveCount--;
+            unopenedChests.Remove(this);
         }
 
+
+        public static bool TryGetNearestUnopened(Vector3 from, out LootChest nearest)
+        {
+            nearest = null;
+            float sqrNearestDistance = float.MaxValue;
+            if(unopenedChests != null && unopenedChests.Count != 0)
+                foreach (var chest in unopenedChests)
+                {
+                    if(chest == null) continue;
+                    if(chest.gameObject.activeInHierarchy == false) continue;
+                    float sqrDistance = (chest.transform.position - from).sqrMagnitude;
+                    if (sqrDistance < sqrNearestDistance)
+                    {
+                        sqrNearestDistance = sqrDistance;
+                        nearest = chest;
+                    }
+                }
+
+            return nearest != null;
+        }
     } 
 }

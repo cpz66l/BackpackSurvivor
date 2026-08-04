@@ -20,6 +20,8 @@ namespace BS.GamePlay.Waves
             public int chestKillsToSpawn;
             public int chestMaxFieldCount;
             public ChestSpawner.ChestTierWeight[] chestTierWeights;
+            public float normalEnemyMaxHp = 1f;
+            public float eliteEnemyMaxHp = 1f;
         }
         [SerializeField] private List<WaveStage> waveStages;
 
@@ -60,7 +62,9 @@ namespace BS.GamePlay.Waves
                             enemySpawner.ApplyWaveSettings 
                             (waveStages[i].spawnInterval,
                             waveStages[i].maxAlive,
-                            waveStages[i].eliteSpawnChance);
+                            waveStages[i].eliteSpawnChance,
+                            waveStages[i].normalEnemyMaxHp,
+                            waveStages[i].eliteEnemyMaxHp);
                         //改变宝箱生成器的参数
                         if (chestSpawner != null)
                             chestSpawner.ApplyWaveSettings 

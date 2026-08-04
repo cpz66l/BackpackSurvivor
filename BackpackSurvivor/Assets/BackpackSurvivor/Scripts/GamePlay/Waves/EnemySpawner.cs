@@ -12,7 +12,9 @@ namespace BS.GamePlay.Waves
         [SerializeField] private float spawnOutsideRadius = 15f;
         [SerializeField] private float spawnInsideRadius = 10f;
         [SerializeField] private Transform playerTf;
-        
+        private float normalEnemyMaxHp = 40f;
+        private float eliteEnemyMaxHp = 150f;
+
         [SerializeField] private ObjectPool normalEnemyPool;
         [SerializeField] private ObjectPool eliteEnemyPool;
         [SerializeField, Range(0f, 1f)] private float eliteSpawnChance;
@@ -38,17 +40,28 @@ namespace BS.GamePlay.Waves
                 spawnPos.y = 1f;//如果敌人换体型了，得再改改
                 ObjectPool selectedPool = PickEnemyPool();
                 if (selectedPool == null) return;
-                selectedPool.Get(spawnPos);
+                if (selectedPool == normalEnemyPool)
+                {
+                    GameObject obj = selectedPool.Get(spawnPos);
+                    obj.GetComponent<Health>()?.SetMaxHpAndReset(normalEnemyMaxHp);
+                }
+                else if(selectedPool == eliteEnemyPool) 
+                {
+                    GameObject obj = selectedPool.Get(spawnPos);
+                    obj.GetComponent<Health>()?.SetMaxHpAndReset(eliteEnemyMaxHp);
+                }
                 spawnTimer = 0f;
             }
         }
 
-        public void ApplyWaveSettings(float spawnInterval , int maxAlive ,float eliteSpawnChance)
+        public void ApplyWaveSettings(float spawnInterval , int maxAlive ,float eliteSpawnChance,float normalEnemyMaxHp, float eliteEnemyMaxHp)
         {
             if(spawnInterval < 0.1||maxAlive <=0) return;
             this.spawnInterval = spawnInterval;
             this.maxAlive = maxAlive;
             this.eliteSpawnChance = Mathf.Clamp01(eliteSpawnChance);//限制在0-1之间
+            this.normalEnemyMaxHp = Mathf.Max(normalEnemyMaxHp, 1f);
+            this.eliteEnemyMaxHp = Mathf.Max(eliteEnemyMaxHp, 1f);
         }
 
         private ObjectPool PickEnemyPool()

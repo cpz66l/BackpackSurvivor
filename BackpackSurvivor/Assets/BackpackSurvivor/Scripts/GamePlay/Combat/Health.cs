@@ -63,5 +63,13 @@ namespace BS.GamePlay.Combat
             currentHp = maxHp;
             OnHealthChanged?.Invoke(currentHp, maxHp);
         }
+
+        public void SetMaxHpAndReset(float newMaxHp)
+        {
+            if (newMaxHp <= 1f) return;
+            maxHp = newMaxHp;
+            currentHp = maxHp;
+            OnHealthChanged?.Invoke(currentHp, maxHp);
+        }
     }
 }

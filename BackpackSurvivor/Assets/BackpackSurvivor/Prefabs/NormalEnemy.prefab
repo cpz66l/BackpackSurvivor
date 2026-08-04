@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Enemies.EnemyAI
   moveSpeed: 3
-  viewRange: 35
+  viewRange: 50
   attackRange: 1.3
   attackInterval: 0.5
   contactDamage: 10

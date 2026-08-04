@@ -18,7 +18,7 @@ namespace BS.GamePlay.Combat
         [SerializeField] private InventorySystem inventorySystem;
         [SerializeField] private int activeWeaponLimit = 1;
         [SerializeField] private List<WeaponSlot> weaponSlots;
-        [SerializeField] private float maxBackpackFireRateMultiplier = 2.5f;
+        [SerializeField] private float maxBackpackFireRateMultiplier = 2f;
 
         //激活Item与自动武器的映射表，用于把邻接效果应用到具体自动武器
         private readonly Dictionary<Item, AutoWeapon> activeWeaponsByItem = new Dictionary<Item, AutoWeapon>();

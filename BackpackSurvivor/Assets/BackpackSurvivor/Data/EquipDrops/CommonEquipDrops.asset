@@ -61,7 +61,7 @@ MonoBehaviour:
     itemTag: 7
     connectableSides: 1
     scoreValue: 30
-    effectValue: 0.2
+    effectValue: 0.1
   - category: 2
     id: "\u5236\u5F0F\u624B\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}

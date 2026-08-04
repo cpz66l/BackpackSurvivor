@@ -26,14 +26,14 @@ namespace BS.Presentation
             if (item.EffectValue > 0)
             {
                 int percent = Mathf.RoundToInt(item.EffectValue * 100f);
-                bodyText.text = $"稀有度: {item.Rarity}\n" +
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
                                 $"大小: {item.Width}x{item.Height}\n" +
                                 $"价值: ￥{item.ScoreValue}\n" +
                                 $"效果: +{percent}%";
             }
             else
             {
-                bodyText.text = $"稀有度: {item.Rarity}\n" +
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
                                 $"大小: {item.Width}x{item.Height}\n" +
                                 $"价值: ￥{item.ScoreValue}";
             }
@@ -50,6 +50,19 @@ namespace BS.Presentation
         {
             if (panel == null) return;
             panel.position = screenPosition + offset;
+        }
+
+        private string GetRarityChinese(Rarity rarity)
+        {
+            return rarity switch
+            {
+                Rarity.Common => "普通",
+                Rarity.Uncommon => "不凡",
+                Rarity.Rare => "稀有",
+                Rarity.Epic => "史诗",
+                Rarity.Legendary => "传说",
+                _ => "未知"
+            };
         }
     }
 }

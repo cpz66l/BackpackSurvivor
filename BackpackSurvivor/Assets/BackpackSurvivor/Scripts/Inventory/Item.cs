@@ -19,7 +19,7 @@
         public int Width => Rotated ? baseHeight : baseWidth;
         public int Height => Rotated ? baseWidth : baseHeight;
         public int ScoreValue => baseScoreValue * Level; // 分数价值
-        public float EffectValue => baseEffectValue * Level; // 战斗效果数值
+        public float EffectValue => baseEffectValue * GetLevelEffectMultiplier(); // 战斗效果数值
         public int BaseScoreValue => baseScoreValue; // 基础分数价值
         public float BaseEffectValue => baseEffectValue; // 基础战斗效果数值    
 
@@ -49,6 +49,14 @@
         public ConnectableSides GetWorldConnectableSides()
         {
             return LocalConnectableSides;
+        }
+
+        private float GetLevelEffectMultiplier()
+        {
+            if (Level == 1) return 1f;
+            if (Level == 2) return 1.5f;
+            if (Level == 3) return 2f;
+            return 1f;
         }
 
     }

@@ -31,7 +31,9 @@ namespace BS.GamePlay.Combat
                 // 池子路线：Get 已把子弹摆到指定位置并激活
                 Projectile bullet = bulletPool.Get(firePoint.position).GetComponent<Projectile>();
                 //重置参数
-                float finalDamage = damage * stats.DamageMultiplier;
+                float rawDamage = damage * stats.DamageMultiplier;
+                float finalDamage = Mathf.RoundToInt(rawDamage);
+
                 bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
             }
             else //无池兜底
@@ -41,7 +43,10 @@ namespace BS.GamePlay.Combat
                 bulletObj.transform.position = firePoint.position;
                 //挂上 Projectile 组件（此刻它的 Awake 立即执行：造出黄色小球视觉）
                 Projectile bullet = bulletObj.AddComponent<Projectile>();
-                float finalDamage = damage * stats.DamageMultiplier;
+
+                float rawDamage = damage * stats.DamageMultiplier;
+                float finalDamage = Mathf.RoundToInt(rawDamage);
+
                 bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
             }
         }
