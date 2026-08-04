@@ -221,6 +221,9 @@ namespace BS.Presentation
                 || grid.CanMerge(dragItem, grid.GetItemAt(targetX, targetY)));
             ghost.SetValidColor(rightful);
             //根据新尺寸sizeDelta再重排接口点和激活角标;
+            ConnectableSides visibleSides = ghost.Item.GetWorldConnectableSides();
+            ConnectableSides activeSides = ConnectableSides.None;
+            ghost.SetConnectors(visibleSides, activeSides);
             ghost.UpdateOverlayLayout(step);
         }
 

@@ -203,4 +203,16 @@
 
 ---
 
-> 下一条从 BUG-017 开始。
+### BUG-017 · 旋转后接口 UI 正确但 ScanAdjacency 不跟随触发（第 28 课）
+
+- **日期**：2026-08-04 · **所属系统**：背包邻接规则 / 旋转方向（Item + InventoryGrid + AdjacencyRule）
+- **现象**：物品旋转后灰色接口点能跟着变化，但 `ScanAdjacency()` 的触发结果没有完全跟随 `RotationState`；某些旋转后理论可触发的布局不触发。
+- **复现步骤**：① 配置 `Rifle.Down + Magazine.Up` 规则 ② Rifle 和 Magazine 同时顺时针旋转 90° ③ 将 Magazine 放在 Rifle 左边，使 Rifle 本地 Down 变世界 Left、Magazine 本地 Up 变世界 Right ④ 观察 UI 方向可见但 `FireRateBoost` 没按预期触发。
+- **排查过程**：先确认 `Item.GetWorldConnectableSides()` 已经按 `RotationState` 正确换算，说明接口显示层不是主因；继续检查 `InventoryGrid.TryMatchNeighbor()`，发现旧逻辑直接用 `rule.SideA == sideA` 比较。`rule.SideA` 是规则表里的本地方向，而 `sideA` 是扫描得到的世界接触边，两者语义不同。初版正反向匹配又把 Tag 和 Side 拆散，导致 `rule.SideA` 可能被错误套到另一个物品上。
+- **根因**：规则匹配层混淆了本地方向和世界方向，并且初版正反向判断没有保持 `TagA + SideA`、`TagB + SideB` 的成对绑定。
+- **修复**：`Item` 新增 `RotationState` 和 `GetWorldSides(localSides)`，统一把本地方向转为世界方向；`TryMatchNeighbor()` 改为 `forwardMatched / reverseMatched` 两套完整匹配，确保 `rule.TagA` 和 `rule.SideA` 永远绑定同一个物品，匹配成功后 `AdjacencyEffect` 仍记录实际扫描到的世界边。
+- **沉淀规则（一句话）**：规则表方向和运行时接触方向不是同一语义；匹配前必须转换，并保持标签和方向的归属关系不被拆散。
+
+---
+
+> 下一条从 BUG-018 开始。

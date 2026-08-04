@@ -68,8 +68,8 @@ MonoBehaviour:
     rarity: 0
     weight: 15
     amount: 0
-    width: 2
-    height: 1
+    width: 1
+    height: 2
     itemTag: 1
     connectableSides: 10
     scoreValue: 40

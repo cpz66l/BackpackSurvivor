@@ -126,7 +126,11 @@ namespace BS.Inventory {
             }
             //没找到CanPlaceAt
             // 双失败：转回去，物归原样
-            item.Rotate();
+            for (int i = 0; i < 3; i++)
+            {
+                item.Rotate();
+                //重新将旋转状态转回调用前的旋转状态
+            }
             x = -1;
             y = -1;
             return false;
@@ -229,11 +233,23 @@ namespace BS.Inventory {
             {
                 if (rule == null) continue;
 
-                if (rule.TagA != itemA.Tag) continue;
-                if (rule.SideA != sideA) continue;
-                if (rule.TagB != itemB.Tag) continue;
-                if (rule.SideB != sideB) continue;
-
+                //正向匹配：itemA 对应 rule.TagA，itemB 对应 rule.TagB
+                bool forwardMatched =
+                    rule.TagA == itemA.Tag &&
+                    rule.TagB == itemB.Tag &&
+                    itemA.GetWorldSides(rule.SideA) == sideA &&
+                    itemB.GetWorldSides(rule.SideB) == sideB;
+                //反向匹配：itemA 对应 rule.TagB，itemB 对应 rule.TagA
+                bool reverseMatched =
+                    rule.TagA == itemB.Tag &&
+                    rule.TagB == itemA.Tag &&
+                    itemB.GetWorldSides(rule.SideA) == sideB &&
+                    itemA.GetWorldSides(rule.SideB) == sideA;
+                //做正反向匹配的原因是，规则表中只写了itemA是武器，
+                //被扫描itemB是配件的规则，实际上也可以配件是扫描itemA，
+                //武器是被扫描itemB，所以需要正反向匹配。
+                if (!forwardMatched && !reverseMatched)
+                    continue;
                 // 4. 生成去重 key
                 // 用 itemA / itemB 的 hash 排序，保证同一对物品只触发一次
                 // 再拼 rule.EffectId
