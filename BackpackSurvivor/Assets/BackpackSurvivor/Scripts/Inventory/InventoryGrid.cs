@@ -173,7 +173,12 @@ namespace BS.Inventory {
         {
             if(!CanMerge(source, target)) return false;//不能合并直接过
             target.IncreaseLevel();
+
+            bool sourceInGrid = Contains(source);
             Remove(source);
+
+            if(!sourceInGrid)
+                OnChanged?.Invoke();
             return true;
         }
 

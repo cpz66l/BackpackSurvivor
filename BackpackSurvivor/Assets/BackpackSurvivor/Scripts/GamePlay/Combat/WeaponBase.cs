@@ -15,6 +15,8 @@ namespace BS.GamePlay.Combat
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected ObjectPool bulletPool;
 
+        protected float backpackWeaponMultiplier = 1f;
+
         protected SfxPlayer sfx;
         protected PlayerRunStats stats;
 
@@ -26,12 +28,14 @@ namespace BS.GamePlay.Combat
         protected void Fire(Vector3 direction)
         {
             sfx?.PlayShoot();
+
+            float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier;
+
             if (bulletPool != null)
             {
                 // 池子路线：Get 已把子弹摆到指定位置并激活
                 Projectile bullet = bulletPool.Get(firePoint.position).GetComponent<Projectile>();
                 //重置参数
-                float rawDamage = damage * stats.DamageMultiplier;
                 float finalDamage = Mathf.RoundToInt(rawDamage);
 
                 bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
@@ -44,7 +48,6 @@ namespace BS.GamePlay.Combat
                 //挂上 Projectile 组件（此刻它的 Awake 立即执行：造出黄色小球视觉）
                 Projectile bullet = bulletObj.AddComponent<Projectile>();
 
-                float rawDamage = damage * stats.DamageMultiplier;
                 float finalDamage = Mathf.RoundToInt(rawDamage);
 
                 bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
@@ -61,6 +64,11 @@ namespace BS.GamePlay.Combat
         {
             if (sfx == null)
                 sfx = FindAnyObjectByType<SfxPlayer>();
+        }
+
+        public void SetBackpackWeaponMultiplier(float multiplier)
+        {
+            backpackWeaponMultiplier = Mathf.Max(1f,multiplier);
         }
     }
 }

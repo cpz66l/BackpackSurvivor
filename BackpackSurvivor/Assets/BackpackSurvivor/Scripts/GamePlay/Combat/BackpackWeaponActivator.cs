@@ -16,6 +16,7 @@ namespace BS.GamePlay.Combat
         }
 
         [SerializeField] private InventorySystem inventorySystem;
+        [SerializeField] private WeaponItemStatResolver weaponItemStatResolver;
         [SerializeField] private int activeWeaponLimit = 1;
         [SerializeField] private List<WeaponSlot> weaponSlots;
         [SerializeField] private float maxBackpackFireRateMultiplier = 2f;
@@ -28,6 +29,8 @@ namespace BS.GamePlay.Combat
         {
             if (inventorySystem == null) //不要无条件Find,没脱再find
                 inventorySystem = FindAnyObjectByType<InventorySystem>();
+            if(weaponItemStatResolver == null)
+                weaponItemStatResolver = FindAnyObjectByType<WeaponItemStatResolver>();
         }
         private void OnDestroy()
         {
@@ -76,7 +79,9 @@ namespace BS.GamePlay.Combat
                 if (weapon.WeaponObject == null) continue;
 
                 //刷新背包时所有武器都会先关闭，再出现判定激活，旧邻接效果不能残留到下一次布局。
-                weapon.WeaponObject.GetComponent<AutoWeapon>()?.SetBackpackFireRateMultiplier(1f);//重置背包火力倍率
+                AutoWeapon autoWeapon = weapon.WeaponObject.GetComponent<AutoWeapon>();
+                autoWeapon.SetBackpackFireRateMultiplier(1f);//重置背包火力倍率
+                autoWeapon.SetBackpackWeaponMultiplier(1f);//重置背包火力倍率
                 weapon.WeaponObject.SetActive(false);
             }
 
@@ -103,6 +108,13 @@ namespace BS.GamePlay.Combat
                 if (autoWeapon != null)
                 {
                     activeWeaponsByItem[item] = autoWeapon;
+                    if (weaponItemStatResolver == null)
+                        autoWeapon.SetBackpackWeaponMultiplier(1f);
+                    else
+                    {
+                        float weaponDamageMultiplier = weaponItemStatResolver.GetDamageMultiplier(item);
+                        autoWeapon.SetBackpackWeaponMultiplier(weaponDamageMultiplier); //重置背包火力倍率
+                    }
                 }
                 return true;
             }

@@ -1668,6 +1668,7 @@ MonoBehaviour:
   titleText: {fileID: 1992570367}
   bodyText: {fileID: 2069775896}
   offset: {x: 53, y: -55}
+  weaponItemStatResolver: {fileID: 305715854}
 --- !u!114 &142128207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,6 +2678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 305715852}
   - component: {fileID: 305715853}
+  - component: {fileID: 305715854}
   m_Layer: 0
   m_Name: BackpackWeapons
   m_TagString: Untagged
@@ -2716,6 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.BackpackWeaponActivator
   inventorySystem: {fileID: 1328712794}
+  weaponItemStatResolver: {fileID: 305715854}
   activeWeaponLimit: 1
   weaponSlots:
   - Tag: 1
@@ -2727,6 +2730,28 @@ MonoBehaviour:
   - Tag: 1
     WeaponObject: {fileID: 745060441}
   maxBackpackFireRateMultiplier: 2
+--- !u!114 &305715854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305715851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb09011c2f9c4004e8b02df8d100c019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.WeaponItemStatResolver
+  weaponStats:
+  - rarity: 0
+    damageMultiplier: 1
+  - rarity: 1
+    damageMultiplier: 1.2
+  - rarity: 2
+    damageMultiplier: 1.4
+  - rarity: 3
+    damageMultiplier: 1.6
+  levelDamageMultiplier: 0.25
 --- !u!1 &313254373
 GameObject:
   m_ObjectHideFlags: 0

@@ -215,4 +215,28 @@
 
 ---
 
-> 下一条从 BUG-018 开始。
+### BUG-018 · 武器倍率通道写完但伤害不变（第 29 课）
+
+- **日期**：2026-08-05 · **所属系统**：武器数值 / 场景接线（WeaponItemStatResolver + BackpackWeaponActivator）
+- **现象**：`WeaponBase.Fire()` 已经乘上 `backpackWeaponMultiplier`，`BackpackWeaponActivator` 也调用了 Resolver，但实测不同稀有度/等级武器伤害仍然和之前一样。
+- **复现步骤**：① 新增 `WeaponItemStatResolver` 代码 ② 在 `TryActivateItem()` 中读取倍率并写入 `AutoWeapon` ③ Play 后放入高稀有度或高等级武器 ④ 观察伤害数字没有变化。
+- **排查过程**：先顺着开火链路确认 `WeaponBase.Fire()` 确实读取了 `backpackWeaponMultiplier`，再检查 `TryActivateItem()` 中是否能拿到 Resolver；最后用场景 YAML 搜索 `WeaponItemStatResolver`，发现场景里没有该组件，`FindAnyObjectByType<WeaponItemStatResolver>()` 找不到对象，逻辑一直走 `1f` 兜底。
+- **根因**：代码通道已经写好，但 `WeaponItemStatResolver` 没有挂进 `01-Run` 场景，也没有被 `BackpackWeaponActivator` 引用；Unity 场景接线缺失导致倍率恒为 1。
+- **修复**：在 `01-Run.unity` 中添加 `WeaponItemStatResolver`，配置稀有度倍率表与 `levelDamageMultiplier`，并将同一个 Resolver 引用拖给 `BackpackWeaponActivator` 和 `ItemTooltipView`。
+- **沉淀规则（一句话）**：Unity 功能不生效要同时查代码链路和场景序列化；代码里有通道，不代表场景里已经接线。
+
+---
+
+### BUG-019 · 合并升级后武器伤害倍率不立刻刷新（第 29 课）
+
+- **日期**：2026-08-05 · **所属系统**：背包数据事件 / 武器激活刷新（InventoryGrid + BackpackWeaponActivator）
+- **现象**：同名同级武器合并后，背包 UI 能看到目标武器等级提升，但自动武器伤害倍率不会立刻变化，要等下一次背包重绘或布局变化后才生效。
+- **复现步骤**：① 背包内放两把同名同级武器 ② 拖拽其中一把合并到另一把 ③ 观察 UI 等级提升 ④ 立即攻击敌人，伤害仍是旧等级倍率 ⑤ 再触发一次背包变化后伤害才更新。
+- **排查过程**：先确认 `WeaponItemStatResolver.GetDamageMultiplier(item)` 对等级计算正确，再检查 `BackpackWeaponActivator` 的刷新触发来源；发现它只订阅 `InventoryGrid.OnChanged`。合并时 `BeginDrag()` 已经先 `Remove(source)` 并触发过一次事件，真正 `TryMerge()` 中 `target.IncreaseLevel()` 后再 `Remove(source)`，由于 source 已不在格子中，不会触发新的 `OnChanged`。
+- **根因**：合并升级改变了 `target.Level`，但这个语义变化没有广播给监听者；UI 手动补画能看到等级，战斗系统却没有收到刷新事件。
+- **修复**：`InventoryGrid.TryMerge()` 成功后记录 `sourceInGrid = Contains(source)`；如果 source 已经不在背包里，`Remove(source)` 不会触发事件，就由 `TryMerge()` 主动补发 `OnChanged?.Invoke()`。
+- **沉淀规则（一句话）**：数据事件要表达语义变化，不只是数组结构变化；物品等级变了，也必须通知所有依赖者刷新。
+
+---
+
+> 下一条从 BUG-020 开始。
