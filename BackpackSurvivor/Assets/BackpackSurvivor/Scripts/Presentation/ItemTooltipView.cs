@@ -28,13 +28,21 @@ namespace BS.Presentation
             root.SetActive(true);
 
             titleText.text = $"{item.Id} (Lv.{item.Level})";
-            if (item.Tag == ItemTag.Magazine || item.Tag ==ItemTag.AttackDamageChip)
+            if (item.Tag == ItemTag.Magazine)
             {
                 int percent = Mathf.RoundToInt(item.EffectValue * 100f);
                 bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
                                 $"大小: {item.Width}x{item.Height}\n" +
                                 $"价值: ￥{item.ScoreValue}\n" +
-                                $"效果: +{percent}%";
+                                $"攻速: +{percent}%";
+            }
+            else if (item.Tag == ItemTag.AttackDamageChip)
+            {
+                int percent = Mathf.RoundToInt(item.EffectValue * 100f);
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
+                                $"大小: {item.Width}x{item.Height}\n" +
+                                $"价值: ￥{item.ScoreValue}\n" +
+                                $"伤害: +{percent}%";
             }
             else if(item.Tag == ItemTag.Rifle || item.Tag == ItemTag.Pistol || item.Tag == ItemTag.Shotgun)
             {

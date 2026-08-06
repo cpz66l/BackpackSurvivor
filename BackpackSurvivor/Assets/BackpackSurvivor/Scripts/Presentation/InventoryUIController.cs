@@ -16,6 +16,7 @@ namespace BS.Presentation
         [SerializeField] private RectTransform bagPanel;   // Inspector 拖背包底框
         [SerializeField] private TextMeshProUGUI totalValueText; //总价值文本
         [SerializeField] private ItemTooltipView tooltipView; //item属性提示面板
+        [SerializeField] private ItemIconResolver itemIconResolver; //物品图标解析器
 
         private InventoryGrid grid;
         private bool isDragging = false;
@@ -34,6 +35,8 @@ namespace BS.Presentation
         {
             inputReader = FindAnyObjectByType<InputReader>();
             backpackWeaponActivator = FindAnyObjectByType<BackpackWeaponActivator>();
+            if (itemIconResolver == null) 
+                itemIconResolver = FindAnyObjectByType<ItemIconResolver>();
         }
         private void Start ()
         {
@@ -88,7 +91,8 @@ namespace BS.Presentation
 
                     //绑定数据
                     if (itemView == null) return;
-                    itemView.Bind(item , step ,this);
+                    Sprite sprite = itemIconResolver == null ? null : itemIconResolver.GetIcon(item);
+                    itemView.Bind(item , step ,this , sprite);
 
                     //计算联接口产生效果的UI投影
                     ConnectableSides visibleSides = item.GetWorldConnectableSides();

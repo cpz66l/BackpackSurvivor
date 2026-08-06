@@ -13,6 +13,7 @@ namespace BS.Inventory
 
             AddValidDualWieldEffects(candidateEffects,validEffects);//处理候选双持效果
             AddValidFireRateBoostEffects(candidateEffects, validEffects);
+            AddValidDamageBoostEffects(candidateEffects, validEffects);
 
             return validEffects;
         }
@@ -43,6 +44,16 @@ namespace BS.Inventory
                 if (effect == null) continue;
                 if (effect.EffectId != AdjacencyEffectId.FireRateBoost) continue;
 
+                validEffects.Add(effect);
+            }
+        }
+
+        private static void AddValidDamageBoostEffects(List<AdjacencyEffect> candidateEffects, List<AdjacencyEffect> validEffects)
+        {
+            foreach (AdjacencyEffect effect in candidateEffects)
+            {
+                if (effect == null) continue;
+                if (effect.EffectId != AdjacencyEffectId.DamageBoost) continue;
                 validEffects.Add(effect);
             }
         }

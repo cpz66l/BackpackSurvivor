@@ -25,6 +25,7 @@ MonoBehaviour:
     itemTag: 12
     connectableSides: 0
     scoreValue: 420
+    effectValue: 0
   - category: 2
     id: "\u539F\u578B\u6B66\u5668\u84DD\u56FE"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -36,6 +37,7 @@ MonoBehaviour:
     itemTag: 12
     connectableSides: 0
     scoreValue: 650
+    effectValue: 0
   - category: 2
     id: "\u6C61\u67D3\u533A\u7814\u7A76\u6837\u672C"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -47,6 +49,7 @@ MonoBehaviour:
     itemTag: 12
     connectableSides: 0
     scoreValue: 580
+    effectValue: 0
   - category: 2
     id: "\u667A\u80FD\u706B\u63A7\u6838\u5FC3"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -58,6 +61,7 @@ MonoBehaviour:
     itemTag: 8
     connectableSides: -1
     scoreValue: 420
+    effectValue: 0
   - category: 2
     id: "\u805A\u53D8\u70B9\u706B\u6838\u5FC3"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -66,9 +70,10 @@ MonoBehaviour:
     amount: 0
     width: 1
     height: 1
-    itemTag: 9
-    connectableSides: -1
+    itemTag: 5
+    connectableSides: 4
     scoreValue: 450
+    effectValue: 0.3
   - category: 2
     id: "\u539F\u578B\u6B65\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -80,6 +85,7 @@ MonoBehaviour:
     itemTag: 2
     connectableSides: 5
     scoreValue: 480
+    effectValue: 0
   - category: 2
     id: "\u7834\u95E8\u8005\u9730\u5F39\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -91,6 +97,7 @@ MonoBehaviour:
     itemTag: 3
     connectableSides: 5
     scoreValue: 520
+    effectValue: 0
   - category: 2
     id: "\u5B9E\u9A8C\u578B\u9632\u62A4\u670D"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -102,3 +109,4 @@ MonoBehaviour:
     itemTag: 10
     connectableSides: 0
     scoreValue: 430
+    effectValue: 0

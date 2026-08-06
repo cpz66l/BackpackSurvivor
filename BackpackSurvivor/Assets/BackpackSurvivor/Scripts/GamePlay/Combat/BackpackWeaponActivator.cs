@@ -20,6 +20,7 @@ namespace BS.GamePlay.Combat
         [SerializeField] private int activeWeaponLimit = 1;
         [SerializeField] private List<WeaponSlot> weaponSlots;
         [SerializeField] private float maxBackpackFireRateMultiplier = 2f;
+        [SerializeField] private float maxBackpackDamageBoostMultiplier = 2f;
 
         //激活Item与自动武器的映射表，用于把邻接效果应用到具体自动武器
         private readonly Dictionary<Item, AutoWeapon> activeWeaponsByItem = new Dictionary<Item, AutoWeapon>();
@@ -67,7 +68,10 @@ namespace BS.GamePlay.Combat
 
             //激活双持奖励武器，不计入激活武器上限
             ActivateDualWieldWeapons(validEffects);
+            //激活攻速加成效果，给激活武器计算攻速倍率
             ActivateFireRateBoost(validEffects);
+            //激活伤害加成效果，给激活武器计算伤害倍率
+            ActivateDamageBoost(validEffects);
         }
 
         //关闭所有槽位
@@ -80,8 +84,12 @@ namespace BS.GamePlay.Combat
 
                 //刷新背包时所有武器都会先关闭，再出现判定激活，旧邻接效果不能残留到下一次布局。
                 AutoWeapon autoWeapon = weapon.WeaponObject.GetComponent<AutoWeapon>();
-                autoWeapon.SetBackpackFireRateMultiplier(1f);//重置背包火力倍率
-                autoWeapon.SetBackpackWeaponMultiplier(1f);//重置背包火力倍率
+                if (autoWeapon != null)
+                {
+                    autoWeapon.SetBackpackFireRateMultiplier(1f);//重置背包攻速倍率
+                    autoWeapon.SetBackpackWeaponMultiplier(1f);//重置背包武器火力倍率
+                    autoWeapon.SetBackpackDamageBoostMultiplier(1f);//重置背包伤害加成倍率
+                }
                 weapon.WeaponObject.SetActive(false);
             }
 
@@ -200,6 +208,44 @@ namespace BS.GamePlay.Combat
                 float fireRateMultiplier = 1f + effectValues;
                 fireRateMultiplier = Mathf.Min(fireRateMultiplier, maxBackpackFireRateMultiplier);
                 autoWeapon.SetBackpackFireRateMultiplier(fireRateMultiplier);
+            }
+        }
+        private void ActivateDamageBoost(List<AdjacencyEffect> validEffects)
+        {
+            if (validEffects == null) return;
+
+            //给激活武器攻击加成叠加效果
+            Dictionary<AutoWeapon, float> damageBonusByWeapon = new Dictionary<AutoWeapon, float>();
+            foreach (AdjacencyEffect effect in validEffects)
+            {
+                if (effect == null) continue;
+                if (effect.EffectId != AdjacencyEffectId.DamageBoost) continue; //筛选效果
+
+                if (TryGetActiveAutoWeapon(effect.ItemA, out AutoWeapon autoWeaponA))
+                {
+                    float effectValue = effect.ItemB.EffectValue;
+                    if (damageBonusByWeapon.ContainsKey(autoWeaponA))
+                        damageBonusByWeapon[autoWeaponA] += effectValue;
+                    else damageBonusByWeapon[autoWeaponA] = effectValue;
+                }
+                else if (TryGetActiveAutoWeapon(effect.ItemB, out AutoWeapon autoWeaponB))
+                {
+                    float effectValue = effect.ItemA.EffectValue;
+                    if (damageBonusByWeapon.ContainsKey(autoWeaponB))
+                        damageBonusByWeapon[autoWeaponB] += effectValue;
+                    else damageBonusByWeapon[autoWeaponB] = effectValue;
+                }
+            }
+
+            //给每个激活且有攻击效果的武器计算攻击倍率，并应用到武器上
+            foreach (var kvp in damageBonusByWeapon)
+            {
+                AutoWeapon autoWeapon = kvp.Key;
+                float effectValues = kvp.Value;
+
+                float damageMultiplier = 1f + effectValues;
+                damageMultiplier = Mathf.Min(damageMultiplier, maxBackpackDamageBoostMultiplier);
+                autoWeapon.SetBackpackDamageBoostMultiplier (damageMultiplier);
             }
         }
     }

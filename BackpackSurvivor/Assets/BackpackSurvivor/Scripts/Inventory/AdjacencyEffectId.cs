@@ -8,6 +8,7 @@
         FireRateBoost,
         CritBoost,
         HazardResistBoost,
-        BurningBullets
+        BurningBullets,
+        DamageBoost
     }
 }

@@ -35,9 +35,9 @@ MonoBehaviour:
     width: 1
     height: 1
     itemTag: 5
-    connectableSides: 1
+    connectableSides: 4
     scoreValue: 140
-    effectValue: 0
+    effectValue: 0.15
   - category: 2
     id: "\u5BC6\u5C01\u8865\u7ED9\u51ED\u8BC1"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -80,8 +80,8 @@ MonoBehaviour:
     rarity: 2
     weight: 10
     amount: 0
-    width: 1
-    height: 2
+    width: 2
+    height: 1
     itemTag: 1
     connectableSides: 10
     scoreValue: 140

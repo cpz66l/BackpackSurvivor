@@ -1497,6 +1497,7 @@ GameObject:
   - component: {fileID: 142128205}
   - component: {fileID: 142128206}
   - component: {fileID: 142128207}
+  - component: {fileID: 142128208}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1684,6 +1685,33 @@ MonoBehaviour:
   chestDistanceText: {fileID: 1943800327}
   player: {fileID: 2061221977}
   hideDistance: 5
+--- !u!114 &142128208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142128198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1071621d7284d4c8adbcb5323dc0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.ItemIconResolver
+  icons:
+  - tag: 1
+    sprite: {fileID: -1458947805, guid: c4d78a6e466436d4a81dcd578ab24fa5, type: 3}
+  - tag: 2
+    sprite: {fileID: 755579310, guid: 9bc967753af8199438d6e78791ed783e, type: 3}
+  - tag: 3
+    sprite: {fileID: 1315825632, guid: 5d3e9242bdaf37d4f8a6e17442ddfbfe, type: 3}
+  - tag: 5
+    sprite: {fileID: -1831011479, guid: 897be8877c0f7594097ffe0e68d616f0, type: 3}
+  - tag: 7
+    sprite: {fileID: 486446234, guid: 56de3d7c28f35e045af91fecfa987d97, type: 3}
+  - tag: 10
+    sprite: {fileID: 1346687948, guid: 0542d82ecc947a640a270da75d4ec5b5, type: 3}
+  - tag: 11
+    sprite: {fileID: 682477137, guid: 3498f01e66df8244d9e08ca4cd175c15, type: 3}
 --- !u!1 &151596487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8098169881513260187, guid: 629387b756c47594cb5e438c6ef77024, type: 3}
@@ -2730,6 +2758,7 @@ MonoBehaviour:
   - Tag: 1
     WeaponObject: {fileID: 745060441}
   maxBackpackFireRateMultiplier: 2
+  maxBackpackDamageBoostMultiplier: 2
 --- !u!114 &305715854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8369,6 +8398,7 @@ MonoBehaviour:
   bagPanel: {fileID: 285346960}
   totalValueText: {fileID: 6355718}
   tooltipView: {fileID: 142128206}
+  itemIconResolver: {fileID: 142128208}
 --- !u!114 &1328712796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8382,7 +8412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Run.GameSession
   playerHealth: {fileID: 2061221978}
-  inventorySystem: {fileID: 0}
+  inventorySystem: {fileID: 1328712794}
   runDurationSeconds: 900
   inputReader: {fileID: 2061221973}
   baseXpToNextLevel: 10
@@ -13900,7 +13930,7 @@ MonoBehaviour:
       weight: 10
     - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
       weight: 0
-    normalEnemyMaxHp: 65
+    normalEnemyMaxHp: 80
     eliteEnemyMaxHp: 150
   - startTimeSeconds: 360
     spawnInterval: 0.5
@@ -13919,8 +13949,8 @@ MonoBehaviour:
       weight: 20
     - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
       weight: 5
-    normalEnemyMaxHp: 90
-    eliteEnemyMaxHp: 200
+    normalEnemyMaxHp: 140
+    eliteEnemyMaxHp: 300
   - startTimeSeconds: 600
     spawnInterval: 0.2
     maxAlive: 50
@@ -13938,8 +13968,8 @@ MonoBehaviour:
       weight: 30
     - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
       weight: 10
-    normalEnemyMaxHp: 130
-    eliteEnemyMaxHp: 300
+    normalEnemyMaxHp: 190
+    eliteEnemyMaxHp: 350
   - startTimeSeconds: 780
     spawnInterval: 0.05
     maxAlive: 60
@@ -13957,8 +13987,8 @@ MonoBehaviour:
       weight: 35
     - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
       weight: 20
-    normalEnemyMaxHp: 160
-    eliteEnemyMaxHp: 400
+    normalEnemyMaxHp: 250
+    eliteEnemyMaxHp: 500
   gameSession: {fileID: 1328712796}
   enemySpawner: {fileID: 2143128366}
   chestSpawner: {fileID: 2143128368}

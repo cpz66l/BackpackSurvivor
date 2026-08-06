@@ -16,6 +16,7 @@ namespace BS.GamePlay.Combat
         [SerializeField] protected ObjectPool bulletPool;
 
         protected float backpackWeaponMultiplier = 1f;
+        protected float backpackDamageBoostMultiplier = 1f; // 邻接攻击芯片
 
         protected SfxPlayer sfx;
         protected PlayerRunStats stats;
@@ -29,7 +30,7 @@ namespace BS.GamePlay.Combat
         {
             sfx?.PlayShoot();
 
-            float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier;
+            float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier * backpackDamageBoostMultiplier;
 
             if (bulletPool != null)
             {
@@ -69,6 +70,11 @@ namespace BS.GamePlay.Combat
         public void SetBackpackWeaponMultiplier(float multiplier)
         {
             backpackWeaponMultiplier = Mathf.Max(1f,multiplier);
+        }
+
+        public void SetBackpackDamageBoostMultiplier(float multiplier)
+        {
+            backpackDamageBoostMultiplier = Mathf.Max(1f, multiplier);
         }
     }
 }
