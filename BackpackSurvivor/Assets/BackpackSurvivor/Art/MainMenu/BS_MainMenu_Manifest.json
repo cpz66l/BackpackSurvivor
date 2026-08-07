@@ -1,0 +1,138 @@
+{
+  "source": "Meshy image-to-image API background + local exact Chinese UI text overlay",
+  "ai_model": "nano-banana",
+  "meshy_task_ids": {
+    "background": "019fdb5e-57b5-7f7c-b845-1b5fe1d6c5fe",
+    "button_base": "019fdb5e-647b-7fb7-8af0-50bad488572f"
+  },
+  "ui_text": {
+    "title": "\u80cc\u5305\u5e78\u5b58\u8005",
+    "start": "\u5f00\u59cb\u6e38\u620f",
+    "exit": "\u9000\u51fa\u6e38\u620f",
+    "creator_statement": "\u5236\u4f5c\u8005\u58f0\u660e",
+    "creator_statement_panel_title": ""
+  },
+  "files": [
+    {
+      "role": "background",
+      "name": "BS_MainMenu_Background.png",
+      "size": [
+        1600,
+        900
+      ],
+      "bytes": 1030557,
+      "alpha": null
+    },
+    {
+      "role": "title",
+      "name": "BS_MainMenu_Title.png",
+      "size": [
+        1040,
+        220
+      ],
+      "bytes": 38685,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "start",
+      "name": "BS_MainMenu_Button_Start.png",
+      "size": [
+        640,
+        160
+      ],
+      "bytes": 19700,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "exit",
+      "name": "BS_MainMenu_Button_Exit.png",
+      "size": [
+        640,
+        160
+      ],
+      "bytes": 18745,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "preview",
+      "name": "BS_MainMenu_Preview.png",
+      "size": [
+        1600,
+        900
+      ],
+      "bytes": 990900,
+      "alpha": null
+    },
+    {
+      "role": "creator_statement",
+      "name": "BS_MainMenu_Button_CreatorStatement.png",
+      "size": [
+        640,
+        160
+      ],
+      "bytes": 13156,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "preview_with_creator_statement",
+      "name": "BS_MainMenu_Preview_WithCreatorStatement.png",
+      "size": [
+        1600,
+        900
+      ],
+      "bytes": 983994,
+      "alpha": null
+    },
+    {
+      "role": "close_button",
+      "name": "BS_MainMenu_Button_Close.png",
+      "size": [
+        320,
+        120
+      ],
+      "bytes": 6607,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "creator_statement_panel_opaque_body",
+      "name": "BS_MainMenu_CreatorStatementPanel.png",
+      "size": [
+        1160,
+        660
+      ],
+      "bytes": 9973,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "creator_statement_panel_preview_opaque_body",
+      "name": "BS_MainMenu_Preview_CreatorStatementPanel.png",
+      "size": [
+        1600,
+        900
+      ],
+      "bytes": 346286,
+      "alpha": null
+    }
+  ],
+  "font": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Font\\SourceHanSansCN-Normal.ttf",
+  "creator_statement_body": [],
+  "creator_statement_panel_note": "Panel text removed. Panel body is opaque; transparent alpha remains only outside the irregular UI silhouette."
+}

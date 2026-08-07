@@ -91,7 +91,8 @@ namespace BS.Presentation
 
         private void HandleQuitClicked()
         {
-            Application.Quit();
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

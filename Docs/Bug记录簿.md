@@ -239,4 +239,28 @@
 
 ---
 
-> 下一条从 BUG-020 开始。
+### BUG-020 · Build Settings 残留旧 Run1 场景路径（第 32 课）
+
+- **日期**：2026-08-07 · **所属系统**：场景流 / Build Settings（MainMenu + 01-Run）
+- **现象**：工程中实际存在的运行场景是 `Assets/BackpackSurvivor/Scenes/Run/01-Run.unity`，但 Build Settings 里仍记录旧路径 `Assets/BackpackSurvivor/Scenes/Run/Run1.unity`，后续打包或按 Build Index 启动存在风险。
+- **复现步骤**：① 打开 `ProjectSettings/EditorBuildSettings.asset` ② 检查 `m_Scenes` ③ 发现路径指向不存在或旧命名的 `Run1.unity`。
+- **排查过程**：在开主菜单课前先列出 `Scenes` 目录中的 `.unity` 文件，再对照 `EditorBuildSettings.asset`；发现磁盘场景和 Build Settings 场景清单不一致。
+- **根因**：场景曾改名或迁移为 `01-Run.unity`，但 Build Settings 没有同步更新；Unity 不会自动帮你清掉旧场景路径。
+- **修复**：新增 `MainMenu.unity` 后重排 Build Settings：`0 = MainMenu.unity`，`1 = 01-Run.unity`，移除旧 `Run1.unity` 路径。
+- **沉淀规则（一句话）**：做场景流和 Build 前必须检查 Build Settings；磁盘有场景不代表打包清单里是正确场景。
+
+---
+
+### BUG-021 · 主菜单 UI 分辨率变化后偏移，Scrollbar 死活不好用（第 32 课）
+
+- **日期**：2026-08-07 · **所属系统**：主菜单 UI / UGUI 布局（CanvasScaler + ScrollRect + Scrollbar）
+- **现象**：主菜单在屏幕尺寸变化时按钮、背景和面板位置发生明显偏移；制作者声明里的 `Scrollbar Vertical` 初始阶段无法正常滚动或看起来像没生效。
+- **复现步骤**：① 打开 `MainMenu` 场景 ② 在 Game 视图切换 1920x1080、1600x900、1366x768、1280x720 等分辨率 ③ 观察 UI 位置漂移；打开声明面板后尝试拖动滚动条。
+- **排查过程**：先检查 `CanvasScaler`，发现 `UI Scale Mode = Constant Pixel Size`；再查 Scroll View 的 YAML，发现早期 `Viewport` 和 `Scrollbar Vertical` RectTransform 高度为 0，`BodyText` 高度也未能把 `Content` 撑开。
+- **根因**：两个布局问题叠加：① Canvas 没切到 `Scale With Screen Size`，导致固定像素布局在不同分辨率下漂移；② ScrollRect 结构中 Viewport/Scrollbar 没有正确拉伸，Content 没有按文本首选高度撑开。
+- **修复**：CanvasScaler 改为 `Scale With Screen Size`，参考分辨率 `1920x1080`，Match `0.5`；Viewport 全屏拉伸并给右侧滚动条留空间；Scrollbar Vertical 右侧上下拉伸；Content 使用 `ContentSizeFitter` + `VerticalLayoutGroup`，BodyText 关闭 Raycast Target 并允许文本撑高。
+- **沉淀规则（一句话）**：UGUI 适配先查 CanvasScaler，再查锚点；ScrollRect 不滚，优先查 Viewport 面积、Scrollbar 高度和 Content 是否真的比视口高。
+
+---
+
+> 下一条从 BUG-022 开始。
