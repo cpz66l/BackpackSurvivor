@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 namespace BS.Presentation
@@ -14,12 +15,19 @@ namespace BS.Presentation
         [SerializeField] private GameObject gameplayGuidePanel;
         [SerializeField] private Button closeGuideButton;
 
+        [SerializeField] private TMP_Text[] preloadTexts;
+
         private void Awake()
         {
             if(aboutPanel != null)
                 aboutPanel.SetActive(false);
             if (gameplayGuidePanel != null)
                 gameplayGuidePanel.SetActive(false);
+        }
+
+        private void Start()
+        {
+            PrewarmPanels();
         }
         private void OnEnable()
         {
@@ -68,5 +76,30 @@ namespace BS.Presentation
         private void GameplayGuideButton() => gameplayGuidePanel.SetActive(true);
 
         private void CloseGuideButton() => gameplayGuidePanel.SetActive(false);
+        private void PrewarmPanels()
+        {
+            bool aboutWasActive = aboutPanel != null && aboutPanel.activeSelf;
+            bool guideWasActive = gameplayGuidePanel != null && gameplayGuidePanel.activeSelf;
+
+            if (aboutPanel != null)
+                aboutPanel.SetActive(true);
+
+            if (gameplayGuidePanel != null)
+                gameplayGuidePanel.SetActive(true);
+
+            foreach (TMP_Text text in preloadTexts)
+            {
+                if (text == null) continue;
+                text.ForceMeshUpdate();
+            }
+
+            Canvas.ForceUpdateCanvases();
+
+            if (aboutPanel != null)
+                aboutPanel.SetActive(aboutWasActive);
+
+            if (gameplayGuidePanel != null)
+                gameplayGuidePanel.SetActive(guideWasActive);
+        }
     }
 }

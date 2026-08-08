@@ -49,3 +49,4 @@ MonoBehaviour:
   targetFaction: 1
   maxDistance: 100
   collisionRadius: 0.075
+  visualMaterial: {fileID: 2100000, guid: 9a0f8b5a7c3d4e1aa4b7c8d9e0f12345, type: 2}

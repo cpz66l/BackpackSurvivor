@@ -1015,6 +1015,11 @@ MonoBehaviour:
   gameplayGuideButton: {fileID: 466120698}
   gameplayGuidePanel: {fileID: 2106458215}
   closeGuideButton: {fileID: 218965349}
+  preloadTexts:
+  - {fileID: 846241383}
+  - {fileID: 56886697}
+  - {fileID: 1200607612}
+  - {fileID: 864857651}
 --- !u!1 &371117677
 GameObject:
   m_ObjectHideFlags: 0

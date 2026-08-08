@@ -301,4 +301,16 @@
 
 ---
 
-> 下一条从 BUG-025 开始。
+### BUG-025 · Build 中子弹与装备掉落物颜色异常（第 35 课）
+
+- **日期**：2026-08-08 · **所属系统**：战斗表现 / 掉落物表现 / URP Build（Projectile + DropItem）
+- **现象**：Editor/Play Mode 中子弹和装备掉落物颜色看起来正常，但在 Development Build/Player 中颜色不对劲，像是颜色没有正确渲染或没有吃到脚本设置。
+- **复现步骤**：① 打包 Development Build ② 进入 Run 场景实机游玩 ③ 观察子弹模型与装备掉落物模型颜色 ④ 对比 Editor Play Mode 的颜色表现。
+- **排查过程**：先确认 Build 后期波次没有明显卡顿，说明问题不是性能掉帧导致的视觉错觉；再检查 `Projectile` 和 `DropItem`，发现两者都在 `Awake()` 中用 `GameObject.CreatePrimitive(PrimitiveType.Sphere)` 运行时生成视觉模型，并直接通过 `renderer.material.color` 改色；对应 prefab 本身没有显式 Renderer/Material 资产承载这套颜色表现。
+- **根因（初判）**：运行时临时 Primitive 依赖 Unity 默认材质/默认 Shader，再用 `renderer.material.color` 动态改色。Editor 中默认资源完整可用，Build 中 URP Shader stripping、默认材质变体和颜色属性映射更容易暴露差异，导致颜色表现不稳定。
+- **修复**：新增 `M_RuntimeVisual_Unlit_Base` 显式 URP Unlit 材质资产；`Projectile` 和 `DropItem` 增加序列化材质引用，并在对应 prefab 上接入该材质；颜色改为通过 `MaterialPropertyBlock` 同时写入 `_BaseColor` / `_Color`，保留子弹黄色与装备掉落物按稀有度变色的表现，同时避免继续依赖运行时默认材质。
+- **沉淀规则（一句话）**：Build 里要稳定显示的视觉资源必须显式资产化；运行时临时创建的默认材质，在 Editor 里能看不代表 Player 里可靠。
+
+---
+
+> 下一条从 BUG-026 开始。

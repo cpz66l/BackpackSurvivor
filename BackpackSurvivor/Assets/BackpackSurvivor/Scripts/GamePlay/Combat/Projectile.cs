@@ -10,17 +10,22 @@ namespace BS.GamePlay.Combat
         [SerializeField] private Faction targetFaction = Faction.Enemy;
         [SerializeField] private float maxDistance = 100f;
         [SerializeField] private float collisionRadius = 0.075f;
+        [SerializeField] private Material visualMaterial;
 
         private Vector3 direction = Vector3.zero;
         private float passDistance = 0f;
         private GameObject attacker;
         private readonly RaycastHit[] hitBuffer = new RaycastHit[8];
+        private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        private static readonly int ColorId = Shader.PropertyToID("_Color");
+        private MaterialPropertyBlock propertyBlock;
         //对象池
         private ObjectPool pool;
         public void SetPool(ObjectPool p) => pool = p;
         
         //视觉组件
         private GameObject _visualModel;//子弹模型
+        private Renderer visualRenderer;
 
         public void Initialize(float speed, float damage, 
             Faction targetFaction, float maxDistance,
@@ -54,11 +59,26 @@ namespace BS.GamePlay.Combat
             Destroy(_visualModel.GetComponent<Collider>());
 
             //添加简单材质以便视觉识别
-            Renderer renderer = _visualModel.GetComponent<Renderer>();
-            if (renderer != null)
+            visualRenderer = _visualModel.GetComponent<Renderer>();
+            ApplyVisualColor(Color.yellow);
+        }
+
+        private void ApplyVisualColor(Color color)
+        {
+            if (visualRenderer == null) return;
+
+            if (visualMaterial == null)
             {
-                renderer.material.color = Color.yellow;
+                visualRenderer.material.color = color;
+                return;
             }
+
+            visualRenderer.sharedMaterial = visualMaterial;
+            propertyBlock ??= new MaterialPropertyBlock();
+            visualRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor(BaseColorId, color);
+            propertyBlock.SetColor(ColorId, color);
+            visualRenderer.SetPropertyBlock(propertyBlock);
         }
 
         private void Update()

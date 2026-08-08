@@ -18,9 +18,13 @@ namespace BS.GamePlay.Loot
         [SerializeField] private float survivalTime = 60f;
         [SerializeField] private float flightDuration = 0.4f;// 飞行时长
         [SerializeField] private float arcHeight = 2f;// 抛物线峰值高度
+        [SerializeField] private Material visualMaterial;
         private float survivalTimer = 0f;
         private bool isCollected;
         private Coroutine flightRoutine;
+        private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        private static readonly int ColorId = Shader.PropertyToID("_Color");
+        private MaterialPropertyBlock propertyBlock;
 
         private Collider itemCollider;
         private InventorySystem inventorySystem;
@@ -47,10 +51,7 @@ namespace BS.GamePlay.Loot
 
             //添加简单材质以便视觉识别
             modelRb = _visualModel.GetComponent<Renderer>();
-            if (modelRb != null)
-            {
-                modelRb.material.color = Color.yellow;
-            }
+            ApplyVisualColor(GetRarityColor(lootEntry.rarity));
             //缓存根物体碰撞器
             itemCollider = GetComponent<Collider>();
             inventorySystem = FindAnyObjectByType<InventorySystem>();
@@ -70,24 +71,44 @@ namespace BS.GamePlay.Loot
         public void Initialize(LootEntry lootEntry)
         {
             this.lootEntry = lootEntry;
-            switch (lootEntry.rarity)
+            ApplyVisualColor(GetRarityColor(lootEntry.rarity));
+        }
+
+        private Color GetRarityColor(Rarity rarity)
+        {
+            switch (rarity)
             {
                 case Rarity.Common:
-                    modelRb.material.color = Color.white;                 // 白
-                    break;
+                    return Color.white;                 // 白
                 case Rarity.Uncommon:
-                    modelRb.material.color = Color.green;                 // 绿
-                    break;
+                    return Color.green;                 // 绿
                 case Rarity.Rare:
-                    modelRb.material.color = Color.blue;                  // 蓝
-                    break;
+                    return Color.blue;                  // 蓝
                 case Rarity.Epic:
-                    modelRb.material.color = new Color(0.6f, 0.2f, 0.9f); // 紫
-                    break;
+                    return new Color(0.6f, 0.2f, 0.9f); // 紫
                 case Rarity.Legendary:
-                    modelRb.material.color = new Color(1f, 0.84f, 0f);    // 金
-                    break;
+                    return new Color(1f, 0.84f, 0f);    // 金
+                default:
+                    return Color.yellow;
             }
+        }
+
+        private void ApplyVisualColor(Color color)
+        {
+            if (modelRb == null) return;
+
+            if (visualMaterial == null)
+            {
+                modelRb.material.color = color;
+                return;
+            }
+
+            modelRb.sharedMaterial = visualMaterial;
+            propertyBlock ??= new MaterialPropertyBlock();
+            modelRb.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor(BaseColorId, color);
+            propertyBlock.SetColor(ColorId, color);
+            modelRb.SetPropertyBlock(propertyBlock);
         }
 
         //开箱散落动画
