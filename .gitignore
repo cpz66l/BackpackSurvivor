@@ -1,4 +1,4 @@
-# Unity generated folders
+﻿# Unity generated folders
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -43,6 +43,13 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Internal mentoring / handoff docs kept local only
+Docs/导师工作手册.md
+Docs/交接提示词.md
+
+# Private portfolio preparation materials kept local only
+Docs/作品材料-*.md
 
 # Meshy export sidecar files kept out of Unity runtime commits.
 # Keep .glb and .glb.meta files tracked when used by prefabs/scenes.
