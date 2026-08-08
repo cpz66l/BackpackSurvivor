@@ -263,4 +263,42 @@
 
 ---
 
-> 下一条从 BUG-022 开始。
+### BUG-022 · 背包丢弃再拾取导致物品等级重置（第 33 课）
+
+- **日期**：2026-08-08 · **所属系统**：背包物品状态 / 世界掉落往返（InventorySystem + LootEntry + Item）
+- **现象**：背包中已经合并升级的物品，从背包拖出丢到世界后再拾取，等级会回到 Lv.1；武器倍率、芯片效果、价值等依赖等级的收益随之丢失。
+- **复现步骤**：① 在背包中合成或放入 Lv.2 物品 ② 拖出背包丢弃到世界 ③ 靠近按 E 拾取 ④ 观察背包中该物品等级变回 Lv.1。
+- **排查过程**：先确认 `Item.Level` 在背包中提升正常，再追踪丢弃链路：`DiscardToWorld()` 会把 `Item` 还原成 `LootEntry`，`DropItem.Initialize(entry)` 保存掉落数据，拾取时 `CreateItemFromLootEntry()` 再 new 出 Item。旧链路里 `LootEntry` 没有 level 字段，`Item` 构造函数也默认 `Level = 1`。
+- **根因**：`Item -> LootEntry -> Item` 往返链路没有携带运行时等级；世界掉落实例只保存了静态配置和基础数值，丢失了已经升级后的运行时状态。
+- **修复**：`LootEntry` 新增 `level = 1`；`DiscardToWorld()` 写入 `level = item.Level`；`CreateItemFromLootEntry()` 把 `entry.level` 传给 `Item` 构造函数；`Item` 构造函数将传入等级钳制到 `1 ~ MaxLevel`。
+- **沉淀规则（一句话）**：运行时物品状态跨载体流转时，要检查完整往返链路；不能只保证静态配置能还原。
+
+---
+
+### BUG-023 · 结算后重新开始疑似未完整刷新（第 33 课）
+
+- **日期**：2026-08-08 · **所属系统**：单局状态重置 / 静态运行时状态（GameSession + TargetRegistry + LootChest）
+- **现象**：一局结束后点击重新开始，场景看似重新加载，但部分运行态疑似没有像新一局一样刷新，影响后续目标注册或宝箱状态判断。
+- **复现步骤**：① 完成或失败一局 ② 在结算页点击重新开始 ③ 进入新一局 ④ 观察场景状态、敌人目标注册、宝箱数量/距离提示是否像新局一样干净。
+- **排查过程**：先确认 `ResultView` 已经加载 `01-Run`，再检查有哪些状态不是普通场景对象字段。发现 `TargetRegistry` 和 `LootChest` 都有 static 容器/计数，用来记录敌人目标、未开启宝箱和场上宝箱数量。
+- **根因**：static 运行时状态不属于场景对象生命周期；重载场景不能作为这些容器一定清空的保证，尤其在 Unity Enter Play Mode 设置或多场景流程中更容易暴露。
+- **修复**：`TargetRegistry` 新增 `Clear()`；`LootChest` 新增 `ResetRuntimeState()`，清空 `unopenedChests` 并重置 `ActiveCount`；`GameSession.StartRun()` 在新一局开始时主动调用这些重置入口。
+- **沉淀规则（一句话）**：本局状态如果放进 static，就必须有显式 Reset，并在新一局入口调用。
+
+---
+
+---
+
+### BUG-024 · 主动射击鼠标指向与子弹视觉方向不一致（第 34 课）
+
+- **日期**：2026-08-08 · **所属系统**：主动武器 / 鼠标瞄准 / 等距相机坐标（InputReader + ActiveWeapon + PlayerController）
+- **现象**：玩家鼠标指向的是地面上的某个点，但子弹从枪口高度沿水平面飞出，视觉上会感觉“鼠标指的位置”和“子弹飞的方向”有偏差。
+- **复现步骤**：① 进入 Run 场景 ② 使用主动武器持续射击 ③ 将鼠标放在玩家周围不同距离和方向 ④ 观察子弹飞行方向与鼠标屏幕位置存在轻微错层。
+- **排查过程**：先查 `InputReader.worldPoint`，确认它来自摄像机射线与 `y=0` 地面平面的交点；再查 `ActiveWeapon`，发现旧逻辑从 `firePoint.position` 指向 `worldPoint` 后又把 `direction.y = 0`，实际弹道变成枪口高度的水平线。等距相机下，同一条屏幕射线打到地面和平行的枪口高度平面，XZ 交点本来就不同。
+- **根因**：瞄准点语义没有分层：角色转向和地面交互使用地面点合理，但枪口发射应该使用枪口高度平面上的鼠标交点；旧逻辑把地面点和枪口水平弹道混用。
+- **修复**：`InputReader` 新增 `TryGetMousePointOnPlane(float y, out Vector3 point)`；`ActiveWeapon` 按 `firePoint.position.y` 获取鼠标在枪口高度平面上的交点，再计算水平弹道；`PlayerController` 同步用 `bodyPivot.position.y` 的平面交点做视觉转向，使身体朝向和主动射击方向一致。
+- **沉淀规则（一句话）**：鼠标屏幕位置不是单一世界点；不同高度平面会得到不同交点，瞄准、移动、交互要按系统语义选择平面。
+
+---
+
+> 下一条从 BUG-025 开始。

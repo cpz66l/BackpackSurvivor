@@ -1,6 +1,4 @@
 ﻿using BS.GamePlay.Player;
-using BS.GamePlay.Stats;
-using BS.Presentation;
 using UnityEngine;
 
 namespace BS.GamePlay.Combat
@@ -31,9 +29,15 @@ namespace BS.GamePlay.Combat
             float finalFireInterval = fireInterval / stats.FireRateMultiplier;
             if (fireTimer > finalFireInterval && ir.AttackHeld)
             {
-                Vector3 direction = ir.worldPoint - firePoint.position;
+                if (!ir.TryGetMousePointOnPlane(firePoint.position.y, out Vector3 aimPoint))
+                    return;
+
+                Vector3 direction = aimPoint - firePoint.position;
                 direction.y = 0f;
-                if (direction.sqrMagnitude < 0.0001f) return;
+
+                if (direction.sqrMagnitude < 0.0001f)
+                    return;
+
                 Fire(direction.normalized);
                 fireTimer = 0f;
             }

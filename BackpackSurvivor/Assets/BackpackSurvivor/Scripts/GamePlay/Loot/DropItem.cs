@@ -20,6 +20,7 @@ namespace BS.GamePlay.Loot
         [SerializeField] private float arcHeight = 2f;// 抛物线峰值高度
         private float survivalTimer = 0f;
         private bool isCollected;
+        private Coroutine flightRoutine;
 
         private Collider itemCollider;
         private InventorySystem inventorySystem;
@@ -93,7 +94,11 @@ namespace BS.GamePlay.Loot
         public void PlayScatterFlight(Vector3 from, Vector3 to)
         {
             transform.position = from;
-            StartCoroutine(FlyRoutine(from, to));
+            if (flightRoutine != null)
+            {
+                StopCoroutine(flightRoutine);
+            }
+            flightRoutine = StartCoroutine(FlyRoutine(from, to));
         }
         private IEnumerator FlyRoutine(Vector3 from, Vector3 to)
         {
@@ -110,6 +115,7 @@ namespace BS.GamePlay.Loot
             }
             transform.position = to;// 落点归位（消除累计误差）
             itemCollider.enabled = true;
+            flightRoutine = null;
         }
         //交互
         public string GetPrompt()
@@ -145,6 +151,11 @@ namespace BS.GamePlay.Loot
 
         public void OnGetFromPool()
         {
+            if (flightRoutine != null)
+            {
+                StopCoroutine(flightRoutine);
+                flightRoutine = null;
+            }
             survivalTimer = 0f;
             itemCollider.enabled = true;// 防"飞行中被回收"留下的关碰撞器中毒态
             isCollected = false;

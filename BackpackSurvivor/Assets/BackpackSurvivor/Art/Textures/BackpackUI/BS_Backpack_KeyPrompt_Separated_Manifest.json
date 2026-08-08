@@ -1,0 +1,39 @@
+{
+  "asset": "separated backpack prompt UI parts",
+  "reason": "The previous TAB keycap was too close to the round button, so the keycap and backpack button are now separate assets.",
+  "binding_reference": "OpenBag = <Keyboard>/tab in GameInput.inputactions; keycap intentionally contains no text.",
+  "style": "low-poly hard-edged charcoal UI with orange and muted green accents, matching BackpackUI and item icons",
+  "files": [
+    {
+      "name": "BS_Backpack_RoundButton.png",
+      "size_px": [
+        160,
+        160
+      ],
+      "background": "transparent",
+      "purpose": "round backpack HUD button"
+    },
+    {
+      "name": "BS_Backpack_BlankKeycap.png",
+      "size_px": [
+        128,
+        64
+      ],
+      "background": "transparent",
+      "purpose": "blank keycap badge for separate text overlay"
+    },
+    {
+      "name": "BS_Backpack_RoundButton_Preview.png",
+      "purpose": "checker preview only"
+    },
+    {
+      "name": "BS_Backpack_BlankKeycap_Preview.png",
+      "purpose": "checker preview only"
+    },
+    {
+      "name": "BS_Backpack_RoundButton_BlankKeycap_Preview.png",
+      "purpose": "layout preview only; not required in runtime"
+    }
+  ],
+  "source": "local deterministic Pillow drawing for lightweight UI assets"
+}

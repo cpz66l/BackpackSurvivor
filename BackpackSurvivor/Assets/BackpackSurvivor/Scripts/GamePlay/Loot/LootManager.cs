@@ -41,8 +41,11 @@ namespace BS.GamePlay.Loot
 
             if (entry.category == DropCategory.Equipment)
             {
+                Vector2 randomOffset = Random.insideUnitCircle * offset;
+                Vector3 target = position + new Vector3(randomOffset.x, 0, randomOffset.y);
                 DropItem dropItem = dropPool.Get(position).GetComponent<DropItem>();
                 dropItem.Initialize(entry);
+                dropItem.PlayScatterFlight(position ,target);
                 return dropItem.gameObject;
             }
             else if (entry.category == DropCategory.Xp)

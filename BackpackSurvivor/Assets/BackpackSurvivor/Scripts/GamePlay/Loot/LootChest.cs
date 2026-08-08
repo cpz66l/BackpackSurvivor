@@ -137,5 +137,11 @@ namespace BS.GamePlay.Loot {
 
             return nearest != null;
         }
+
+        public static void ResetRuntimeState()
+        {
+            unopenedChests.Clear();
+            ActiveCount = 0;
+        }
     } 
 }

@@ -43,6 +43,10 @@ namespace BS.GamePlay.Combat
             allTargets.Remove(t);
         }
 
+        public static void Clear()
+        {
+            allTargets.Clear();
+        }
     }
 }
 

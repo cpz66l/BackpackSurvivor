@@ -1,0 +1,40 @@
+{
+  "source": "Meshy image-to-image API + local chroma-key cleanup and hollow-center enforcement",
+  "ai_model": "nano-banana",
+  "meshy_task_id": "019fdc6e-893a-7ee0-8092-bd06107a756d",
+  "intended_grid": "6x8 backpack grid, current scene cells are 65px; final frame is 3:4 vertical",
+  "files": [
+    {
+      "role": "backpack_frame",
+      "name": "BS_Backpack_Frame.png",
+      "size": [
+        768,
+        1024
+      ],
+      "bytes": 189828,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "role": "preview",
+      "name": "BS_Backpack_Frame_Preview.png",
+      "size": [
+        900,
+        1120
+      ],
+      "bytes": 199783,
+      "alpha": null
+    }
+  ],
+  "postprocess_revision": "rectangular_inner_frame_thin_v1",
+  "inner_cutout_px": {
+    "left": 110,
+    "top": 150,
+    "right": 658,
+    "bottom": 878
+  },
+  "notes": "Inner backpack opening uses straight right-angle corners with a thinner 4px dark lip; center remains transparent.",
+  "inner_stroke_px": 4
+}

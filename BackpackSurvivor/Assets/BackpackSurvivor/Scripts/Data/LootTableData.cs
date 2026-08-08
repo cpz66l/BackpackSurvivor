@@ -57,6 +57,9 @@ namespace BS.Data
 
             [Tooltip("战斗效果数值，例如 0.15 表示 +15%")]
             public float effectValue;
+
+            [Tooltip("运行时物品等级，掉落配置默认 1")]
+            public int level = 1;
         }
         [Tooltip("所有可能的掉落条目")]
         public LootEntry[] entries ;

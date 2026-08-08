@@ -1,0 +1,55 @@
+{
+  "asset": "game over / run result UI art set",
+  "style": "low-poly hard-edged charcoal UI matching existing MainMenu and Backpack UI assets; orange, muted green, and red-orange accents",
+  "scene_reference": {
+    "script": "BS.Presentation.ResultView",
+    "panel_rect_reference": "ResultPanel approx 616x752 in Scenes/Run/01-Run.unity",
+    "button_rect_reference": "ReStartButton and QuitButton approx 269x51 in Scenes/Run/01-Run.unity"
+  },
+  "files": [
+    {
+      "name": "BS_Result_GameOverPanel.png",
+      "size_px": [
+        768,
+        936
+      ],
+      "background": "transparent",
+      "contains_text": false,
+      "purpose": "empty game over/result panel; title and stats can be overlaid in TMP",
+      "contains_internal_underlines": false
+    },
+    {
+      "name": "BS_Result_Button_Restart.png",
+      "size_px": [
+        512,
+        112
+      ],
+      "background": "transparent",
+      "text": "重新开始",
+      "purpose": "restart button UI"
+    },
+    {
+      "name": "BS_Result_Button_MainMenu.png",
+      "size_px": [
+        512,
+        112
+      ],
+      "background": "transparent",
+      "text": "返回主菜单",
+      "purpose": "return main menu button UI"
+    },
+    {
+      "name": "BS_Result_UI_Preview.png",
+      "size_px": [
+        960,
+        1080
+      ],
+      "background": "checker preview",
+      "purpose": "review only"
+    }
+  ],
+  "source": "local deterministic Pillow drawing for lightweight UI assets; no AI raster model call used for this batch",
+  "text_encoding_fix": "Button labels redrawn using Unicode escapes to avoid PowerShell codepage replacement.",
+  "panel_revision": "no_internal_underlines_v1",
+  "panel_notes": "Removed all horizontal guide/underline strokes from the central panel content area; frame and buttons unchanged."
+}

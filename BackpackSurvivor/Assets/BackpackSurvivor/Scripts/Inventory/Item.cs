@@ -47,19 +47,24 @@
             Rarity rarity, int width, int height 
             , ItemTag itemTag ,
             ConnectableSides connectableSides,
-            int scoreValue,float effectValue)
+            int scoreValue,float effectValue,int level)
         {
             Id = id;
             baseWidth = width;
             baseHeight = height;
             Rarity = rarity;
             RotationState = Rotation.None;
-            Level = 1;
-            MaxLevel = 3;
             Tag = itemTag;
             LocalConnectableSides = connectableSides;
             baseScoreValue = scoreValue;
             baseEffectValue = effectValue;
+
+            MaxLevel = 3;
+
+            if (level < 1) level = 1;
+            if (level > MaxLevel) level = MaxLevel;
+
+            Level = level;
         }
 
 

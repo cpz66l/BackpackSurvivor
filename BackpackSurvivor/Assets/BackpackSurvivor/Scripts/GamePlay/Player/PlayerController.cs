@@ -46,21 +46,20 @@ namespace BS.GamePlay.Player
                 transform.position = mapBounds.ClampToInside(transform.position);//将玩家位置限制在地图内
             }
             //转向
-            if (ir.worldPoint != Vector3.zero)
+            if (ir.TryGetMousePointOnPlane(bodyPivot.position.y, out Vector3 aimPoint))
             {
-                lookDirection = ir.worldPoint - transform.position;
-                lookDirection.y = 0;//忽略y轴
-                if (lookDirection.sqrMagnitude > 0.001f)//避免除以0
+                lookDirection = aimPoint - bodyPivot.position;
+                lookDirection.y = 0f;
+
+                if (lookDirection.sqrMagnitude > 0.001f)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                    // 只旋转角色Model视觉。Gun 与 Model 作为同级子物体时可以各自控制朝向。
                     bodyPivot.rotation = Quaternion.RotateTowards(
                         bodyPivot.rotation,
                         targetRotation,
                         rotateSpeed * Time.deltaTime
                     );
                 }
-
             }
 
         }

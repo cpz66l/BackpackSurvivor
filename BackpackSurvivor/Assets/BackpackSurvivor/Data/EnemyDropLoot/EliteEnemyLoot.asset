@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
   channels:
   - probability: 1
-    subTable: {fileID: 11400000, guid: 33cdb701f993e634b864b1a870bfec42, type: 2}
+    subTable: {fileID: 11400000, guid: 5df65e598ab55ab4fa9db5d25f4358e3, type: 2}
   - probability: 0.1
     subTable: {fileID: 11400000, guid: a58ed44a0afd4e044996d6e218a17394, type: 2}
   - probability: 0.05

@@ -108,10 +108,12 @@ namespace BS.GamePlay.Run
         public void StartRun()
         {
             playerRunStats.ResetToDefault();
+            TargetRegistry.Clear();
+            LootChest.ResetRuntimeState();
             timer.Reset();
             levelProgress.Reset();
             killCount = 0;
-            totalGold = 0;  
+            totalGold = 0;
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
             BroadcastXpChanged();

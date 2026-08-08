@@ -75,6 +75,7 @@ namespace BS.GamePlay
                 connectableSides = item.LocalConnectableSides,
                 scoreValue = item.BaseScoreValue,
                 effectValue = item.BaseEffectValue,
+                level = item.Level
             };
 
             Vector3 from = playerHealth.Position;                       // 玩家胸口（aimPoint）
@@ -98,7 +99,8 @@ namespace BS.GamePlay
                 entry.itemTag,
                 entry.connectableSides,
                 entry.scoreValue,
-                entry.effectValue);
+                entry.effectValue,
+                entry.level);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace BS.Presentation
         [SerializeField] private TextMeshProUGUI totalValueText; //总价值文本
         [SerializeField] private ItemTooltipView tooltipView; //item属性提示面板
         [SerializeField] private ItemIconResolver itemIconResolver; //物品图标解析器
+        [SerializeField] private CanvasGroup bagPanelcanvasGroup;
 
         private InventoryGrid grid;
         private bool isDragging = false;
@@ -30,6 +31,7 @@ namespace BS.Presentation
         private int targetX, targetY;// 当前鼠标悬停的目标格子
         private bool needsRedrawAfterDrag; //拖拽期间漏掉重绘的补偿机制
 
+        private bool isBagOpen = false;
 
         private void Awake()
         {
@@ -44,11 +46,21 @@ namespace BS.Presentation
             grid.OnChanged += Redraw;
             needsRedrawAfterDrag = false;
             Redraw();
+            isBagOpen = true;
+            HandleOpenBag();
         }
 
-        //订阅监听R键旋转
-        private void OnEnable() { inputReader.OnRotate += HandleRotate; }
-        private void OnDisable() { inputReader.OnRotate -= HandleRotate; }
+        //订阅输入事件
+        private void OnEnable()
+        {
+            inputReader.OnRotate += HandleRotate;
+            inputReader.OnOpenBag += HandleOpenBag;
+        }
+        private void OnDisable()
+        {
+            inputReader.OnRotate -= HandleRotate;
+            inputReader.OnOpenBag -= HandleOpenBag;
+        }
 
 
         private void Redraw ()
@@ -278,6 +290,26 @@ namespace BS.Presentation
         public void HideTooltip()
         {
             tooltipView?.Hide();
+        }
+
+        public void HandleOpenBag()
+        {
+            if(bagPanelcanvasGroup == null || isDragging) return;
+            isBagOpen = !isBagOpen;
+            if (isBagOpen)
+            {
+                bagPanelcanvasGroup.alpha = 1;
+                bagPanelcanvasGroup.interactable = true;
+                bagPanelcanvasGroup.blocksRaycasts = true;
+            }
+            else
+            {
+                bagPanelcanvasGroup.alpha = 0;
+                bagPanelcanvasGroup.interactable = false;
+                bagPanelcanvasGroup.blocksRaycasts = false;
+                HideTooltip();
+            }
+            Redraw();
         }
     }
 }

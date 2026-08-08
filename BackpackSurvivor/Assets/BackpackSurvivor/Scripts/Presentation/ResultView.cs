@@ -85,8 +85,7 @@ namespace BS.Presentation
         private void HandleRestartClicked()
         {
             Time.timeScale = 1f;
-            int buildIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(buildIndex);
+            SceneManager.LoadScene("01-Run");
         }
 
         private void HandleQuitClicked()

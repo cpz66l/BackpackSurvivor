@@ -1,0 +1,27 @@
+{
+  "asset": "left-bottom backpack key prompt icon",
+  "binding_checked": "OpenBag = <Keyboard>/tab in GameInput.inputactions",
+  "layout_revision": "round_backpack_button_tab_above_v1",
+  "style": "low-poly hard-edged circular charcoal UI, top TAB keycap, orange and muted green accents",
+  "files": [
+    {
+      "name": "BS_Backpack_KeyPrompt_Tab.png",
+      "size_px": [
+        192,
+        192
+      ],
+      "background": "transparent",
+      "purpose": "runtime UI icon"
+    },
+    {
+      "name": "BS_Backpack_KeyPrompt_Tab_Preview.png",
+      "size_px": [
+        288,
+        288
+      ],
+      "background": "checker preview",
+      "purpose": "review only"
+    }
+  ],
+  "source": "local deterministic Pillow drawing for lightweight HUD asset"
+}

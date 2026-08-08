@@ -10,12 +10,16 @@ namespace BS.Presentation
         [SerializeField] private GameObject aboutPanel;
         [SerializeField] private Button aboutButton;
         [SerializeField] private Button closeAboutButton;
-
+        [SerializeField] private Button gameplayGuideButton;
+        [SerializeField] private GameObject gameplayGuidePanel;
+        [SerializeField] private Button closeGuideButton;
 
         private void Awake()
         {
             if(aboutPanel != null)
                 aboutPanel.SetActive(false);
+            if (gameplayGuidePanel != null)
+                gameplayGuidePanel.SetActive(false);
         }
         private void OnEnable()
         {
@@ -27,6 +31,10 @@ namespace BS.Presentation
                 aboutButton.onClick.AddListener(AboutButton);
             if (closeAboutButton != null)
                 closeAboutButton.onClick.AddListener(CloseAboutButton);
+            if (gameplayGuideButton != null)
+                gameplayGuideButton.onClick.AddListener(GameplayGuideButton);
+            if (closeGuideButton != null)
+                closeGuideButton.onClick.AddListener(CloseGuideButton);
         }
 
         private void OnDisable()
@@ -39,6 +47,10 @@ namespace BS.Presentation
                 aboutButton.onClick.RemoveListener(AboutButton);
             if (closeAboutButton != null)
                 closeAboutButton.onClick.RemoveListener(CloseAboutButton);
+            if (gameplayGuideButton != null)
+                gameplayGuideButton.onClick.RemoveListener(GameplayGuideButton);
+            if (closeGuideButton != null)
+                closeGuideButton.onClick.RemoveListener(CloseGuideButton);
         }
 
         private void StartButton()
@@ -52,5 +64,9 @@ namespace BS.Presentation
         private void AboutButton() => aboutPanel.SetActive(true);
 
         private void CloseAboutButton() => aboutPanel.SetActive(false);
+
+        private void GameplayGuideButton() => gameplayGuidePanel.SetActive(true);
+
+        private void CloseGuideButton() => gameplayGuidePanel.SetActive(false);
     }
 }

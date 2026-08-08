@@ -1,0 +1,128 @@
+{
+  "source": "Meshy image-to-image API; local chroma-key cleanup rebuilt alpha from downloaded raw outputs",
+  "ai_model": "nano-banana",
+  "style_reference": "C:\\Users\\cp\\Pictures\\b994e912-f198-40e1-84c3-208e2bab91f7.png",
+  "cell_source_size": "256 pixels per inventory cell",
+  "skipped_by_request": [
+    "BS_ItemIcon_Scope.png",
+    "BS_ItemIcon_FireCore.png"
+  ],
+  "assets": [
+    {
+      "file": "BS_ItemIcon_Pistol.png",
+      "tag": "Pistol",
+      "grid_size": "2x1",
+      "pixels": "512x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Pistol.png",
+      "bytes": 56238,
+      "meshy_task_id": "019fcda3-6975-7768-bd09-e7f90bdf3e31"
+    },
+    {
+      "file": "BS_ItemIcon_Rifle.png",
+      "tag": "Rifle",
+      "grid_size": "3x2",
+      "pixels": "768x512",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Rifle.png",
+      "bytes": 116942,
+      "meshy_task_id": "019fcda3-8153-7ff4-9396-298565720e47"
+    },
+    {
+      "file": "BS_ItemIcon_Shotgun.png",
+      "tag": "Shotgun",
+      "grid_size": "3x2",
+      "pixels": "768x512",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Shotgun.png",
+      "bytes": 87837,
+      "meshy_task_id": "019fcda3-9963-78ba-ad71-c58c05442a67"
+    },
+    {
+      "file": "BS_ItemIcon_Magazine.png",
+      "tag": "Magazine",
+      "grid_size": "1x1",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Magazine.png",
+      "bytes": 29407,
+      "meshy_task_id": "019fcda3-ae0a-78bb-9573-e97c6b256bad"
+    },
+    {
+      "file": "BS_ItemIcon_DamageChip.png",
+      "tag": "AttackDamageChip",
+      "grid_size": "1x1",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_DamageChip.png",
+      "bytes": 42933,
+      "meshy_task_id": "019fcda3-c2cb-7002-82fa-153101d38205"
+    },
+    {
+      "file": "BS_ItemIcon_Armor.png",
+      "tag": "Armor",
+      "grid_size": "2x3",
+      "pixels": "512x768",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Armor.png",
+      "bytes": 223104,
+      "meshy_task_id": "019fcda3-d86e-79bb-bb31-b58feca48922"
+    },
+    {
+      "file": "BS_ItemIcon_Medical.png",
+      "tag": "Medical",
+      "grid_size": "2x1",
+      "pixels": "512x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Medical.png",
+      "bytes": 69900,
+      "meshy_task_id": "019fcda3-f1a9-79c2-80a5-15f6c175a00d"
+    },
+    {
+      "file": "BS_ItemIcon_Collection.png",
+      "tag": "Collection",
+      "grid_size": "1x1 generic",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Collection.png",
+      "bytes": 47838,
+      "meshy_task_id": "019fcda4-130c-79c4-aa26-611905d5159d"
+    }
+  ],
+  "contact_sheet": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_ContactSheet.png",
+  "raw_results": [
+    {
+      "tag": "Pistol",
+      "task_id": "019fcda3-6975-7768-bd09-e7f90bdf3e31",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Rifle",
+      "task_id": "019fcda3-8153-7ff4-9396-298565720e47",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Shotgun",
+      "task_id": "019fcda3-9963-78ba-ad71-c58c05442a67",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Magazine",
+      "task_id": "019fcda3-ae0a-78bb-9573-e97c6b256bad",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "AttackDamageChip",
+      "task_id": "019fcda3-c2cb-7002-82fa-153101d38205",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Armor",
+      "task_id": "019fcda3-d86e-79bb-bb31-b58feca48922",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Medical",
+      "task_id": "019fcda3-f1a9-79c2-80a5-15f6c175a00d",
+      "status": "SUCCEEDED"
+    },
+    {
+      "tag": "Collection",
+      "task_id": "019fcda4-130c-79c4-aa26-611905d5159d",
+      "status": "SUCCEEDED"
+    }
+  ],
+  "postprocess": "Removed Meshy hot-pink chroma-key background and converted pink anti-alias fringe to neutral dark outlines."
+}
