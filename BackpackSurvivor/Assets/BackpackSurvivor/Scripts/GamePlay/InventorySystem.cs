@@ -57,7 +57,6 @@ namespace BS.GamePlay
         private void HandleCurrency(LootEntry entry)
         {
             if (entry == null) return;
-            Debug.Log($"经验 +{entry.amount}");
         }
 
         public void DiscardToWorld(Item item)

@@ -151,7 +151,6 @@ namespace BS.GamePlay.Loot
                 Collect();
                 return true;
             }
-            Debug.Log("背包已满");
             return false;
         }
 
