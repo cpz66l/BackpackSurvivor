@@ -13,6 +13,14 @@
 
 当前 v0.2 已经完成正式 Windows Build 验收：游戏可以从主菜单进入，完成战斗、拾取、宝箱、背包整理、升级、结算、重开和返回主菜单等完整链路。
 
+## 试玩下载
+
+Windows 可试玩包已发布在 GitHub Releases：
+
+- [下载 Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
+
+下载后请先解压整个压缩包，再双击 `BackpackSurvivor.exe` 启动。不要只单独运行 exe，游戏还需要同目录下的 `BackpackSurvivor_Data`、`UnityPlayer.dll`、`MonoBleedingEdge` 等文件。
+
 ## 当前版本
 
 | 维度 | 状态 |
@@ -165,6 +173,7 @@ Backpack Survivor/
 
 - 当前正式演示包版本：`v0.2.0`
 - 平台：Windows
+- Release 下载：[Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
 - 推荐窗口：`1600 x 900`，Windowed，可调整窗口大小
 - Build 场景顺序：`MainMenu` → `01-Run`
 - Build 输出目录：`Builds/BackpackSurvivor_v0.2_Windows/`
