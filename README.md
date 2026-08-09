@@ -18,6 +18,7 @@
 Windows 可试玩包已发布在 GitHub Releases：
 
 - [下载 Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
+- [观看项目展示视频](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 
 下载后请先解压整个压缩包，再双击 `BackpackSurvivor.exe` 启动。不要只单独运行 exe，游戏还需要同目录下的 `BackpackSurvivor_Data`、`UnityPlayer.dll`、`MonoBleedingEdge` 等文件。
 
@@ -174,6 +175,7 @@ Backpack Survivor/
 - 当前正式演示包版本：`v0.2.0`
 - 平台：Windows
 - Release 下载：[Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
+- 项目展示视频：[Bilibili](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 - 推荐窗口：`1600 x 900`，Windowed，可调整窗口大小
 - Build 场景顺序：`MainMenu` → `01-Run`
 - Build 输出目录：`Builds/BackpackSurvivor_v0.2_Windows/`
@@ -230,3 +232,11 @@ Backpack Survivor/
 ## 项目说明
 
 本仓库为个人学习、玩法验证与求职作品展示项目。当前 v0.2 已经形成可独立运行的 Windows Demo，后续主要围绕作品材料、展示录屏、简历表达和少量 Demo 后优化继续推进。
+
+## 使用与授权说明
+
+本项目的源码、文档和 Demo 公开仅用于学习交流、技术评估、作品展示和招聘面试参考。未经作者许可，不得将本项目或其修改版本用于商业用途、二次发布、打包转载，或声称为自己的原创作品。
+
+项目中的部分美术、字体、音效、模型、图标或占位资源仅用于 Demo 展示和学习验证。若需商业使用或二次开发，请自行替换相关资源并确认授权。
+
+详细授权边界见：[LICENSE.md](./LICENSE.md)。

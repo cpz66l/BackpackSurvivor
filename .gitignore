@@ -50,6 +50,7 @@ Docs/交接提示词.md
 
 # Private portfolio preparation materials kept local only
 Docs/作品材料-*.md
+Docs/Video/
 
 # Meshy export sidecar files kept out of Unity runtime commits.
 # Keep .glb and .glb.meta files tracked when used by prefabs/scenes.
