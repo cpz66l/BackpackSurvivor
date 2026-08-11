@@ -7,18 +7,21 @@
         private string title;
         private string description;
         private float value;
+        private LevelUpOptionCategory category;
 
         public LevelUpOptionId Id => id;
         public string Title => title;
         public string Description => description;
         public float Value => value;
+        public LevelUpOptionCategory Category => category;
 
-        public LevelUpOption(LevelUpOptionId id, string title, string description, float value)
+        public LevelUpOption(LevelUpOptionDefinition definition)
         {
-            this.id = id;
-            this.title = title;
-            this.description = description;
-            this.value = value;
+            id = definition.Id;
+            title = definition.Title;
+            description = definition.Description;
+            value = definition.Value;
+            category = definition.Category;
         }
     }
 }
