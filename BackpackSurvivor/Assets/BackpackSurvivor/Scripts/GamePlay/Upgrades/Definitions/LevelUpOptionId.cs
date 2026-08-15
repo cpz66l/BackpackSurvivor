@@ -6,5 +6,15 @@ namespace BS.GamePlay.Upgrades
         DamageUp,
         FireRateUp,
         MoveSpeedUp,
+        CritChanceUp,
+        CritDamageUp,
+        ProjectileSpeedUp,
+        WeaponRangeUp,
+        MaxHpUp,
+        DamageReductionUp,
+        PickupRangeUp,
+        XpGainUp,
+        GoldGainUp,
+        ActiveWeaponLimitUp,
     }
 }

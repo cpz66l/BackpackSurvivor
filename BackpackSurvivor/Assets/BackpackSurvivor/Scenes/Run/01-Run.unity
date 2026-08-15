@@ -3127,6 +3127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.BackpackWeaponActivator
   inventorySystem: {fileID: 1328712794}
+  stats: {fileID: 2061221980}
   weaponItemStatResolver: {fileID: 305715854}
   activeWeaponLimit: 1
   weaponSlots:
@@ -4648,7 +4649,6 @@ Transform:
   - {fileID: 1789796587}
   - {fileID: 1811029635}
   - {fileID: 1884157213}
-  - {fileID: 1328712793}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434503455
@@ -10409,7 +10409,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 429229872}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1328712794
 MonoBehaviour:
@@ -16540,6 +16540,7 @@ SceneRoots:
   - {fileID: 203844589}
   - {fileID: 2143128367}
   - {fileID: 406584508}
+  - {fileID: 1328712793}
   - {fileID: 429229872}
   - {fileID: 1626334004}
   - {fileID: 2061221977}

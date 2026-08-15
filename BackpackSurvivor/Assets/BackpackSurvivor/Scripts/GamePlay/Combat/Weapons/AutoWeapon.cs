@@ -29,7 +29,9 @@ namespace BS.GamePlay.Combat
 
         private void LateUpdate()
         {
-            currentTarget = TargetRegistry.GetNearestTarget(firePoint.position, maxRange, targetFaction);
+            float autoWeaponRangeMultiplier = stats != null ? stats.AutoWeaponRangeMultiplier : 1f;
+            float finalRange = maxRange * autoWeaponRangeMultiplier;
+            currentTarget = TargetRegistry.GetNearestTarget(firePoint.position, finalRange, targetFaction);
             if (currentTarget == null)
             {
                 attackTimer = 0f;

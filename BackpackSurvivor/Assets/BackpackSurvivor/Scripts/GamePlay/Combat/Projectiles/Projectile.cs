@@ -11,6 +11,7 @@ namespace BS.GamePlay.Combat
         [SerializeField] private float maxDistance = 100f;
         [SerializeField] private float collisionRadius = 0.075f;
         [SerializeField] private Material visualMaterial;
+        private bool isCritical = false;
 
         private Vector3 direction = Vector3.zero;
         private float passDistance = 0f;
@@ -29,7 +30,7 @@ namespace BS.GamePlay.Combat
 
         public void Initialize(float speed, float damage, 
             Faction targetFaction, float maxDistance,
-            Vector3 direction, float passDistance, GameObject attacker)
+            Vector3 direction, float passDistance, GameObject attacker, bool isCritical)
         {
             this.speed = speed;
             this.damage = damage;
@@ -38,9 +39,10 @@ namespace BS.GamePlay.Combat
             this.direction = direction;
             this.passDistance = Mathf.Max(0f, passDistance);
             this.attacker = attacker;
+            this.isCritical = isCritical;
 
             //设置朝向，让子弹模型飞向发射方向
-            if(direction != Vector3.zero)
+            if (direction != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(direction);
             }
@@ -98,7 +100,7 @@ namespace BS.GamePlay.Combat
                 if(damageable != null && damageable.Faction == targetFaction)
                 {
                     //墙体也有碰撞体，也会被检测，但damageable == null
-                    DamageInfo info = new DamageInfo(damage, attacker, hit.point,false, 0f);//hit.point直接获取受击坐标，方便特效
+                    DamageInfo info = new DamageInfo(damage, attacker, hit.point, isCritical, 0f);//hit.point直接获取受击坐标，方便特效
                     damageable.TakeDamage(info);
                 }
                 //击中碰撞体就销毁
@@ -165,10 +167,11 @@ namespace BS.GamePlay.Combat
         //实现接口
         public void OnGetFromPool()
         {
-
+            isCritical = false;
         }
         public void OnReturnPool()
         {
+            isCritical = false;
         }
     }
 }

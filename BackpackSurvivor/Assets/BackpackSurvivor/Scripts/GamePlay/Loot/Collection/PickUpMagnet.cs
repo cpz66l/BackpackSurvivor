@@ -1,4 +1,5 @@
 ﻿using BS.GamePlay.Combat;
+using BS.GamePlay.Stats;
 using UnityEngine;
 
 namespace BS.GamePlay.Loot
@@ -19,6 +20,7 @@ namespace BS.GamePlay.Loot
         private Transform playerTf;
         private Health playerHealth;
         private ICollectable collectable;
+        private PlayerRunStats playerStats;
         //状态字段
         private MagnetState magentState = MagnetState.Idle;
 
@@ -30,6 +32,7 @@ namespace BS.GamePlay.Loot
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             playerTf = player.transform;
             playerHealth = player.GetComponent<Health>();
+            playerStats = player.GetComponent<PlayerRunStats>();
         }
 
         private void Update()
@@ -38,11 +41,13 @@ namespace BS.GamePlay.Loot
             direction = playerHealth.Position - transform.position;
             direction.y = 0f;
             float sqrDistance = direction.sqrMagnitude;
-
+            //处理磁吸范围
+            float pickupMultiplier = playerStats != null ? playerStats.PickupRangeMultiplier : 1f;
+            float finalAttractRange = attractRange * pickupMultiplier;
             switch (magentState)
             {
                 case MagnetState.Idle:
-                    if (sqrDistance < attractRange * attractRange)
+                    if (sqrDistance < finalAttractRange * finalAttractRange)
                     {
                         StartAttract();
                     }

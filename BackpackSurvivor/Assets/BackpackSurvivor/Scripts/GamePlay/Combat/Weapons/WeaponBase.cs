@@ -29,9 +29,14 @@ namespace BS.GamePlay.Combat
         protected void Fire(Vector3 direction)
         {
             sfx?.PlayShoot();
-
+            //处理暴击效果
             float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier * backpackDamageBoostMultiplier;
+            bool isCrit = Random.value < stats.CritChance;
+            if (isCrit) 
+                rawDamage *= stats.CritDamageMultiplier;
 
+            //处理子弹速度
+            float finalProjectileSpeed = projectileSpeed * stats.ProjectileSpeedMultiplier;
             if (bulletPool != null)
             {
                 // 池子路线：Get 已把子弹摆到指定位置并激活
@@ -39,7 +44,7 @@ namespace BS.GamePlay.Combat
                 //重置参数
                 float finalDamage = Mathf.RoundToInt(rawDamage);
 
-                bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
+                bullet.Initialize(finalProjectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject,isCrit);
             }
             else //无池兜底
             {
@@ -51,7 +56,7 @@ namespace BS.GamePlay.Combat
 
                 float finalDamage = Mathf.RoundToInt(rawDamage);
 
-                bullet.Initialize(projectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject);
+                bullet.Initialize(finalProjectileSpeed, finalDamage, targetFaction, maxDistance, direction, 0f, gameObject, isCrit);
             }
         }
 

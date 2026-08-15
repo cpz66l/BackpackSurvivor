@@ -112,6 +112,7 @@ namespace BS.GamePlay.Run
             LootChest.ResetRuntimeState();
             timer.Reset();
             levelProgress.Reset();
+            levelUpOptionGenerator.ResetRuntimeState();
             killCount = 0;
             totalGold = 0;
             //初始广播，对HUD进行初始化
@@ -137,7 +138,9 @@ namespace BS.GamePlay.Run
         {
             if (entry == null) return;
             if (state != GameState.Running) return;
-            int upLevelCount = levelProgress.AddXp(entry.amount);
+            //处理经验加成
+            int finalXp = Mathf.RoundToInt(entry.amount * playerRunStats.XpGainMultiplier);
+            int upLevelCount = levelProgress.AddXp(finalXp);
             BroadcastXpChanged();
             sfx?.PlayPickupXp();
             for (int i = 0; i < upLevelCount; i++)
@@ -168,6 +171,11 @@ namespace BS.GamePlay.Run
             if (option == null) return;
             if(playerRunStats == null) return;
             playerRunStats.Apply(option);
+            levelUpOptionGenerator.RecordPick(option);//记录选择
+            //处理最大生命值加成
+            if (option.Id == LevelUpOptionId.MaxHpUp)
+                playerHealth.ApplyMaxHpBonus(playerRunStats.MaxHpBonus);
+
             CompleteLevelUpChoice();
         }
 
@@ -193,7 +201,9 @@ namespace BS.GamePlay.Run
         {
             if(entry == null) return;
             if (State != GameState.Running) return;
-            totalGold += entry.amount;
+            //处理金币加成
+            int finalGold = Mathf.RoundToInt(entry.amount * playerRunStats.GoldGainMultiplier);
+            totalGold += finalGold;
             OnGoldChanged?.Invoke(totalGold);
             //播放金币音效
         }
