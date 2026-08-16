@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EpicChestLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
   channels:
-  - probability: 0.8
+  - probability: 1
     subTable: {fileID: 11400000, guid: c7459bb5cff5f664a9c22ac72d741f45, type: 2}
   - probability: 0.5
     subTable: {fileID: 11400000, guid: fca669af801c4044f870139dc57b9408, type: 2}
-  - probability: 0.08
+  - probability: 0.2
     subTable: {fileID: 11400000, guid: 25d6a4192fa8db147ba6d0795aecae65, type: 2}
   - probability: 1
     subTable: {fileID: 11400000, guid: 5baa6638af588d54092405e9ff241f3a, type: 2}

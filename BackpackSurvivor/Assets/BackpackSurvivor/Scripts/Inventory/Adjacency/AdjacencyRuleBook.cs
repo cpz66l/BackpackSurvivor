@@ -69,7 +69,27 @@ namespace BS.Inventory
             ItemTag.AttackDamageChip,
             ConnectableSides.Down,
             AdjacencyEffectId.DamageBoost),
-
+            // 瞄准镜邻接规则：手枪上边接瞄准镜下边，增加暴击率
+            new AdjacencyRule(
+            ItemTag.Pistol,
+            ConnectableSides.Up,
+            ItemTag.Scope,
+            ConnectableSides.Down,
+            AdjacencyEffectId.CritBoost),
+            // 瞄准镜邻接规则：步枪上边接瞄准镜下边，增加暴击率
+            new AdjacencyRule(
+            ItemTag.Rifle,
+            ConnectableSides.Up,
+            ItemTag.Scope,
+            ConnectableSides.Down,
+            AdjacencyEffectId.CritBoost),
+            // 瞄准镜邻接规则：霰弹枪上边接瞄准镜下边，增加暴击率
+            new AdjacencyRule(
+            ItemTag.Shotgun,
+            ConnectableSides.Up,
+            ItemTag.Scope,
+            ConnectableSides.Down,
+            AdjacencyEffectId.CritBoost),
         };
     }
 }

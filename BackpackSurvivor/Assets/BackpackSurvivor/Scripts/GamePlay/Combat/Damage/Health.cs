@@ -1,4 +1,6 @@
 ﻿using BS.GamePlay.Stats;
+using BS.GamePlay.Inventory;
+using BS.GamePlay;
 using System;
 using UnityEngine;
 
@@ -35,6 +37,12 @@ namespace BS.GamePlay.Combat
         }
         //定义
         private PlayerRunStats stats;
+        [SerializeField] private InventorySystem inventorySystem;
+        [SerializeField] private float maxBackpackDamageReduction = 0.5f;
+        [SerializeField] private float maxTotalDamageReduction = 0.75f;
+
+        private readonly BackpackPassiveCollector passiveCollector = new BackpackPassiveCollector();
+        private BackpackGlobalModifier globalModifier;
 
         void Awake()
         {
@@ -49,6 +57,27 @@ namespace BS.GamePlay.Combat
             currentHp = maxHp;
             baseMaxHp = maxHp;
         }
+
+        private void Start()
+        {
+            if (stats == null) return;
+
+            if (inventorySystem == null)
+                inventorySystem = FindAnyObjectByType<InventorySystem>();
+
+            if (inventorySystem == null || inventorySystem.Grid == null) return;
+
+            inventorySystem.Grid.OnChanged += RefreshBackpackPassives;//背包发生改变就刷新防具状态
+            RefreshBackpackPassives();
+        }
+
+        private void OnDestroy()
+        {
+            if (inventorySystem == null || inventorySystem.Grid == null) return;
+
+            inventorySystem.Grid.OnChanged -= RefreshBackpackPassives;
+        }
+
         public void TakeDamage(DamageInfo info)
         {
             //如果已经死亡或者无敌帧还没结束，就不处理伤害
@@ -56,8 +85,17 @@ namespace BS.GamePlay.Combat
             //计算最终伤害
             //处理免伤效果，只有玩家有效
             float finalDamage = info.damage;
-            if (stats != null) 
-                finalDamage *= 1f - stats.DamageReduction; 
+            if (stats != null)
+            {
+                float statsDamageReduction = stats.DamageReduction; //升级免伤
+                float backpackDamageReduction = globalModifier != null ? globalModifier.DamageReductionBonus : 0f;//背包免伤
+                backpackDamageReduction = Mathf.Min(backpackDamageReduction, maxBackpackDamageReduction);//背包免伤上限
+
+                float finalDamageReduction = Mathf.Clamp(
+                    statsDamageReduction + backpackDamageReduction,0f,maxTotalDamageReduction);//免伤上限
+
+                finalDamage *= 1f - finalDamageReduction;
+            }
 
             currentHp = Mathf.Clamp(currentHp - finalDamage, 0f, maxHp);
             OnDamaged?.Invoke(info);//触发受伤事件
@@ -97,6 +135,13 @@ namespace BS.GamePlay.Combat
                 currentHp = Mathf.Min(currentHp, maxHp);
 
             OnHealthChanged?.Invoke(currentHp, maxHp);
+        }
+
+        private void RefreshBackpackPassives()
+        {
+            if (inventorySystem == null || inventorySystem.Grid == null) return;
+            //刷新背包被动效果
+            globalModifier = passiveCollector.Collect(inventorySystem.Grid.GetUniqueItems());
         }
     }
 }

@@ -18,6 +18,9 @@
         Armor,      //防弹盔甲
         Medical,    //药品
 
-        Collection  //收集品
+        Collection,  //收集品
+
+        MechanicalArm, // 机械臂
+        MagnetCore, // 磁吸核心
     }
 }

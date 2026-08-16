@@ -24,11 +24,13 @@ namespace BS.GamePlay.Combat
         [SerializeField] private List<WeaponSlot> weaponSlots;
         [SerializeField] private float maxBackpackFireRateMultiplier = 2f;
         [SerializeField] private float maxBackpackDamageBoostMultiplier = 2f;
+        [SerializeField] private float maxBackpackCritChanceBonus = 1f;
 
         //激活Item与自动武器的映射表，用于把邻接效果应用到具体自动武器
-        private readonly BackpackEffectCollector effectCollector = new BackpackEffectCollector();//效果控制器
+        private readonly BackpackEffectCollector effectCollector = new BackpackEffectCollector();//数值效果控制器
         private readonly HashSet<Item> activeWeaponItems = new HashSet<Item>();
-
+        private readonly BackpackPassiveCollector passiveCollector = new BackpackPassiveCollector();//被动效果控制器
+        private BackpackGlobalModifier globalModifier;
         private void Awake()
         {
             if (inventorySystem == null) //不要无条件Find,没脱再find
@@ -67,9 +69,15 @@ namespace BS.GamePlay.Combat
             DeactivateAllWeapons();
 
             List<Item> items = inventorySystem.Grid.GetUniqueItems();
+
+            globalModifier = passiveCollector.Collect(items);//检测全局被动效果
+
             int activatedCount = 0;
-            int bonus = stats != null ? stats.ActiveWeaponLimitBonus : 0;
-            int finalActiveWeaponLimit = Mathf.Max(1, activeWeaponLimit + bonus);
+
+            int statsBonus = stats != null ? stats.ActiveWeaponLimitBonus : 0;//成长效果
+            int backpackBonus = globalModifier != null ? globalModifier.ActiveWeaponLimitBonus : 0;//背包效果，在此处消费
+            int finalActiveWeaponLimit = Mathf.Max(1, activeWeaponLimit + statsBonus + backpackBonus);
+
             foreach (var item in items)//先遍历到的item就是位置靠前的物品
             {
                 if(activatedCount >= finalActiveWeaponLimit) break;
@@ -102,6 +110,7 @@ namespace BS.GamePlay.Combat
                     autoWeapon.SetBackpackFireRateMultiplier(1f);//重置背包攻速倍率
                     autoWeapon.SetBackpackWeaponMultiplier(1f);//重置背包武器火力倍率
                     autoWeapon.SetBackpackDamageBoostMultiplier(1f);//重置背包伤害加成倍率
+                    autoWeapon.SetBackpackCritChance(0f);//重置背包暴击率加成
                 }
                 weapon.WeaponObject.SetActive(false);
             }
@@ -160,6 +169,10 @@ namespace BS.GamePlay.Combat
             float damageMultiplier = 1f + modifier.DamageBonus;
             damageMultiplier = Mathf.Min(damageMultiplier, maxBackpackDamageBoostMultiplier);
             autoWeapon.SetBackpackDamageBoostMultiplier(damageMultiplier);
+
+            float CritChance = 0f + modifier.CritChanceBonus;
+            CritChance = Mathf.Min(CritChance, maxBackpackCritChanceBonus);
+            autoWeapon.SetBackpackCritChance(CritChance);
         }
 
         //提供一个查询激活武器的接口

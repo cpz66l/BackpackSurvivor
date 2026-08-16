@@ -24,8 +24,9 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 18
+    scoreValue: 30
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u5E94\u6025\u80FD\u91CF\u68D2"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -36,8 +37,9 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 22
+    scoreValue: 25
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u4FBF\u643A\u7535\u6C60"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -50,6 +52,7 @@ MonoBehaviour:
     connectableSides: 0
     scoreValue: 28
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u6807\u51C6\u5F39\u5323"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -60,8 +63,9 @@ MonoBehaviour:
     height: 1
     itemTag: 7
     connectableSides: 1
-    scoreValue: 30
+    scoreValue: 20
     effectValue: 0.1
+    level: 1
   - category: 2
     id: "\u5236\u5F0F\u624B\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -74,6 +78,7 @@ MonoBehaviour:
     connectableSides: 10
     scoreValue: 40
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u6025\u6551\u7EF7\u5E26"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -86,3 +91,4 @@ MonoBehaviour:
     connectableSides: 0
     scoreValue: 25
     effectValue: 0
+    level: 1

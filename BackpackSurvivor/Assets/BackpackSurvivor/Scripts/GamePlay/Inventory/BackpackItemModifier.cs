@@ -7,8 +7,9 @@ namespace BS.GamePlay.Inventory
         public Item Item { get; }
         public float FireRateBonus { get; private set; }
         public float DamageBonus { get; private set; }
+        public float CritChanceBonus { get; private set; }
 
-        public bool HasAnyBonus => FireRateBonus > 0f || DamageBonus > 0f;
+        public bool HasAnyBonus => FireRateBonus > 0f || DamageBonus > 0f || CritChanceBonus > 0f;
 
         public BackpackItemModifier(Item item)
         {
@@ -27,6 +28,13 @@ namespace BS.GamePlay.Inventory
             if (value <= 0f) return;
 
             DamageBonus += value;
+        }
+
+        public void AddCritChanceBonus(float value)
+        {
+            if (value <= 0f) return;
+
+            CritChanceBonus += value;
         }
     }
 }

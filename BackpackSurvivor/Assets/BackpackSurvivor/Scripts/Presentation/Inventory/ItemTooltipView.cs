@@ -44,6 +44,39 @@ namespace BS.Presentation
                                 $"价值: ￥{item.ScoreValue}\n" +
                                 $"伤害: +{percent}%";
             }
+            else if (item.Tag == ItemTag.Scope)
+            {
+                int percent = Mathf.RoundToInt(item.EffectValue * 100f);
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
+                                $"大小: {item.Width}x{item.Height}\n" +
+                                $"价值: ￥{item.ScoreValue}\n" +
+                                $"暴击率: +{percent}%";
+            }
+            else if (item.Tag == ItemTag.MechanicalArm)
+            {
+                //int bonus = Mathf.RoundToInt(item.EffectValue);
+                int bonus = 1;
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
+                                $"大小: {item.Width}x{item.Height}\n" +
+                                $"价值: ￥{item.ScoreValue}\n" +
+                                $"激活武器上限: +{bonus}";
+            }
+            else if (item.Tag == ItemTag.Armor)
+            {
+                int percent = Mathf.RoundToInt(item.EffectValue * 100f);
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
+                                $"大小: {item.Width}x{item.Height}\n" +
+                                $"价值: ￥{item.ScoreValue}\n" +
+                                $"免伤: +{percent}%";
+            }
+            else if (item.Tag == ItemTag.MagnetCore)
+            {
+                int percent = Mathf.RoundToInt(item.EffectValue * 100f);
+                bodyText.text = $"稀有度: {GetRarityChinese(item.Rarity)}\n" +
+                                $"大小: {item.Width}x{item.Height}\n" +
+                                $"价值: ￥{item.ScoreValue}\n" +
+                                $"拾取范围: +{percent}%";
+            }
             else if(item.Tag == ItemTag.Rifle || item.Tag == ItemTag.Pistol || item.Tag == ItemTag.Shotgun)
             {
                 int percent;

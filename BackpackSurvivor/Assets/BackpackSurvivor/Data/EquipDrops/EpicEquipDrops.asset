@@ -24,25 +24,27 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 420
+    scoreValue: 450
     effectValue: 0
+    level: 1
   - category: 2
-    id: "\u539F\u578B\u6B66\u5668\u84DD\u56FE"
+    id: "\u673A\u68B0\u81C2"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
-    weight: 15
+    weight: 10
     amount: 0
     width: 2
-    height: 1
-    itemTag: 12
+    height: 2
+    itemTag: 13
     connectableSides: 0
-    scoreValue: 650
-    effectValue: 0
+    scoreValue: 500
+    effectValue: 1
+    level: 1
   - category: 2
     id: "\u6C61\u67D3\u533A\u7814\u7A76\u6837\u672C"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
-    weight: 12
+    weight: 15
     amount: 0
     width: 1
     height: 1
@@ -50,18 +52,20 @@ MonoBehaviour:
     connectableSides: 0
     scoreValue: 580
     effectValue: 0
+    level: 1
   - category: 2
-    id: "\u667A\u80FD\u706B\u63A7\u6838\u5FC3"
+    id: "\u72D9\u51FB\u955C"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
     weight: 15
     amount: 0
-    width: 1
-    height: 2
+    width: 2
+    height: 1
     itemTag: 8
-    connectableSides: -1
-    scoreValue: 420
-    effectValue: 0
+    connectableSides: 4
+    scoreValue: 470
+    effectValue: 0.3
+    level: 1
   - category: 2
     id: "\u805A\u53D8\u70B9\u706B\u6838\u5FC3"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -74,6 +78,7 @@ MonoBehaviour:
     connectableSides: 4
     scoreValue: 450
     effectValue: 0.3
+    level: 1
   - category: 2
     id: "\u539F\u578B\u6B65\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -86,6 +91,7 @@ MonoBehaviour:
     connectableSides: 5
     scoreValue: 480
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u7834\u95E8\u8005\u9730\u5F39\u67AA"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -98,15 +104,17 @@ MonoBehaviour:
     connectableSides: 5
     scoreValue: 520
     effectValue: 0
+    level: 1
   - category: 2
     id: "\u5B9E\u9A8C\u578B\u9632\u62A4\u670D"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
     rarity: 3
-    weight: 8
+    weight: 10
     amount: 0
     width: 2
     height: 3
     itemTag: 10
     connectableSides: 0
-    scoreValue: 430
-    effectValue: 0
+    scoreValue: 520
+    effectValue: 0.2
+    level: 1

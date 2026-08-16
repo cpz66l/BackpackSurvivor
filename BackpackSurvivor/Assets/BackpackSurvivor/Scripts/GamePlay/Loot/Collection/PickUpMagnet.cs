@@ -1,5 +1,7 @@
 ﻿using BS.GamePlay.Combat;
 using BS.GamePlay.Stats;
+using BS.GamePlay.Inventory;
+using BS.GamePlay;
 using UnityEngine;
 
 namespace BS.GamePlay.Loot
@@ -21,6 +23,12 @@ namespace BS.GamePlay.Loot
         private Health playerHealth;
         private ICollectable collectable;
         private PlayerRunStats playerStats;
+        [SerializeField] private InventorySystem inventorySystem;
+        [SerializeField] private float maxBackpackPickupRangeBonus = 1f;
+
+        private readonly BackpackPassiveCollector passiveCollector = new BackpackPassiveCollector();
+        private BackpackGlobalModifier globalModifier;
+        private bool subscribedToGrid;
         //状态字段
         private MagnetState magentState = MagnetState.Idle;
 
@@ -35,6 +43,31 @@ namespace BS.GamePlay.Loot
             playerStats = player.GetComponent<PlayerRunStats>();
         }
 
+        private void OnEnable()
+        {
+            if (inventorySystem == null)
+                inventorySystem = FindAnyObjectByType<InventorySystem>();
+
+            if (inventorySystem == null || inventorySystem.Grid == null) return;
+
+            if (!subscribedToGrid)
+            {
+                inventorySystem.Grid.OnChanged += RefreshBackpackPassives;
+                subscribedToGrid = true;
+            }
+
+            RefreshBackpackPassives();
+        }
+
+        private void OnDisable()
+        {
+            if (!subscribedToGrid) return;
+            if (inventorySystem != null && inventorySystem.Grid != null)
+                inventorySystem.Grid.OnChanged -= RefreshBackpackPassives;
+
+            subscribedToGrid = false;
+        }
+
         private void Update()
         {
             if (playerTf == null) return;
@@ -43,7 +76,9 @@ namespace BS.GamePlay.Loot
             float sqrDistance = direction.sqrMagnitude;
             //处理磁吸范围
             float pickupMultiplier = playerStats != null ? playerStats.PickupRangeMultiplier : 1f;
-            float finalAttractRange = attractRange * pickupMultiplier;
+            float backpackPickupRangeBonus = globalModifier != null ? globalModifier.PickupRangeBonus : 0f;
+            backpackPickupRangeBonus = Mathf.Min(backpackPickupRangeBonus, maxBackpackPickupRangeBonus);
+            float finalAttractRange = attractRange * pickupMultiplier * (1f + backpackPickupRangeBonus);
             switch (magentState)
             {
                 case MagnetState.Idle:
@@ -78,6 +113,13 @@ namespace BS.GamePlay.Loot
         {
             magentState = MagnetState.Idle;
             currentSpeed = 0f;
+        }
+
+        private void RefreshBackpackPassives()
+        {
+            if (inventorySystem == null || inventorySystem.Grid == null) return;
+
+            globalModifier = passiveCollector.Collect(inventorySystem.Grid.GetUniqueItems());
         }
 
         private enum MagnetState

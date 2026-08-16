@@ -1,10 +1,9 @@
 {
-  "source": "Meshy image-to-image API; local chroma-key cleanup rebuilt alpha from downloaded raw outputs",
-  "ai_model": "nano-banana",
-  "style_reference": "C:\\Users\\cp\\Pictures\\b994e912-f198-40e1-84c3-208e2bab91f7.png",
+  "source": "Meshy image-to-image API; downloaded outputs chroma-keyed and normalized to transparent lightweight PNGs",
+  "ai_model": "nano-banana-2",
+  "style_reference": "Existing low-poly Backpack Survivor item icons, with solid magenta chroma-key generation background",
   "cell_source_size": "256 pixels per inventory cell",
   "skipped_by_request": [
-    "BS_ItemIcon_Scope.png",
     "BS_ItemIcon_FireCore.png"
   ],
   "assets": [
@@ -79,9 +78,87 @@
       "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_Collection.png",
       "bytes": 47838,
       "meshy_task_id": "019fcda4-130c-79c4-aa26-611905d5159d"
+    },
+    {
+      "file": "BS_ItemIcon_MechanicalArm.png",
+      "tag": "MechanicalArm",
+      "grid_size": "2x2",
+      "pixels": "512x512",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_MechanicalArm.png",
+      "bytes": 86012,
+      "meshy_task_id": "01a00a7e-3223-7e4d-817e-d6a01329a17a"
+    },
+    {
+      "file": "BS_ItemIcon_MagnetCore.png",
+      "tag": "MagnetCore",
+      "grid_size": "2x2",
+      "pixels": "512x512",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_MagnetCore.png",
+      "bytes": 97687,
+      "meshy_task_id": "01a00a7e-37e2-7641-a5b0-6f5e64d4a622"
+    },
+    {
+      "file": "BS_ItemIcon_ShelterMasterKey.png",
+      "tag": "ShelterMasterKey",
+      "grid_size": "1x2",
+      "pixels": "256x512",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_ShelterMasterKey.png",
+      "bytes": 40505,
+      "meshy_task_id": "01a00a8f-cf8d-7185-841b-e44a379c4e7a",
+      "concept": "Single vertical bunker key with ring head, long shaft, teeth, teal authorization core, and orange tooth blocks."
+    },
+    {
+      "file": "BS_ItemIcon_ArkPlanCore.png",
+      "tag": "ArkPlanCore",
+      "grid_size": "1x1",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_ArkPlanCore.png",
+      "bytes": 36146,
+      "meshy_task_id": "01a00a8f-d830-7186-b845-319f44a9fa52",
+      "concept": "Ark blueprint/data relic slab with glowing ark-shaped hologram, intentionally not a circular or square energy core."
+    },
+    {
+      "file": "BS_ItemIcon_EvacuationCoordinates.png",
+      "tag": "EvacuationCoordinates",
+      "grid_size": "1x1",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_EvacuationCoordinates.png",
+      "bytes": 39354,
+      "meshy_task_id": "01a00a86-c126-7383-96e5-1888cb1de9ce",
+      "concept": "Rugged navigation tablet/map slab with glowing route mark, no text."
+    },
+    {
+      "file": "BS_ItemIcon_SparkReactor.png",
+      "tag": "SparkReactor",
+      "grid_size": "3x3",
+      "pixels": "768x768",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_SparkReactor.png",
+      "bytes": 182337,
+      "meshy_task_id": "01a00a8f-dfe5-7187-9367-b8bf4753ed5d",
+      "concept": "Large upright industrial furnace/reactor engine with vertical teal cylinder, side coils, orange heat fins, intentionally not a flat center-core plate."
+    },
+    {
+      "file": "BS_ItemIcon_BasicScope.png",
+      "tag": "BasicScope",
+      "grid_size": "1x1",
+      "pixels": "256x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_BasicScope.png",
+      "bytes": 22005,
+      "meshy_task_id": "01a00a86-cf03-7389-bf90-10a5ff72ed28",
+      "concept": "Short compact gun optic for 1x1 inventory slot."
+    },
+    {
+      "file": "BS_ItemIcon_SniperScope.png",
+      "tag": "SniperScope",
+      "grid_size": "2x1",
+      "pixels": "512x256",
+      "path": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_SniperScope.png",
+      "bytes": 38188,
+      "meshy_task_id": "01a00a88-98b2-7811-bccf-32d0de63e213",
+      "concept": "Single long horizontal rifle optic with cyan lens, orange turret, and mounting clamps."
     }
   ],
-  "contact_sheet": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\BackpackItemTextures\\BS_ItemIcon_ContactSheet.png",
+  "contact_sheet": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_ContactSheet.png",
   "raw_results": [
     {
       "tag": "Pistol",
@@ -122,7 +199,69 @@
       "tag": "Collection",
       "task_id": "019fcda4-130c-79c4-aa26-611905d5159d",
       "status": "SUCCEEDED"
+    },
+    {
+      "tag": "MechanicalArm",
+      "task_id": "01a00a7e-3223-7e4d-817e-d6a01329a17a",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6
+    },
+    {
+      "tag": "MagnetCore",
+      "task_id": "01a00a7e-37e2-7641-a5b0-6f5e64d4a622",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6
+    },
+    {
+      "tag": "EvacuationCoordinates",
+      "task_id": "01a00a86-c126-7383-96e5-1888cb1de9ce",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6
+    },
+    {
+      "tag": "BasicScope",
+      "task_id": "01a00a86-cf03-7389-bf90-10a5ff72ed28",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6
+    },
+    {
+      "tag": "SniperScope",
+      "task_id": "01a00a88-98b2-7811-bccf-32d0de63e213",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6,
+      "revision": "silhouette-reference fix"
+    },
+    {
+      "tag": "ShelterMasterKey",
+      "task_id": "01a00a8f-cf8d-7185-841b-e44a379c4e7a",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6,
+      "revision": "distinct silhouette redesign"
+    },
+    {
+      "tag": "ArkPlanCore",
+      "task_id": "01a00a8f-d830-7186-b845-319f44a9fa52",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6,
+      "revision": "distinct silhouette redesign"
+    },
+    {
+      "tag": "SparkReactor",
+      "task_id": "01a00a8f-dfe5-7187-9367-b8bf4753ed5d",
+      "status": "SUCCEEDED",
+      "consumed_credits": 6,
+      "revision": "distinct silhouette redesign"
     }
   ],
-  "postprocess": "Removed Meshy hot-pink chroma-key background and converted pink anti-alias fringe to neutral dark outlines."
+  "postprocess": "Removed generated chroma/checker background, normalized icons to inventory-cell dimensions, palette-optimized PNGs, rebuilt preview/contact sheet.",
+  "last_added": [
+    "BS_ItemIcon_ShelterMasterKey.png",
+    "BS_ItemIcon_ArkPlanCore.png",
+    "BS_ItemIcon_EvacuationCoordinates.png",
+    "BS_ItemIcon_SparkReactor.png",
+    "BS_ItemIcon_BasicScope.png",
+    "BS_ItemIcon_SniperScope.png"
+  ],
+  "latest_generation_note": "Redesigned ShelterMasterKey, ArkPlanCore, and SparkReactor after feedback: avoid MagnetCore-like square/circular energy-core silhouettes and make the key clearly key-shaped.",
+  "latest_preview": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Textures\\BackpackItemTextures\\BS_ItemIcon_KeyItems_Preview.png"
 }

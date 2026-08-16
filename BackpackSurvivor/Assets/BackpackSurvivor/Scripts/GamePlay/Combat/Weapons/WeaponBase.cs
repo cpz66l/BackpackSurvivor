@@ -17,6 +17,7 @@ namespace BS.GamePlay.Combat
 
         protected float backpackWeaponMultiplier = 1f;
         protected float backpackDamageBoostMultiplier = 1f; // 邻接攻击芯片
+        protected float backpackCritChanceBonus = 0f; //邻接瞄准镜，加暴击
 
         protected SfxPlayer sfx;
         protected PlayerRunStats stats;
@@ -31,7 +32,8 @@ namespace BS.GamePlay.Combat
             sfx?.PlayShoot();
             //处理暴击效果
             float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier * backpackDamageBoostMultiplier;
-            bool isCrit = Random.value < stats.CritChance;
+            float finalCritChance = Mathf.Clamp01(stats.CritChance + backpackCritChanceBonus);
+            bool isCrit = Random.value < finalCritChance;
             if (isCrit) 
                 rawDamage *= stats.CritDamageMultiplier;
 
@@ -80,6 +82,11 @@ namespace BS.GamePlay.Combat
         public void SetBackpackDamageBoostMultiplier(float multiplier)
         {
             backpackDamageBoostMultiplier = Mathf.Max(1f, multiplier);
+        }
+
+        public void SetBackpackCritChance(float critChance)
+        {
+            backpackCritChanceBonus = Mathf.Max(0f, critChance);
         }
     }
 }

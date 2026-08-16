@@ -54,8 +54,8 @@ namespace BS.GamePlay.Upgrades
                 LevelUpOptionId.PickupRangeUp,
                 LevelUpOptionCategory.Loot,
                 "磁吸背包",
-                "拾取范围 +25%",
-                0.25f,
+                "拾取范围 +20%",
+                0.20f,
                 65,
                 6,
                 6));

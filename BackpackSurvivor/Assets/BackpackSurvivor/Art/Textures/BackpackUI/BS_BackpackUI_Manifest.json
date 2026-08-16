@@ -1,8 +1,8 @@
 {
-  "source": "Meshy image-to-image API + local chroma-key cleanup and hollow-center enforcement",
-  "ai_model": "nano-banana",
-  "meshy_task_id": "019fdc6e-893a-7ee0-8092-bd06107a756d",
-  "intended_grid": "6x8 backpack grid, current scene cells are 65px; final frame is 3:4 vertical",
+  "source": "Meshy image-to-image API + local chroma-key cleanup and exact hollow 6x8 frame enforcement",
+  "ai_model": "nano-banana-2",
+  "meshy_task_id": "01a00a94-7b88-7645-9ef5-2bd3f68893c2",
+  "intended_grid": "6x8 backpack grid; final frame is 768x1024 vertical 3:4 PNG with transparent center",
   "files": [
     {
       "role": "backpack_frame",
@@ -11,7 +11,7 @@
         768,
         1024
       ],
-      "bytes": 189828,
+      "bytes": 99914,
       "alpha": [
         0,
         255
@@ -24,17 +24,24 @@
         900,
         1120
       ],
-      "bytes": 199783,
+      "bytes": 45323,
       "alpha": null
     }
   ],
-  "postprocess_revision": "rectangular_inner_frame_thin_v1",
+  "postprocess_revision": "meshy_low_poly_shell_square_inner_6x8_v1_clean_alpha_rgb",
   "inner_cutout_px": {
     "left": 110,
     "top": 150,
     "right": 658,
     "bottom": 878
   },
-  "notes": "Inner backpack opening uses straight right-angle corners with a thinner 4px dark lip; center remains transparent.",
-  "inner_stroke_px": 4
+  "notes": "Meshy generated the styled outer shell; local postprocess enforces exact transparent hollow center, straight 90-degree inner corners, and fully cleared RGB on transparent pixels to avoid magenta edge bleed.",
+  "inner_stroke_px": 4,
+  "inner_grid": {
+    "columns": 6,
+    "rows": 8,
+    "cell_width_px": 91.33333333333333,
+    "cell_height_px": 91.0
+  },
+  "consumed_credits": 6
 }

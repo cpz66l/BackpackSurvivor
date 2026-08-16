@@ -26,6 +26,9 @@ namespace BS.GamePlay.Inventory
                     case AdjacencyEffectId.DamageBoost:
                         ApplyDamageBoost(effect);
                         break;
+                    case AdjacencyEffectId.CritBoost:
+                        ApplyCritBoost(effect);
+                        break;
                 }
             }
         }
@@ -69,6 +72,11 @@ namespace BS.GamePlay.Inventory
             ApplyWeaponSideBonus(effect, BonusType.Damage);
         }
 
+        private void ApplyCritBoost(AdjacencyEffect effect)
+        {
+            ApplyWeaponSideBonus(effect, BonusType.Crit);
+        }
+
         private void ApplyWeaponSideBonus(AdjacencyEffect effect, BonusType bonusType)
         {
             if (effect == null) return;
@@ -106,6 +114,9 @@ namespace BS.GamePlay.Inventory
                 case BonusType.Damage:
                     modifier.AddDamageBonus(sourceItem.EffectValue);
                     break;
+                case BonusType.Crit:
+                    modifier.AddCritChanceBonus(sourceItem.EffectValue);
+                    break;
             }
         }
 
@@ -123,6 +134,7 @@ namespace BS.GamePlay.Inventory
         {
             FireRate,
             Damage,
+            Crit,
         }
     }
 }

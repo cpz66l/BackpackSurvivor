@@ -12,9 +12,7 @@ namespace BS.Inventory
             if (candidateEffects == null) return validEffects;
 
             AddValidDualWieldEffects(candidateEffects,validEffects);//处理候选双持效果
-            AddValidFireRateBoostEffects(candidateEffects, validEffects);
-            AddValidDamageBoostEffects(candidateEffects, validEffects);
-
+            AddValidStackableEffects(candidateEffects, validEffects);//处理可堆叠数值效果
             return validEffects;
         }
 
@@ -37,25 +35,22 @@ namespace BS.Inventory
             }
         }
 
-        private static void AddValidFireRateBoostEffects(List<AdjacencyEffect> candidateEffects, List<AdjacencyEffect> validEffects)
+        private static void AddValidStackableEffects(List<AdjacencyEffect> candidateEffects, List<AdjacencyEffect> validEffects)
         {
             foreach (AdjacencyEffect effect in candidateEffects)
             {
                 if (effect == null) continue;
-                if (effect.EffectId != AdjacencyEffectId.FireRateBoost) continue;
+                if (!IsStackableEffect(effect.EffectId)) continue;//筛选可堆叠效果
 
                 validEffects.Add(effect);
             }
         }
 
-        private static void AddValidDamageBoostEffects(List<AdjacencyEffect> candidateEffects, List<AdjacencyEffect> validEffects)
+        private static bool IsStackableEffect(AdjacencyEffectId effectId)
         {
-            foreach (AdjacencyEffect effect in candidateEffects)
-            {
-                if (effect == null) continue;
-                if (effect.EffectId != AdjacencyEffectId.DamageBoost) continue;
-                validEffects.Add(effect);
-            }
+            return effectId == AdjacencyEffectId.FireRateBoost
+                || effectId == AdjacencyEffectId.DamageBoost
+                || effectId == AdjacencyEffectId.CritBoost;
         }
     }
 }
