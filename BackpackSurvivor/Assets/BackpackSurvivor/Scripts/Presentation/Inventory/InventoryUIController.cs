@@ -18,6 +18,7 @@ namespace BS.Presentation
         [SerializeField] private ItemTooltipView tooltipView; //item属性提示面板
         [SerializeField] private ItemIconResolver itemIconResolver; //物品图标解析器
         [SerializeField] private CanvasGroup bagPanelcanvasGroup;
+        [SerializeField] private SfxPlayer sfx;
 
         private InventoryGrid grid;
         private bool isDragging = false;
@@ -32,6 +33,7 @@ namespace BS.Presentation
         private bool needsRedrawAfterDrag; //拖拽期间漏掉重绘的补偿机制
 
         private bool isBagOpen = false;
+        private bool hasHandledInitialBagState;
 
         private void Awake()
         {
@@ -39,6 +41,8 @@ namespace BS.Presentation
             backpackWeaponActivator = FindAnyObjectByType<BackpackWeaponActivator>();
             if (itemIconResolver == null) 
                 itemIconResolver = FindAnyObjectByType<ItemIconResolver>();
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
         }
         private void Start ()
         {
@@ -175,6 +179,7 @@ namespace BS.Presentation
             if (!RectTransformUtility.RectangleContainsScreenPoint(bagPanel, pointerPos, null))
             {
                 inventorySystem.DiscardToWorld(dragItem);
+                sfx?.PlaySfx(SfxId.ItemDrop);
                 Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
                 dragItem = null;
                 ghost = null;
@@ -187,6 +192,7 @@ namespace BS.Presentation
                 Item targetItem = grid.GetItemAt(targetX, targetY);
                 if(grid.TryMerge(dragItem , targetItem))
                 {
+                    sfx?.PlaySfx(SfxId.MergeSuccess);
                     // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
                     dragItem = null;
                     ghost = null;
@@ -197,27 +203,35 @@ namespace BS.Presentation
 
             //放置
             //松手时有位置，判断放置
+            bool didDropItem = false;
             if (grid.CanPlaceAt(targetX, targetY, dragItem))
-                grid.Place(targetX, targetY, dragItem); //有位置就放下
+                didDropItem = grid.Place(targetX, targetY, dragItem); //有位置就放下
 
             // 新位置不存在，回滚到旧位置
             else if (grid.CanPlaceAt(oldX, oldY, dragItem))
-                grid.Place(oldX, oldY, dragItem); 
+                didDropItem = grid.Place(oldX, oldY, dragItem);
 
             //旧位置也被占了就找新位置
             else if (grid.TryFindFreeArea(dragItem, out int fx, out int fy)
-                && grid.Place(fx, fy, dragItem)) { }
+                && grid.Place(fx, fy, dragItem))
+            {
+                didDropItem = true;
+            }
 
             else
             {
                 //背包满了直接丢弃到世界
                 inventorySystem.DiscardToWorld(dragItem);
+                sfx?.PlaySfx(SfxId.ItemDrop);
                 Destroy(ghost.gameObject);   // 没有 Place → 没有 OnChanged → 没人替你 Redraw
                 dragItem = null;
                 ghost = null;
                 if (needsRedrawAfterDrag) Redraw(); //在不会触发Redraw的路劲判断是否需要重绘
                 return;
             }
+
+            if (didDropItem)
+                sfx?.PlaySfx(SfxId.ItemDrop);
 
             // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
             dragItem = null;
@@ -309,6 +323,9 @@ namespace BS.Presentation
                 bagPanelcanvasGroup.blocksRaycasts = false;
                 HideTooltip();
             }
+            if (hasHandledInitialBagState)
+                sfx?.PlaySfx(isBagOpen ? SfxId.BackpackOpen : SfxId.BackpackClose);
+            hasHandledInitialBagState = true;
             Redraw();
         }
     }

@@ -2,6 +2,7 @@
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.Inventory;
+using BS.Presentation;
 using UnityEngine;
 using static BS.Data.LootTableData;
 namespace BS.GamePlay
@@ -11,12 +12,15 @@ namespace BS.GamePlay
         public InventoryGrid Grid { get; private set; }
         private Health playerHealth;
         private LootManager lootManager;
+        [SerializeField] private SfxPlayer sfx;
 
         private void Awake()
         {
             playerHealth = FindAnyObjectByType<PlayerController>().GetComponent<Health>();
             Grid = new InventoryGrid(6,8);
             lootManager = FindAnyObjectByType<LootManager>();
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
         }
         private void OnEnable()
         {
@@ -42,9 +46,12 @@ namespace BS.GamePlay
         {
             if(entry == null) return;
             Item item = CreateItemFromLootEntry(entry);
-            if (Grid.TryFindFreeArea(item, out int x, out int y))
+            if (Grid.TryFindFreeArea(item, out int x, out int y) && Grid.Place(x, y, item))
             {
-                Grid.Place(x, y, item);
+                if (entry.rarity == Rarity.Legendary)
+                    sfx?.PlaySfx(SfxId.LegendaryItem);
+                else
+                    sfx?.PlaySfx(SfxId.PickupItem);
             }
             else
             {

@@ -4,13 +4,36 @@ namespace BS.Presentation
 {
     public class SfxPlayer : MonoBehaviour
     {
+        [System.Serializable]
+        private class WeaponAudioCue
+        {
+            public WeaponSfxId id;
+            public AudioClip[] clips;
+            [Range(0f, 1f)] public float volume = 0.6f;
+            public float pitchMin = 0.96f;
+            public float pitchMax = 1.04f;
+            public float cooldown = 0.05f;
+
+            [System.NonSerialized] public float lastPlayTime = -999f;
+        }
+        [SerializeField] private WeaponAudioCue[] weaponCues;
+
+        [System.Serializable]
+        private class AudioCue
+        {
+            public SfxId id;
+            public AudioClip[] clips;
+            [Range(0f, 1f)] public float volume = 0.8f;
+            public float pitchMin = 1f;
+            public float pitchMax = 1f;
+            public float cooldown = 0f;
+
+            [System.NonSerialized] public float lastPlayTime = -999f;
+        }
+        [SerializeField] private AudioCue[] cues;
+
+
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioClip shootClip;
-        [SerializeField] private AudioClip hitClip;
-        [SerializeField] private AudioClip pickupXpClip;
-        [SerializeField] private AudioClip levelUpClip;
-        [SerializeField] private AudioClip hurtClip;
-        [SerializeField] private AudioClip chestOpenClip;
 
 
         private void Awake()
@@ -18,35 +41,93 @@ namespace BS.Presentation
             if (audioSource == null) 
                 audioSource = GetComponent<AudioSource>();
         }
-        private void PlayOneShot(AudioClip clip)
+
+        //武器音效
+        public void PlayWeaponShoot(WeaponSfxId id)
         {
-            if (audioSource == null || clip == null) return;
-            audioSource.PlayOneShot(clip);
-        }
-        public void PlayHit()
-        {
-            PlayOneShot(hitClip);
+            WeaponAudioCue cue = FindWeaponCue(id);
+            if (cue == null) return;
+
+            PlayWeaponCue(cue);
         }
 
-        public void PlayShoot()
+        //普通音效
+        public void PlaySfx(SfxId id)
         {
-            PlayOneShot(shootClip);
+            AudioCue cue = FindCue(id);
+            if (cue == null) return;
+
+            PlayCue(cue);
         }
-        public void PlayPickupXp()
+
+        //找到相同id的武器音频提示
+        private WeaponAudioCue FindWeaponCue(WeaponSfxId id)
         {
-            PlayOneShot(pickupXpClip);
+            if(id == WeaponSfxId.None) return null;
+            if(weaponCues == null) return null;
+            foreach (var weaponCue in weaponCues)
+            {
+                if(weaponCue.id != id) continue;
+                return weaponCue;
+            }
+            return null;
         }
-        public void PlayLevelUp()
+        //武器音频播放方法
+        private void PlayWeaponCue(WeaponAudioCue cue)
         {
-            PlayOneShot(levelUpClip);
+            if (cue == null) return;
+            if(audioSource == null ||cue.clips == null ||cue.clips.Length == 0) return;
+            if(Time.unscaledTime - cue.lastPlayTime < cue.cooldown) return; //若当前时间距离上次音效播放时间还没结束冷却，则不进行音效播放
+            //抽取音效
+            int size = cue.clips.Length;
+            AudioClip clip = cue.clips[UnityEngine.Random.Range(0,size)];
+            if (clip == null) return;
+            //调整播放速度
+            float oldPitch = audioSource.pitch; //记录原来的播放速度
+            audioSource.pitch = UnityEngine.Random.Range(cue.pitchMin, cue.pitchMax); //改变播放速度
+            //播放声音
+            audioSource.PlayOneShot(clip, cue.volume);
+            //还原播放速度
+            audioSource.pitch = oldPitch;
+            cue.lastPlayTime = Time.unscaledTime;   //记录本次音效播放时间
+            //这里用 Time.unscaledTime，不是 Time.time。因为暂停 Time.timeScale = 0，不会影响Time.unscaledTime计时。
+            //音频系统最好不要被游戏暂停时间影响。射击时无所谓，但音频层用 unscaled 更稳。
         }
-        public void PlayHurt()
+
+
+        //找到相同id的音频提示
+        private AudioCue FindCue(SfxId id)
         {
-            PlayOneShot(hurtClip);
+            if (id == SfxId.None) return null;
+            if (cues == null) return null;
+
+            foreach (AudioCue cue in cues)
+            {
+                if (cue == null) continue;
+                if (cue.id != id) continue;
+
+                return cue;
+            }
+
+            return null;
         }
-        public void PlayChestOpen()
+        //音频播放方法
+        private void PlayCue(AudioCue cue)
         {
-            PlayOneShot(chestOpenClip);
+            if (cue == null) return;
+            if (audioSource == null) return;
+            if (cue.clips == null || cue.clips.Length == 0) return;
+            if (Time.unscaledTime - cue.lastPlayTime < cue.cooldown) return;
+
+            AudioClip clip = cue.clips[UnityEngine.Random.Range(0, cue.clips.Length)];
+            if (clip == null) return;
+
+            float oldPitch = audioSource.pitch;
+            audioSource.pitch = UnityEngine.Random.Range(cue.pitchMin, cue.pitchMax);
+            audioSource.PlayOneShot(clip, cue.volume);
+            audioSource.pitch = oldPitch;
+
+            cue.lastPlayTime = Time.unscaledTime;
         }
     }
 }

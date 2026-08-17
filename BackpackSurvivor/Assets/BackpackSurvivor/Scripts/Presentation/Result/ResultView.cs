@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace BS.Presentation
 {
@@ -18,12 +19,18 @@ namespace BS.Presentation
         [SerializeField] private TMP_Text statsText;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private SfxPlayer sfx;
+        [SerializeField] private float sceneLoadDelayAfterClick = 0.08f;
+
+        private bool isLeavingScene;
         
 
         private void Awake()
         {
             if(gameSession == null) 
                 gameSession = FindAnyObjectByType<GameSession>();
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
 
         }
 
@@ -59,11 +66,13 @@ namespace BS.Presentation
             {
                 titleText.text = "游戏胜利";
                 titleText.color = victoryTitleColor;
+                sfx?.PlaySfx(SfxId.GameVictory);
             }
             else if(runResult.FinalState == GameState.Defeat)
             {
                 titleText.text = "游戏失败";
                 titleText.color = defeatTitleColor;
+                sfx?.PlaySfx(SfxId.GameDefeat);
             }
 
             statsText.text =
@@ -84,14 +93,25 @@ namespace BS.Presentation
 
         private void HandleRestartClicked()
         {
+            if (isLeavingScene) return;
+            sfx?.PlaySfx(SfxId.ButtonClick);
             Time.timeScale = 1f;
-            SceneManager.LoadScene("01-Run");
+            StartCoroutine(LoadSceneAfterClick("01-Run"));
         }
 
         private void HandleQuitClicked()
         {
+            if (isLeavingScene) return;
+            sfx?.PlaySfx(SfxId.ButtonClick);
             Time.timeScale = 1f;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(LoadSceneAfterClick("MainMenu"));
+        }
+
+        private IEnumerator LoadSceneAfterClick(string sceneName)
+        {
+            isLeavingScene = true;
+            yield return new WaitForSecondsRealtime(sceneLoadDelayAfterClick);
+            SceneManager.LoadScene(sceneName);
         }
     }
 }

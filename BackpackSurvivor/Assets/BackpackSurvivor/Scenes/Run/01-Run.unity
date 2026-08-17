@@ -1559,6 +1559,7 @@ MonoBehaviour:
   maxDistance: 30
   firePoint: {fileID: 715598169}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 2
   attackInterval: 0.3
   maxRange: 20
   rotationSpeed: 720
@@ -1842,6 +1843,8 @@ MonoBehaviour:
   statsText: {fileID: 2138299924}
   restartButton: {fileID: 1993033508}
   quitButton: {fileID: 1967432670}
+  sfx: {fileID: 1328712797}
+  sceneLoadDelayAfterClick: 0.08
 --- !u!114 &142128206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2627,6 +2630,7 @@ MonoBehaviour:
   maxDistance: 30
   firePoint: {fileID: 1846149510}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 2
   attackInterval: 0.3
   maxRange: 20
   rotationSpeed: 720
@@ -2821,6 +2825,7 @@ MonoBehaviour:
   maxDistance: 10
   firePoint: {fileID: 1902714932}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 3
   attackInterval: 2
   maxRange: 5
   rotationSpeed: 720
@@ -5529,6 +5534,7 @@ MonoBehaviour:
   maxDistance: 10
   firePoint: {fileID: 170648823}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 3
   attackInterval: 2
   maxRange: 5
   rotationSpeed: 720
@@ -6986,6 +6992,7 @@ MonoBehaviour:
   maxDistance: 20
   firePoint: {fileID: 1342544616}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 1
   attackInterval: 1
   maxRange: 15
   rotationSpeed: 720
@@ -8352,7 +8359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -39.274902, y: 120}
+  m_AnchoredPosition: {x: -39.27484, y: 120}
   m_SizeDelta: {x: -1791.0984, y: -950.2803}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &983013036
@@ -10659,6 +10666,7 @@ GameObject:
   - component: {fileID: 1328712796}
   - component: {fileID: 1328712797}
   - component: {fileID: 1328712798}
+  - component: {fileID: 1328712799}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -10693,6 +10701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cfe47bd7c3aeb4c9d028900dbeeac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.InventorySystem
+  sfx: {fileID: 0}
 --- !u!114 &1328712795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10714,6 +10723,7 @@ MonoBehaviour:
   tooltipView: {fileID: 142128206}
   itemIconResolver: {fileID: 142128208}
   bagPanelcanvasGroup: {fileID: 285346964}
+  sfx: {fileID: 0}
 --- !u!114 &1328712796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10746,13 +10756,147 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a154c598f5c59945927bfc40cc2baf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.SfxPlayer
+  weaponCues:
+  - id: 1
+    clips:
+    - {fileID: 8300000, guid: 227db404b4fe92e48a8921e3a67e09ee, type: 3}
+    volume: 0.45
+    pitchMin: 0.96
+    pitchMax: 1.04
+    cooldown: 0.05
+  - id: 2
+    clips:
+    - {fileID: 8300000, guid: fe3db52b16e4ef54e994f5bda11725f6, type: 3}
+    - {fileID: 8300000, guid: 928bcfe4e2a869743ac6f9374e8cbc92, type: 3}
+    - {fileID: 8300000, guid: cb233b37bd2545444821d38d1a5c980b, type: 3}
+    volume: 0.45
+    pitchMin: 0.97
+    pitchMax: 1.03
+    cooldown: 0.04
+  - id: 3
+    clips:
+    - {fileID: 8300000, guid: 1a78ff9b7acecad4ba593116718cc008, type: 3}
+    volume: 0.5
+    pitchMin: 0.94
+    pitchMax: 1.02
+    cooldown: 0.12
+  cues:
+  - id: 1
+    clips: []
+    volume: 0.35
+    pitchMin: 0.96
+    pitchMax: 1.04
+    cooldown: 0.03
+  - id: 2
+    clips:
+    - {fileID: 8300000, guid: 5ea6cfad10bd6b24dbb0c324005d5e50, type: 3}
+    volume: 0.45
+    pitchMin: 0.98
+    pitchMax: 1.06
+    cooldown: 0.02
+  - id: 3
+    clips:
+    - {fileID: 8300000, guid: 3508a80f3e6dd0c478689b512a41aed5, type: 3}
+    - {fileID: 8300000, guid: b739b1c5e7a56a6418d4164cf5b291ea, type: 3}
+    - {fileID: 8300000, guid: a9003d5c017e3db4dbb49bf63212537b, type: 3}
+    volume: 0.5
+    pitchMin: 0.98
+    pitchMax: 1.06
+    cooldown: 0.04
+  - id: 4
+    clips:
+    - {fileID: 8300000, guid: 036b56adfdb390945b63dd80b9e9bd64, type: 3}
+    volume: 0.7
+    pitchMin: 0.98
+    pitchMax: 1.04
+    cooldown: 0.05
+  - id: 5
+    clips:
+    - {fileID: 8300000, guid: a92db2a5ae2f556408c55731f6c7b54a, type: 3}
+    volume: 0.75
+    pitchMin: 1
+    pitchMax: 1
+    cooldown: 0.2
+  - id: 6
+    clips:
+    - {fileID: 8300000, guid: 0c01443a64fc98b4493e0daa333e4587, type: 3}
+    volume: 0.7
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.08
+  - id: 7
+    clips:
+    - {fileID: 8300000, guid: 71a1cf7d64fb3f94da7f5bc219ce5be1, type: 3}
+    - {fileID: 8300000, guid: 2406647992c274946b10b814880cacab, type: 3}
+    - {fileID: 8300000, guid: c4940a75cd5ed2f4cb67d7841e62c65c, type: 3}
+    volume: 0.75
+    pitchMin: 0.96
+    pitchMax: 1.02
+    cooldown: 0.15
+  - id: 8
+    clips:
+    - {fileID: 8300000, guid: 4c9ea5e4a27be1d4cbb2c47e17ff0e90, type: 3}
+    volume: 0.9
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.2
+  - id: 9
+    clips:
+    - {fileID: 8300000, guid: ec565034eeed15342bf03ca850021cd1, type: 3}
+    volume: 0.5
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.08
+  - id: 10
+    clips:
+    - {fileID: 8300000, guid: 597f36bae52991d4f9797cfbac73ea6e, type: 3}
+    volume: 0.5
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.08
+  - id: 11
+    clips:
+    - {fileID: 8300000, guid: 036b56adfdb390945b63dd80b9e9bd64, type: 3}
+    volume: 0.55
+    pitchMin: 0.96
+    pitchMax: 1.04
+    cooldown: 0.04
+  - id: 12
+    clips:
+    - {fileID: 8300000, guid: 4c1ca48bea7b06c4ebc00a1d7270a172, type: 3}
+    volume: 0.75
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.15
+  - id: 13
+    clips:
+    - {fileID: 8300000, guid: 7409772dada844644848b50ab76df166, type: 3}
+    volume: 0.6
+    pitchMin: 0.98
+    pitchMax: 1.04
+    cooldown: 0.12
+  - id: 15
+    clips:
+    - {fileID: 8300000, guid: e06245848e93aa4499766043dbcc00ca, type: 3}
+    volume: 0.7
+    pitchMin: 0.98
+    pitchMax: 1.02
+    cooldown: 0.05
+  - id: 16
+    clips:
+    - {fileID: 8300000, guid: 88848534e753cc747882fe7bf2432b34, type: 3}
+    volume: 0.85
+    pitchMin: 0.98
+    pitchMax: 1
+    cooldown: 0.5
+  - id: 17
+    clips:
+    - {fileID: 8300000, guid: bca1fb22330b67442a697a71d5785da4, type: 3}
+    volume: 0.8
+    pitchMin: 0.94
+    pitchMax: 0.98
+    cooldown: 0.5
   audioSource: {fileID: 1328712798}
-  shootClip: {fileID: 8300000, guid: 227db404b4fe92e48a8921e3a67e09ee, type: 3}
-  hitClip: {fileID: 0}
-  pickupXpClip: {fileID: 0}
-  levelUpClip: {fileID: 0}
-  hurtClip: {fileID: 0}
-  chestOpenClip: {fileID: 0}
 --- !u!82 &1328712798
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10765,7 +10909,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -10773,6 +10917,103 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1328712799
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328712790}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7a13d50510c7b8d4980dec661b6fc4c8, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 64
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -11985,6 +12226,7 @@ MonoBehaviour:
   maxDistance: 20
   firePoint: {fileID: 1449576854}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 1
   attackInterval: 1
   maxRange: 15
   rotationSpeed: 720
@@ -13755,6 +13997,7 @@ MonoBehaviour:
   maxDistance: 30
   firePoint: {fileID: 736303179}
   bulletPool: {fileID: 758860771}
+  weaponSfxId: 1
   fireInterval: 1
 --- !u!4 &1771466924 stripped
 Transform:

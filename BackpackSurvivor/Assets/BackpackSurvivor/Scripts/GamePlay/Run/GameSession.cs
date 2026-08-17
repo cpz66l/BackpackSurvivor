@@ -41,6 +41,7 @@ namespace BS.GamePlay.Run
         public int CurrentXp => levelProgress.CurrentXp;
         public int XpToNextLevel => levelProgress.XpToNextLevel;
         public int TotalGold => totalGold;
+        public GameState GameState => state;
 
         //HUD 要靠事件刷新
         public event Action<GameState> OnStateChanged;
@@ -142,7 +143,7 @@ namespace BS.GamePlay.Run
             int finalXp = Mathf.RoundToInt(entry.amount * playerRunStats.XpGainMultiplier);
             int upLevelCount = levelProgress.AddXp(finalXp);
             BroadcastXpChanged();
-            sfx?.PlayPickupXp();
+            sfx?.PlaySfx(SfxId.PickupXp);
             for (int i = 0; i < upLevelCount; i++)
             {
                 int reachedLevel = levelProgress.Level - upLevelCount + i + 1;
@@ -150,7 +151,7 @@ namespace BS.GamePlay.Run
             }
             if (upLevelCount > 0)
             {
-                sfx?.PlayLevelUp();
+                sfx?.PlaySfx(SfxId.LevelUp);
                 RequestLevelUpChoice(levelProgress.Level);
             }
         }
@@ -172,6 +173,7 @@ namespace BS.GamePlay.Run
             if(playerRunStats == null) return;
             playerRunStats.Apply(option);
             levelUpOptionGenerator.RecordPick(option);//记录选择
+            sfx?.PlaySfx(SfxId.LevelUpConfirm);
             //处理最大生命值加成
             if (option.Id == LevelUpOptionId.MaxHpUp)
                 playerHealth.ApplyMaxHpBonus(playerRunStats.MaxHpBonus);
@@ -205,7 +207,7 @@ namespace BS.GamePlay.Run
             int finalGold = Mathf.RoundToInt(entry.amount * playerRunStats.GoldGainMultiplier);
             totalGold += finalGold;
             OnGoldChanged?.Invoke(totalGold);
-            //播放金币音效
+            sfx?.PlaySfx(SfxId.PickupGold);
         }
 
 

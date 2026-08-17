@@ -19,6 +19,7 @@ namespace BS.GamePlay.Combat
             fireTimer = fireInterval;
             CacheStats();
             CacheSfx();
+            CacheGameSession();
         }
 
 

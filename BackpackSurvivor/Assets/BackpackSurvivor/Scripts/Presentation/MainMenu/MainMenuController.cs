@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 namespace BS.Presentation
 {
     public class MainMenuController : MonoBehaviour
@@ -16,6 +17,12 @@ namespace BS.Presentation
         [SerializeField] private Button closeGuideButton;
 
         [SerializeField] private TMP_Text[] preloadTexts;
+        [SerializeField] private SfxPlayer sfx;
+        [SerializeField] private AudioClip buttonClickClip;
+        [SerializeField] private AudioSource uiAudioSource;
+        [SerializeField] private float sceneLoadDelayAfterClick = 0.08f;
+
+        private bool isLeavingScene;
 
         private void Awake()
         {
@@ -23,6 +30,10 @@ namespace BS.Presentation
                 aboutPanel.SetActive(false);
             if (gameplayGuidePanel != null)
                 gameplayGuidePanel.SetActive(false);
+            if (sfx == null)
+                sfx = FindAnyObjectByType<SfxPlayer>();
+            if (uiAudioSource == null)
+                uiAudioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -63,19 +74,88 @@ namespace BS.Presentation
 
         private void StartButton()
         {
+            if (isLeavingScene) return;
+            isLeavingScene = true;
+            PlayButtonClickAcrossScene();
             Time.timeScale = 1f;
             SceneManager.LoadScene("01-Run");
         }
 
-        private void QuitButton() => Application.Quit();
+        private void QuitButton()
+        {
+            if (isLeavingScene) return;
+            PlayButtonClick();
+            StartCoroutine(QuitAfterClick());
+        }
 
-        private void AboutButton() => aboutPanel.SetActive(true);
+        private void AboutButton()
+        {
+            PlayButtonClick();
+            aboutPanel.SetActive(true);
+        }
 
-        private void CloseAboutButton() => aboutPanel.SetActive(false);
+        private void CloseAboutButton()
+        {
+            PlayButtonClick();
+            aboutPanel.SetActive(false);
+        }
 
-        private void GameplayGuideButton() => gameplayGuidePanel.SetActive(true);
+        private void GameplayGuideButton()
+        {
+            PlayButtonClick();
+            gameplayGuidePanel.SetActive(true);
+        }
 
-        private void CloseGuideButton() => gameplayGuidePanel.SetActive(false);
+        private void CloseGuideButton()
+        {
+            PlayButtonClick();
+            gameplayGuidePanel.SetActive(false);
+        }
+
+        private void PlayButtonClick()
+        {
+            if (sfx != null)
+            {
+                sfx.PlaySfx(SfxId.ButtonClick);
+                return;
+            }
+
+            if (buttonClickClip == null) return;
+            if (uiAudioSource == null)
+            {
+                uiAudioSource = gameObject.AddComponent<AudioSource>();
+                uiAudioSource.playOnAwake = false;
+                uiAudioSource.spatialBlend = 0f;
+            }
+            uiAudioSource.PlayOneShot(buttonClickClip, 0.65f);
+        }
+
+        private void PlayButtonClickAcrossScene()
+        {
+            if (buttonClickClip == null)
+            {
+                PlayButtonClick();
+                return;
+            }
+
+            GameObject audioObject = new GameObject("OneShotUIButtonAudio");
+            DontDestroyOnLoad(audioObject);
+
+            AudioSource source = audioObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+            source.PlayOneShot(buttonClickClip, 0.65f);
+
+            Destroy(audioObject, buttonClickClip.length + 0.1f);
+        }
+
+        private IEnumerator QuitAfterClick()
+        {
+            isLeavingScene = true;
+            yield return new WaitForSecondsRealtime(sceneLoadDelayAfterClick);
+            Application.Quit();
+        }
+
         private void PrewarmPanels()
         {
             bool aboutWasActive = aboutPanel != null && aboutPanel.activeSelf;

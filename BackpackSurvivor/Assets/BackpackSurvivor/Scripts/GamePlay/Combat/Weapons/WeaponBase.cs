@@ -1,4 +1,5 @@
 ﻿using BS.Core;
+using BS.GamePlay.Run;
 using BS.GamePlay.Stats;
 using BS.Presentation;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace BS.GamePlay.Combat
 
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected ObjectPool bulletPool;
+        [SerializeField] protected WeaponSfxId weaponSfxId = WeaponSfxId.Pistol;    //选择声音类型
 
         protected float backpackWeaponMultiplier = 1f;
         protected float backpackDamageBoostMultiplier = 1f; // 邻接攻击芯片
@@ -21,6 +23,7 @@ namespace BS.GamePlay.Combat
 
         protected SfxPlayer sfx;
         protected PlayerRunStats stats;
+        protected GameSession gameSession;
 
         private void Awake()
         {
@@ -29,7 +32,8 @@ namespace BS.GamePlay.Combat
         }
         protected void Fire(Vector3 direction)
         {
-            sfx?.PlayShoot();
+            if(gameSession.GameState != GameState.Running) return;
+            sfx?.PlayWeaponShoot(weaponSfxId);
             //处理暴击效果
             float rawDamage = damage * stats.DamageMultiplier * backpackWeaponMultiplier * backpackDamageBoostMultiplier;
             float finalCritChance = Mathf.Clamp01(stats.CritChance + backpackCritChanceBonus);
@@ -72,6 +76,11 @@ namespace BS.GamePlay.Combat
         {
             if (sfx == null)
                 sfx = FindAnyObjectByType<SfxPlayer>();
+        }
+        protected void CacheGameSession()
+        {
+            if (gameSession == null)
+                gameSession = FindAnyObjectByType<GameSession>();
         }
 
         public void SetBackpackWeaponMultiplier(float multiplier)

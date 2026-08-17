@@ -79,7 +79,7 @@ namespace BS.GamePlay.Loot {
                 modelRb.material.color = Color.black;
             }
             //开宝箱音效
-            sfx?.PlayChestOpen();
+            sfx?.PlaySfx(SfxId.ChestOpen);
             //生成物品
             //drops先拿到总共生成的物品
             List<GameObject> drops = lootManager.TrySpawnDrop(dropPoint == null ? transform.position : dropPoint.position, lootBundle);

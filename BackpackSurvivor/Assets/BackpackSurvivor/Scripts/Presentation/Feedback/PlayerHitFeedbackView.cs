@@ -34,7 +34,7 @@ namespace BS.Presentation
 
         private void HandleHitFeedBack(DamageInfo info)
         {
-            sfx?.PlayHurt();
+            sfx?.PlaySfx(SfxId.Hurt);
 
             if (cameraShakePlayer != null)
                 cameraShakePlayer.Shake(duration, amplitude, frequency);

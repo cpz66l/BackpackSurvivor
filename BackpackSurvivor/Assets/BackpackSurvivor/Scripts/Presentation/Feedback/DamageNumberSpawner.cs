@@ -53,7 +53,7 @@ namespace BS.Presentation
 
             if (view == null) return;
             view.Play(info.damage);
-            sfx?.PlayHit();
+            sfx?.PlaySfx(SfxId.Hit);
         }
 
     }
