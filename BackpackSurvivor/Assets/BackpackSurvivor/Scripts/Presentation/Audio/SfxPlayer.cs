@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BS.Core;
+using UnityEngine;
 
 namespace BS.Presentation
 {
@@ -34,12 +35,30 @@ namespace BS.Presentation
 
 
         [SerializeField] private AudioSource audioSource;
-
+        private float effectiveSfxVolume = 1f;
 
         private void Awake()
         {
             if (audioSource == null) 
                 audioSource = GetComponent<AudioSource>();
+
+            ApplySettings(SettingsService.Load());
+        }
+        private void OnEnable()
+        {
+            SettingsService.Applied += ApplySettings;
+        }
+
+        private void OnDisable()
+        {
+            SettingsService.Applied -= ApplySettings;
+        }
+
+        private void ApplySettings(GameSettings settings)
+        {
+            if (settings == null) return;
+
+            effectiveSfxVolume = SettingsService.GetEffectiveSfxVolume(settings);
         }
 
         //武器音效
@@ -86,7 +105,7 @@ namespace BS.Presentation
             float oldPitch = audioSource.pitch; //记录原来的播放速度
             audioSource.pitch = UnityEngine.Random.Range(cue.pitchMin, cue.pitchMax); //改变播放速度
             //播放声音
-            audioSource.PlayOneShot(clip, cue.volume);
+            audioSource.PlayOneShot(clip, cue.volume * effectiveSfxVolume);
             //还原播放速度
             audioSource.pitch = oldPitch;
             cue.lastPlayTime = Time.unscaledTime;   //记录本次音效播放时间
@@ -124,7 +143,7 @@ namespace BS.Presentation
 
             float oldPitch = audioSource.pitch;
             audioSource.pitch = UnityEngine.Random.Range(cue.pitchMin, cue.pitchMax);
-            audioSource.PlayOneShot(clip, cue.volume);
+            audioSource.PlayOneShot(clip, cue.volume * effectiveSfxVolume);
             audioSource.pitch = oldPitch;
 
             cue.lastPlayTime = Time.unscaledTime;

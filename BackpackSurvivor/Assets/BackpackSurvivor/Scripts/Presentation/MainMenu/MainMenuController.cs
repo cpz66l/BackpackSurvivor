@@ -1,8 +1,9 @@
-﻿using TMPro;
+﻿using BS.Core;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 namespace BS.Presentation
 {
     public class MainMenuController : MonoBehaviour
@@ -15,6 +16,8 @@ namespace BS.Presentation
         [SerializeField] private Button gameplayGuideButton;
         [SerializeField] private GameObject gameplayGuidePanel;
         [SerializeField] private Button closeGuideButton;
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private SettingsPanelView settingsPanel;
 
         [SerializeField] private TMP_Text[] preloadTexts;
         [SerializeField] private SfxPlayer sfx;
@@ -34,6 +37,7 @@ namespace BS.Presentation
                 sfx = FindAnyObjectByType<SfxPlayer>();
             if (uiAudioSource == null)
                 uiAudioSource = GetComponent<AudioSource>();
+            SettingsService.Apply(SettingsService.Load());
         }
 
         private void Start()
@@ -54,6 +58,8 @@ namespace BS.Presentation
                 gameplayGuideButton.onClick.AddListener(GameplayGuideButton);
             if (closeGuideButton != null)
                 closeGuideButton.onClick.AddListener(CloseGuideButton);
+            if (settingsButton != null)
+                settingsButton.onClick.AddListener(SettingsButton);
         }
 
         private void OnDisable()
@@ -70,6 +76,8 @@ namespace BS.Presentation
                 gameplayGuideButton.onClick.RemoveListener(GameplayGuideButton);
             if (closeGuideButton != null)
                 closeGuideButton.onClick.RemoveListener(CloseGuideButton);
+            if (settingsButton != null)
+                settingsButton.onClick.RemoveListener(SettingsButton);
         }
 
         private void StartButton()
@@ -112,7 +120,7 @@ namespace BS.Presentation
             gameplayGuidePanel.SetActive(false);
         }
 
-        private void PlayButtonClick()
+        public void PlayButtonClick()
         {
             if (sfx != null)
             {
@@ -127,7 +135,9 @@ namespace BS.Presentation
                 uiAudioSource.playOnAwake = false;
                 uiAudioSource.spatialBlend = 0f;
             }
-            uiAudioSource.PlayOneShot(buttonClickClip, 0.65f);
+            GameSettings settings = SettingsService.Load();
+            float volume = 0.65f * SettingsService.GetEffectiveSfxVolume(settings);
+            uiAudioSource.PlayOneShot(buttonClickClip, volume);
         }
 
         private void PlayButtonClickAcrossScene()
@@ -144,7 +154,9 @@ namespace BS.Presentation
             AudioSource source = audioObject.AddComponent<AudioSource>();
             source.playOnAwake = false;
             source.spatialBlend = 0f;
-            source.PlayOneShot(buttonClickClip, 0.65f);
+            GameSettings settings = SettingsService.Load();
+            float volume = 0.65f * SettingsService.GetEffectiveSfxVolume(settings);
+            source.PlayOneShot(buttonClickClip, volume);
 
             Destroy(audioObject, buttonClickClip.length + 0.1f);
         }
@@ -180,6 +192,13 @@ namespace BS.Presentation
 
             if (gameplayGuidePanel != null)
                 gameplayGuidePanel.SetActive(guideWasActive);
+        }
+
+
+        private void SettingsButton()
+        {
+            PlayButtonClick();
+            settingsPanel.Open();
         }
     }
 }

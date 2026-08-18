@@ -1561,7 +1561,7 @@ MonoBehaviour:
   bulletPool: {fileID: 758860771}
   weaponSfxId: 2
   attackInterval: 0.3
-  maxRange: 20
+  maxRange: 13
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   bulletPool: {fileID: 758860771}
   weaponSfxId: 2
   attackInterval: 0.3
-  maxRange: 20
+  maxRange: 13
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
@@ -6994,7 +6994,7 @@ MonoBehaviour:
   bulletPool: {fileID: 758860771}
   weaponSfxId: 1
   attackInterval: 1
-  maxRange: 15
+  maxRange: 10
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
@@ -8359,7 +8359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -39.27484, y: 120}
+  m_AnchoredPosition: {x: -39.274902, y: 120}
   m_SizeDelta: {x: -1791.0984, y: -950.2803}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &983013036
@@ -10667,6 +10667,7 @@ GameObject:
   - component: {fileID: 1328712797}
   - component: {fileID: 1328712798}
   - component: {fileID: 1328712799}
+  - component: {fileID: 1328712800}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -11091,6 +11092,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1328712800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328712790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5e1bd76c972f540a8ddf41670d348a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Presentation.MusicVolumeApplier
+  musicSource: {fileID: 1328712799}
 --- !u!1001 &1335649055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12228,7 +12242,7 @@ MonoBehaviour:
   bulletPool: {fileID: 758860771}
   weaponSfxId: 1
   attackInterval: 1
-  maxRange: 15
+  maxRange: 10
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
