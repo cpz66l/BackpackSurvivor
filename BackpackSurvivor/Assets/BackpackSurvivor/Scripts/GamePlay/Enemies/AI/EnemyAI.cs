@@ -8,6 +8,7 @@ using UnityEngine;
 namespace BS.GamePlay.Enemies
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(EnemyMovement))]
     [RequireComponent(typeof(Health))]//组件契约
     //确保挂载EnemyAI脚本时，自动挂上。
     public class EnemyAI : MonoBehaviour, IPoolable
@@ -16,7 +17,7 @@ namespace BS.GamePlay.Enemies
         public static event Action OnEnemyDied;
         //追击
         [SerializeField] private float moveSpeed = 3f;
-        [SerializeField] private float viewRange = 10f;//视野范围
+        [SerializeField] private float viewRange = 50f;//视野范围
         //攻击
         [SerializeField] private float attackRange = 3f;
         [SerializeField] private float attackInterval = 3f;
@@ -25,7 +26,8 @@ namespace BS.GamePlay.Enemies
         //掉落物束
         [SerializeField] private LootTableData lootTable;
 
-        private CharacterController cc;
+
+        private EnemyMovement movement;
         private Health health;
         private Transform playerTf;
         private Health playerHealth;
@@ -42,8 +44,8 @@ namespace BS.GamePlay.Enemies
 
         private void Awake()
         {
-            cc = GetComponent<CharacterController>();
             health = GetComponent<Health>();
+            movement = GetComponent<EnemyMovement>();   
         }
         private void Start()
         {
@@ -72,19 +74,19 @@ namespace BS.GamePlay.Enemies
             if (sqrDistance > viewRange * viewRange) return;
             else if (sqrDistance > attackRange * attackRange)
             {
-                //转向玩家
-                Quaternion lookTarget = Quaternion.LookRotation(toPlayer);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, lookTarget, 360f * Time.deltaTime);
-                //移动
-                cc.SimpleMove(toPlayer.normalized * moveSpeed);
+                movement.Move(toPlayer, moveSpeed);
             }
             else//攻击
             {
+                movement.Stop();
                 attackTimer += Time.deltaTime;
                 if(attackTimer >= attackInterval)
                 {
                     attackTimer -= attackInterval;
-                    DamageInfo info = new DamageInfo(contactDamage, gameObject, playerHealth.Position ,false,knockbackForce);
+                    DamageInfo info = new DamageInfo(contactDamage,
+                        gameObject,
+                        playerHealth.Position ,
+                        false,knockbackForce);
                     playerHealth.TakeDamage(info);
                 }
             }

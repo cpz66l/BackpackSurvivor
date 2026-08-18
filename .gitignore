@@ -57,6 +57,9 @@ Docs/V0.3版本管理.md
 Docs/V0.3.*复盘.md
 Docs/第*课-*.md
 
+# Local utility scripts kept private
+Tools/
+
 # Private portfolio preparation materials kept local only
 Docs/作品材料-*.md
 Docs/Video/

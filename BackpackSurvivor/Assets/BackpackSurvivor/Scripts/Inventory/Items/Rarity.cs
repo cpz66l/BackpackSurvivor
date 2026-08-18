@@ -5,6 +5,6 @@
         Uncommon,   // 绿色
         Rare,       // 蓝色
         Epic,       // 紫色
-        Legendary   // 金色
+        Legendary   // 红色
     }
 }

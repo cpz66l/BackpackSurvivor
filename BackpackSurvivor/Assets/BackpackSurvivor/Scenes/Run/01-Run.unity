@@ -17137,7 +17137,7 @@ MonoBehaviour:
     bundle: {fileID: 11400000, guid: ae37b176165f70646ab1a33334673950, type: 2}
     weight: 54
   - chestName: "\u4E0D\u666E\u901A\u5B9D\u7BB1"
-    color: {r: 0.6797162, g: 0.9169811, b: 0.40658593, a: 1}
+    color: {r: 0, g: 1, b: 0.4698286, a: 1}
     bundle: {fileID: 11400000, guid: 26529690c14be774aa69e20e6c163f43, type: 2}
     weight: 30
   - chestName: "\u7A00\u6709\u5B9D\u7BB1"
@@ -17149,7 +17149,7 @@ MonoBehaviour:
     bundle: {fileID: 11400000, guid: 0416e9d1372167d478d81ce03832d9bd, type: 2}
     weight: 5
   - chestName: "\u4F20\u8BF4\u5B9D\u7BB1"
-    color: {r: 0.15300101, g: 0.25705582, b: 0.93207544, a: 1}
+    color: {r: 1, g: 0.45464972, b: 0, a: 1}
     bundle: {fileID: 11400000, guid: 113307247a1f16c45b6db006c4c504b1, type: 2}
     weight: 1
   chestPool: {fileID: 1789796588}
@@ -17186,6 +17186,8 @@ MonoBehaviour:
     - chestName: "\u7A00\u6709\u5B9D\u7BB1"
       weight: 0
     - chestName: "\u53F2\u8BD7\u5B9D\u7BB1"
+      weight: 0
+    - chestName: "\u4F20\u8BF4\u5B9D\u7BB1"
       weight: 0
     normalEnemyMaxHp: 40
     eliteEnemyMaxHp: 150

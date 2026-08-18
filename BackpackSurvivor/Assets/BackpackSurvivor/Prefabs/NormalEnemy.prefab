@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 2630887428214243033}
   - component: {fileID: 6469595895916834022}
   - component: {fileID: -4418715424499048813}
-  m_Layer: 0
+  - component: {fileID: 4186585475812149295}
+  m_Layer: 6
   m_Name: NormalEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +78,9 @@ MonoBehaviour:
   maxHp: 50
   aimPoint: {fileID: 0}
   faction: 1
+  inventorySystem: {fileID: 0}
+  maxBackpackDamageReduction: 0.5
+  maxTotalDamageReduction: 0.75
 --- !u!114 &2630887428214243033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +132,32 @@ MonoBehaviour:
   health: {fileID: 8865378551761331476}
   spawnAnchor: {fileID: 1291841095048906720}
   sfx: {fileID: 0}
+--- !u!114 &4186585475812149295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160483715351843250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47df1800d5944b347ad2c33ed73ac45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Enemies.EnemyMovement
+  rotateSpeed: 360
+  separationRadius: 1
+  separationWeight: 0.5
+  obstacleDetectDistance: 1.5
+  obstacleAvoidWeight: 1.5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  directionUpdateInterval: 0.1
+  directionUpdateJitter: 0.05
+  directionSmoothSpeed: 20
 --- !u!1001 &3634768245855301175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,6 +169,10 @@ PrefabInstance:
     - target: {fileID: -8098169881513260187, guid: e72d3f678f7b40f4c986a2ef6b99186a, type: 3}
       propertyPath: m_Name
       value: BS_Enemy_Basic_CapsulePawn_final
+      objectReference: {fileID: 0}
+    - target: {fileID: -8098169881513260187, guid: e72d3f678f7b40f4c986a2ef6b99186a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3447742079981357586, guid: e72d3f678f7b40f4c986a2ef6b99186a, type: 3}
       propertyPath: m_LocalPosition.x

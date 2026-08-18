@@ -20,7 +20,7 @@ ScriptedImporter:
     anisotropicFilterLevel: 1
   instantiationSettings:
     mask: -1
-    layer: 0
+    layer: 7
     skinUpdateWhenOffscreen: 1
     lightIntensityFactor: 1
     sceneObjectCreation: 2

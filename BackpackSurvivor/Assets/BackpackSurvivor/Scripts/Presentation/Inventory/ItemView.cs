@@ -52,7 +52,7 @@ namespace BS.Presentation
                     bg.color = new Color(0.6f, 0.2f, 0.9f,0.8f); // 紫
                     break;
                 case Rarity.Legendary:
-                    bg.color = new Color(1f, 0.84f, 0f,0.8f);    // 金
+                    bg.color = new Color(1f, 0f, 0f,0.8f);       // 红
                     break;
             }
             //更新联接口和武器激活UI布局

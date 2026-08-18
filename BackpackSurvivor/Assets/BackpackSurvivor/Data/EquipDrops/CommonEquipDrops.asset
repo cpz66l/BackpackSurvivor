@@ -24,7 +24,7 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 30
+    scoreValue: 300
     effectValue: 0
     level: 1
   - category: 2
@@ -37,7 +37,7 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 25
+    scoreValue: 250
     effectValue: 0
     level: 1
   - category: 2
@@ -50,7 +50,7 @@ MonoBehaviour:
     height: 1
     itemTag: 12
     connectableSides: 0
-    scoreValue: 28
+    scoreValue: 280
     effectValue: 0
     level: 1
   - category: 2
@@ -63,7 +63,7 @@ MonoBehaviour:
     height: 1
     itemTag: 7
     connectableSides: 1
-    scoreValue: 20
+    scoreValue: 200
     effectValue: 0.1
     level: 1
   - category: 2
@@ -76,7 +76,7 @@ MonoBehaviour:
     height: 1
     itemTag: 1
     connectableSides: 10
-    scoreValue: 40
+    scoreValue: 400
     effectValue: 0
     level: 1
   - category: 2
@@ -89,6 +89,6 @@ MonoBehaviour:
     height: 1
     itemTag: 11
     connectableSides: 0
-    scoreValue: 25
+    scoreValue: 250
     effectValue: 0
     level: 1

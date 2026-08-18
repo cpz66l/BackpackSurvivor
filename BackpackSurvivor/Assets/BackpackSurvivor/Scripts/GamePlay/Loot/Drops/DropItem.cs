@@ -87,7 +87,7 @@ namespace BS.GamePlay.Loot
                 case Rarity.Epic:
                     return new Color(0.6f, 0.2f, 0.9f); // 紫
                 case Rarity.Legendary:
-                    return new Color(1f, 0.84f, 0f);    // 金
+                    return Color.red;                    // 红
                 default:
                     return Color.yellow;
             }
