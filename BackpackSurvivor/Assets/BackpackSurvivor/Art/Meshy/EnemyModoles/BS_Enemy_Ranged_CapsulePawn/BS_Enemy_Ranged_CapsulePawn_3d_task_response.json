@@ -1,0 +1,46 @@
+{
+  "id": "01a01929-7eaa-7932-9eea-b955220c0f60",
+  "type": "image-to-3d",
+  "name": "",
+  "art_style": "",
+  "object_prompt": "",
+  "style_prompt": "",
+  "negative_prompt": "",
+  "texture_prompt": "Backpack Survivor ranged enemy: dark dirty gray metal capsule body, rusty red hostile bands, visible front gun muzzle/twin barrel firing module, red glowing firing slit, orange warning decals, cold low-poly industrial style, top-down readability, no text, no logo.",
+  "texture_image_url": "",
+  "text_style_prompt": "",
+  "image_style_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1787128545896,
+  "progress": 100,
+  "started_at": 1787128545902,
+  "finished_at": 1787128629229,
+  "expires_at": 1787387829229,
+  "task_error": null,
+  "model_url": "<downloaded>",
+  "model_urls": {
+    "glb": "<downloaded>"
+  },
+  "thumbnail_url": "<downloaded>",
+  "alpha_thumbnail_url": "<downloaded>",
+  "thumbnail_urls": {
+    "back": "<downloaded>",
+    "front": "<downloaded>",
+    "left": "<downloaded>",
+    "right": "<downloaded>"
+  },
+  "texture_urls": [
+    {
+      "base_color": "<embedded optimized>"
+    }
+  ],
+  "consumed_credits": 15,
+  "postprocess": {
+    "optimized_glb": "BS_Enemy_Ranged_CapsulePawn_final.glb",
+    "original_glb_bytes": 2743240,
+    "final_glb_bytes": 297104,
+    "texture_resize": "2048x2048 -> 1024x1024",
+    "texture_format": "embedded JPEG baseColorTexture",
+    "notes": "Mesh preserved; embedded base color texture downsampled for lightweight Unity import."
+  }
+}

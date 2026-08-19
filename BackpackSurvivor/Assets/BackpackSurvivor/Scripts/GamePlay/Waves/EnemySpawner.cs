@@ -14,10 +14,13 @@ namespace BS.GamePlay.Waves
         [SerializeField] private Transform playerTf;
         private float normalEnemyMaxHp = 40f;
         private float eliteEnemyMaxHp = 150f;
+        private float rangedEnemyMaxHp = 80f;
 
         [SerializeField] private ObjectPool normalEnemyPool;
         [SerializeField] private ObjectPool eliteEnemyPool;
+        [SerializeField] private ObjectPool rangedEnemyPool;
         [SerializeField, Range(0f, 1f)] private float eliteSpawnChance;
+        [SerializeField, Range(0f, 1f)] private float rangedSpawnChance;
 
         private float spawnTimer = 0f;
 
@@ -50,27 +53,47 @@ namespace BS.GamePlay.Waves
                     GameObject obj = selectedPool.Get(spawnPos);
                     obj.GetComponent<Health>()?.SetMaxHpAndReset(eliteEnemyMaxHp);
                 }
+                else if (selectedPool == rangedEnemyPool)
+                {
+                    GameObject obj = selectedPool.Get(spawnPos);
+                    obj.GetComponent<Health>()?.SetMaxHpAndReset(rangedEnemyMaxHp);
+                }
                 spawnTimer = 0f;
             }
         }
 
-        public void ApplyWaveSettings(float spawnInterval , int maxAlive ,float eliteSpawnChance,float normalEnemyMaxHp, float eliteEnemyMaxHp)
+        public void ApplyWaveSettings(
+            float spawnInterval,
+            int maxAlive,
+            float eliteSpawnChance,
+            float rangedSpawnChance,
+            float normalEnemyMaxHp,
+            float eliteEnemyMaxHp,
+            float rangedEnemyMaxHp)
         {
             if(spawnInterval < 0.1||maxAlive <=0) return;
             this.spawnInterval = spawnInterval;
             this.maxAlive = maxAlive;
+
             this.eliteSpawnChance = Mathf.Clamp01(eliteSpawnChance);//限制在0-1之间
+            this.rangedSpawnChance = Mathf.Clamp01(rangedSpawnChance);
+
             this.normalEnemyMaxHp = Mathf.Max(normalEnemyMaxHp, 1f);
             this.eliteEnemyMaxHp = Mathf.Max(eliteEnemyMaxHp, 1f);
+            this.rangedEnemyMaxHp = Mathf.Max(rangedEnemyMaxHp, 1f);
         }
 
         private ObjectPool PickEnemyPool()
         {
-            if(eliteEnemyPool == null) return normalEnemyPool;
             float randomValue = Random.value;
-            if(randomValue < eliteSpawnChance) 
+
+            if (rangedEnemyPool != null && randomValue < rangedSpawnChance)
+                return rangedEnemyPool;
+
+            if (randomValue < eliteSpawnChance + rangedSpawnChance)
                 return eliteEnemyPool;
-            else return normalEnemyPool;
+
+            return normalEnemyPool;
         }
     }
 }

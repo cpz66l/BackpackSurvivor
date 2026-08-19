@@ -11,18 +11,21 @@ namespace BS.GamePlay.Enemies
     [RequireComponent(typeof(EnemyMovement))]
     [RequireComponent(typeof(Health))]//组件契约
     //确保挂载EnemyAI脚本时，自动挂上。
-    public class EnemyAI : MonoBehaviour, IPoolable
+    public class RangedEnemyAI : MonoBehaviour, IPoolable
     {
-        //播报死亡
-        public static event Action OnEnemyDied;
         //追击
-        [SerializeField] private float moveSpeed = 3f;
+        [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float viewRange = 50f;//视野范围
+        [SerializeField] private float rotateSpeed = 180f;
         //攻击
-        [SerializeField] private float attackRange = 3f;
+        [SerializeField] private float preferredRange = 8f; //远程怪希望保持的射击距离。
+        [SerializeField] private float tooCloseRange = 5f;  //玩家贴脸时它应该后退。
+        [SerializeField] private Transform firePoint;
+
         [SerializeField] private float attackInterval = 3f;
-        [SerializeField] private float contactDamage = 10f;
-        [SerializeField] private float knockbackForce = 1f;
+        [SerializeField] private float projectileDamage = 5f;
+        [SerializeField] private float projectileSpeed = 15f;
+        [SerializeField] private float projectileMaxDistance = 30f;
         //掉落物束
         [SerializeField] private LootTableData lootTable;
 
@@ -32,6 +35,7 @@ namespace BS.GamePlay.Enemies
         private Transform playerTf;
         private Health playerHealth;
         private float attackTimer = 0f;
+        private ObjectPool projectilePool;
         //掉落物管理
         private LootManager lootManager;
 
@@ -45,7 +49,7 @@ namespace BS.GamePlay.Enemies
         private void Awake()
         {
             health = GetComponent<Health>();
-            movement = GetComponent<EnemyMovement>();   
+            movement = GetComponent<EnemyMovement>();
         }
         private void Start()
         {
@@ -53,14 +57,15 @@ namespace BS.GamePlay.Enemies
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player == null)
             {
-                GetComponent<EnemyAI>().enabled = false;
+                GetComponent<RangedEnemyAI>().enabled = false;
                 return;
             }
             playerTf = player.transform;//查询位置
             playerHealth = player.GetComponent<Health>();//方便查询死亡状态
+            ResolveProjectilePool();
 
 
-        } 
+        }
 
         private void Update()
         {
@@ -72,27 +77,64 @@ namespace BS.GamePlay.Enemies
             float sqrDistance = toPlayer.sqrMagnitude;//取向量模长
 
             if (sqrDistance > viewRange * viewRange) return;
-            else if (sqrDistance > attackRange * attackRange)
+            else if (sqrDistance > preferredRange * preferredRange)
             {
                 movement.Move(toPlayer, moveSpeed);
             }
-            else//攻击
+            else if (sqrDistance < tooCloseRange * tooCloseRange)
+            {
+                movement.Move(-toPlayer, moveSpeed);
+            }//躲避
+            else
             {
                 movement.Stop();
-                attackTimer += Time.deltaTime;
-                if(attackTimer >= attackInterval)
-                {
-                    attackTimer -= attackInterval;
-                    DamageInfo info = new DamageInfo(contactDamage,
-                        gameObject,
-                        playerHealth.Position ,
-                        false,knockbackForce);
-                    playerHealth.TakeDamage(info);
-                }
+                RotateTowardsPlayer(toPlayer);  //转向玩家
+                TryAttack();
+            }
+        }
+
+        private void TryAttack()
+        {
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer < attackInterval)
+                return;
+
+            if (projectilePool == null)
+            {
+                ResolveProjectilePool();
+                if (projectilePool == null)
+                    return;
             }
 
+            attackTimer -= attackInterval;
 
+            Vector3 fireOrigin = firePoint != null? firePoint.position : health.Position + Vector3.up * 0.6f;
+            Vector3 direction = (playerHealth.Position - fireOrigin).normalized;
+
+            GameObject projectileObj = projectilePool.Get(fireOrigin);
+            Projectile projectile = projectileObj.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                projectile.Initialize(
+                    projectileSpeed,
+                    projectileDamage,
+                    Faction.Player,
+                    projectileMaxDistance,
+                    direction,
+                    0f,
+                    gameObject,
+                    false
+                );
+            }
         }
+
+        private void RotateTowardsPlayer(Vector3 toPlayer)
+        {
+            Quaternion toTarget = Quaternion.LookRotation(toPlayer);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toTarget, rotateSpeed * Time.deltaTime);
+        }
+
 
         private void OnEnable()
         {
@@ -109,9 +151,9 @@ namespace BS.GamePlay.Enemies
         private void Die()
         {
             //广播死亡
-            RaiseEnemyDied();
+            EnemyAI.RaiseEnemyDied();
             //生成掉落物
-            lootManager.TrySpawnDrop(health.Position , lootTable);
+            lootManager.TrySpawnDrop(health.Position, lootTable);
             //防御，防止忘设pool，或者是没经过池子的敌人
             if (pool != null) pool.Return(gameObject);
             else gameObject.SetActive(false);
@@ -126,6 +168,7 @@ namespace BS.GamePlay.Enemies
             health.ResetToFull();
             attackTimer = 0f;
             lootManager = FindAnyObjectByType<LootManager>();
+            ResolveProjectilePool();
         }
 
         public void OnReturnPool()
@@ -133,10 +176,12 @@ namespace BS.GamePlay.Enemies
 
         }
 
-        //公开静态方法，供给其他敌人调用
-        public static void RaiseEnemyDied()
+        //因为远程敌人不仅要实现敌人本体，还要实现武器开火，作为预制体无法拖场景中的对象池，所有要通过子弹池提供器脚本绑定子弹池
+        private void ResolveProjectilePool()
         {
-            OnEnemyDied?.Invoke();
+            if (projectilePool != null) return;
+
+            projectilePool = ProjectilePoolProvider.FindProjectilePool();
         }
     }
 }

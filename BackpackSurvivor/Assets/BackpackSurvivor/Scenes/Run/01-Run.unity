@@ -4870,6 +4870,7 @@ Transform:
   - {fileID: 1789796587}
   - {fileID: 1811029635}
   - {fileID: 1884157213}
+  - {fileID: 1523851978}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434503455
@@ -7081,6 +7082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758860770}
   - component: {fileID: 758860771}
+  - component: {fileID: 758860772}
   m_Layer: 0
   m_Name: projectile01
   m_TagString: Untagged
@@ -7117,6 +7119,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
   prefab: {fileID: 4011433433110582370, guid: 2ff0685b1b7308c429bd234424a2a1e3, type: 3}
   prewarmCount: 50
+--- !u!114 &758860772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758860769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b57f96b41d04efc90d4f4fd1d67e9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Combat.ProjectilePoolProvider
+  projectilePool: {fileID: 758860771}
 --- !u!1001 &758920821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12246,6 +12261,52 @@ MonoBehaviour:
   rotationSpeed: 720
   fireAngleTolerance: 3
   aimPivot: {fileID: 0}
+--- !u!1 &1523851977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523851978}
+  - component: {fileID: 1523851979}
+  m_Layer: 0
+  m_Name: RangedEnemyAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523851978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523851977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 429229872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523851979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523851977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adab50532def1b4c9cee47b3a1f2311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BS.Core.ObjectPool
+  prefab: {fileID: 7274553797974455451, guid: f64771ac4dbc4c749afacb517d8bcad7, type: 3}
+  prewarmCount: 30
 --- !u!1 &1526504791
 GameObject:
   m_ObjectHideFlags: 0
@@ -17103,7 +17164,9 @@ MonoBehaviour:
   playerTf: {fileID: 2061221977}
   normalEnemyPool: {fileID: 396808959}
   eliteEnemyPool: {fileID: 1287588237}
+  rangedEnemyPool: {fileID: 1523851979}
   eliteSpawnChance: 0
+  rangedSpawnChance: 0
 --- !u!4 &2143128367
 Transform:
   m_ObjectHideFlags: 0
@@ -17176,6 +17239,7 @@ MonoBehaviour:
     stageName: "\u6D12\u6D12\u6C34"
     displayColor: {r: 1, g: 1, b: 1, a: 1}
     eliteSpawnChance: 0
+    rangedSpawnChance: 0.05
     chestKillsToSpawn: 10
     chestMaxFieldCount: 2
     chestTierWeights:
@@ -17191,12 +17255,14 @@ MonoBehaviour:
       weight: 0
     normalEnemyMaxHp: 40
     eliteEnemyMaxHp: 150
+    rangedEnemyMaxHp: 30
   - startTimeSeconds: 180
     spawnInterval: 1.8
     maxAlive: 25
     stageName: "\u7B80\u5355"
     displayColor: {r: 0.49411765, g: 0.8392157, b: 1, a: 1}
     eliteSpawnChance: 0.05
+    rangedSpawnChance: 0.08
     chestKillsToSpawn: 15
     chestMaxFieldCount: 2
     chestTierWeights:
@@ -17210,12 +17276,14 @@ MonoBehaviour:
       weight: 0
     normalEnemyMaxHp: 80
     eliteEnemyMaxHp: 150
+    rangedEnemyMaxHp: 70
   - startTimeSeconds: 360
     spawnInterval: 0.5
     maxAlive: 35
     stageName: "\u666E\u901A"
     displayColor: {r: 1, g: 0.81960785, b: 0.4, a: 1}
     eliteSpawnChance: 0.1
+    rangedSpawnChance: 0.12
     chestKillsToSpawn: 25
     chestMaxFieldCount: 3
     chestTierWeights:
@@ -17229,12 +17297,14 @@ MonoBehaviour:
       weight: 10
     normalEnemyMaxHp: 130
     eliteEnemyMaxHp: 300
+    rangedEnemyMaxHp: 110
   - startTimeSeconds: 600
     spawnInterval: 0.2
     maxAlive: 50
     stageName: "\u4E0A\u538B\u529B"
     displayColor: {r: 1, g: 0.54901963, b: 0.25882354, a: 1}
-    eliteSpawnChance: 0.4
+    eliteSpawnChance: 0.3
+    rangedSpawnChance: 0.18
     chestKillsToSpawn: 30
     chestMaxFieldCount: 4
     chestTierWeights:
@@ -17250,12 +17320,14 @@ MonoBehaviour:
       weight: 3
     normalEnemyMaxHp: 150
     eliteEnemyMaxHp: 300
+    rangedEnemyMaxHp: 140
   - startTimeSeconds: 780
     spawnInterval: 0.05
     maxAlive: 60
     stageName: "\u7EC8\u5C40"
     displayColor: {r: 0.9622642, g: 0.1797436, b: 0.1797436, a: 1}
     eliteSpawnChance: 0.4
+    rangedSpawnChance: 0.25
     chestKillsToSpawn: 35
     chestMaxFieldCount: 5
     chestTierWeights:
@@ -17271,6 +17343,7 @@ MonoBehaviour:
       weight: 10
     normalEnemyMaxHp: 200
     eliteEnemyMaxHp: 425
+    rangedEnemyMaxHp: 170
   gameSession: {fileID: 1328712796}
   enemySpawner: {fileID: 2143128366}
   chestSpawner: {fileID: 2143128368}
