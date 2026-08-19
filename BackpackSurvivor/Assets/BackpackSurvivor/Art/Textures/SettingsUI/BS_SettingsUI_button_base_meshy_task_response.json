@@ -1,0 +1,16 @@
+{
+  "id": "01a01add-180c-7593-8f31-f7ce7f319eea",
+  "type": "image-to-image",
+  "ai_model": "nano-banana-2",
+  "prompt": "Create one standalone settings menu action button based on the bottom buttons in the reference image. Shape: compact horizontal hexagonal/octagonal button with angled left and right ends, dark gunmetal interior, thin orange-gold glowing bevel outline, subtle worn low-poly scratches, black outer stroke. No text, no letters, no icons, no background scene, no watermark. Isolated button asset centered on plain white or transparent background.",
+  "status": "SUCCEEDED",
+  "progress": 100,
+  "created_at": 1787157092975,
+  "started_at": 1787157092980,
+  "finished_at": 1787157102069,
+  "expires_at": 1787416302069,
+  "image_urls": [
+    "https://assets.meshy.ai/d9bef8f8-b7c2-4abf-9786-1bafa2a53055/uploads/image_01a01add-180c-7593-8f31-f7ce7f319eea_0.png?Expires=1787416302&Signature=SEk51fBtyZexbqW0RbXOwgiO7QrMgPVuQmJLjlkwJrULH8al9fXdjdrK3dNUBFHlZygX4H8qzFzplqzdJFjXF6pAD332CLDmrvPDMk-VzUExAQHZcokBki7V~0MwNlywUUV178HPBlZHw5uad9tupPkhdfNbrreEO7QcMu-zs-AHr8cADD8GDxeDg-UdFLNTdJpyzYvX6jMCYuZ3oXfBebd3dDUzLzjRYAoXPBK5CtDfDqdP-EiOYrp9OMf4qzFQaNm~1lr8B8OwYLkFLtW2yZUh5Wf0N2GFOCXIS3nhld7iS31Sc7GYlrWt3VHNhfd8GHVqxHGXNW6zfmFy1GLQRA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  ],
+  "consumed_credits": 6
+}

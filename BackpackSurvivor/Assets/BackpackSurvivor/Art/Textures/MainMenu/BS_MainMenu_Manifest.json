@@ -5,7 +5,8 @@
     "background": "019fdb5e-57b5-7f7c-b845-1b5fe1d6c5fe",
     "button_base": "019fdb5e-647b-7fb7-8af0-50bad488572f",
     "settings_panel": "01a013c7-0966-78e8-ac01-86b3182bcc32",
-    "settings_button_round_gear": "01a013d1-b2ed-7a24-aeb3-1243035f8cda"
+    "settings_button_round_gear": "01a013d1-b2ed-7a24-aeb3-1243035f8cda",
+    "record_button_round_scroll": "01a01a8e-5af0-70bb-a814-3ba6fc772694"
   },
   "ui_text": {
     "title": "背包幸存者",
@@ -181,6 +182,24 @@
       "consumed_credits": 6,
       "compression": "Pillow palette PNG, 96 colors, optimized",
       "revision_note": "Removed all internal pale guide/underline fragments; retained exterior shell highlight and orange accent."
+    },
+    {
+      "role": "record_button",
+      "name": "BS_MainMenu_Button_Record.png",
+      "size": [
+        160,
+        160
+      ],
+      "bytes": 39761,
+      "alpha": [
+        0,
+        255
+      ],
+      "text": "",
+      "purpose": "round main menu game records scroll button UI",
+      "meshy_task_id": "01a01a8e-5af0-70bb-a814-3ba6fc772694",
+      "compression": "Pillow optimized RGBA PNG, 160x160",
+      "revision_note": "Generated from Meshy using settings button as reference; removed white background and kept transparent exterior."
     }
   ],
   "font": "E:\\YouXiKaiFa\\Backpack Survivor\\BackpackSurvivor\\Assets\\BackpackSurvivor\\Art\\Font\\SourceHanSansCN-Normal.ttf",
@@ -189,5 +208,6 @@
   "gameplay_guide_button_revision": "v1_same_style_as_main_menu_buttons",
   "source_note": "local deterministic Pillow drawing for lightweight UI assets",
   "settings_button_revision": "v5_meshy_round_gear_no_text_clean_dark_inner_disk",
-  "settings_panel_revision": "v3_meshy_low_poly_dark_metal_no_text_no_internal_white_lines"
+  "settings_panel_revision": "v3_meshy_low_poly_dark_metal_no_text_no_internal_white_lines",
+  "record_button_revision": "v1_meshy_round_scroll_no_text_transparent"
 }

@@ -1,0 +1,154 @@
+{
+  "source": "Meshy image-to-image API for panel/button/close + local lightweight UI control assembly",
+  "ai_model": "nano-banana-2",
+  "reference_image": "C:\\Users\\cp\\Pictures\\Screenshots\\屏幕截图 2026-08-20 002506.png",
+  "style": "dark low-poly sci-fi metal UI with orange-gold bevel accents, grunge wear, transparent outside edges",
+  "meshy_task_ids": {
+    "panel": "01a01adc-db1b-7574-943a-c201ec42fd33",
+    "button_base": "01a01add-180c-7593-8f31-f7ce7f319eea",
+    "close": "01a01ae1-a7b4-78d6-be91-6f9338aa7e43"
+  },
+  "files": [
+    {
+      "name": "BS_SettingsUI_Button_Apply.png",
+      "size": [
+        260,
+        84
+      ],
+      "bytes": 21516,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Button_Base.png",
+      "size": [
+        260,
+        84
+      ],
+      "bytes": 19750,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Button_Close.png",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 31542,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Button_Reset.png",
+      "size": [
+        260,
+        84
+      ],
+      "bytes": 20686,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Checkbox_Off.png",
+      "size": [
+        64,
+        64
+      ],
+      "bytes": 252,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Checkbox_On.png",
+      "size": [
+        64,
+        64
+      ],
+      "bytes": 437,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_ContactSheet.png",
+      "size": [
+        980,
+        720
+      ],
+      "bytes": 313545,
+      "alpha": null
+    },
+    {
+      "name": "BS_SettingsUI_Dropdown.png",
+      "size": [
+        300,
+        64
+      ],
+      "bytes": 488,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_IconSlot.png",
+      "size": [
+        64,
+        64
+      ],
+      "bytes": 252,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_Panel.png",
+      "size": [
+        1024,
+        580
+      ],
+      "bytes": 486643,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_SliderKnob.png",
+      "size": [
+        56,
+        56
+      ],
+      "bytes": 512,
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "BS_SettingsUI_SliderTrack.png",
+      "size": [
+        420,
+        40
+      ],
+      "bytes": 293,
+      "alpha": [
+        0,
+        255
+      ]
+    }
+  ]
+}

@@ -2,8 +2,10 @@
 using BS.GamePlay.Enemies;
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
+using BS.GamePlay.Save;
 using BS.GamePlay.Stats;
 using BS.GamePlay.Upgrades;
+using BS.Inventory;
 using BS.Presentation;
 using System;
 using System.Collections.Generic;
@@ -114,6 +116,7 @@ namespace BS.GamePlay.Run
             timer.Reset();
             levelProgress.Reset();
             levelUpOptionGenerator.ResetRuntimeState();
+            SaveService.Instance?.RecordRunStarted();
             killCount = 0;
             totalGold = 0;
             //初始广播，对HUD进行初始化
@@ -248,9 +251,35 @@ namespace BS.GamePlay.Run
             SetState(finalState);
             Time.timeScale = 0f;
             int backpackValue = 0;
+            int legendaryFoundCount = 0;
+            int legendaryCollectedValue = 0;
             if (inventorySystem != null && inventorySystem.Grid != null)
+            {
                 backpackValue = inventorySystem.Grid.GetTotalScoreValue();
-            RunResult runResult = new RunResult(finalState,Elapsed,Level,TotalXp,killCount, backpackValue);
+
+                List<Item> items = inventorySystem.Grid.GetUniqueItems();
+                foreach (var item in items)
+                {
+                    if(item.Rarity != Rarity.Legendary) continue;
+                    legendaryFoundCount++;
+                    legendaryCollectedValue += item.ScoreValue;
+                }
+            }
+
+            RunResult runResult = new RunResult(finalState,
+                Elapsed,
+                Level,
+                TotalXp,
+                killCount,
+                backpackValue,
+                totalGold,
+                legendaryFoundCount,
+                legendaryCollectedValue
+                );
+
+            if (finalState == GameState.Victory)
+                SaveService.Instance?.ApplyVictoryResult(runResult);
+
             OnRunEnded?.Invoke(runResult);//带入结算参数数据包
         }
     }

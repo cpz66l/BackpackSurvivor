@@ -1,0 +1,16 @@
+{
+  "id": "01a01ae1-a7b4-78d6-be91-6f9338aa7e43",
+  "type": "image-to-image",
+  "ai_model": "nano-banana-2",
+  "prompt": "Create a standalone circular close button matching the top-right close button in the reference image. Dark gunmetal round button, beveled metal ring, orange-gold rim highlight, white X icon in the center, black outline, slightly worn low-poly sci-fi texture. No other text or symbols, no background scene, no watermark. Isolated on plain white or transparent background.",
+  "status": "SUCCEEDED",
+  "progress": 100,
+  "created_at": 1787157393183,
+  "started_at": 1787157393189,
+  "finished_at": 1787157404486,
+  "expires_at": 1787416604486,
+  "image_urls": [
+    "https://assets.meshy.ai/d9bef8f8-b7c2-4abf-9786-1bafa2a53055/uploads/image_01a01ae1-a7b4-78d6-be91-6f9338aa7e43_0.png?Expires=1787416604&Signature=W5Go7VTw-qPYba4s5BGuR1Bf0DItOQfFOmAyN1qvMh~DGvIlzn9YGNQ0JxudxYsdT3q7jLHqjPxfDyk08SKUEOoXOm46x-YEieKfIZo5tH7Inry2cBZHVe6bo6eVDI6F4jnQkKS13AK-pf~c-oSIriKSqdcfIP2BrhNe2ApbKSyNAz4rYTxc0Fupe~NHlWMQLKC8Kc6gQI6R0z473mpB~aklTj2bjMAiVq6c1zXX48xntWvQGyowokH-lrDziqNv4W9gCj3Yx7kPfyyMlFAQgMiMrRzl71sqAoWxTbV61lhNvgpM4R1isNly5e6ugR1ZAKYG6IAHOKPZCg5o8D9Rvg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  ],
+  "consumed_credits": 6
+}

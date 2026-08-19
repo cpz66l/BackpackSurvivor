@@ -1,0 +1,16 @@
+{
+  "id": "01a01adc-db1b-7574-943a-c201ec42fd33",
+  "type": "image-to-image",
+  "ai_model": "nano-banana-2",
+  "prompt": "Create a clean empty game settings panel background based on the full reference image. Keep the same low-poly post-apocalyptic sci-fi UI style: dark translucent green-gray metal/glass panel, thin orange-gold beveled outer frame, clipped octagonal/chamfered corners, worn scratched texture, dirty grunge speckles near edges, faint top-down industrial map grid inside the panel. Remove all Chinese text, remove all sliders, dropdowns, checkboxes, left icon column, bottom buttons, and close button. Keep only the empty panel shell with a small blank title tab shape at the top-left, no letters, no symbols, no UI controls. Isolated panel asset on a plain white background or transparent background, centered, no watermark.",
+  "status": "SUCCEEDED",
+  "progress": 100,
+  "created_at": 1787157077426,
+  "started_at": 1787157077432,
+  "finished_at": 1787157087544,
+  "expires_at": 1787416287544,
+  "image_urls": [
+    "https://assets.meshy.ai/d9bef8f8-b7c2-4abf-9786-1bafa2a53055/uploads/image_01a01adc-db1b-7574-943a-c201ec42fd33_0.png?Expires=1787416287&Signature=Y7gzke4zZDeogpicdF10ijcInCQHcxCgRy~mS2DGj4uBw1H46ApbLH5LBQGJWmNBq1Jwn85VRDR0y77eoRzcSZWoQ14onb6W4wfsQzkevt75gxPiYhN3eSJY67rPWNjSSvUI1rzRbkTvpAVWPosKwH4Rw7DzKc1mfOWN5TaiYWxka87IFhOz1PcZVH49XFjMm5I6E8e4ArG1Ujniqyrogdu0gwKNvuH8ChBVsBGvcuI04MXuGDnV7YrkfnAwzjPWxzvNBArzPgQp9-toX7PAJHhQutfcbfOvJ~ljXGBw8Ju0-2B~LU0fEJtAylCTcUoO-ZDN11jQjNO~NwzHpsOaGw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  ],
+  "consumed_credits": 6
+}

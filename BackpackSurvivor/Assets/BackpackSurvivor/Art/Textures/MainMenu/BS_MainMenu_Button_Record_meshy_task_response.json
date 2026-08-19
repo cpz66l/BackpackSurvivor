@@ -1,0 +1,16 @@
+{
+  "id": "01a01a8e-5af0-70bb-a814-3ba6fc772694",
+  "type": "image-to-image",
+  "ai_model": "nano-banana-2",
+  "prompt": "Create a matching circular game UI button based on the reference image. Preserve the same dark low-poly gunmetal round button structure, beveled outer ring, black inner disk, subtle scratched metal texture, and small orange accent highlights. Replace only the center gear symbol with a clear parchment scroll / rolled record icon, suitable for representing game records. The scroll icon should be centered, front-facing, simple and readable at 160x160 px, warm tan parchment with dark low-poly outline and a small orange glow accent matching the reference. No text, no letters, no numbers, no watermark, no extra symbols, no background scene, no checkerboard. Isolated UI icon with transparent background if possible.",
+  "status": "SUCCEEDED",
+  "progress": 100,
+  "created_at": 1787151932258,
+  "started_at": 1787151932269,
+  "finished_at": 1787151944448,
+  "expires_at": 1787411144448,
+  "image_urls": [
+    "https://assets.meshy.ai/d9bef8f8-b7c2-4abf-9786-1bafa2a53055/uploads/image_01a01a8e-5af0-70bb-a814-3ba6fc772694_0.png?Expires=1787411144&Signature=fbHlmLlLyYmStbyaiphpUbItCwWmocHHKFCIUOYUeduLNUkh3TL~WAXfD1qZP4OqF1Z7ONb6P0d1jqq7XJ9ijtB~SLnbHPKK3z0A9rDRuBmoDKXx8RDCu3H8Low~9O6VhaUKf4Uk~tHtk6ayElnQc1oTm3fLf5MYvSlcP~5Rhm41xC943vzeziWT5g3ioCb4Xv0bIgmkX62q3VbXTyzroAgNLmzBanju-5FRgae4z6cDW7vh-mkTkWRfIRHpwVqdVpsk4ma3yjI6IzHaxEyHCF1miFlBM9UoHQrZ9Tk5XM1t63aJpQqDm1ctQeDCiH5AaCSq~wycNhGdyqpyfhmi~w__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  ],
+  "consumed_credits": 6
+}
