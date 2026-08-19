@@ -17,7 +17,7 @@
 
 Windows 可试玩包发布在 GitHub Releases：
 
-- [前往 GitHub Releases 下载最新 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases)
+- [下载 Backpack Survivor v0.3 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.3.0)
 - [观看项目展示视频](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 
 下载后请先解压整个压缩包，再双击 `BackpackSurvivor.exe` 启动。不要只单独运行 exe，游戏还需要同目录下的 `BackpackSurvivor_Data`、`UnityPlayer.dll`、`MonoBleedingEdge` 等文件。
@@ -110,17 +110,6 @@ Windows 可试玩包发布在 GitHub Releases：
 - 背包物品使用透明 PNG 图标、稀有度底色、等级星星和灰/金接边展示可连接方向与已生效邻接。
 - CanvasScaler 已按 `1920x1080 Scale With Screen Size` 调整，主菜单与 HUD 在不同窗口尺寸下保持稳定。
 
-## 技术亮点
-
-- **纯数据背包内核**：背包格子、占用、合并、旋转、邻接和价值统计都先在数据层完成，UI 只负责投影，降低表现层耦合。
-- **可扩展构筑系统**：通过 `ItemTag + ConnectableSides + RuleBook + Resolver + Collector` 描述规则和收益，后续可以继续扩展芯片、被动物品和互斥策略。
-- **候选池升级系统**：升级三选一支持权重、门槛、次数限制和同轮去重，能快速扩展内容而不让 UI 层承担规则。
-- **对象池体系**：敌人、子弹、经验、金币、装备掉落、宝箱和伤害数字都使用对象池，减少运行期频繁 Instantiate/Destroy。
-- **轻量敌群 Steering**：近战敌人使用分离力、障碍避让、方向错峰采样和平滑移动，开放竞技场下避免过早引入全员 NavMesh 成本。
-- **单局导演系统**：`WaveDirector` 按时间推进刷怪压力、敌人血量、远程敌人比例、精英概率和宝箱品质，使 15 分钟体验具有节奏变化。
-- **本地留存记录**：`SaveService` 使用 JSON 持久化关键战绩，失败和胜利采用不同统计口径，适合 Demo 阶段验证局外目标感。
-- **交付前验证**：使用 Profiler 快扫区分 Editor/资源上传/GPU 等待和真实脚本热点，并完成正式 Windows Build 独立运行验收。
-
 ## 技术栈
 
 - Unity `6000.3.20f1`
@@ -181,7 +170,7 @@ Backpack Survivor/
 
 - 当前正式演示包版本：`v0.3.0`
 - 平台：Windows
-- Release 下载：[GitHub Releases](https://github.com/cpz66l/BackpackSurvivor/releases)
+- Release 下载：[Backpack Survivor v0.3 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.3.0)
 - 项目展示视频：[Bilibili](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 - 推荐窗口：`1600 x 900`，Windowed，可调整窗口大小
 - Build 场景顺序：`MainMenu` -> `01-Run`
@@ -230,7 +219,7 @@ Backpack Survivor/
 - 能用 C# 编写模块化 Gameplay 代码，处理事件、对象池、UI、输入、配置、音频、存档和运行时状态。
 - 能将核心玩法规则先做成纯数据逻辑，再接入 Unity 表现层，保持系统边界清晰。
 - 能围绕玩家体验迭代：战斗反馈、背包可读性、伤害一致性、数值平衡、目标提示、设置和 Build 稳定性。
-- 能使用 Git、Profiler、Bug 记录和版本复盘沉淀工程过程，并把项目经验转化为可面试表达的技术亮点。
+- 能使用 Git、Profiler、Bug 记录和版本复盘沉淀工程过程，并把项目经验转化为可面试表达的项目重点。
 
 ## 项目说明
 
