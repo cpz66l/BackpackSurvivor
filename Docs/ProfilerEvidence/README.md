@@ -47,9 +47,42 @@
 
 ---
 
+## V0.3 快扫补充：发布前性能闸门
+
+> 日期：2026-08-20  
+> 对应阶段：v0.3 发布前快扫  
+> 结论：没有发现需要阻断 v0.3 Build 的持续脚本热点；可见尖刺主要来自资源预加载、贴图上传、GPU 等待或 Editor/Profiler 观察成本。
+
+### 证据 5：大部分普通帧 PlayerLoop 很低
+
+![V0.3 low PlayerLoop frame](profiler-v03-playerloop-low.png)
+
+- 现象：选中帧中 `PlayerLoop` 约 `0.38ms`，主要可见耗时并不集中在 Gameplay 脚本。
+- 判断：这类帧说明常态运行并没有明显 CPU 脚本瓶颈。
+- 处理：不因少量 Editor 尖刺直接重构战斗、敌人或背包系统。
+
+### 证据 6：Loading / Texture Upload 仍是尖刺来源之一
+
+![V0.3 loading texture upload](profiler-v03-loading-texture-upload.png)
+
+- 现象：尖刺中可见 `EarlyUpdate.UpdatePreloading`、`Loading.UpdatePreloading`、`Application.WaitForAsyncOperationToComplete`，Render Thread 可见 `Gfx.UploadTexture` / `Gfx.CreateTexture`。
+- 判断：这更像资源预加载、贴图上传或首次使用资源造成的尖刺，而不是敌人 AI、远程敌人、子弹或背包逻辑持续变慢。
+- 处理：记录为后续资源预热和贴图整理方向，v0.3 发布前不做大重构。
+
+### 证据 7：WaitForLastPresentation / GPU 等待帧
+
+![V0.3 wait for presentation](profiler-v03-wait-for-presentation.png)
+
+- 现象：选中帧主要耗时落在 `WaitForLastPresentationAndUpdateTime` / `WaitForGPU` 一类等待上。
+- 判断：这类帧更偏渲染呈现或同步等待，不应直接归因于 Gameplay 脚本卡顿。
+- 处理：如果后续 Build 中出现稳定掉帧，再用 Development Build + Player Profiler 验证 GPU、材质、光照和批处理方向。
+
+---
+
 ## 最终结论
 
-- Build 实测：后期波次打到约 `6000` 分，没有明显卡顿，也没有几秒一顿的现象。
-- 性能结论：当前 V0.2 Demo 不存在阻断打包的 CPU/GC 卡顿问题。
-- 真正暴露的问题：Build 中子弹与装备掉落物颜色异常，根因是运行时 `CreatePrimitive` 依赖默认材质，已在 BUG-025 中修复为显式 URP Unlit 材质 + `MaterialPropertyBlock`。
+- v0.2 Build 实测：后期波次打到约 `6000` 分，没有明显卡顿，也没有几秒一顿的现象。
+- v0.3 Build 实测：新增升级池、构筑效果、音频、远程敌人、设置和存档后，正式包试玩仍未出现阻断性卡顿。
+- 性能结论：当前 Demo 不存在阻断打包的 CPU/GC 卡顿问题。Editor 中的部分尖刺主要来自资源加载、贴图上传、GPU 等待或 Profiler 观察开销。
+- 已修复的 Build 差异：v0.2 期间子弹与装备掉落物颜色异常，根因是运行时 `CreatePrimitive` 依赖默认材质，已在 BUG-025 中修复为显式 URP Unlit 材质 + `MaterialPropertyBlock`。
 - 仓库策略：提交本目录轻量 PNG 和说明文档；不提交 `BackpackSurvivor/ProfilerCaptures/` 中的大体积 `.data` 原始捕获文件。

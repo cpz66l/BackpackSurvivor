@@ -1,23 +1,23 @@
-﻿# Backpack Survivor / 背包幸存者
+# Backpack Survivor / 背包幸存者
 
-> Unity 3D 俯视角生存射击 Demo。玩家在 15 分钟单局中移动、射击、搜刮、整理背包，并通过武器激活、合并升级、邻接芯片和物品价值管理形成构筑成长。
+> Unity 3D 俯视角生存射击 Demo。玩家在 15 分钟单局中移动、射击、搜刮、整理背包，并通过武器激活、合并升级、邻接芯片、局内成长和本地纪录形成构筑循环。
 
 ![Unity](https://img.shields.io/badge/Unity-6000.3.20f1-000000?logo=unity)
 ![CSharp](https://img.shields.io/badge/C%23-Gameplay-512BD4?logo=csharp)
 ![URP](https://img.shields.io/badge/URP-17.3.0-blue)
-![Status](https://img.shields.io/badge/Status-v0.2%20Playable%20Demo-success)
+![Status](https://img.shields.io/badge/Status-v0.3%20Windows%20Demo-success)
 
 ## 项目概览
 
-《背包幸存者》是一款个人独立开发的 Unity 3D 俯视角生存射击 Demo。项目融合幸存者战斗、掉落搜刮、网格背包构筑、合并升级、邻接联动、经验成长、波次压力、金币与物品价值结算，目标是在一个可独立运行的 15 分钟单局中呈现“边战斗、边搜刮、边整理构筑”的核心体验。
+《背包幸存者》是一款个人独立开发的 Unity 3D 俯视角生存射击 Demo。项目融合幸存者战斗、掉落搜刮、网格背包构筑、合并升级、邻接联动、升级三选一、波次压力、金币与物品价值结算，目标是在一个可独立运行的 15 分钟单局中呈现“边战斗、边搜刮、边整理构筑”的核心体验。
 
-当前 v0.2 已经完成正式 Windows Build 验收：游戏可以从主菜单进入，完成战斗、拾取、宝箱、背包整理、升级、结算、重开和返回主菜单等完整链路。
+当前 v0.3 已经完成 Windows Build 验收：在 v0.2 完整闭环基础上，进一步补充了升级候选池、更多背包构筑效果、内容池扩展、基础音频与 BGM、设置菜单、敌人群体移动优化、远程敌人波次混编和本地存档纪录。
 
 ## 试玩下载
 
-Windows 可试玩包已发布在 GitHub Releases：
+Windows 可试玩包发布在 GitHub Releases：
 
-- [下载 Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
+- [前往 GitHub Releases 下载最新 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases)
 - [观看项目展示视频](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 
 下载后请先解压整个压缩包，再双击 `BackpackSurvivor.exe` 启动。不要只单独运行 exe，游戏还需要同目录下的 `BackpackSurvivor_Data`、`UnityPlayer.dll`、`MonoBleedingEdge` 等文件。
@@ -26,28 +26,29 @@ Windows 可试玩包已发布在 GitHub Releases：
 
 | 维度 | 状态 |
 | --- | --- |
-| 当前版本 | v0.2 Windows Playable Demo |
-| 最近状态 | v0.2 正式包已完成独立运行验收 |
-| 开发周期 | 2026-07-19 开始，2026-08-08 完成 v0.2 正式包验收 |
-| 工程规模 | 46 次 Git 提交、68 个 C# 脚本、约 5.1k 行 C# 代码 |
+| 当前版本 | v0.3 Windows Demo |
+| 最近状态 | v0.3 正式包已完成独立运行验收 |
+| 开发周期 | 2026-07-19 开始，2026-08-20 完成 v0.3 Build 验收 |
+| 工程规模 | 63 次 Git 提交、86 个 C# 脚本、约 7.0k 行 C# 代码 |
 | 主要入口 | `Assets/BackpackSurvivor/Scenes/MainMenu/MainMenu.unity` |
 | 单局目标 | 15 分钟生存、成长、搜刮与结算 |
 | Build 验收 | Windows 独立 exe 已通过完整试玩验证 |
 
-> 说明：项目设计、功能取舍、实现落地与 Unity 内接线均由本人独立完成，AI 主要作为任务拆解、代码 review、调试分析和复盘整理的辅助工具。公开仓库重点展示可试玩版本、核心系统、技术取舍和验证结论。
+> 说明：项目设计、功能取舍、实现落地与 Unity 内接线均由本人独立完成，AI 主要作为任务拆解、代码 review、调试分析、重复样板提效和复盘整理的辅助工具。公开仓库重点展示可试玩版本、核心系统、技术取舍和验证结论。
 
 ## 核心玩法
 
 ```text
 主菜单
-  -> 阅读玩法说明 / 开始游戏
+  -> 阅读玩法说明 / 调整设置 / 查看本地纪录 / 开始游戏
   -> 移动、主动射击、自动武器战斗
   -> 击杀敌人，拾取经验、金币和装备
   -> 寻找并开启不同稀有度宝箱
   -> 打开背包，摆放、旋转、合并、丢弃和重新拾取物品
-  -> 背包武器激活自动武器，邻接芯片强化战斗表现
-  -> 波次强度持续提升，精英敌人与高品质宝箱逐步出现
-  -> 胜利或失败后进入结算，可重开或返回主菜单
+  -> 背包武器激活自动武器，邻接芯片和被动物品强化战斗表现
+  -> 升级三选一扩展攻击、生存、机动、搜刮和构筑方向
+  -> 波次强度持续提升，精英敌人、远程敌人和高品质宝箱逐步出现
+  -> 胜利或失败后进入结算，胜利会写入本地战绩记录
 ```
 
 ## 操作说明
@@ -67,11 +68,12 @@ Windows 可试玩包已发布在 GitHub Releases：
 
 ### 战斗与单局
 
-- `IDamageable / Health / DamageInfo / WeaponBase` 形成统一伤害管线，主动武器和自动武器复用投射物命中逻辑。
-- `AutoWeapon / ActiveWeapon / Projectile` 支持自动索敌、主动射击、投射物扫掠检测、阵营过滤和真实伤害结算。
-- `EnemyAI / EnemySpawner / WaveDirector` 支持敌人追击、普通/精英分池、刷怪间隔、场上上限、精英概率和波次血量成长。
+- `IDamageable / Health / DamageInfo / WeaponBase` 形成统一伤害管线，主动武器、自动武器和敌方投射物复用命中逻辑。
+- `AutoWeapon / ActiveWeapon / Projectile` 支持自动索敌、主动射击、投射物扫掠检测、阵营过滤、暴击标记和真实伤害结算。
+- `EnemyAI / RangedEnemyAI / EnemyMovement` 支持近战追击、远程停距射击、贴脸后退、局部分离、障碍避让和方向错峰采样。
+- `EnemySpawner / WaveDirector` 支持普通、精英、远程敌人的分池生成、刷怪间隔、场上上限、血量成长、精英概率和远程敌人概率。
 - `GameSession / RunTimer / GameState / RunResult` 负责 15 分钟倒计时、暂停、死亡失败、时间到胜利、结算快照、重开和返回主菜单。
-- `RunHudView / ResultView` 显示血量、时间、等级、经验圆环、金币、波次名称、宝箱距离和结算数据。
+- `RunHudView / ResultView` 显示血量、时间、等级、经验圆环、金币、波次名称、宝箱距离、背包价值和结算数据。
 
 ### 掉落、宝箱与经济
 
@@ -79,7 +81,7 @@ Windows 可试玩包已发布在 GitHub Releases：
 - `XpOrb / GoldOrb / DropItem / LootChest` 覆盖经验、金币、装备和宝箱，支持对象池、散落飞出、磁吸、交互拾取和超时回收。
 - 宝箱品质会随波次阶段调整，高压后期更容易出现高稀有度宝箱。
 - 背包内物品带有 `scoreValue`，局内显示单件价值和背包总价值，结算时冻结背包价值快照。
-- 金币已接入局内 HUD，为后续商店、出售或撤离经济预留入口。
+- 金币已接入局内 HUD 和本地纪录，胜利后累计为局外金币数，为后续商店或局外成长预留入口。
 
 ### 背包与构筑
 
@@ -87,20 +89,23 @@ Windows 可试玩包已发布在 GitHub Releases：
 - `BS.Inventory` 独立 asmdef 且不引用 `UnityEngine`，背包核心逻辑与表现层隔离，便于测试和维护。
 - 背包 UI 支持拖拽、红绿预览、冲突判断、旋转、面板外丢弃、丢弃后再拾取、Tooltip 详情和 Tab 开关。
 - 同名同级物品可 2 合 1 升级，升级会影响价值、芯片效果和武器伤害倍率。
-- `AdjacencyRuleBook / AdjacencyEffectResolver` 将邻接规则和有效效果解析集中管理，避免用大量 if-else 写死构筑规则。
-- 已实现 DualWield 双持、FireRateBoost 攻速芯片、DamageBoost 攻击芯片等构筑效果。
+- `AdjacencyRuleBook / AdjacencyEffectResolver / BackpackEffectCollector` 将邻接规则、有效效果解析和数值汇总集中管理，避免用大量 if-else 写死构筑规则。
+- 已实现 DualWield 双持、FireRateBoost 攻速芯片、DamageBoost 攻击芯片、CritBoost 瞄准镜、MechanicalArm 激活上限、Armor 减伤和 MagnetCore 拾取范围等构筑效果。
 
-### 武器、数值与反馈
+### 升级、数值与反馈
 
-- `BackpackWeaponActivator` 根据背包内武器实例激活玩家身边的自动武器，默认上限为 1，DualWield 可突破为 2。
+- `LevelUpOptionGenerator` 已从固定 3 个选项扩展为候选池，支持分类、权重、等级门槛、同轮不重复和最大选择次数。
+- `PlayerRunStats` 统一承接伤害、射速、暴击、弹速、射程、生命、减伤、移速、拾取范围、经验倍率、金币倍率和武器上限等运行期属性。
+- `BackpackWeaponActivator` 根据背包内武器实例激活玩家身边的自动武器，并支持按武器类型配置激活槽位。
 - `WeaponItemStatResolver` 按武器稀有度与等级提供伤害倍率，不同等级、稀有度和武器类型会产生不同战斗收益。
-- `WeaponBase` 的最终伤害由“武器基础伤害 × 玩家升级倍率 × 背包武器倍率 × 攻击芯片倍率”组成。
-- 命中闪白、玩家受击闪红、池化伤害数字、拾取/升级/开箱/开火/命中音效和轻量相机震动已经接入。
-- 伤害数字与真实扣血在伤害源头统一取整，避免 UI 显示和实际战斗结果不一致。
+- `WeaponBase` 的最终伤害由“武器基础伤害 × 玩家升级倍率 × 背包武器倍率 × 芯片/邻接倍率 × 暴击倍率”组成。
+- 命中闪白、玩家受击闪红、池化伤害数字、拾取/升级/开箱/开火/UI/胜负音效、BGM 和轻量相机震动已经接入。
 
 ### UI、场景与包装
 
-- `MainMenu` 场景支持开始游戏、退出游戏、玩法说明和制作者声明面板。
+- `MainMenu` 场景支持开始游戏、退出游戏、设置、历史纪录、玩法说明和制作者声明面板。
+- 设置面板支持 Master / SFX / Music 音量、分辨率和窗口模式，使用 `PlayerPrefs` 持久化并跨场景生效。
+- `SaveData / SaveService / MainMenuRecordView` 支持总局数、胜场、最高背包价值、局外金币、传说带出数量和传说累计价值的本地 JSON 记录。
 - `01-Run` 场景完成基础氛围包装：地面贴图、边界提醒、宝箱模型、掉落物可读性、背包美术、物品图标和邻接接边表现。
 - 背包物品使用透明 PNG 图标、稀有度底色、等级星星和灰/金接边展示可连接方向与已生效邻接。
 - CanvasScaler 已按 `1920x1080 Scale With Screen Size` 调整，主菜单与 HUD 在不同窗口尺寸下保持稳定。
@@ -108,11 +113,13 @@ Windows 可试玩包已发布在 GitHub Releases：
 ## 技术亮点
 
 - **纯数据背包内核**：背包格子、占用、合并、旋转、邻接和价值统计都先在数据层完成，UI 只负责投影，降低表现层耦合。
-- **可扩展邻接系统**：通过 `ItemTag + ConnectableSides + RuleBook + Resolver` 描述构筑规则，后续可以继续扩展芯片和互斥策略。
+- **可扩展构筑系统**：通过 `ItemTag + ConnectableSides + RuleBook + Resolver + Collector` 描述规则和收益，后续可以继续扩展芯片、被动物品和互斥策略。
+- **候选池升级系统**：升级三选一支持权重、门槛、次数限制和同轮去重，能快速扩展内容而不让 UI 层承担规则。
 - **对象池体系**：敌人、子弹、经验、金币、装备掉落、宝箱和伤害数字都使用对象池，减少运行期频繁 Instantiate/Destroy。
-- **单局导演系统**：`WaveDirector` 按时间推进刷怪压力、敌人血量、精英概率和宝箱品质，使 15 分钟体验具有节奏变化。
-- **构筑影响战斗**：背包中的具体武器实例会影响自动武器激活、伤害倍率和芯片收益，而不是只停留在 UI 表现。
-- **交付前验证**：使用 Profiler 快扫区分 Editor 开销和真实 PlayerLoop 热点，并完成正式 Windows Build 独立运行验收。
+- **轻量敌群 Steering**：近战敌人使用分离力、障碍避让、方向错峰采样和平滑移动，开放竞技场下避免过早引入全员 NavMesh 成本。
+- **单局导演系统**：`WaveDirector` 按时间推进刷怪压力、敌人血量、远程敌人比例、精英概率和宝箱品质，使 15 分钟体验具有节奏变化。
+- **本地留存记录**：`SaveService` 使用 JSON 持久化关键战绩，失败和胜利采用不同统计口径，适合 Demo 阶段验证局外目标感。
+- **交付前验证**：使用 Profiler 快扫区分 Editor/资源上传/GPU 等待和真实脚本热点，并完成正式 Windows Build 独立运行验收。
 
 ## 技术栈
 
@@ -124,6 +131,7 @@ Windows 可试玩包已发布在 GitHub Releases：
 - AI Navigation `2.0.13`
 - UGUI / TextMeshPro
 - ScriptableObject 配置
+- JSON 本地存档
 - Git / GitHub
 
 ## 工程结构
@@ -132,18 +140,18 @@ Windows 可试玩包已发布在 GitHub Releases：
 Backpack Survivor/
 ├─ BackpackSurvivor/                         # Unity 工程
 │  ├─ Assets/BackpackSurvivor/
-│  │  ├─ Art/                                # 模型、材质、图标与视觉资源
+│  │  ├─ Art/                                # 模型、材质、图标、字体与视觉资源
 │  │  ├─ Prefabs/                            # 敌人、子弹、掉落物、UI 等预制体
 │  │  ├─ Scenes/
-│  │  │  ├─ MainMenu/                        # 主菜单与玩法说明
+│  │  │  ├─ MainMenu/                        # 主菜单、设置、纪录与玩法说明
 │  │  │  ├─ Run/                             # 15 分钟单局场景
 │  │  │  └─ Project/Input/                   # GameInput 输入资产
 │  │  └─ Scripts/
 │  │     ├─ Core/                            # 对象池、边界、通用接口
 │  │     ├─ Data/                            # 掉落表与配置数据
-│  │     ├─ GamePlay/                        # 战斗、敌人、掉落、单局、波次、玩家
+│  │     ├─ GamePlay/                        # 战斗、敌人、掉落、单局、波次、玩家、存档、设置、升级
 │  │     ├─ Inventory/                       # 纯 C# 背包数据、物品、邻接规则
-│  │     ├─ Presentation/                    # HUD、背包 UI、反馈表现
+│  │     ├─ Presentation/                    # HUD、背包 UI、音频、反馈、菜单、结算
 │  │     └─ Tests/                           # 测试与验证入口
 │  ├─ Packages/
 │  └─ ProjectSettings/
@@ -171,24 +179,24 @@ Backpack Survivor/
 
 ## Build 说明
 
-- 当前正式演示包版本：`v0.2.0`
+- 当前正式演示包版本：`v0.3.0`
 - 平台：Windows
-- Release 下载：[Backpack Survivor v0.2 Windows Demo](https://github.com/cpz66l/BackpackSurvivor/releases/tag/v0.2.0)
+- Release 下载：[GitHub Releases](https://github.com/cpz66l/BackpackSurvivor/releases)
 - 项目展示视频：[Bilibili](https://t.bilibili.com/1234504825008291859?share_source=pc_native)
 - 推荐窗口：`1600 x 900`，Windowed，可调整窗口大小
-- Build 场景顺序：`MainMenu` → `01-Run`
-- Build 输出目录：`Builds/BackpackSurvivor_v0.2_Windows/`
+- Build 场景顺序：`MainMenu` -> `01-Run`
+- Build 输出目录：`Builds/BackpackSurvivor_v0.3_Windows/`
 - Build 输出目录已被 `.gitignore` 忽略，仓库只保存源工程和配置，不提交 exe 与 Data 目录。
 
-正式包已完成独立 exe 验收，覆盖主菜单、玩法说明、进入单局、战斗、拾取、宝箱、背包整理、邻接/芯片、结算、重开和返回主菜单。
+正式包已完成独立 exe 验收，覆盖主菜单、玩法说明、设置、历史纪录、进入单局、战斗、拾取、宝箱、背包整理、升级、邻接/芯片、远程敌人、结算、重开和返回主菜单。
 
 ## 验证与复盘
 
-- C# 编译检查：`dotnet build BackpackSurvivor/BackpackSurvivor.sln --no-restore` 通过，0 warning / 0 error。
-- Build 前检查：场景顺序、危险 using、`.meta` 完整性、Input System 引用和 Build Profile 已完成扫描。
+- C# 编译检查：`dotnet build BackpackSurvivor/BackpackSurvivor.sln --no-restore` 通过，0 error；保留少量 Unity Inspector 序列化字段警告。
+- Build 前检查：场景顺序、危险 using、`.meta` 完整性、Input System 引用、Development Build 和 Build Profile 已完成扫描。
 - Profiler 快扫：已整理轻量截图证据包，记录在 `Docs/ProfilerEvidence/`。
-- 性能结论：Editor 中可见的部分尖刺主要来自 EditorLoop / Live Display / 资源上传观察成本，正式 Build 后期波次试玩未出现明显卡顿。
-- 已知非阻断项：`DefaultVolumeProfile.asset` 存在少量 Missing/Test Volume 组件，当前不影响 v0.2 正式包运行，后续视觉整理时清理。
+- 性能结论：Editor 中可见尖刺主要来自资源预加载、贴图上传、GPU 等待或 Editor/Profiler 观察成本，正式 Build 试玩未出现阻断性卡顿。
+- Build 体验：用户完成 v0.3 打包后实测，窗口/分辨率设置、生存节奏、音频、远程敌人、本地存档和单局流程均能正常工作。
 
 ## 项目复盘
 
@@ -198,33 +206,35 @@ Backpack Survivor/
 
 - [V0.1 阶段复盘：战斗核心原型](./Docs/V0.1阶段复盘.md)
 - [V0.2 版本复盘：15 分钟可试玩 Demo](./Docs/V0.2版本复盘.md)
+- [V0.3 版本复盘：内容深度、反馈与留存](./Docs/V0.3版本复盘.md)
 - [Bug 记录簿](./Docs/Bug记录簿.md)
 - [性能优化记录](./Docs/性能优化记录.md)
 - [Profiler 快扫证据包](./Docs/ProfilerEvidence/README.md)
 
 ## 后续优化方向
 
-当前 v0.2 的重点已经从新增系统转向作品材料整理和求职展示。后续优化会优先围绕 Demo 表达和稳定性，而不是继续无止境扩功能。
+当前 v0.3 已经从“完整可试玩”推进到“具备内容扩展、反馈包装和局外记录”的作品阶段。后续优化会优先服务项目展示质量和系统深度，而不是无边界扩功能。
 
-- README、录屏脚本、截图清单、简历项目描述和面试技术亮点整理。
-- 新手目标提示、局内规则提示和已生效构筑收益展示。
-- 危险区表现强化、金币结算页、更多芯片效果、音效混音和 Boss 机制。
-- 物品、规则和数值配置进一步 ScriptableObject 数据化。
-- Demo 后可扩展 Gold 商店、出售/撤离经济、附近战利品面板和更完整的搜打撤循环。
+- 增加更多升级选项、背包被动物品、芯片流派和构筑收益展示。
+- 扩展局外金币用途，例如商店、开局加成或收藏目标。
+- 补充更多敌人类型、攻击方式、弹幕预警和阶段性强敌。
+- 优化音频混音、命中音色、低血量提示和更完整的 AudioMixer 路由。
+- 为存档增加版本迁移、重置入口和更清晰的历史纪录展示。
+- 继续用 Profiler 验证真实瓶颈，再决定是否引入更复杂的导航、数据化或性能架构。
 
 ## 求职展示重点
 
 该项目主要用于展示 Unity 游戏客户端实习岗位所需的以下能力：
 
 - 能从玩法设计出发拆分系统，并持续推进到可试玩、可打包、可复盘的 Demo。
-- 能用 C# 编写模块化 Gameplay 代码，处理事件、对象池、UI、输入、配置和运行时状态。
+- 能用 C# 编写模块化 Gameplay 代码，处理事件、对象池、UI、输入、配置、音频、存档和运行时状态。
 - 能将核心玩法规则先做成纯数据逻辑，再接入 Unity 表现层，保持系统边界清晰。
-- 能围绕玩家体验迭代：战斗反馈、背包可读性、伤害一致性、数值平衡、目标提示和 Build 稳定性。
+- 能围绕玩家体验迭代：战斗反馈、背包可读性、伤害一致性、数值平衡、目标提示、设置和 Build 稳定性。
 - 能使用 Git、Profiler、Bug 记录和版本复盘沉淀工程过程，并把项目经验转化为可面试表达的技术亮点。
 
 ## 项目说明
 
-本仓库为个人学习、玩法验证与求职作品展示项目。当前 v0.2 已经形成可独立运行的 Windows Demo，后续主要围绕作品材料、展示录屏、简历表达和少量 Demo 后优化继续推进。
+本仓库为个人学习、玩法验证与求职作品展示项目。当前 v0.3 已经形成可独立运行的 Windows Demo，后续主要围绕系统深度、内容扩展、展示材料和少量 Demo 后优化继续推进。
 
 ## 使用与授权说明
 
