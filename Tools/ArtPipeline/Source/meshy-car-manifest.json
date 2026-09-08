@@ -1,0 +1,115 @@
+{
+  "asset": "RecoveryCar",
+  "docs": "https://docs.meshy.ai/en/api/text-to-3d",
+  "credential_storage": "Environment only; never serialized",
+  "stages": {
+    "preview": {
+      "id": "01a080dc-64f6-7572-9711-296b38e106fd",
+      "type": "text-to-3d-preview",
+      "status": "SUCCEEDED",
+      "progress": 100,
+      "created_at": 1788868323962,
+      "started_at": 1788868323969,
+      "finished_at": 1788868334584,
+      "consumed_credits": 5,
+      "task_error": null
+    },
+    "refine": {
+      "id": "01a080dd-541d-72aa-85d6-aa818894f00d",
+      "type": "text-to-3d-refine",
+      "status": "SUCCEEDED",
+      "progress": 100,
+      "created_at": 1788868385505,
+      "started_at": 1788868385508,
+      "finished_at": 1788868518296,
+      "consumed_credits": 10,
+      "task_error": null
+    }
+  },
+  "preview_request": {
+    "mode": "preview",
+    "prompt": "A single abandoned compact industrial utility station wagon for a stylized top-down survival game. Recognizable boxy cabin, windshield, long hood, rear cargo compartment, four distinct chunky rubber wheels. Believable 4.4m long, 1.9m wide, 1.6m tall proportions; full intact readable silhouette. Broad flat hard-surface panels and chamfered edges, strong simple shapes, only localized shallow dents and a slightly bent front bumper. Muted grey-green painted metal, charcoal rubber, tiny faded safety-orange accents, sparse muted rust and low visual noise. One isolated vehicle. No ground, base, pedestal, surrounding debris, people, weapons, text or logos. Clean separated logical parts.",
+    "model_type": "smart-topology",
+    "ai_model": "meshy-t2",
+    "topology": "triangle",
+    "target_polycount": 3600,
+    "target_formats": [
+      "glb"
+    ],
+    "alpha_thumbnail": true
+  },
+  "refine_request": {
+    "mode": "refine",
+    "preview_task_id": "01a080dc-64f6-7572-9711-296b38e106fd",
+    "enable_pbr": true,
+    "texture_resolution": "2k",
+    "texture_prompt": "Stylized industrial recovery-yard utility vehicle. Broad matte desaturated grey-green painted panels, charcoal-black tires and window glass, dull steel bumper and wheel hubs. A narrow faded orange safety stripe on the doors only. Low contrast restrained wear, sparse dark scratches at panel edges, localized tiny subdued rusty patches. No dense mottled rust, no stickers, no lettering, no logos. Clear large color regions readable from a top-down game camera. Neutral lighting in base color, matte high roughness, no baked ground shadow or dramatic highlights.",
+    "target_formats": [
+      "glb"
+    ]
+  },
+  "preview_visual_review": "Passed: cabin, hood, four wheels, broad panels and readable intact silhouette; no ground/base/debris.",
+  "blender_processing": {
+    "blender_version": "5.2.1 LTS",
+    "source": "RecoveryCar-refine.glb",
+    "rotation_z_degrees": 90.0,
+    "dimensions_metres_xyz_blender": [
+      1.899999976158142,
+      4.400000095367432,
+      1.5999999046325684
+    ],
+    "proportion_correction": "Piecewise longitudinal correction preserves circular 0.60m tires at 1.6m total height and 2.6m wheelbase",
+    "glass_polygons_reassigned": 163,
+    "material_correction": "Charcoal glass removes baked bright reflection blobs; paint roughness 0.82 and metallic 0.10",
+    "runtime_texture_policy": "One 512x512 JPEG albedo, no normal/metallic/roughness/AO texture; solid-color glass",
+    "file_bytes": 275340,
+    "dimensions_metres_xyz_gltf_unity": [
+      1.899999976158142,
+      1.5999999046325684,
+      4.400000095367432
+    ],
+    "origin": "Bottom center",
+    "forward_gltf_unity": "+Z",
+    "forward_blender": "-Y",
+    "triangle_count": 3672,
+    "mesh_count": 1,
+    "material_count": 2,
+    "image_count": 1,
+    "textures_packed": true,
+    "model_output": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/RecoveryCar.glb",
+    "source_output": "Tools/ArtPipeline/Source/RecoveryCar.blend"
+  },
+  "roundtrip_verification": {
+    "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/RecoveryCar.glb",
+    "dimensions_metres_xyz_blender": [
+      1.899999976158142,
+      4.400000095367432,
+      1.5999999046325684
+    ],
+    "bounds_min_xyz_blender": [
+      -0.949999988079071,
+      -2.200000047683716,
+      0.0
+    ],
+    "bounds_max_xyz_blender": [
+      0.949999988079071,
+      2.200000047683716,
+      1.5999999046325684
+    ],
+    "triangle_count": 3672,
+    "material_count": 2,
+    "embedded_image_count": 1,
+    "embedded_images": [
+      {
+        "name": "RecoveryCar_Albedo512",
+        "size": [
+          512,
+          512
+        ],
+        "packed": true
+      }
+    ],
+    "missing_images": [],
+    "rendered_from_exported_glb": true
+  }
+}

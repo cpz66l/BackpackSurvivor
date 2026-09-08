@@ -17,17 +17,19 @@ namespace BS.Core
             randomPoint.y = 0;
             return randomPoint;
         }
-        public bool IsInside(Vector3 pos) 
+        public bool IsInside(Vector3 pos)
         {
-            bool inside = false;
-            pos.y = 0;
-            float distance = (Center - pos).sqrMagnitude;
-            if(distance < radius * radius)
-            {
-                inside = true;
-                return inside;
-            }
-            return inside;
+            return IsInside(pos, 0f);
+        }
+
+        // Reserve room for an object's footprint; map containment is always horizontal.
+        public bool IsInside(Vector3 pos, float clearance)
+        {
+            float usableRadius = radius - Mathf.Max(0f, clearance);
+            if (usableRadius <= 0f) return false;
+            Vector3 offset = pos - Center;
+            offset.y = 0f;
+            return offset.sqrMagnitude < usableRadius * usableRadius;
 
         }
         public Vector3 ClampToInside(Vector3 pos) 

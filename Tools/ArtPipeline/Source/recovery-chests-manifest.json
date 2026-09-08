@@ -1,0 +1,205 @@
+{
+  "generatedBy": "build_recovery_chests.py / Blender 5.2.1 LTS",
+  "style": "Recovery Yard / blue grey industrial night operations",
+  "rootScale": [
+    1,
+    1,
+    1
+  ],
+  "unityForward": "+Z",
+  "units": "metres",
+  "paletteDimensions": [
+    32,
+    2
+  ],
+  "paletteSampling": "Nearest / Clamp / no mipmaps",
+  "totalTriangles": 6392,
+  "totalGLBBytes": 498720,
+  "assets": [
+    {
+      "rarity": "Common",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Loot/VNext/Models/CommonChest.glb",
+      "triangles": 924,
+      "bodyTriangles": 572,
+      "lidTriangles": 352,
+      "bytes": 73136,
+      "unityDimensionsXYZ": [
+        1.02,
+        0.817,
+        0.783
+      ],
+      "rootNode": "CommonChest",
+      "bodyNode": "Body",
+      "lidNode": "Lid",
+      "unityLidPivot": [
+        0,
+        0.539,
+        -0.325
+      ],
+      "openLocalEulerX": -100,
+      "materials": [
+        "CHEST_AtlasSurface"
+      ],
+      "meshes": 2,
+      "primitives": 2,
+      "rarityColorOriginal": [
+        1,
+        1,
+        1
+      ],
+      "rarityPaletteRGB8": [
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rarity": "Uncommon",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Loot/VNext/Models/UncommonChest.glb",
+      "triangles": 1100,
+      "bodyTriangles": 792,
+      "lidTriangles": 308,
+      "bytes": 86480,
+      "unityDimensionsXYZ": [
+        1.136,
+        0.866,
+        0.8685
+      ],
+      "rootNode": "UncommonChest",
+      "bodyNode": "Body",
+      "lidNode": "Lid",
+      "unityLidPivot": [
+        0,
+        0.619,
+        -0.37
+      ],
+      "openLocalEulerX": -100,
+      "materials": [
+        "CHEST_AtlasSurface"
+      ],
+      "meshes": 2,
+      "primitives": 2,
+      "rarityColorOriginal": [
+        0,
+        1,
+        0.4698286
+      ],
+      "rarityPaletteRGB8": [
+        0,
+        255,
+        120
+      ]
+    },
+    {
+      "rarity": "Rare",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Loot/VNext/Models/RareChest.glb",
+      "triangles": 1320,
+      "bodyTriangles": 836,
+      "lidTriangles": 484,
+      "bytes": 103156,
+      "unityDimensionsXYZ": [
+        1.29,
+        0.9835,
+        1.0355
+      ],
+      "rootNode": "RareChest",
+      "bodyNode": "Body",
+      "lidNode": "Lid",
+      "unityLidPivot": [
+        0,
+        0.709,
+        -0.425
+      ],
+      "openLocalEulerX": -100,
+      "materials": [
+        "CHEST_AtlasSurface"
+      ],
+      "meshes": 2,
+      "primitives": 2,
+      "rarityColorOriginal": [
+        0.3223,
+        0.5812,
+        0.89434
+      ],
+      "rarityPaletteRGB8": [
+        82,
+        148,
+        228
+      ]
+    },
+    {
+      "rarity": "Epic",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Loot/VNext/Models/EpicChest.glb",
+      "triangles": 1540,
+      "bodyTriangles": 1056,
+      "lidTriangles": 484,
+      "bytes": 119344,
+      "unityDimensionsXYZ": [
+        1.4,
+        1.0715,
+        1.0855
+      ],
+      "rootNode": "EpicChest",
+      "bodyNode": "Body",
+      "lidNode": "Lid",
+      "unityLidPivot": [
+        0,
+        0.779,
+        -0.465
+      ],
+      "openLocalEulerX": -100,
+      "materials": [
+        "CHEST_AtlasSurface"
+      ],
+      "meshes": 2,
+      "primitives": 2,
+      "rarityColorOriginal": [
+        0.153,
+        0.2571,
+        0.9321
+      ],
+      "rarityPaletteRGB8": [
+        39,
+        66,
+        238
+      ]
+    },
+    {
+      "rarity": "Legendary",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Loot/VNext/Models/LegendaryChest.glb",
+      "triangles": 1508,
+      "bodyTriangles": 980,
+      "lidTriangles": 528,
+      "bytes": 116604,
+      "unityDimensionsXYZ": [
+        1.512,
+        1.076,
+        1.178
+      ],
+      "rootNode": "LegendaryChest",
+      "bodyNode": "Body",
+      "lidNode": "Lid",
+      "unityLidPivot": [
+        0,
+        0.769,
+        -0.475
+      ],
+      "openLocalEulerX": -100,
+      "materials": [
+        "CHEST_AtlasSurface"
+      ],
+      "meshes": 2,
+      "primitives": 2,
+      "rarityColorOriginal": [
+        1,
+        0.45465,
+        0
+      ],
+      "rarityPaletteRGB8": [
+        255,
+        116,
+        0
+      ]
+    }
+  ]
+}

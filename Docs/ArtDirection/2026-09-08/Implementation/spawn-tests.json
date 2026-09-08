@@ -1,0 +1,103 @@
+{
+  "project": "BackpackSurvivor",
+  "unityVersion": "6000.3.20f1",
+  "mode": "EditMode",
+  "jobId": "797f5435231e49d2a551f13a3440c9b3",
+  "status": "succeeded",
+  "startedUtc": "2026-09-08T12:20:43.0080000+00:00",
+  "finishedUtc": "2026-09-08T12:20:48.4460000+00:00",
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 0.7667608,
+    "resultState": "Passed"
+  },
+  "tests": [
+    {
+      "name": "EmptyMap_ReturnsInsidePointAtChestHeightAndOutsidePlayerDistance",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.EmptyMap_ReturnsInsidePointAtChestHeightAndOutsidePlayerDistance",
+      "result": "Passed",
+      "durationSeconds": 0.0266172,
+      "message": null
+    },
+    {
+      "name": "FullyBlockedMap_StopsAtRetryBudgetAndReturnsNoPosition",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.FullyBlockedMap_StopsAtRetryBudgetAndReturnsNoPosition",
+      "result": "Passed",
+      "durationSeconds": 0.005172,
+      "message": null
+    },
+    {
+      "name": "ImpossibleRingOrMissingMap_ReturnsFailure",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.ImpossibleRingOrMissingMap_ReturnsFailure",
+      "result": "Passed",
+      "durationSeconds": 0.001146,
+      "message": null
+    },
+    {
+      "name": "LowObstacle_RejectsFootprintOverlapEvenWhenPointIsOutsideCollider",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.LowObstacle_RejectsFootprintOverlapEvenWhenPointIsOutsideCollider",
+      "result": "Passed",
+      "durationSeconds": 0.0007729,
+      "message": null
+    },
+    {
+      "name": "MapContainment_IgnoresCenterHeightAndReservesFootprint",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.MapContainment_IgnoresCenterHeightAndReservesFootprint",
+      "result": "Passed",
+      "durationSeconds": 0.0005079,
+      "message": null
+    },
+    {
+      "name": "NonObstacleLayersAndTriggers_DoNotBlock(0,False)",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.NonObstacleLayersAndTriggers_DoNotBlock(0,False)",
+      "result": "Passed",
+      "durationSeconds": 0.0014163,
+      "message": null
+    },
+    {
+      "name": "NonObstacleLayersAndTriggers_DoNotBlock(3,False)",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.NonObstacleLayersAndTriggers_DoNotBlock(3,False)",
+      "result": "Passed",
+      "durationSeconds": 0.0004126,
+      "message": null
+    },
+    {
+      "name": "NonObstacleLayersAndTriggers_DoNotBlock(6,False)",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.NonObstacleLayersAndTriggers_DoNotBlock(6,False)",
+      "result": "Passed",
+      "durationSeconds": 0.0002961,
+      "message": null
+    },
+    {
+      "name": "NonObstacleLayersAndTriggers_DoNotBlock(7,True)",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.NonObstacleLayersAndTriggers_DoNotBlock(7,True)",
+      "result": "Passed",
+      "durationSeconds": 0.0003085,
+      "message": null
+    },
+    {
+      "name": "OutsideOrTooCloseCandidates_AreRejectedWithoutClamping",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.OutsideOrTooCloseCandidates_AreRejectedWithoutClamping",
+      "result": "Passed",
+      "durationSeconds": 0.0010841,
+      "message": null
+    },
+    {
+      "name": "PlayerAtMapEdge_RingSamplesKeepTwentyToThirtyMetreDistance",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.PlayerAtMapEdge_RingSamplesKeepTwentyToThirtyMetreDistance",
+      "result": "Passed",
+      "durationSeconds": 0.0018854,
+      "message": null
+    },
+    {
+      "name": "ZeroRetryBudget_DoesNotSample",
+      "fullName": "BS.Core.Tests.SpawnPositionSamplerTests.ZeroRetryBudget_DoesNotSample",
+      "result": "Passed",
+      "durationSeconds": 0.0007176,
+      "message": null
+    }
+  ]
+}

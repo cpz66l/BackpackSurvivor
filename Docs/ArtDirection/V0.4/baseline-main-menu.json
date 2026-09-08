@@ -1,0 +1,1250 @@
+[
+  {
+    "path": "Canvas",
+    "active": true,
+    "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+    "pos": "(1920.00, 1080.00)",
+    "components": [
+      "RectTransform",
+      "Canvas",
+      "CanvasScaler",
+      "GraphicRaycaster",
+      "AudioSource",
+      "SettingsPanelView",
+      "MusicVolumeApplier",
+      "MainMenuRecordView"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel",
+    "active": true,
+    "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "MainMenuController",
+      "AudioSource"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Background.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/StartButton",
+    "active": true,
+    "rect": "(x:-300.00, y:-60.00, width:600.00, height:120.00)",
+    "pos": "(0.00, -60.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Start.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/QuitButton",
+    "active": true,
+    "rect": "(x:-300.00, y:-60.00, width:600.00, height:120.00)",
+    "pos": "(0.00, -422.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Exit.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/SettingsButton",
+    "active": true,
+    "rect": "(x:-76.00, y:-75.50, width:152.00, height:151.00)",
+    "pos": "(884.10, -464.44)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Settings.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/StatementButton",
+    "active": true,
+    "rect": "(x:-300.00, y:-60.00, width:600.00, height:120.00)",
+    "pos": "(0.00, -180.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_CreatorStatement.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/GameplayGuideButton",
+    "active": true,
+    "rect": "(x:-308.50, y:-61.00, width:617.00, height:122.00)",
+    "pos": "(8.50, -301.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_GameplayGuide.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/TitalImage",
+    "active": true,
+    "rect": "(x:-472.00, y:-90.50, width:944.00, height:181.00)",
+    "pos": "(0.00, -174.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Title.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/MainMenuPanel/RecordButton",
+    "active": true,
+    "rect": "(x:-76.00, y:-75.50, width:152.00, height:151.00)",
+    "pos": "(-884.10, -464.44)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Record.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel",
+    "active": false,
+    "rect": "(x:-961.50, y:-540.00, width:1923.00, height:1080.00)",
+    "pos": "(-1.50, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Preview_CreatorStatementPanel.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View",
+    "active": true,
+    "rect": "(x:-525.75, y:-185.93, width:1051.51, height:371.87)",
+    "pos": "(0.00, -30.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "ScrollRect"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Viewport",
+    "active": true,
+    "rect": "(x:-517.25, y:-185.93, width:1034.51, height:371.87)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Mask"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Viewport/Content",
+    "active": true,
+    "rect": "(x:0.00, y:-887.51, width:1027.21, height:887.51)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "VerticalLayoutGroup",
+      "ContentSizeFitter"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Viewport/Content/BodyText",
+    "active": true,
+    "rect": "(x:-513.60, y:-443.76, width:1027.21, height:887.51)",
+    "pos": "(513.60, -443.76)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "《背包幸存者》V0.3 Demo\r\n\n开发者：cpz66l\n开发周期：30天\n\r\n本作是个人独立开发的 Unity 游戏项目，当前版本用于展示一套可完整游玩的 15 分钟背包构筑幸存者 Demo。\r\n\r\n游戏围绕“自动战斗 + 背包管理 + 装备构筑”展开：玩家需要在持续增强的敌潮中移动、拾取装备、整理背包、合成物品，并通过武器激活、邻接效果、升级选择和掉落收益构建自己的战斗节奏。\r\n\r\nV0.3 版本在 V0.2 可玩 Demo 的基础上，继续扩展了升级候选池、背包邻接效果、物品内容池、音频反馈、设置菜单、敌人群体移动、远程敌人以及本地战绩存档。当前版本已经具备较完整的单局循环和局外记录能力。\r\n\r\n本项目中的部分美术、字体、音效或模型素材来自开源资源、AI 辅助生成或第三方工具处理，仅用于个人学习、作品展示与求职 Demo，不用于商业发行。若后续进入正式商业开发阶段，我会替换或重新制作全部需要授权确认的资源。\r\n\r\n感谢体验这个 Demo。它不是最终成品，但它记录了我从原型到可发布版本的完整工程实践。"
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Scrollbar Vertical",
+    "active": true,
+    "rect": "(x:-20.00, y:-185.03, width:20.00, height:370.07)",
+    "pos": "(1.60, 0.30)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Scrollbar"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Scrollbar Vertical/Sliding Area",
+    "active": true,
+    "rect": "(x:0.00, y:-156.33, width:0.00, height:312.67)",
+    "pos": "(0.00, 28.70)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/Scroll View/Scrollbar Vertical/Sliding Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-94.10, width:20.00, height:188.21)",
+    "pos": "(0.00, -28.60)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/AboutPanel/TitalText",
+    "active": true,
+    "rect": "(x:-188.78, y:-48.33, width:377.57, height:96.67)",
+    "pos": "(0.00, -143.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "制作者声明"
+  },
+  {
+    "path": "Canvas/AboutPanel/CloseButton",
+    "active": true,
+    "rect": "(x:-173.42, y:-57.61, width:346.84, height:115.22)",
+    "pos": "(6.50, 137.80)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Close.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel",
+    "active": false,
+    "rect": "(x:-960.00, y:-543.95, width:1920.00, height:1087.90)",
+    "pos": "(-3.00, -3.95)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Preview_CreatorStatementPanel.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View",
+    "active": true,
+    "rect": "(x:-525.75, y:-185.93, width:1051.51, height:371.87)",
+    "pos": "(0.00, -30.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "ScrollRect"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Viewport",
+    "active": true,
+    "rect": "(x:-517.25, y:-185.93, width:1034.51, height:371.87)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Mask"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Viewport/Content",
+    "active": true,
+    "rect": "(x:0.00, y:-3587.51, width:1027.21, height:3587.51)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "VerticalLayoutGroup",
+      "ContentSizeFitter"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Viewport/Content/BodyText",
+    "active": true,
+    "rect": "(x:-513.60, y:-1793.76, width:1027.21, height:3587.51)",
+    "pos": "(513.60, -1793.76)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "欢迎来到《背包幸存者》。\r\n\r\n这是一款“边战斗、边整理背包、边构筑武器组合”的幸存者 Demo。\r\n你的目标很简单：在越来越强的敌潮中活到最后，并尽可能搜刮更高价值的装备。\r\n\r\n基础操作：\nWASD：移动\n鼠标：瞄准方向\n左键：主动射击\nE：拾取附近装备 / 打开宝箱\nR：旋转正在拖拽的物品\nTab：打开 / 关闭背包\nEsc：暂停 / 继续游戏\n\n核心目标：\n在敌人追击和远程火力压力下，尽量生存到最后，并带出更高价值的背包物品、金币和传说装备。\n\n背包系统：\n装备需要放入背包格子中。不同物品占用不同大小，可以旋转摆放。\n同名同等级物品可以合成升级，升级后会提高物品价值或效果强度。\n背包中的武器会自动激活为玩家身边的自动武器，但激活数量有限，需要合理安排位置和选择。\n\n武器激活：\n背包位置会影响武器激活优先级，越靠左上越优先。\n部分物品或效果可以提高武器激活上限。\n武器的类型、品质和等级会影响最终伤害。\n\n邻接效果：\n部分物品边缘带有可连接接口。\n当符合规则的物品以正确方向相邻时，会触发邻接效果。\n灰色接口表示可连接方向，金色接口表示当前已触发有效效果。\n不是所有方向都能连接，旋转物品会改变接口方向。\n\n升级选择：\n升级时会暂停战斗并出现三选一。\n升级效果包含伤害、射速、生存、拾取、金币和构筑能力等方向。\n不同选择会影响你的战斗方式和搜刮效率。\n\n掉落与宝箱：\n敌人会掉落经验、金币或装备。\n宝箱会提供更高价值的物品，越到后期越有机会获得高品质奖励。\n界面会显示最近宝箱距离，你可以在战斗空隙中决定是否冒险前往。\n\n敌人：\n普通敌人会持续追击玩家。\n精英敌人更耐打，但掉落更好。\n远程敌人会保持距离并发射子弹，后期会增加走位压力。\n不要只顾整理背包，敌人仍然会在此时逼近。\n\n胜利与记录：\n胜利后会将本局带出的收益计入局外记录。\n当前记录包括总开局、胜利次数、最高背包价值、局外金币、传说物品带出数和传说物品累计价值。\n失败只记录开局次数，不会带出金币和传说收益。\n\n提示：\n不要盲目追求单个高等级物品，激活上限、邻接效果、背包空间和武器类型同样重要。\n战斗强度会随时间上升，适时整理背包比临场乱拖更安全。\n高价值宝箱值得冒险，但别在敌潮包围时贪。"
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Scrollbar Vertical",
+    "active": true,
+    "rect": "(x:-20.00, y:-185.03, width:20.00, height:370.07)",
+    "pos": "(1.60, 0.30)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Scrollbar"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Scrollbar Vertical/Sliding Area",
+    "active": true,
+    "rect": "(x:0.00, y:-156.33, width:0.00, height:312.67)",
+    "pos": "(0.00, 28.70)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/Scroll View/Scrollbar Vertical/Sliding Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-44.80, width:20.00, height:89.61)",
+    "pos": "(0.00, -28.60)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/TitalText",
+    "active": true,
+    "rect": "(x:-188.78, y:-48.33, width:377.57, height:96.67)",
+    "pos": "(0.00, -143.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "背包作战手册"
+  },
+  {
+    "path": "Canvas/GameplayGuidePanel/CloseButton",
+    "active": true,
+    "rect": "(x:-173.42, y:-57.61, width:346.84, height:115.22)",
+    "pos": "(6.50, 137.80)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/MainMenu/BS_MainMenu_Button_Close.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot",
+    "active": false,
+    "rect": "(x:-961.60, y:-539.95, width:1923.20, height:1079.90)",
+    "pos": "(-1.50, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/Backdrop",
+    "active": true,
+    "rect": "(x:-1871.70, y:-1029.90, width:3743.40, height:2059.80)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel",
+    "active": true,
+    "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+    "pos": "(1.50, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Panel.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider",
+    "active": true,
+    "rect": "(x:-273.69, y:-23.47, width:547.38, height:46.95)",
+    "pos": "(100.00, 300.00)",
+    "components": [
+      "RectTransform",
+      "Slider"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Background",
+    "active": true,
+    "rect": "(x:-273.69, y:-11.74, width:547.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Fill Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-11.74, width:527.38, height:23.47)",
+    "pos": "(-5.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Fill Area/Fill",
+    "active": true,
+    "rect": "(x:-268.69, y:-11.74, width:537.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Handle Slide Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-13.04, width:527.38, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Handle Slide Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-13.04, width:20.00, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MasterVolumeSlider/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+    "pos": "(-404.00, -4.14)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "主音量："
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider",
+    "active": true,
+    "rect": "(x:-273.69, y:-23.47, width:547.38, height:46.95)",
+    "pos": "(100.00, 200.00)",
+    "components": [
+      "RectTransform",
+      "Slider"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Background",
+    "active": true,
+    "rect": "(x:-273.69, y:-11.74, width:547.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Fill Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-11.74, width:527.38, height:23.47)",
+    "pos": "(-5.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Fill Area/Fill",
+    "active": true,
+    "rect": "(x:-268.69, y:-11.74, width:537.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Handle Slide Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-13.04, width:527.38, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Handle Slide Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-13.04, width:20.00, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/SfxVolumeSlider/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+    "pos": "(-404.00, -4.14)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "音效："
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider",
+    "active": true,
+    "rect": "(x:-273.69, y:-23.47, width:547.38, height:46.95)",
+    "pos": "(100.00, 100.00)",
+    "components": [
+      "RectTransform",
+      "Slider"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Background",
+    "active": true,
+    "rect": "(x:-273.69, y:-11.74, width:547.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Fill Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-11.74, width:527.38, height:23.47)",
+    "pos": "(-5.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Fill Area/Fill",
+    "active": true,
+    "rect": "(x:-268.69, y:-11.74, width:537.38, height:23.47)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Handle Slide Area",
+    "active": true,
+    "rect": "(x:-263.69, y:-13.04, width:527.38, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Handle Slide Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-13.04, width:20.00, height:26.09)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/MusicVolumeSlider/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+    "pos": "(-404.00, -4.14)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "BGM："
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown",
+    "active": true,
+    "rect": "(x:-200.00, y:-35.00, width:400.00, height:70.00)",
+    "pos": "(186.84, -200.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "TMP_Dropdown"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Dropdown.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Label",
+    "active": true,
+    "rect": "(x:-182.50, y:-28.50, width:365.00, height:57.00)",
+    "pos": "(-7.50, -0.50)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Option A"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template",
+    "active": false,
+    "rect": "(x:-200.00, y:-200.00, width:400.00, height:200.00)",
+    "pos": "(0.00, 2.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "ScrollRect"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport",
+    "active": true,
+    "rect": "(x:0.00, y:-200.00, width:383.00, height:200.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "Mask",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport/Content",
+    "active": true,
+    "rect": "(x:-191.50, y:-83.45, width:383.00, height:83.45)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport/Content/Item",
+    "active": true,
+    "rect": "(x:-191.50, y:-41.72, width:383.00, height:83.45)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "Toggle"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport/Content/Item/Item Background",
+    "active": true,
+    "rect": "(x:-191.50, y:-41.72, width:383.00, height:83.45)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport/Content/Item/Item Checkmark",
+    "active": true,
+    "rect": "(x:-10.00, y:-10.00, width:20.00, height:20.00)",
+    "pos": "(10.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Viewport/Content/Item/Item Label",
+    "active": true,
+    "rect": "(x:-176.50, y:-40.22, width:353.00, height:80.45)",
+    "pos": "(5.00, -0.50)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Option A"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Scrollbar",
+    "active": true,
+    "rect": "(x:-20.00, y:-200.00, width:20.00, height:200.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Scrollbar"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Scrollbar/Sliding Area",
+    "active": true,
+    "rect": "(x:0.00, y:-90.00, width:0.00, height:180.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Template/Scrollbar/Sliding Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-62.45, width:20.00, height:124.90)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/WindowModeDropdown/Text (TMP)",
+    "active": true,
+    "rect": "(x:-158.35, y:-25.00, width:316.69, height:50.00)",
+    "pos": "(-550.35, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "窗口模式："
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown",
+    "active": true,
+    "rect": "(x:-200.00, y:-35.00, width:400.00, height:70.00)",
+    "pos": "(186.84, -30.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "TMP_Dropdown"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Dropdown.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Label",
+    "active": true,
+    "rect": "(x:-182.50, y:-28.50, width:365.00, height:57.00)",
+    "pos": "(-7.50, -0.50)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Option A"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template",
+    "active": false,
+    "rect": "(x:-200.00, y:-108.01, width:400.00, height:108.01)",
+    "pos": "(0.00, 2.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "ScrollRect"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport",
+    "active": true,
+    "rect": "(x:0.00, y:-108.01, width:383.00, height:108.01)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "Mask",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport/Content",
+    "active": true,
+    "rect": "(x:-191.50, y:-54.85, width:383.00, height:54.85)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport/Content/Item",
+    "active": true,
+    "rect": "(x:-191.50, y:-32.46, width:383.00, height:64.92)",
+    "pos": "(0.00, 5.04)",
+    "components": [
+      "RectTransform",
+      "Toggle"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport/Content/Item/Item Background",
+    "active": true,
+    "rect": "(x:-191.50, y:-32.46, width:383.00, height:64.92)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport/Content/Item/Item Checkmark",
+    "active": true,
+    "rect": "(x:-10.00, y:-10.00, width:20.00, height:20.00)",
+    "pos": "(10.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Viewport/Content/Item/Item Label",
+    "active": true,
+    "rect": "(x:-176.50, y:-30.96, width:353.00, height:61.92)",
+    "pos": "(5.00, -0.50)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Option A"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Scrollbar",
+    "active": true,
+    "rect": "(x:-20.00, y:-108.01, width:20.00, height:108.01)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Scrollbar"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Scrollbar/Sliding Area",
+    "active": true,
+    "rect": "(x:0.00, y:-44.01, width:0.00, height:88.01)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Template/Scrollbar/Sliding Area/Handle",
+    "active": true,
+    "rect": "(x:-10.00, y:-54.01, width:20.00, height:108.01)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Resources/unity_builtin_extra",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResolutionDropdown/Text (TMP)",
+    "active": true,
+    "rect": "(x:-133.51, y:-25.00, width:267.02, height:50.00)",
+    "pos": "(-525.51, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "分辨率："
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ApplyButton",
+    "active": true,
+    "rect": "(x:-100.00, y:-32.50, width:200.00, height:65.00)",
+    "pos": "(-200.00, 121.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Button_Base.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ApplyButton/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-32.50, width:200.00, height:65.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Apply"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResetButton",
+    "active": true,
+    "rect": "(x:-100.00, y:-32.50, width:200.00, height:65.00)",
+    "pos": "(200.00, 121.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Button_Base.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/ResetButton/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-32.50, width:200.00, height:65.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "Reset"
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/CloseButton",
+    "active": true,
+    "rect": "(x:-64.00, y:-64.00, width:128.00, height:128.00)",
+    "pos": "(-49.40, -47.20)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Button_Close.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/SettingsModalRoot/SettingsPanel/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+    "pos": "(125.00, -63.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "设置"
+  },
+  {
+    "path": "Canvas/RecordModalRoot",
+    "active": false,
+    "rect": "(x:-960.10, y:-539.90, width:1920.20, height:1079.80)",
+    "pos": "(0.00, -0.02)",
+    "components": [
+      "RectTransform"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/RecordModalRoot/Backdrop",
+    "active": true,
+    "rect": "(x:-960.20, y:-539.80, width:1920.40, height:1079.60)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": null,
+    "text": null
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel",
+    "active": true,
+    "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+    "pos": "(0.00, 0.02)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Panel.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/totalRunsText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, 360.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "总开局：0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/totalWinsText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, 240.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "胜利次数：0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/bestBackpackValueText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, 120.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "最高背包价值：￥0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/totalGoldText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, 0.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "局外金币：$0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/legendaryFoundCountText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, -120.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "传说物品带出数：0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/legendaryCollectedValueText",
+    "active": true,
+    "rect": "(x:-621.22, y:-25.00, width:1242.45, height:50.00)",
+    "pos": "(0.00, -240.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "传说物品累计价值：￥0"
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/CloseButton",
+    "active": true,
+    "rect": "(x:-64.00, y:-64.00, width:128.00, height:128.00)",
+    "pos": "(-43.30, -43.30)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "Image",
+      "Button"
+    ],
+    "sprite": "Assets/BackpackSurvivor/Art/Textures/SettingsUI/BS_SettingsUI_Button_Close.png",
+    "text": null
+  },
+  {
+    "path": "Canvas/RecordModalRoot/RecordPanel/Text (TMP)",
+    "active": true,
+    "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+    "pos": "(128.00, -59.00)",
+    "components": [
+      "RectTransform",
+      "CanvasRenderer",
+      "TextMeshProUGUI"
+    ],
+    "sprite": null,
+    "text": "记录"
+  }
+]

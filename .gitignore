@@ -58,11 +58,35 @@ Docs/V0.3.*复盘.md
 Docs/第*课-*.md
 
 # Local utility scripts kept private
-Tools/
+Tools/*
+!Tools/ArtPipeline/
+Tools/ArtPipeline/**/__pycache__/
+Tools/ArtPipeline/Logs/
+Tools/ArtPipeline/verify_*.py
+Tools/ArtPipeline/Source/*.log
+Tools/ArtPipeline/Source/*-download.*
+Tools/ArtPipeline/Source/*.blend1
+!Tools/UnityMCP/
+Tools/UnityMCP/*
+!Tools/UnityMCP/UnityPackage/
+!Tools/UnityMCP/UnityPackage/**
+!Tools/UnityMCP/UPSTREAM-LICENSE.txt
+!Tools/UnityMCP/source-version.json
+!Tools/UnityMCP/Run-MCPRequests.py
+!Tools/UnityMCP/README.md
+!Tools/UnityMCP/Requests/
+Tools/UnityMCP/Requests/*
+!Tools/UnityMCP/Requests/audit.json
 
 # Private portfolio preparation materials kept local only
 Docs/作品材料-*.md
 Docs/Video/
+
+# Local art iteration scratch scenes
+BackpackSurvivor/Assets/BackpackSurvivor/Scenes/ArtInputSnapshots/
+BackpackSurvivor/Assets/BackpackSurvivor/Scenes/ArtInputSnapshots.meta
+BackpackSurvivor/Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtPreview.unity
+BackpackSurvivor/Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtPreview.unity.meta
 
 # Meshy export sidecar files kept out of Unity runtime commits.
 # Keep .glb and .glb.meta files tracked when used by prefabs/scenes.

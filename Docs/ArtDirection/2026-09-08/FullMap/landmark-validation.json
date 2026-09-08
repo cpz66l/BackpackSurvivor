@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "scope": "Two exported landmarks only; no Unity runtime claim.",
+  "totalTriangles": 2352,
+  "totalGlbBytes": 173804,
+  "assets": [
+    {
+      "asset": "ShippingContainer",
+      "status": "PASS",
+      "triangles": 1568,
+      "vertices": 3188,
+      "glbBytes": 113796,
+      "sha256": "44fe63b989c8724d8276c27794320ddae45ddf2e59afc06630e361bd46437169",
+      "dimensionsUnity": [
+        6.06,
+        2.59,
+        2.44
+      ],
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "paletteImages": [
+        {
+          "type": "Emission",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ]
+    },
+    {
+      "asset": "CheckpointCanopy",
+      "status": "PASS",
+      "triangles": 784,
+      "vertices": 1656,
+      "glbBytes": 60008,
+      "sha256": "28919d71461e836c71ffa1324ee346d9b27efe9ffc0a823b241cddacfdda902f",
+      "dimensionsUnity": [
+        8.0,
+        4.4,
+        3.00087
+      ],
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "paletteImages": [
+        {
+          "type": "Emission",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "dimensions": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ]
+    }
+  ]
+}

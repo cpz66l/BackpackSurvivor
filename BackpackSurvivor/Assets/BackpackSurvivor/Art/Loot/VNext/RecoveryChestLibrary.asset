@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e293493f0a5974fabcef21f08c223f, type: 3}
+  m_Name: RecoveryChestLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Loot.ChestVisualLibrary
+  sharedMaterial: {fileID: 2100000, guid: 88c28a9dc7925f946ada1d39147aa0b3, type: 2}
+  styles:
+  - id: Common
+    bundle: {fileID: 11400000, guid: ae37b176165f70646ab1a33334673950, type: 2}
+    rarityColor: {r: 1, g: 1, b: 1, a: 1}
+    body:
+      mesh: {fileID: 921582176634202377, guid: d1ff1d4dbde2e0c49abc64eb533bce00, type: 3}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    lid:
+      mesh: {fileID: 2358719888501341901, guid: d1ff1d4dbde2e0c49abc64eb533bce00, type: 3}
+      position: {x: -0, y: 0.539, z: -0.325}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    bodyBounds:
+      m_Center: {x: 0, y: 0.29950002, z: 0.039249986}
+      m_Extent: {x: 0.49, y: 0.29950002, z: 0.37675}
+    openAngle: -100
+  - id: Uncommon
+    bundle: {fileID: 11400000, guid: 26529690c14be774aa69e20e6c163f43, type: 2}
+    rarityColor: {r: 0, g: 1, b: 0.4698286, a: 1}
+    body:
+      mesh: {fileID: 2313849498369910283, guid: 137466a375578a24b9a3a6501dfb307c, type: 3}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    lid:
+      mesh: {fileID: 2214021901720745310, guid: 137466a375578a24b9a3a6501dfb307c, type: 3}
+      position: {x: -0, y: 0.619, z: -0.37}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    bodyBounds:
+      m_Center: {x: 0, y: 0.3325, z: 0.037}
+      m_Extent: {x: 0.568, y: 0.3325, z: 0.4195}
+    openAngle: -100
+  - id: Rare
+    bundle: {fileID: 11400000, guid: 651d2f22e319ee44aaf1173491160d7f, type: 2}
+    rarityColor: {r: 0.32229975, g: 0.5812063, b: 0.89433956, a: 1}
+    body:
+      mesh: {fileID: 3963649629633785296, guid: 092886015c0bb6f408b40868d57d5def, type: 3}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    lid:
+      mesh: {fileID: -6925654614139708270, guid: 092886015c0bb6f408b40868d57d5def, type: 3}
+      position: {x: -0, y: 0.709, z: -0.425}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    bodyBounds:
+      m_Center: {x: 0, y: 0.38750002, z: 0.028250039}
+      m_Extent: {x: 0.645, y: 0.38750002, z: 0.51625}
+    openAngle: -100
+  - id: Epic
+    bundle: {fileID: 11400000, guid: 0416e9d1372167d478d81ce03832d9bd, type: 2}
+    rarityColor: {r: 0.15300101, g: 0.25705582, b: 0.93207544, a: 1}
+    body:
+      mesh: {fileID: -6687117347234896346, guid: 856b8853e24e7904bb081f8e2bd60430, type: 3}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    lid:
+      mesh: {fileID: 6352199420949521145, guid: 856b8853e24e7904bb081f8e2bd60430, type: 3}
+      position: {x: -0, y: 0.779, z: -0.465}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    bodyBounds:
+      m_Center: {x: 0, y: 0.42000002, z: 0.050500005}
+      m_Extent: {x: 0.7, y: 0.42000002, z: 0.528}
+    openAngle: -100
+  - id: Legendary
+    bundle: {fileID: 11400000, guid: 113307247a1f16c45b6db006c4c504b1, type: 2}
+    rarityColor: {r: 1, g: 0.45464972, b: 0, a: 1}
+    body:
+      mesh: {fileID: -613058554970853656, guid: 6cbf1f4a3ef56c841bdfae5c4d86d56a, type: 3}
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    lid:
+      mesh: {fileID: 1733098162755674726, guid: 6cbf1f4a3ef56c841bdfae5c4d86d56a, type: 3}
+      position: {x: -0, y: 0.769, z: -0.475}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    bodyBounds:
+      m_Center: {x: 0, y: 0.4175, z: 0.03699994}
+      m_Extent: {x: 0.75100005, y: 0.4175, z: 0.589}
+    openAngle: -100

@@ -1,0 +1,93 @@
+{
+  "allPassed": true,
+  "totalTriangles": 6392,
+  "totalGLBBytes": 498720,
+  "results": [
+    {
+      "rarity": "Common",
+      "passed": true,
+      "triangles": 924,
+      "bytes": 73136,
+      "glbReimportDimensionsXYZ": [
+        1.02,
+        0.817,
+        0.783
+      ],
+      "groundMinY": 0.0,
+      "hingeLocalXOpenDegrees": -100,
+      "openedLidHeight": 1.20299,
+      "sharedMaterialVerified": true,
+      "embeddedPaletteTextures": 3,
+      "nearestSamplingVerified": true
+    },
+    {
+      "rarity": "Uncommon",
+      "passed": true,
+      "triangles": 1100,
+      "bytes": 86480,
+      "glbReimportDimensionsXYZ": [
+        1.136,
+        0.866,
+        0.8685
+      ],
+      "groundMinY": 0.0,
+      "hingeLocalXOpenDegrees": -100,
+      "openedLidHeight": 1.38393,
+      "sharedMaterialVerified": true,
+      "embeddedPaletteTextures": 3,
+      "nearestSamplingVerified": true
+    },
+    {
+      "rarity": "Rare",
+      "passed": true,
+      "triangles": 1320,
+      "bytes": 103156,
+      "glbReimportDimensionsXYZ": [
+        1.29,
+        0.9835,
+        1.0355
+      ],
+      "groundMinY": 0.0,
+      "hingeLocalXOpenDegrees": -100,
+      "openedLidHeight": 1.61959,
+      "sharedMaterialVerified": true,
+      "embeddedPaletteTextures": 3,
+      "nearestSamplingVerified": true
+    },
+    {
+      "rarity": "Epic",
+      "passed": true,
+      "triangles": 1540,
+      "bytes": 119344,
+      "glbReimportDimensionsXYZ": [
+        1.4,
+        1.0715,
+        1.0855
+      ],
+      "groundMinY": -0.0,
+      "hingeLocalXOpenDegrees": -100,
+      "openedLidHeight": 1.71873,
+      "sharedMaterialVerified": true,
+      "embeddedPaletteTextures": 3,
+      "nearestSamplingVerified": true
+    },
+    {
+      "rarity": "Legendary",
+      "passed": true,
+      "triangles": 1508,
+      "bytes": 116604,
+      "glbReimportDimensionsXYZ": [
+        1.512,
+        1.076,
+        1.178
+      ],
+      "groundMinY": -0.0,
+      "hingeLocalXOpenDegrees": -100,
+      "openedLidHeight": 1.786,
+      "sharedMaterialVerified": true,
+      "embeddedPaletteTextures": 3,
+      "nearestSamplingVerified": true
+    }
+  ],
+  "note": "Independent GLB reimport. PNGs rendered from final exports; no Unity editor changes."
+}

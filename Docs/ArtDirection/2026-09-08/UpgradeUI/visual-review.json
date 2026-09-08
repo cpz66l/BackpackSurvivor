@@ -1,0 +1,44 @@
+{
+  "reviewedAt": "2026-09-08T22:45:41+08:00",
+  "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+  "captureSource": "Unity Game View, actual UGUI and imported BC7 sprites",
+  "screenshots": [
+    {
+      "file": "unity-upgrade-main.png",
+      "reviewPassed": true,
+      "options": [
+        "DamageUp",
+        "MaxHpUp",
+        "MoveSpeedUp"
+      ],
+      "size": "1600x900"
+    },
+    {
+      "file": "unity-upgrade-recovery-build.png",
+      "reviewPassed": true,
+      "options": [
+        "PickupRangeUp",
+        "XpGainUp",
+        "ActiveWeaponLimitUp"
+      ],
+      "size": "1600x900"
+    },
+    {
+      "file": "unity-upgrade-1024x768.png",
+      "reviewPassed": true,
+      "options": [
+        "ProjectileSpeedUp",
+        "WeaponRangeUp",
+        "CritDamageUp"
+      ],
+      "size": "1024x768"
+    }
+  ],
+  "reviewed": [
+    "Transparent illustrations have clean edges on actual slate cards",
+    "Cards and labels fit both checked window sizes",
+    "Neutral cards with no selected focus",
+    "Covered legacy HUD does not show through modal"
+  ],
+  "note": "Review offers use actual definitions in fixed groups for comparison. They do not change normal level gates or probabilities. Screenshots are visual review evidence, not FPS benchmarks."
+}

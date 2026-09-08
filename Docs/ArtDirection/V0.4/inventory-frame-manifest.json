@@ -1,0 +1,65 @@
+{
+  "source": "Tools/ArtPipeline/Source/V04InventoryFrame-source.png",
+  "source_mode": "RGB (checkerboard baked into the image)",
+  "source_size": [
+    1122,
+    1402
+  ],
+  "source_sha256": "cec6e2b1bb2cb957ee4d9be3314ea9280bb9d55db3ed084191a2d39dcd07605a",
+  "source_crop_xyxy_exclusive": [
+    79,
+    75,
+    1043,
+    1326
+  ],
+  "output": "BackpackSurvivor/Assets/BackpackSurvivor/Art/UI/V04/InventoryFrame.png",
+  "output_size": [
+    512,
+    664
+  ],
+  "output_mode": "RGBA",
+  "png_bytes": 154622,
+  "output_sha256": "ccb9b1cb54816470b165e6497f92e95730dd9b253ce0c7ea46f7e2628918bdd7",
+  "alpha_silhouette_xyxy_exclusive": [
+    2,
+    2,
+    510,
+    662
+  ],
+  "transparent_center_top_left_xyxy_exclusive": [
+    39,
+    33,
+    473,
+    631
+  ],
+  "transparent_center_unity_bottom_left_xywh": [
+    39,
+    33,
+    434,
+    598
+  ],
+  "transparent_center_size": [
+    434,
+    598
+  ],
+  "center_nonzero_alpha_pixels": 0,
+  "unity_sprite_border_left_bottom_right_top": [
+    39,
+    33,
+    39,
+    33
+  ],
+  "recommended_sprite_pixels_per_unit": 100,
+  "recommended_canvas_reference_pixels_per_unit": 100,
+  "recommended_image_pixels_per_unit_multiplier": 1,
+  "recommended_image_type": "Sliced",
+  "recommended_image_fill_center": false,
+  "outer_rect_for_420x560_center_at_unit_border_scale": [
+    498,
+    626
+  ],
+  "recommended_windows_format": "BC7, no mipmaps, read/write disabled, NPOT scale None",
+  "bc7_block_pixel_payload_bytes_no_mips": 339968,
+  "uncompressed_rgba_pixel_payload_bytes": 1359872,
+  "runtime_measurement": "Import not performed by this script. Payload estimates exclude Unity native metadata, shared UI/font assets and total VRAM."
+}

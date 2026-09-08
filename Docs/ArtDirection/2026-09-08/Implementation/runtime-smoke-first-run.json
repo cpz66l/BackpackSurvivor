@@ -1,0 +1,21 @@
+{
+    "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtPreview.unity",
+    "mapRadius": 60.0,
+    "isPlaying": true,
+    "elapsedSeconds": 15.799210548400879,
+    "activeEnemies": 5,
+    "environmentRenderers": 27,
+    "materialSlots": 28,
+    "uniqueMaterials": 14,
+    "uniqueMeshes": 19,
+    "instanceTriangles": 16852,
+    "meshMemoryEstimateBytes": 1412744,
+    "textureMemoryEstimateBytes": 2878839,
+    "sourceModelBytes": 683512,
+    "missingScripts": 0,
+    "unsupportedMaterials": 0,
+    "obstacleColliders": 14,
+    "wrongObstacleLayers": 0,
+    "saveServiceInactive": true,
+    "memoryNote": "Unity Profiler estimates for referenced meshes/textures, not a GPU frame-time or exact VRAM measurement."
+}

@@ -1,0 +1,212 @@
+{
+  "generatedBy": "build_modular_kit.py / Blender 5.2.1",
+  "direction": "Quarantine / Recovery Yard",
+  "assets": [
+    {
+      "name": "ConcreteBarrier",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/ConcreteBarrier.glb",
+      "triangles": 456,
+      "vertices": 264,
+      "blenderBounds": {
+        "min": [
+          -1.503,
+          -0.3,
+          0.0
+        ],
+        "max": [
+          1.503,
+          0.3,
+          0.951
+        ]
+      },
+      "unityDimensions": [
+        3.006,
+        0.951,
+        0.6
+      ],
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "unityFront": "+Z",
+      "pivot": "bottom centre",
+      "editableSourceMaterials": [
+        "ENV_Charcoal",
+        "ENV_Concrete",
+        "ENV_FadedAmber"
+      ],
+      "exportPrimitives": 1
+    },
+    {
+      "name": "FenceSegment",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/FenceSegment.glb",
+      "triangles": 1024,
+      "vertices": 608,
+      "blenderBounds": {
+        "min": [
+          -2.0,
+          -0.15,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.15,
+          2.2
+        ]
+      },
+      "unityDimensions": [
+        4.0,
+        2.2,
+        0.3
+      ],
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "unityFront": "+Z",
+      "pivot": "bottom centre",
+      "editableSourceMaterials": [
+        "ENV_Charcoal",
+        "ENV_Concrete",
+        "ENV_DarkSteel",
+        "ENV_FadedAmber"
+      ],
+      "exportPrimitives": 1
+    },
+    {
+      "name": "SupplyTerminal",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/SupplyTerminal.glb",
+      "triangles": 1348,
+      "vertices": 760,
+      "blenderBounds": {
+        "min": [
+          -0.411,
+          -0.353,
+          0.0
+        ],
+        "max": [
+          0.411,
+          0.325,
+          1.8
+        ]
+      },
+      "unityDimensions": [
+        0.822,
+        1.8,
+        0.678
+      ],
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "unityFront": "+Z",
+      "pivot": "bottom centre",
+      "editableSourceMaterials": [
+        "ENV_Charcoal",
+        "ENV_CyanIndicator",
+        "ENV_DarkSteel",
+        "ENV_FadedAmber",
+        "ENV_OlivePaint",
+        "ENV_Rubber",
+        "ENV_Stencil"
+      ],
+      "exportPrimitives": 1
+    },
+    {
+      "name": "CargoCrate",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/CargoCrate.glb",
+      "triangles": 904,
+      "vertices": 496,
+      "blenderBounds": {
+        "min": [
+          -0.6,
+          -0.6605,
+          0.0
+        ],
+        "max": [
+          0.6,
+          0.6,
+          1.0
+        ]
+      },
+      "unityDimensions": [
+        1.2,
+        1.0,
+        1.2605
+      ],
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "unityFront": "+Z",
+      "pivot": "bottom centre",
+      "editableSourceMaterials": [
+        "ENV_Charcoal",
+        "ENV_DarkSteel",
+        "ENV_FadedAmber",
+        "ENV_OlivePaint",
+        "ENV_Rubber",
+        "ENV_Stencil"
+      ],
+      "exportPrimitives": 1
+    },
+    {
+      "name": "SmallGenerator",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/SmallGenerator.glb",
+      "triangles": 1716,
+      "vertices": 944,
+      "blenderBounds": {
+        "min": [
+          -1.09,
+          -0.625,
+          0.0
+        ],
+        "max": [
+          1.09,
+          0.625,
+          1.327
+        ]
+      },
+      "unityDimensions": [
+        2.18,
+        1.327,
+        1.25
+      ],
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "unityFront": "+Z",
+      "pivot": "bottom centre",
+      "editableSourceMaterials": [
+        "ENV_Charcoal",
+        "ENV_CyanIndicator",
+        "ENV_DarkSteel",
+        "ENV_FadedAmber",
+        "ENV_OlivePaint",
+        "ENV_Rubber"
+      ],
+      "exportPrimitives": 1
+    }
+  ]
+}

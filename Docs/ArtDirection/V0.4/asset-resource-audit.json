@@ -1,0 +1,277 @@
+{
+  "capturedAt": "2026-09-09T00:22:43.865524+08:00",
+  "scope": "New V0.4 UI images and world-equipment beacon resources; previous map/chests/upgrade art are reused, not incremental entries.",
+  "newUiImages": [
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/UI/V04/InventoryFrame.png",
+      "sourceBytes": 154622,
+      "dimensions": [
+        512,
+        664
+      ],
+      "sourceMode": "RGBA",
+      "sha256": "ccb9b1cb54816470b165e6497f92e95730dd9b253ce0c7ea46f7e2628918bdd7",
+      "windowsBC7BlockPixelPayloadBytesNoMips": 339968,
+      "importedMetadata": {
+        "standaloneTextureFormat": 25,
+        "standaloneOverride": true,
+        "mipmaps": false,
+        "readable": false,
+        "npotScale": 0
+      }
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/UI/V04/MainMenuBackground.png",
+      "sourceBytes": 837801,
+      "dimensions": [
+        1024,
+        576
+      ],
+      "sourceMode": "RGB",
+      "sha256": "e3feb5f742d80f3985a9c9f2e275b088d935e96370b0d503c78c58eb1ec8d7d3",
+      "windowsBC7BlockPixelPayloadBytesNoMips": 589824,
+      "importedMetadata": {
+        "standaloneTextureFormat": 25,
+        "standaloneOverride": true,
+        "mipmaps": false,
+        "readable": false,
+        "npotScale": 0
+      }
+    }
+  ],
+  "newUiPngSourceBytes": 992423,
+  "newUiBC7BlockPixelPayloadBytesNoMips": 929792,
+  "sharedSolidWhite": {
+    "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/UI/V04/SolidWhite.asset",
+    "sourceBytes": 5727,
+    "dimensions": [
+      1,
+      1
+    ],
+    "nativeSerializedPixelBytes": 4,
+    "includesSpriteAndTexture": true
+  },
+  "beaconAssetSources": [
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_4Triangles.asset",
+      "bytes": 3856
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_Common.mat",
+      "bytes": 951
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_Epic.mat",
+      "bytes": 962
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_Legendary.mat",
+      "bytes": 956
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_Rare.mat",
+      "bytes": 951
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootBeacon_Uncommon.mat",
+      "bytes": 955
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Effects/Loot/V04/LootRarityBeacon.shader",
+      "bytes": 4293
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Prefabs/Loot/V04/DropItem.prefab",
+      "bytes": 7258
+    }
+  ],
+  "beaconSourceBytesExcludingMetaAndCs": 20182,
+  "beaconUnityAudit": {
+    "report": "loot-beacon-resources.json",
+    "vertices": 8,
+    "triangles": 4,
+    "materials": 5,
+    "textures": 0,
+    "shaderErrors": 0,
+    "shaderWarnings": 0,
+    "meshNativeEstimateBytes": 1992,
+    "materialNativeEstimateBytes": 5440,
+    "prewarm": 30,
+    "addedLights": 0,
+    "addedParticles": 0,
+    "mapRadius": 60.0
+  },
+  "measurementCaveats": [
+    "BC7 block pixel payload is a format-based estimate, not exact VRAM or total Unity native memory.",
+    "Source-file bytes do not equal built-player compressed size; retained legacy assets and their scene dependencies were not purged by this audit.",
+    "Beacon prewarm 30 is not an active-count cap; the unchanged pool expands when empty.",
+    "No FPS, frame-time, or 15-minute Windows stress result is claimed."
+  ],
+  "actualEditorTextureNativeAudit": {
+    "report": "texture-runtime-audit.json",
+    "newTextures": [
+      {
+        "path": "Assets/BackpackSurvivor/Art/UI/V04/InventoryFrame.png",
+        "width": 512,
+        "height": 664,
+        "format": "BC7",
+        "mips": 1,
+        "readable": false,
+        "nativeBytes": 734080
+      },
+      {
+        "path": "Assets/BackpackSurvivor/Art/UI/V04/MainMenuBackground.png",
+        "width": 1024,
+        "height": 576,
+        "format": "BC7",
+        "mips": 1,
+        "readable": false,
+        "nativeBytes": 590720
+      }
+    ],
+    "newTextureNativeBytesTotal": 1324800,
+    "fontAtlasNativeBytesTotal": 14686336,
+    "note": "Profiler/Editor native estimates are not exact VRAM; retain the separate 908 KiB BC7 block pixel payload."
+  },
+  "fontAtlasGitComparison": {
+    "path": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Font/SourceHanSansCN-Normal SDF.asset",
+    "gitHeadCommit": "163b058447727568b57ba9ffcb684e15a7bc1cc0",
+    "head": {
+      "sourceBytes": 16594689,
+      "sha256": "BD2EF66BE1330B40E9A9F0E478A5C239BC747DAF0E7D3CDFFD2BE057ED016729",
+      "atlasTextureCount": 7,
+      "textures": [
+        {
+          "fileID": "-6467238498569774710",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-6146714486402151181",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-6015533432145933306",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-5248013965893394305",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-5150772366434917219",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-4697951135324830355",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "7270188167257199053",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        }
+      ],
+      "glyphTableEntries": 634,
+      "characterTableEntries": 636,
+      "pixelPayloadBytes": 7340032
+    },
+    "current": {
+      "sourceBytes": 16673222,
+      "sha256": "42BB39CE5FF0B552B76514835AF3C06A5AF7203F943832060ABA499A61C15FC9",
+      "atlasTextureCount": 7,
+      "textures": [
+        {
+          "fileID": "-6467238498569774710",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-6146714486402151181",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-6015533432145933306",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-5248013965893394305",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-5150772366434917219",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "-4697951135324830355",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        },
+        {
+          "fileID": "7270188167257199053",
+          "m_Width": 1024,
+          "m_Height": 1024,
+          "m_TextureFormat": 1,
+          "m_MipCount": 1,
+          "m_CompleteImageSize": 1048576
+        }
+      ],
+      "glyphTableEntries": 649,
+      "characterTableEntries": 651,
+      "pixelPayloadBytes": 7340032
+    },
+    "atlasIdentityAndDimensionsUnchanged": true,
+    "additionalAtlasPages": 0,
+    "glyphTableEntryIncrease": 15,
+    "characterTableEntryIncrease": 15,
+    "note": "Git HEAD already contains seven 1024-square Alpha8 pages. The font asset is not byte-identical: glyph/character data was extended. This comparison does not attribute every glyph change specifically to V0.4 without a separate font asset baseline."
+  }
+}

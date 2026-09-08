@@ -1,0 +1,66 @@
+{
+  "newTextures": [
+    {
+      "path": "Assets/BackpackSurvivor/Art/UI/V04/InventoryFrame.png",
+      "width": 512,
+      "height": 664,
+      "format": "BC7",
+      "mips": 1,
+      "readable": false,
+      "nativeBytes": 734080
+    },
+    {
+      "path": "Assets/BackpackSurvivor/Art/UI/V04/MainMenuBackground.png",
+      "width": 1024,
+      "height": 576,
+      "format": "BC7",
+      "mips": 1,
+      "readable": false,
+      "nativeBytes": 590720
+    }
+  ],
+  "reusedFontAtlases": [
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    },
+    {
+      "width": 1024,
+      "height": 1024,
+      "format": "Alpha8",
+      "nativeBytes": 2098048
+    }
+  ]
+}

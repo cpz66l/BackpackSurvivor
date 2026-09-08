@@ -1,0 +1,56 @@
+[
+  {
+    "instance": "BackpackSurvivor@86aa38285588d0a0",
+    "verified_project": {
+      "success": true,
+      "message": "Retrieved project info.",
+      "error": null,
+      "data": {
+        "projectRoot": "E:/YouXiKaiFa/Backpack Survivor/BackpackSurvivor",
+        "projectName": "BackpackSurvivor",
+        "unityVersion": "6000.3.20f1",
+        "platform": "StandaloneWindows64",
+        "assetsPath": "E:/YouXiKaiFa/Backpack Survivor/BackpackSurvivor/Assets"
+      },
+      "hint": null
+    }
+  },
+  {
+    "request": {
+      "kind": "tool",
+      "tool": "read_console",
+      "arguments": {
+        "action": "get",
+        "count": 10,
+        "types": [
+          "error",
+          "warning"
+        ],
+        "format": "detailed",
+        "include_stacktrace": true
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"success\":true,\"message\":\"Retrieved 1 log entries.\",\"data\":[{\"type\":\"Error\",\"message\":\"An abnormal situation has occurred: the PlayerLoop internal function has been called recursively. Please contact Customer Support with a sample project so that we can reproduce the problem and troubleshoot it.\",\"file\":\"E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs\",\"line\":275,\"stackTrace\":\"UnityEngine.StackTraceUtility:ExtractStackTrace ()\\nMCPDynamicCode:Execute ()\\nSystem.Reflection.MethodBase:Invoke (object,object[])\\nMCPForUnity.Editor.Tools.ExecuteCode:InvokeCompiled (System.Reflection.Assembly,string) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:275)\\nMCPForUnity.Editor.Tools.ExecuteCode:CompileAndExecute (string,string) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:257)\\nMCPForUnity.Editor.Tools.ExecuteCode:HandleExecute (Newtonsoft.Json.Linq.JObject) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:130)\\nMCPForUnity.Editor.Tools.ExecuteCode:HandleCommand (Newtonsoft.Json.Linq.JObject) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:95)\\nMCPForUnity.Editor.Tools.CommandRegistry:ExecuteCommand (string,Newtonsoft.Json.Linq.JObject,System.Threading.Tasks.TaskCompletionSource`1<string>) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/CommandRegistry.cs:295)\\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessCommand (string,MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/PendingCommand) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:366)\\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessQueue () (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:262)\\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:<RequestMainThreadPump>g__Pump|11_0 () (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:184)\\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/<>c:<RequestMainThreadPump>b__11_1 (object) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:189)\\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\\n\"}]}"
+        }
+      ],
+      "structuredContent": {
+        "success": true,
+        "message": "Retrieved 1 log entries.",
+        "data": [
+          {
+            "type": "Error",
+            "message": "An abnormal situation has occurred: the PlayerLoop internal function has been called recursively. Please contact Customer Support with a sample project so that we can reproduce the problem and troubleshoot it.",
+            "file": "E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs",
+            "line": 275,
+            "stackTrace": "UnityEngine.StackTraceUtility:ExtractStackTrace ()\nMCPDynamicCode:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nMCPForUnity.Editor.Tools.ExecuteCode:InvokeCompiled (System.Reflection.Assembly,string) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:275)\nMCPForUnity.Editor.Tools.ExecuteCode:CompileAndExecute (string,string) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:257)\nMCPForUnity.Editor.Tools.ExecuteCode:HandleExecute (Newtonsoft.Json.Linq.JObject) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:130)\nMCPForUnity.Editor.Tools.ExecuteCode:HandleCommand (Newtonsoft.Json.Linq.JObject) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/ExecuteCode.cs:95)\nMCPForUnity.Editor.Tools.CommandRegistry:ExecuteCommand (string,Newtonsoft.Json.Linq.JObject,System.Threading.Tasks.TaskCompletionSource`1<string>) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Tools/CommandRegistry.cs:295)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessCommand (string,MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/PendingCommand) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:366)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessQueue () (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:262)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:<RequestMainThreadPump>g__Pump|11_0 () (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:184)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/<>c:<RequestMainThreadPump>b__11_1 (object) (at E:/YouXiKaiFa/Backpack Survivor/Tools/UnityMCP/UnityPackage/Editor/Services/Transport/TransportCommandDispatcher.cs:189)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n"
+          }
+        ]
+      },
+      "isError": false
+    }
+  }
+]

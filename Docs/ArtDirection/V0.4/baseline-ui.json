@@ -1,0 +1,2042 @@
+{
+  "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+  "playing": false,
+  "dirty": true,
+  "ui": [
+    {
+      "path": "Canvas",
+      "active": true,
+      "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+      "anchors": "(0.00, 0.00)/(0.00, 0.00)",
+      "scale": "(2.00, 2.00, 2.00)",
+      "components": [
+        "RectTransform",
+        "Canvas",
+        "CanvasScaler",
+        "GraphicRaycaster",
+        "InteractPromptUI",
+        "LevelUpChoiceView",
+        "ResultView",
+        "ItemTooltipView",
+        "ChestDistanceView",
+        "ItemIconResolver"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/PromptPanel",
+      "active": false,
+      "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "CanvasGroup"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/PromptPanel/Text (TMP)",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "按 E "
+    },
+    {
+      "path": "Canvas/PromptPanel/BagIsFull",
+      "active": false,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "背包已满"
+    },
+    {
+      "path": "Canvas/BagPanel",
+      "active": true,
+      "rect": "(x:0.00, y:0.00, width:420.00, height:560.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "CanvasGroup"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/BagFrame",
+      "active": true,
+      "rect": "(x:-289.82, y:-376.30, width:579.65, height:752.61)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/BackpackUI/BS_Backpack_Frame.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer",
+      "active": true,
+      "rect": "(x:0.00, y:0.00, width:64.00, height:64.00)",
+      "anchors": "(0.00, 0.00)/(0.00, 0.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "GridLayoutGroup"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (1)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (2)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (3)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (4)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (5)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (6)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (7)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (8)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (9)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (10)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (11)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (12)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (13)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (14)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (15)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (16)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (17)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (18)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (19)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (20)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (21)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (22)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (23)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (24)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (25)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (26)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (27)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (28)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (29)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (30)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (31)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (32)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (33)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (34)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (35)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (36)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (37)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (38)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (39)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (40)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (41)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (42)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (43)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (44)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (45)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (46)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/CellLayer/Cell (47)",
+      "active": true,
+      "rect": "(x:-32.50, y:-32.50, width:65.00, height:65.00)",
+      "anchors": "(0.00, 1.00)/(0.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/ItemLayer",
+      "active": true,
+      "rect": "(x:0.00, y:-65.00, width:65.00, height:65.00)",
+      "anchors": "(0.00, 0.00)/(0.00, 0.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/BagPanel/TotalValueText",
+      "active": true,
+      "rect": "(x:-214.42, y:-25.00, width:428.84, height:50.00)",
+      "anchors": "(0.50, 1.00)/(0.50, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "背包价值：￥1234"
+    },
+    {
+      "path": "Canvas/BagPanel/TotalValueText/TMP SubMeshUI [SourceHanSansCN-Normal Atlas Material + SourceHanSansCN-Normal Atlas 1]",
+      "active": true,
+      "rect": "(x:-214.42, y:-25.00, width:428.84, height:50.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "LayoutElement",
+        "CanvasRenderer",
+        "TMP_SubMeshUI"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/LevelUpChoice",
+      "active": false,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasGroup"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceOne",
+      "active": true,
+      "rect": "(x:-142.05, y:-182.56, width:284.09, height:365.12)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "Button"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceOne/TextTitle",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceOne/Description",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceTwo",
+      "active": true,
+      "rect": "(x:-142.05, y:-182.56, width:284.09, height:365.12)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "Button"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceTwo/TextTitle",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.11, 1.11, 1.11)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceTwo/Description",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceThree",
+      "active": true,
+      "rect": "(x:-142.05, y:-182.56, width:284.09, height:365.12)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "Button"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceThree/TextTitle",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/LevelUpChoice/ChoiceThree/Description",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/HUDPanel",
+      "active": true,
+      "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "RunHudView",
+        "CanvasGroup"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/HpSlider",
+      "active": true,
+      "rect": "(x:-168.38, y:-28.96, width:336.77, height:57.91)",
+      "anchors": "(1.00, 1.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "Slider"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/HpSlider/Background",
+      "active": true,
+      "rect": "(x:-166.50, y:-24.33, width:332.99, height:48.66)",
+      "anchors": "(0.00, 0.25)/(1.00, 0.75)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/HpSlider/Fill Area",
+      "active": true,
+      "rect": "(x:-163.37, y:-21.67, width:326.74, height:43.33)",
+      "anchors": "(0.00, 0.25)/(1.00, 0.75)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/HpSlider/Fill Area/Fill",
+      "active": true,
+      "rect": "(x:-80.74, y:-21.67, width:161.48, height:43.33)",
+      "anchors": "(0.00, 0.00)/(0.49, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/HpSlider/Text (TMP)",
+      "active": true,
+      "rect": "(x:-115.01, y:-10.61, width:230.01, height:21.22)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/HUDPanel/Text",
+      "active": true,
+      "rect": "(x:-960.00, y:-540.05, width:1920.00, height:1080.10)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Text/timeText ",
+      "active": true,
+      "rect": "(x:-131.99, y:-33.00, width:263.99, height:66.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "00:00"
+    },
+    {
+      "path": "Canvas/HUDPanel/Text/stateText ",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/HUDPanel/Text/WaveText",
+      "active": true,
+      "rect": "(x:-132.00, y:-23.18, width:263.99, height:46.35)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "WAVE"
+    },
+    {
+      "path": "Canvas/HUDPanel/Xp&Level",
+      "active": true,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(1.00, 1.00)/(1.00, 1.00)",
+      "scale": "(0.70, 0.70, 0.70)",
+      "components": [
+        "RectTransform"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Xp&Level/Background",
+      "active": true,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Xp&Level/XpLoop",
+      "active": true,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Xp&Level/LevelBackground",
+      "active": true,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(0.68, 0.68, 0.68)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Xp&Level/levelText",
+      "active": true,
+      "rect": "(x:-50.00, y:-50.00, width:100.00, height:100.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "12"
+    },
+    {
+      "path": "Canvas/HUDPanel/Gold",
+      "active": true,
+      "rect": "(x:-30.16, y:-30.16, width:60.32, height:60.32)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Meshy/BS_Loot_GoldCoin/BS_Loot_GoldCoin_UIIcon.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Gold/GoldText",
+      "active": true,
+      "rect": "(x:-51.59, y:-25.00, width:103.18, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "25"
+    },
+    {
+      "path": "Canvas/HUDPanel/ChestDistanceText",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "宝箱：23m"
+    },
+    {
+      "path": "Canvas/HUDPanel/ChestDistanceText/TMP SubMeshUI [SourceHanSansCN-Normal Atlas Material + SourceHanSansCN-Normal Atlas 1]",
+      "active": true,
+      "rect": "(x:-100.00, y:-25.00, width:200.00, height:50.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "LayoutElement",
+        "CanvasRenderer",
+        "TMP_SubMeshUI"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Bag",
+      "active": true,
+      "rect": "(x:-75.00, y:-75.00, width:150.00, height:150.00)",
+      "anchors": "(0.00, 0.00)/(0.00, 0.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/BackpackUI/BS_Backpack_RoundButton.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Bag/Tab",
+      "active": true,
+      "rect": "(x:-60.00, y:-27.00, width:120.00, height:54.00)",
+      "anchors": "(0.50, 1.00)/(0.50, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/BackpackUI/BS_Backpack_BlankKeycap.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/Bag/Tab/Text (TMP)",
+      "active": true,
+      "rect": "(x:-60.00, y:-26.00, width:120.00, height:52.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "TAB"
+    },
+    {
+      "path": "Canvas/HUDPanel/Bag/Tab/Text (TMP)/TMP SubMeshUI [SourceHanSansCN-Normal Atlas Material + SourceHanSansCN-Normal Atlas 2]",
+      "active": true,
+      "rect": "(x:-60.00, y:-26.00, width:120.00, height:52.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "LayoutElement",
+        "CanvasRenderer",
+        "TMP_SubMeshUI"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/ESC",
+      "active": true,
+      "rect": "(x:-60.00, y:-27.00, width:120.00, height:54.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/BackpackUI/BS_Backpack_BlankKeycap.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/ESC/Text (TMP)",
+      "active": true,
+      "rect": "(x:-50.00, y:-25.00, width:100.00, height:50.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "Esc"
+    },
+    {
+      "path": "Canvas/HUDPanel/ESC/Text (TMP)/TMP SubMeshUI [SourceHanSansCN-Normal Atlas Material + SourceHanSansCN-Normal Atlas 1]",
+      "active": true,
+      "rect": "(x:-50.00, y:-25.00, width:100.00, height:50.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "LayoutElement",
+        "CanvasRenderer",
+        "TMP_SubMeshUI"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/HUDPanel/ESC/Text (TMP)/TMP SubMeshUI [SourceHanSansCN-Normal Atlas Material + SourceHanSansCN-Normal Atlas 5]",
+      "active": true,
+      "rect": "(x:-50.00, y:-25.00, width:100.00, height:50.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "LayoutElement",
+        "CanvasRenderer",
+        "TMP_SubMeshUI"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/ResultPanel",
+      "active": false,
+      "rect": "(x:-368.37, y:-449.59, width:736.74, height:899.18)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "CanvasGroup"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/ResultUI/BS_Result_GameOverPanel.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/ResultPanel/TitleText",
+      "active": true,
+      "rect": "(x:-160.45, y:-46.91, width:320.91, height:93.83)",
+      "anchors": "(0.50, 1.00)/(0.50, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "游戏胜利"
+    },
+    {
+      "path": "Canvas/ResultPanel/StatsText",
+      "active": true,
+      "rect": "(x:-240.47, y:-160.78, width:480.94, height:321.56)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "存活时间：xx:xx\r\n等级：x\r\n总经验：x\r\n击杀数：x\n背包价值：X"
+    },
+    {
+      "path": "Canvas/ResultPanel/ReStartButton",
+      "active": true,
+      "rect": "(x:-204.32, y:-39.51, width:408.65, height:79.01)",
+      "anchors": "(0.50, 0.00)/(0.50, 0.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "Button"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/ResultUI/BS_Result_Button_Restart.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/ResultPanel/QuitButton",
+      "active": true,
+      "rect": "(x:-204.32, y:-39.51, width:408.65, height:79.01)",
+      "anchors": "(0.50, 0.00)/(0.50, 0.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "Button"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/Textures/ResultUI/BS_Result_Button_MainMenu.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/ItemTooltip",
+      "active": false,
+      "rect": "(x:-64.45, y:-64.86, width:128.90, height:129.72)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image",
+        "CanvasGroup"
+      ],
+      "sprite": "Resources/unity_builtin_extra",
+      "text": null
+    },
+    {
+      "path": "Canvas/ItemTooltip/TitalText",
+      "active": true,
+      "rect": "(x:-64.45, y:-21.11, width:128.90, height:42.22)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/ItemTooltip/BodyText",
+      "active": true,
+      "rect": "(x:-64.45, y:-43.82, width:128.90, height:87.65)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "New Text"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice",
+      "active": false,
+      "rect": "(x:-960.00, y:-540.00, width:1920.00, height:1080.00)",
+      "anchors": "(0.00, 0.00)/(1.00, 1.00)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "Canvas",
+        "GraphicRaycaster",
+        "CanvasGroup",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog",
+      "active": true,
+      "rect": "(x:-680.00, y:-424.00, width:1360.00, height:848.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Heading",
+      "active": true,
+      "rect": "(x:-626.00, y:-44.00, width:1252.00, height:88.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "选择一项强化"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Level",
+      "active": true,
+      "rect": "(x:-626.00, y:-24.00, width:1252.00, height:48.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "等级提升 · LV. 02"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1",
+      "active": true,
+      "rect": "(x:-200.00, y:-275.00, width:400.00, height:550.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic",
+        "Button",
+        "UpgradeChoiceCard"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/CategoryAccent",
+      "active": true,
+      "rect": "(x:-16.00, y:-4.00, width:32.00, height:8.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/Category",
+      "active": true,
+      "rect": "(x:-90.00, y:-21.00, width:180.00, height:42.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "火力"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/OptionIllustration",
+      "active": true,
+      "rect": "(x:-164.00, y:-112.00, width:328.00, height:224.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/UI/Upgrades/UpgradeIllustrations.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/CategoryIconFallback",
+      "active": false,
+      "rect": "(x:-43.00, y:-43.00, width:86.00, height:86.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeCategoryGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/Title",
+      "active": true,
+      "rect": "(x:-172.00, y:-30.00, width:344.00, height:60.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "火力强化"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/Effect",
+      "active": true,
+      "rect": "(x:-172.00, y:-28.00, width:344.00, height:56.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "伤害 +15%"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/ActionDivider",
+      "active": true,
+      "rect": "(x:-164.00, y:-0.50, width:328.00, height:1.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/Keycap",
+      "active": true,
+      "rect": "(x:-26.00, y:-26.00, width:52.00, height:52.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/Shortcut",
+      "active": true,
+      "rect": "(x:-23.00, y:-23.00, width:46.00, height:46.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "1"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/KeySeparator",
+      "active": true,
+      "rect": "(x:-0.50, y:-15.00, width:1.00, height:30.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_1/ActionLabel",
+      "active": true,
+      "rect": "(x:-52.00, y:-24.00, width:104.00, height:48.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "选择"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2",
+      "active": true,
+      "rect": "(x:-200.00, y:-275.00, width:400.00, height:550.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic",
+        "Button",
+        "UpgradeChoiceCard"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/CategoryAccent",
+      "active": true,
+      "rect": "(x:-16.00, y:-4.00, width:32.00, height:8.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/Category",
+      "active": true,
+      "rect": "(x:-90.00, y:-21.00, width:180.00, height:42.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "生存"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/OptionIllustration",
+      "active": true,
+      "rect": "(x:-164.00, y:-112.00, width:328.00, height:224.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/UI/Upgrades/UpgradeIllustrations.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/CategoryIconFallback",
+      "active": false,
+      "rect": "(x:-43.00, y:-43.00, width:86.00, height:86.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeCategoryGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/Title",
+      "active": true,
+      "rect": "(x:-172.00, y:-30.00, width:344.00, height:60.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "应急装甲"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/Effect",
+      "active": true,
+      "rect": "(x:-172.00, y:-28.00, width:344.00, height:56.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "最大生命值 +25"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/ActionDivider",
+      "active": true,
+      "rect": "(x:-164.00, y:-0.50, width:328.00, height:1.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/Keycap",
+      "active": true,
+      "rect": "(x:-26.00, y:-26.00, width:52.00, height:52.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/Shortcut",
+      "active": true,
+      "rect": "(x:-23.00, y:-23.00, width:46.00, height:46.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "2"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/KeySeparator",
+      "active": true,
+      "rect": "(x:-0.50, y:-15.00, width:1.00, height:30.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_2/ActionLabel",
+      "active": true,
+      "rect": "(x:-52.00, y:-24.00, width:104.00, height:48.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "选择"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3",
+      "active": true,
+      "rect": "(x:-200.00, y:-275.00, width:400.00, height:550.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic",
+        "Button",
+        "UpgradeChoiceCard"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/CategoryAccent",
+      "active": true,
+      "rect": "(x:-16.00, y:-4.00, width:32.00, height:8.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/Category",
+      "active": true,
+      "rect": "(x:-90.00, y:-21.00, width:180.00, height:42.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "机动"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/OptionIllustration",
+      "active": true,
+      "rect": "(x:-164.00, y:-112.00, width:328.00, height:224.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": "Assets/BackpackSurvivor/Art/UI/Upgrades/UpgradeIllustrations.png",
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/CategoryIconFallback",
+      "active": false,
+      "rect": "(x:-43.00, y:-43.00, width:86.00, height:86.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeCategoryGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/Title",
+      "active": true,
+      "rect": "(x:-172.00, y:-30.00, width:344.00, height:60.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "轻装移动"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/Effect",
+      "active": true,
+      "rect": "(x:-172.00, y:-28.00, width:344.00, height:56.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "移速 +10%"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/ActionDivider",
+      "active": true,
+      "rect": "(x:-164.00, y:-0.50, width:328.00, height:1.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/Keycap",
+      "active": true,
+      "rect": "(x:-26.00, y:-26.00, width:52.00, height:52.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "UpgradeRoundedGraphic"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/Shortcut",
+      "active": true,
+      "rect": "(x:-23.00, y:-23.00, width:46.00, height:46.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "3"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/KeySeparator",
+      "active": true,
+      "rect": "(x:-0.50, y:-15.00, width:1.00, height:30.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "Image"
+      ],
+      "sprite": null,
+      "text": null
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/Choice_3/ActionLabel",
+      "active": true,
+      "rect": "(x:-52.00, y:-24.00, width:104.00, height:48.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "选择"
+    },
+    {
+      "path": "Canvas/NightUpgradeChoice/TacticalUpgradeDialog/FooterInstruction",
+      "active": true,
+      "rect": "(x:-626.00, y:-24.00, width:1252.00, height:48.00)",
+      "anchors": "(0.50, 0.50)/(0.50, 0.50)",
+      "scale": "(1.00, 1.00, 1.00)",
+      "components": [
+        "RectTransform",
+        "CanvasRenderer",
+        "TextMeshProUGUI"
+      ],
+      "sprite": null,
+      "text": "点击卡片或按 1 / 2 / 3 选择"
+    }
+  ]
+}

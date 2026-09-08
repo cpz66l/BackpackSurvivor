@@ -1,0 +1,12 @@
+{
+  "playing": false,
+  "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+  "dirty": false,
+  "background": false,
+  "nativeErrors": 0,
+  "nativeWarnings": 0,
+  "devices": [
+    "Keyboard:True",
+    "Mouse:True"
+  ]
+}

@@ -1,0 +1,569 @@
+{
+  "width": 1024,
+  "height": 1024,
+  "sprites": [
+    {
+      "name": "DamageUp",
+      "rect": [
+        12,
+        808,
+        232,
+        177
+      ]
+    },
+    {
+      "name": "FireRateUp",
+      "rect": [
+        274,
+        780,
+        219,
+        232
+      ]
+    },
+    {
+      "name": "MoveSpeedUp",
+      "rect": [
+        524,
+        798,
+        232,
+        196
+      ]
+    },
+    {
+      "name": "MaxHpUp",
+      "rect": [
+        781,
+        780,
+        229,
+        232
+      ]
+    },
+    {
+      "name": "PickupRangeUp",
+      "rect": [
+        12,
+        530,
+        232,
+        221
+      ]
+    },
+    {
+      "name": "CritChanceUp",
+      "rect": [
+        268,
+        559,
+        232,
+        162
+      ]
+    },
+    {
+      "name": "ProjectileSpeedUp",
+      "rect": [
+        524,
+        537,
+        232,
+        206
+      ]
+    },
+    {
+      "name": "WeaponRangeUp",
+      "rect": [
+        780,
+        560,
+        232,
+        161
+      ]
+    },
+    {
+      "name": "CritDamageUp",
+      "rect": [
+        12,
+        269,
+        232,
+        231
+      ]
+    },
+    {
+      "name": "DamageReductionUp",
+      "rect": [
+        286,
+        268,
+        195,
+        232
+      ]
+    },
+    {
+      "name": "XpGainUp",
+      "rect": [
+        524,
+        271,
+        232,
+        227
+      ]
+    },
+    {
+      "name": "GoldGainUp",
+      "rect": [
+        783,
+        268,
+        226,
+        232
+      ]
+    },
+    {
+      "name": "ActiveWeaponLimitUp",
+      "rect": [
+        12,
+        37,
+        232,
+        183
+      ]
+    }
+  ],
+  "runtimeBytes": 797206,
+  "format": "RGBA8 / straight alpha",
+  "spriteCount": 13,
+  "grid": [
+    4,
+    4
+  ],
+  "maxVisibleSide": 224,
+  "minimumTransparentCellBorder": 12,
+  "unusedCellsAreTransparent": true,
+  "sourceSha256": "0c278ac45f9721335e35ea1d73308f93259184c4f874565930eed88e2bea88a8",
+  "atlasSha256": "0e596769b3199b7dda18fae0f1d683b171cbcf5084ac5c2dc8c8538a39ecc837",
+  "transparentPixels": 658305,
+  "partiallyTransparentPixels": 38319,
+  "spriteDiagnostics": [
+    {
+      "checkerHoleComponentsRemoved": 1,
+      "sourceForegroundPixels": 27202,
+      "name": "DamageUp",
+      "sourceCell": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "sourceForegroundBox": [
+        28,
+        83,
+        312,
+        297
+      ],
+      "atlasCell": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        169
+      ],
+      "unityRect": [
+        12,
+        808,
+        232,
+        177
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 0,
+      "sourceForegroundPixels": 33732,
+      "name": "FireRateUp",
+      "sourceCell": [
+        314,
+        0,
+        313,
+        314
+      ],
+      "sourceForegroundBox": [
+        55,
+        80,
+        268,
+        306
+      ],
+      "atlasCell": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        211,
+        224
+      ],
+      "unityRect": [
+        274,
+        780,
+        219,
+        232
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 4,
+      "sourceForegroundPixels": 39890,
+      "name": "MoveSpeedUp",
+      "sourceCell": [
+        627,
+        0,
+        313,
+        314
+      ],
+      "sourceForegroundBox": [
+        4,
+        88,
+        265,
+        307
+      ],
+      "atlasCell": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        188
+      ],
+      "unityRect": [
+        524,
+        798,
+        232,
+        196
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 1,
+      "sourceForegroundPixels": 40403,
+      "name": "MaxHpUp",
+      "sourceCell": [
+        940,
+        0,
+        314,
+        314
+      ],
+      "sourceForegroundBox": [
+        46,
+        75,
+        268,
+        300
+      ],
+      "atlasCell": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        221,
+        224
+      ],
+      "unityRect": [
+        781,
+        780,
+        229,
+        232
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 3,
+      "sourceForegroundPixels": 47403,
+      "name": "PickupRangeUp",
+      "sourceCell": [
+        0,
+        314,
+        314,
+        313
+      ],
+      "sourceForegroundBox": [
+        42,
+        47,
+        306,
+        298
+      ],
+      "atlasCell": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        213
+      ],
+      "unityRect": [
+        12,
+        530,
+        232,
+        221
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 0,
+      "sourceForegroundPixels": 29831,
+      "name": "CritChanceUp",
+      "sourceCell": [
+        314,
+        314,
+        313,
+        313
+      ],
+      "sourceForegroundBox": [
+        33,
+        103,
+        285,
+        276
+      ],
+      "atlasCell": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        154
+      ],
+      "unityRect": [
+        268,
+        559,
+        232,
+        162
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 1,
+      "sourceForegroundPixels": 22897,
+      "protectedWhiteGlowCorePixels": 808,
+      "name": "ProjectileSpeedUp",
+      "sourceCell": [
+        627,
+        314,
+        313,
+        313
+      ],
+      "sourceForegroundBox": [
+        37,
+        81,
+        267,
+        284
+      ],
+      "atlasCell": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        198
+      ],
+      "unityRect": [
+        524,
+        537,
+        232,
+        206
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 1,
+      "sourceForegroundPixels": 32890,
+      "name": "WeaponRangeUp",
+      "sourceCell": [
+        940,
+        314,
+        314,
+        313
+      ],
+      "sourceForegroundBox": [
+        10,
+        97,
+        287,
+        286
+      ],
+      "atlasCell": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        153
+      ],
+      "unityRect": [
+        780,
+        560,
+        232,
+        161
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 1,
+      "sourceForegroundPixels": 42897,
+      "name": "CritDamageUp",
+      "sourceCell": [
+        0,
+        627,
+        314,
+        313
+      ],
+      "sourceForegroundBox": [
+        45,
+        24,
+        294,
+        272
+      ],
+      "atlasCell": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        223
+      ],
+      "unityRect": [
+        12,
+        269,
+        232,
+        231
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 0,
+      "sourceForegroundPixels": 38860,
+      "name": "DamageReductionUp",
+      "sourceCell": [
+        314,
+        627,
+        313,
+        313
+      ],
+      "sourceForegroundBox": [
+        52,
+        22,
+        261,
+        272
+      ],
+      "atlasCell": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        187,
+        224
+      ],
+      "unityRect": [
+        286,
+        268,
+        195,
+        232
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 0,
+      "sourceForegroundPixels": 41408,
+      "name": "XpGainUp",
+      "sourceCell": [
+        627,
+        627,
+        313,
+        313
+      ],
+      "sourceForegroundBox": [
+        24,
+        30,
+        273,
+        273
+      ],
+      "atlasCell": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        219
+      ],
+      "unityRect": [
+        524,
+        271,
+        232,
+        227
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 0,
+      "sourceForegroundPixels": 39109,
+      "name": "GoldGainUp",
+      "sourceCell": [
+        940,
+        627,
+        314,
+        313
+      ],
+      "sourceForegroundBox": [
+        37,
+        35,
+        266,
+        270
+      ],
+      "atlasCell": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        218,
+        224
+      ],
+      "unityRect": [
+        783,
+        268,
+        226,
+        232
+      ]
+    },
+    {
+      "checkerHoleComponentsRemoved": 2,
+      "sourceForegroundPixels": 31333,
+      "name": "ActiveWeaponLimitUp",
+      "sourceCell": [
+        0,
+        940,
+        314,
+        314
+      ],
+      "sourceForegroundBox": [
+        41,
+        38,
+        303,
+        243
+      ],
+      "atlasCell": [
+        0,
+        768,
+        256,
+        256
+      ],
+      "visibleDimensions": [
+        224,
+        175
+      ],
+      "unityRect": [
+        12,
+        37,
+        232,
+        183
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "requests": [
+    {"kind": "resource", "uri": "mcpforunity://editor/state"},
+    {"kind": "tool", "tool": "read_console", "arguments": {"action": "get", "types": ["error"], "count": 20}},
+    {"kind": "tool", "tool": "manage_scene", "arguments": {"action": "get_active"}},
+    {"kind": "tool", "tool": "manage_scene", "arguments": {"action": "get_hierarchy", "page_size": 50, "max_depth": 2}}
+  ]
+}

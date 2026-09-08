@@ -24,6 +24,9 @@ namespace BS.GamePlay.Loot {
         private LootManager lootManager;
         private bool opened = false;
         private Color originalColor;
+        private LootChestVisual visual;
+        private MaterialPropertyBlock fallbackProperties;
+        private int fallbackColorProperty;
 
         //宝箱数目
         public static int ActiveCount { get; private set; }
@@ -35,9 +38,17 @@ namespace BS.GamePlay.Loot {
         private void Awake()
         {
             lootManager = FindAnyObjectByType<LootManager>();
-            modelRb = GetComponentInChildren<Renderer>();
+            visual = GetComponentInChildren<LootChestVisual>(true);
+            if (!modelRb) modelRb = GetComponentInChildren<Renderer>();
             chestCollider = GetComponent<Collider>();
-            originalColor = modelRb.material.color;
+            if (!visual && modelRb && modelRb.sharedMaterial)
+            {
+                var material = modelRb.sharedMaterial;
+                fallbackColorProperty = Shader.PropertyToID(material.HasProperty("_BaseColor") ? "_BaseColor" :
+                    material.HasProperty("baseColorFactor") ? "baseColorFactor" : "_Color");
+                originalColor = material.GetColor(fallbackColorProperty);
+                fallbackProperties = new MaterialPropertyBlock();
+            }
             if (sfx == null)
                 sfx = FindAnyObjectByType<SfxPlayer>();
         }
@@ -57,7 +68,8 @@ namespace BS.GamePlay.Loot {
         public void Initialize(string name, Color color, LootTableData bundle)
         {
             chestName = name;
-            modelRb.material.color = color;
+            if (visual) visual.SetStyle(bundle, color);
+            else SetFallbackColor(color);
             lootBundle = bundle;
         }
         public string GetPrompt()
@@ -72,12 +84,10 @@ namespace BS.GamePlay.Loot {
             opened = true;
             unopenedChests.Remove(this);
             //关闭碰撞器，避免再次检测
-            chestCollider.enabled = false;
+            if (chestCollider) chestCollider.enabled = false;
             //变灰淡色
-            if (modelRb != null)
-            {
-                modelRb.material.color = Color.black;
-            }
+            if (visual) visual.Open();
+            else SetFallbackColor(Color.black);
             //开宝箱音效
             sfx?.PlaySfx(SfxId.ChestOpen);
             //生成物品
@@ -103,8 +113,9 @@ namespace BS.GamePlay.Loot {
         {
             survivalTimer = 0f;
             opened = false;
-            chestCollider.enabled = true;
-            modelRb.material.color = originalColor;
+            if (chestCollider) chestCollider.enabled = true;
+            if (visual) visual.ResetClosed();
+            else SetFallbackColor(originalColor);
             ActiveCount++;
 
             if (!unopenedChests.Contains(this))
@@ -113,8 +124,17 @@ namespace BS.GamePlay.Loot {
 
         public void OnReturnPool()
         {
+            if (visual) visual.ResetClosed();
             ActiveCount--;
             unopenedChests.Remove(this);
+        }
+
+        private void SetFallbackColor(Color color)
+        {
+            if (!modelRb || fallbackProperties == null) return;
+            modelRb.GetPropertyBlock(fallbackProperties);
+            fallbackProperties.SetColor(fallbackColorProperty, color);
+            modelRb.SetPropertyBlock(fallbackProperties);
         }
 
 

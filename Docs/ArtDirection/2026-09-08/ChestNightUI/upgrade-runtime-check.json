@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "source": "Actual XP -> GameSession event -> real Button.onClick",
+  "selected": "XpGainUp",
+  "statApplyEvents": 1,
+  "repeatedClicksIgnored": true,
+  "state": "Running",
+  "timeScale": 1.0,
+  "particlesFrozenWhileChoosing": true,
+  "before": "DamageMultiplier=1;FireRateMultiplier=1.15;CritChance=0;CritDamageMultiplier=1.5;ProjectileSpeedMultiplier=1;AutoWeaponRangeMultiplier=1;MaxHpBonus=0;DamageReduction=0;MoveSpeedMultiplier=1;PickupRangeMultiplier=1;GoldGainMultiplier=1;XpGainMultiplier=1;ActiveWeaponLimitBonus=0",
+  "after": "DamageMultiplier=1;FireRateMultiplier=1.15;CritChance=0;CritDamageMultiplier=1.5;ProjectileSpeedMultiplier=1;AutoWeaponRangeMultiplier=1;MaxHpBonus=0;DamageReduction=0;MoveSpeedMultiplier=1;PickupRangeMultiplier=1;GoldGainMultiplier=1;XpGainMultiplier=1.2;ActiveWeaponLimitBonus=0"
+}

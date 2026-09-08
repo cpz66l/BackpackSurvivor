@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/BackpackSurvivor/Scenes/MainMenu/MainMenu.unity
     guid: 526bd5b0f0b12964ab19b28a37dc0562
   - enabled: 1
-    path: Assets/BackpackSurvivor/Scenes/Run/01-Run.unity
-    guid: 5f951d030eae1894a9dec8af89226ea3
+    path: Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity
+    guid: 6d1ee9e7f7a298b47872c2759953664e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

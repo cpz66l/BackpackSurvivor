@@ -1,0 +1,194 @@
+{
+    "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+    "isPlaying": true,
+    "mapRadius": 60.0,
+    "chestPool": "Chest",
+    "chestPrefab": "Assets/BackpackSurvivor/Prefabs/Loot/VNext/RecoveryChest.prefab",
+    "chestPrewarm": 5,
+    "activeChests": 0,
+    "styles": [
+        {
+            "id": "Common",
+            "triangles": 924,
+            "meshNativeEstimateBytes": 143232,
+            "meshes": 2,
+            "lidPivot": {
+                "x": 0.0,
+                "y": 0.5389999747276306,
+                "z": -0.32499998807907107
+            },
+            "openAngle": -100.0
+        },
+        {
+            "id": "Uncommon",
+            "triangles": 1100,
+            "meshNativeEstimateBytes": 169920,
+            "meshes": 2,
+            "lidPivot": {
+                "x": 0.0,
+                "y": 0.6190000176429749,
+                "z": -0.3700000047683716
+            },
+            "openAngle": -100.0
+        },
+        {
+            "id": "Rare",
+            "triangles": 1320,
+            "meshNativeEstimateBytes": 203280,
+            "meshes": 2,
+            "lidPivot": {
+                "x": 0.0,
+                "y": 0.7089999914169312,
+                "z": -0.42500001192092898
+            },
+            "openAngle": -100.0
+        },
+        {
+            "id": "Epic",
+            "triangles": 1540,
+            "meshNativeEstimateBytes": 235616,
+            "meshes": 2,
+            "lidPivot": {
+                "x": 0.0,
+                "y": 0.7789999842643738,
+                "z": -0.4650000035762787
+            },
+            "openAngle": -100.0
+        },
+        {
+            "id": "Legendary",
+            "triangles": 1508,
+            "meshNativeEstimateBytes": 230112,
+            "meshes": 2,
+            "lidPivot": {
+                "x": 0.0,
+                "y": 0.7689999938011169,
+                "z": -0.4749999940395355
+            },
+            "openAngle": -100.0
+        }
+    ],
+    "uniqueChestMeshes": 10,
+    "uniqueChestMaterials": 1,
+    "uniqueChestTextures": 3,
+    "uniqueChestTriangles": 6392,
+    "meshNativeEstimateBytes": 982160,
+    "materialNativeEstimateBytes": 3188,
+    "textureNativeEstimateBytes": 15649,
+    "particles": [
+        {
+            "name": "WindDust_120Max",
+            "cap": 120,
+            "live": 89,
+            "rate": 10.0,
+            "active": true,
+            "collision": false,
+            "particleLights": false,
+            "trails": false
+        },
+        {
+            "name": "FineDrizzle_56Max",
+            "cap": 56,
+            "live": 16,
+            "rate": 6.0,
+            "active": true,
+            "collision": false,
+            "particleLights": false,
+            "trails": false
+        }
+    ],
+    "weatherHardCap": 176,
+    "weatherLive": 105,
+    "weatherRate": 16.0,
+    "lightsTotal": 5,
+    "lightsActive": 5,
+    "activeLevelUpChoiceViews": 1,
+    "lightDetails": [
+        "Directional Light / Directional / Realtime / intensity=0.82",
+        "WarmServiceSpot_NoShadows / Spot / Realtime / intensity=5.6",
+        "CoolServiceSpot_NoShadows / Spot / Realtime / intensity=5.1",
+        "WarmServiceSpot_NoShadows / Spot / Realtime / intensity=5.6",
+        "CoolServiceSpot_NoShadows / Spot / Realtime / intensity=5.1"
+    ],
+    "upgradeViews": [
+        {
+            "controller": "Canvas",
+            "root": "Canvas/LevelUpChoice",
+            "enabled": false,
+            "active": true,
+            "rootActive": false,
+            "open": false,
+            "visibleChoices": 0
+        },
+        {
+            "controller": "Canvas/NightUpgradeController",
+            "root": "Canvas/NightUpgradeChoice",
+            "enabled": true,
+            "active": true,
+            "rootActive": true,
+            "open": true,
+            "visibleChoices": 3
+        }
+    ],
+    "shaders": [
+        {
+            "name": "Universal Render Pipeline/Lit",
+            "path": "Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "Shader Graphs/glTF-pbrMetallicRoughness",
+            "path": "Packages/com.unity.cloud.gltfast/Runtime/Shader/glTF-pbrMetallicRoughness.shadergraph",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "BackpackSurvivor/Environment/Recovery Ground",
+            "path": "Assets/BackpackSurvivor/Art/Environment/VNext/Shaders/RecoveryGround.shader",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "UI/Default",
+            "path": "Resources/unity_builtin_extra",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "TextMeshPro/Distance Field",
+            "path": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "BackpackSurvivor/Effects/Night Air",
+            "path": "Assets/BackpackSurvivor/Art/Effects/Night/NightAir.shader",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        },
+        {
+            "name": "Universal Render Pipeline/Unlit",
+            "path": "Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader",
+            "supported": true,
+            "errors": 0,
+            "warnings": 0,
+            "messages": []
+        }
+    ],
+    "shaderErrors": 0,
+    "shaderWarnings": 0,
+    "memoryNote": "Profiler.GetRuntimeMemorySizeLong estimates for unique referenced assets; not exact VRAM or total game memory."
+}

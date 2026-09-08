@@ -1,0 +1,18 @@
+{
+  "seed": 709120,
+  "maps": [
+    {
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Textures/FullMap/Ground_SurfaceMask.png",
+      "bytes": 344359,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Textures/FullMap/Ground_NormalDetail.png",
+      "bytes": 438122,
+      "width": 512,
+      "height": 512
+    }
+  ],
+  "sourceBytes": 782481
+}

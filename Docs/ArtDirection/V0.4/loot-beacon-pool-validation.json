@@ -1,0 +1,61 @@
+{
+    "allPassed": true,
+    "sameInstanceReused": true,
+    "hiddenBeforeInitialize": true,
+    "reusedAsCommon": true,
+    "noAddedLightsOrParticles": true,
+    "activeCountRestored": true,
+    "randomStateRestored": true,
+    "activeDropsBefore": 0,
+    "activeDropsAfter": 0,
+    "idleCountAtStart": 30,
+    "leasedForReuse": 30,
+    "error": "",
+    "styles": [
+        {
+            "rarity": "Common",
+            "visible": true,
+            "sharedMaterial": true,
+            "exactColor": true,
+            "flyingHidden": true,
+            "resetOnReturn": true,
+            "extraMeshRenderers": 1
+        },
+        {
+            "rarity": "Uncommon",
+            "visible": true,
+            "sharedMaterial": true,
+            "exactColor": true,
+            "flyingHidden": true,
+            "resetOnReturn": true,
+            "extraMeshRenderers": 1
+        },
+        {
+            "rarity": "Rare",
+            "visible": true,
+            "sharedMaterial": true,
+            "exactColor": true,
+            "flyingHidden": true,
+            "resetOnReturn": true,
+            "extraMeshRenderers": 1
+        },
+        {
+            "rarity": "Epic",
+            "visible": true,
+            "sharedMaterial": true,
+            "exactColor": true,
+            "flyingHidden": true,
+            "resetOnReturn": true,
+            "extraMeshRenderers": 1
+        },
+        {
+            "rarity": "Legendary",
+            "visible": true,
+            "sharedMaterial": true,
+            "exactColor": true,
+            "flyingHidden": true,
+            "resetOnReturn": true,
+            "extraMeshRenderers": 1
+        }
+    ]
+}

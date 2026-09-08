@@ -1,0 +1,255 @@
+{
+    "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+    "recordedUtc": "2026-09-08T13:10:54.4130719Z",
+    "isPlaying": true,
+    "loadedScenes": 1,
+    "mapRadius": 60.0,
+    "mapDiameter": 120.0,
+    "mapCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "originalDimensionsPreserved": true,
+    "groundColliderWorldSize": {
+        "x": 181.0193328857422,
+        "y": 0.10000000149011612,
+        "z": 181.0193328857422
+    },
+    "environmentVisualBoundsSize": {
+        "x": 316.7838439941406,
+        "y": 4.4599995613098148,
+        "z": 316.7838439941406
+    },
+    "environmentRenderers": 246,
+    "materialSlots": 250,
+    "uniqueMaterials": 19,
+    "uniqueMeshes": 128,
+    "uniqueTextures": 6,
+    "instanceTriangles": 118338,
+    "uniqueMeshTriangles": 17338,
+    "meshMemoryEstimateBytes": 2460216,
+    "textureMemoryEstimateBytes": 3993887,
+    "sourceModelBytes": 857316,
+    "sourceModels": 8,
+    "missingScripts": 0,
+    "missingMeshes": 0,
+    "nullMaterialSlots": 0,
+    "unsupportedMaterials": 0,
+    "shaderCompileErrors": 0,
+    "shaderCompileWarnings": 0,
+    "groundShaderMaterialCount": 8,
+    "activeEnvironmentLights": 4,
+    "activeSceneLights": 5,
+    "shadowCastingEnvironmentLights": 0,
+    "shadowCastingSceneLights": 1,
+    "activeEnvironmentColliders": 197,
+    "obstacleColliders": 196,
+    "wrongObstacleLayers": 0,
+    "nonObstacleSolidColliders": 1,
+    "obstacleBoundsBeyondMap": 116,
+    "nearestObstacleBoundsDistanceXZ": 7.192052841186523,
+    "saveServicesFound": 1,
+    "saveServiceInactive": true,
+    "gameState": "Running",
+    "elapsedSeconds": 8.018925666809082,
+    "timeScale": 1.0,
+    "activeEnemies": 2,
+    "textures": [
+        {
+            "name": "RecoveryCar_Albedo512",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Models/RecoveryCar.glb",
+            "width": 512,
+            "height": 512,
+            "format": "RGB24",
+            "graphicsFormat": "R8G8B8_SRGB",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 10,
+            "filterMode": "Bilinear",
+            "wrapMode": "Repeat",
+            "anisoLevel": 1,
+            "memoryEstimateBytes": 2491263
+        },
+        {
+            "name": "ENV_Palette_Emission",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Textures/ENV_Palette_Emission.png",
+            "width": 16,
+            "height": 2,
+            "format": "RGB24",
+            "graphicsFormat": "R8G8B8_SRGB",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 1,
+            "filterMode": "Point",
+            "wrapMode": "Clamp",
+            "anisoLevel": 1,
+            "memoryEstimateBytes": 5088
+        },
+        {
+            "name": "ENV_Palette_MetallicSmoothness",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Textures/ENV_Palette_MetallicSmoothness.png",
+            "width": 16,
+            "height": 2,
+            "format": "RGBA32",
+            "graphicsFormat": "R8G8B8A8_UNorm",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 1,
+            "filterMode": "Point",
+            "wrapMode": "Clamp",
+            "anisoLevel": 1,
+            "memoryEstimateBytes": 5120
+        },
+        {
+            "name": "ENV_Palette_BaseColor",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Textures/FullMap/ENV_Palette_BaseColor.png",
+            "width": 16,
+            "height": 2,
+            "format": "RGB24",
+            "graphicsFormat": "R8G8B8_SRGB",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 1,
+            "filterMode": "Point",
+            "wrapMode": "Clamp",
+            "anisoLevel": 1,
+            "memoryEstimateBytes": 5088
+        },
+        {
+            "name": "Ground_NormalDetail",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Textures/FullMap/Ground_NormalDetail.png",
+            "width": 512,
+            "height": 512,
+            "format": "BC7",
+            "graphicsFormat": "RGBA_BC7_UNorm",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 10,
+            "filterMode": "Trilinear",
+            "wrapMode": "Repeat",
+            "anisoLevel": 4,
+            "memoryEstimateBytes": 743664
+        },
+        {
+            "name": "Ground_SurfaceMask",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Textures/FullMap/Ground_SurfaceMask.png",
+            "width": 512,
+            "height": 512,
+            "format": "BC7",
+            "graphicsFormat": "RGBA_BC7_UNorm",
+            "readable": false,
+            "readableKnown": true,
+            "mipmapCount": 10,
+            "filterMode": "Trilinear",
+            "wrapMode": "Repeat",
+            "anisoLevel": 4,
+            "memoryEstimateBytes": 743664
+        }
+    ],
+    "shaders": [
+        {
+            "name": "BackpackSurvivor/Environment/Recovery Ground",
+            "assetPath": "Assets/BackpackSurvivor/Art/Environment/VNext/Shaders/RecoveryGround.shader",
+            "supported": true,
+            "compileErrors": 0,
+            "compileWarnings": 0,
+            "messages": []
+        },
+        {
+            "name": "Shader Graphs/glTF-pbrMetallicRoughness",
+            "assetPath": "Packages/com.unity.cloud.gltfast/Runtime/Shader/glTF-pbrMetallicRoughness.shadergraph",
+            "supported": true,
+            "compileErrors": 0,
+            "compileWarnings": 0,
+            "messages": []
+        },
+        {
+            "name": "Universal Render Pipeline/Lit",
+            "assetPath": "Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader",
+            "supported": true,
+            "compileErrors": 0,
+            "compileWarnings": 0,
+            "messages": []
+        }
+    ],
+    "lights": [
+        {
+            "name": "Directional Light",
+            "hierarchyPath": "Directional Light",
+            "belongsToEnvironment": false,
+            "type": "Directional",
+            "shadows": "Soft",
+            "intensity": 1.25,
+            "range": 10.0,
+            "color": {
+                "r": 0.9599999785423279,
+                "g": 0.9750000238418579,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "name": "CoolServiceSpot_NoShadows",
+            "hierarchyPath": "Map/RecoveryYard_FullMap_120m/CoolServiceSpot_NoShadows",
+            "belongsToEnvironment": true,
+            "type": "Spot",
+            "shadows": "None",
+            "intensity": 4.0,
+            "range": 11.0,
+            "color": {
+                "r": 0.4000000059604645,
+                "g": 0.8100000023841858,
+                "b": 0.8999999761581421,
+                "a": 1.0
+            }
+        },
+        {
+            "name": "CoolServiceSpot_NoShadows",
+            "hierarchyPath": "Map/RecoveryYard_FullMap_120m/CoolServiceSpot_NoShadows",
+            "belongsToEnvironment": true,
+            "type": "Spot",
+            "shadows": "None",
+            "intensity": 4.0,
+            "range": 11.0,
+            "color": {
+                "r": 0.4000000059604645,
+                "g": 0.8100000023841858,
+                "b": 0.8999999761581421,
+                "a": 1.0
+            }
+        },
+        {
+            "name": "WarmServiceSpot_NoShadows",
+            "hierarchyPath": "Map/RecoveryYard_FullMap_120m/WarmServiceSpot_NoShadows",
+            "belongsToEnvironment": true,
+            "type": "Spot",
+            "shadows": "None",
+            "intensity": 4.0,
+            "range": 11.0,
+            "color": {
+                "r": 1.0,
+                "g": 0.7300000190734863,
+                "b": 0.38999998569488528,
+                "a": 1.0
+            }
+        },
+        {
+            "name": "WarmServiceSpot_NoShadows",
+            "hierarchyPath": "Map/RecoveryYard_FullMap_120m/WarmServiceSpot_NoShadows",
+            "belongsToEnvironment": true,
+            "type": "Spot",
+            "shadows": "None",
+            "intensity": 4.0,
+            "range": 11.0,
+            "color": {
+                "r": 1.0,
+                "g": 0.7300000190734863,
+                "b": 0.38999998569488528,
+                "a": 1.0
+            }
+        }
+    ],
+    "memoryNote": "Profiler.GetRuntimeMemorySizeLong estimates for unique environment mesh/texture objects only; excludes the rest of the game and is not exact VRAM, a built-player allocation measurement, or frame-time profiling. Material slots are not measured draw calls.",
+    "boundsNote": "Playable size comes from MapBounds. Floor and visual bounds may extend beyond the playable circle. Obstacle edge/clearance metrics use conservative world-space axis-aligned bounds, not a navigation connectivity test."
+}

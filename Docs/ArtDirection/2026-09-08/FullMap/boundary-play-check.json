@@ -1,0 +1,1171 @@
+{
+    "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+    "recordedUtc": "2026-09-08T13:10:53.4157833Z",
+    "isPlaying": true,
+    "mapRadius": 60.0,
+    "mapCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "playerName": "Player",
+    "originalPosition": {
+        "x": -9.724519729614258,
+        "y": -3.9800000190734865,
+        "z": -6.772129535675049
+    },
+    "originalPlayerControllerEnabled": true,
+    "originalCharacterControllerEnabled": true,
+    "controllerCenter": {
+        "x": 0.0,
+        "y": 5.059999942779541,
+        "z": 0.0
+    },
+    "controllerRadius": 0.3499999940395355,
+    "controllerHeight": 2.0,
+    "controllerSkinWidth": 0.07999999821186066,
+    "controllerStepOffset": 0.30000001192092898,
+    "controllerLossyScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+    },
+    "directionsRequested": 32,
+    "stepsPerDirection": 70,
+    "startRadius": 56.0,
+    "outwardStep": 0.10000000149011612,
+    "downwardStep": 0.019999999552965165,
+    "minimumFinalRadius": 58.0,
+    "maximumAllowedRadius": 60.04999923706055,
+    "directionsCompleted": 32,
+    "directionsPassed": 32,
+    "directionsFailed": 0,
+    "maximumObservedRadius": 59.605594635009769,
+    "restoredOriginalPosition": true,
+    "restoredEnabledStates": true,
+    "passed": true,
+    "exception": "",
+    "directions": [
+        {
+            "index": 0,
+            "angleDegrees": 0.0,
+            "outwardDirection": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "startPosition": {
+                "x": 56.0,
+                "y": -3.9800000190734865,
+                "z": 0.0
+            },
+            "finalPosition": {
+                "x": 59.605587005615237,
+                "y": -3.9800000190734865,
+                "z": 0.00006210850551724434
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_83",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_84"
+            ]
+        },
+        {
+            "index": 1,
+            "angleDegrees": 11.25,
+            "outwardDirection": {
+                "x": 0.9807852506637573,
+                "y": 0.0,
+                "z": 0.19509032368659974
+            },
+            "startPosition": {
+                "x": 54.923973083496097,
+                "y": -3.9800000190734865,
+                "z": 10.925058364868164
+            },
+            "finalPosition": {
+                "x": 58.46027374267578,
+                "y": -3.9800002574920656,
+                "z": 11.62853717803955
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_86",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_87"
+            ]
+        },
+        {
+            "index": 2,
+            "angleDegrees": 22.5,
+            "outwardDirection": {
+                "x": 0.9238795042037964,
+                "y": 0.0,
+                "z": 0.3826834559440613
+            },
+            "startPosition": {
+                "x": 51.73725128173828,
+                "y": -3.9800000190734865,
+                "z": 21.430273056030275
+            },
+            "finalPosition": {
+                "x": 55.068359375,
+                "y": -3.9800000190734865,
+                "z": 22.810134887695314
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_89",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_90"
+            ]
+        },
+        {
+            "index": 3,
+            "angleDegrees": 33.75,
+            "outwardDirection": {
+                "x": 0.8314695954322815,
+                "y": 0.0,
+                "z": 0.5555702447891235
+            },
+            "startPosition": {
+                "x": 46.56229782104492,
+                "y": -3.9800000190734865,
+                "z": 31.111934661865236
+            },
+            "finalPosition": {
+                "x": 49.56019592285156,
+                "y": -3.9800000190734865,
+                "z": 33.115142822265628
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.60558319091797,
+            "finalRadius": 59.60558319091797,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_92",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_93"
+            ]
+        },
+        {
+            "index": 4,
+            "angleDegrees": 45.0,
+            "outwardDirection": {
+                "x": 0.7071067690849304,
+                "y": 0.0,
+                "z": 0.7071067690849304
+            },
+            "startPosition": {
+                "x": 39.59798049926758,
+                "y": -3.9800000190734865,
+                "z": 39.59798049926758
+            },
+            "finalPosition": {
+                "x": 42.147560119628909,
+                "y": -3.9800000190734865,
+                "z": 42.14746856689453
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_0",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_95"
+            ]
+        },
+        {
+            "index": 5,
+            "angleDegrees": 56.25,
+            "outwardDirection": {
+                "x": 0.5555702447891235,
+                "y": 0.0,
+                "z": 0.8314695954322815
+            },
+            "startPosition": {
+                "x": 31.111934661865236,
+                "y": -3.9800000190734865,
+                "z": 46.56229782104492
+            },
+            "finalPosition": {
+                "x": 33.11503982543945,
+                "y": -3.9800000190734865,
+                "z": 49.560272216796878
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_2",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_3"
+            ]
+        },
+        {
+            "index": 6,
+            "angleDegrees": 67.5,
+            "outwardDirection": {
+                "x": 0.3826834261417389,
+                "y": 0.0,
+                "z": 0.9238795042037964
+            },
+            "startPosition": {
+                "x": 21.43027114868164,
+                "y": -3.9800000190734865,
+                "z": 51.73725128173828
+            },
+            "finalPosition": {
+                "x": 22.810014724731447,
+                "y": -3.9800000190734865,
+                "z": 55.06840896606445
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_5",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_6"
+            ]
+        },
+        {
+            "index": 7,
+            "angleDegrees": 78.75,
+            "outwardDirection": {
+                "x": 0.19509035348892213,
+                "y": 0.0,
+                "z": 0.9807852506637573
+            },
+            "startPosition": {
+                "x": 10.925060272216797,
+                "y": -3.9800000190734865,
+                "z": 54.923973083496097
+            },
+            "finalPosition": {
+                "x": 11.628540992736817,
+                "y": -3.9800000190734865,
+                "z": 58.46027374267578
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_8",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_9"
+            ]
+        },
+        {
+            "index": 8,
+            "angleDegrees": 90.0,
+            "outwardDirection": {
+                "x": -4.371138828673793e-8,
+                "y": 0.0,
+                "z": 1.0
+            },
+            "startPosition": {
+                "x": -0.000002447837687213905,
+                "y": -3.9800000190734865,
+                "z": 56.0
+            },
+            "finalPosition": {
+                "x": 0.00006133131682872772,
+                "y": -3.9800000190734865,
+                "z": 59.6055908203125
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_11",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_12"
+            ]
+        },
+        {
+            "index": 9,
+            "angleDegrees": 101.25,
+            "outwardDirection": {
+                "x": -0.19509032368659974,
+                "y": 0.0,
+                "z": 0.9807852506637573
+            },
+            "startPosition": {
+                "x": -10.925058364868164,
+                "y": -3.9800000190734865,
+                "z": 54.923973083496097
+            },
+            "finalPosition": {
+                "x": -11.628538131713868,
+                "y": -3.9800000190734865,
+                "z": 58.460269927978519
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_14",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_15"
+            ]
+        },
+        {
+            "index": 10,
+            "angleDegrees": 112.5,
+            "outwardDirection": {
+                "x": -0.3826833963394165,
+                "y": 0.0,
+                "z": 0.9238795638084412
+            },
+            "startPosition": {
+                "x": -21.43027114868164,
+                "y": -3.9800000190734865,
+                "z": 51.73725509643555
+            },
+            "finalPosition": {
+                "x": -22.810009002685548,
+                "y": -3.9800000190734865,
+                "z": 55.06840515136719
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.60558319091797,
+            "finalRadius": 59.60558319091797,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_17",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_18"
+            ]
+        },
+        {
+            "index": 11,
+            "angleDegrees": 123.75,
+            "outwardDirection": {
+                "x": -0.5555701851844788,
+                "y": 0.0,
+                "z": 0.8314696550369263
+            },
+            "startPosition": {
+                "x": -31.11193084716797,
+                "y": -3.9800000190734865,
+                "z": 46.56230163574219
+            },
+            "finalPosition": {
+                "x": -33.11513900756836,
+                "y": -3.9800000190734865,
+                "z": 49.56019973754883
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_20",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_21"
+            ]
+        },
+        {
+            "index": 12,
+            "angleDegrees": 135.0,
+            "outwardDirection": {
+                "x": -0.7071067690849304,
+                "y": 0.0,
+                "z": 0.7071067690849304
+            },
+            "startPosition": {
+                "x": -39.59798049926758,
+                "y": -3.9800000190734865,
+                "z": 39.59798049926758
+            },
+            "finalPosition": {
+                "x": -42.147560119628909,
+                "y": -3.9800000190734865,
+                "z": 42.1474723815918
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_23",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_24"
+            ]
+        },
+        {
+            "index": 13,
+            "angleDegrees": 146.25,
+            "outwardDirection": {
+                "x": -0.8314696550369263,
+                "y": 0.0,
+                "z": 0.5555701851844788
+            },
+            "startPosition": {
+                "x": -46.56230163574219,
+                "y": -3.9800000190734865,
+                "z": 31.11193084716797
+            },
+            "finalPosition": {
+                "x": -49.56019973754883,
+                "y": -3.9800000190734865,
+                "z": 33.11513900756836
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_26",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_27"
+            ]
+        },
+        {
+            "index": 14,
+            "angleDegrees": 157.5,
+            "outwardDirection": {
+                "x": -0.9238795042037964,
+                "y": 0.0,
+                "z": 0.38268348574638369
+            },
+            "startPosition": {
+                "x": -51.73725128173828,
+                "y": -3.9800000190734865,
+                "z": 21.430274963378908
+            },
+            "finalPosition": {
+                "x": -55.06840896606445,
+                "y": -3.9800000190734865,
+                "z": 22.81001853942871
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_29",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_30"
+            ]
+        },
+        {
+            "index": 15,
+            "angleDegrees": 168.75,
+            "outwardDirection": {
+                "x": -0.9807853102684021,
+                "y": 0.0,
+                "z": 0.19509030878543855
+            },
+            "startPosition": {
+                "x": -54.92397689819336,
+                "y": -3.9800000190734865,
+                "z": 10.925057411193848
+            },
+            "finalPosition": {
+                "x": -58.460269927978519,
+                "y": -3.9800000190734865,
+                "z": 11.628536224365235
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_32",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_33"
+            ]
+        },
+        {
+            "index": 16,
+            "angleDegrees": 180.0,
+            "outwardDirection": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": -8.742277657347586e-8
+            },
+            "startPosition": {
+                "x": -56.0,
+                "y": -3.9800000190734865,
+                "z": -0.00000489567537442781
+            },
+            "finalPosition": {
+                "x": -59.605587005615237,
+                "y": -3.9800000190734865,
+                "z": 0.00005929265171289444
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_35",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_36"
+            ]
+        },
+        {
+            "index": 17,
+            "angleDegrees": 191.25,
+            "outwardDirection": {
+                "x": -0.9807853102684021,
+                "y": 0.0,
+                "z": -0.19509024918079377
+            },
+            "startPosition": {
+                "x": -54.92397689819336,
+                "y": -3.9800000190734865,
+                "z": -10.925053596496582
+            },
+            "finalPosition": {
+                "x": -58.46027755737305,
+                "y": -3.9800000190734865,
+                "z": -11.628532409667969
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605594635009769,
+            "finalRadius": 59.605594635009769,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_38",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_39"
+            ]
+        },
+        {
+            "index": 18,
+            "angleDegrees": 202.5,
+            "outwardDirection": {
+                "x": -0.9238795042037964,
+                "y": 0.0,
+                "z": -0.3826834261417389
+            },
+            "startPosition": {
+                "x": -51.73725128173828,
+                "y": -3.9800000190734865,
+                "z": -21.43027114868164
+            },
+            "finalPosition": {
+                "x": -55.068359375,
+                "y": -3.9800000190734865,
+                "z": -22.810129165649415
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_41",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_42"
+            ]
+        },
+        {
+            "index": 19,
+            "angleDegrees": 213.75,
+            "outwardDirection": {
+                "x": -0.8314695358276367,
+                "y": 0.0,
+                "z": -0.5555703043937683
+            },
+            "startPosition": {
+                "x": -46.562294006347659,
+                "y": -3.9800000190734865,
+                "z": -31.111936569213868
+            },
+            "finalPosition": {
+                "x": -49.56019973754883,
+                "y": -3.9800000190734865,
+                "z": -33.115150451660159
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_44",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_45"
+            ]
+        },
+        {
+            "index": 20,
+            "angleDegrees": 225.0,
+            "outwardDirection": {
+                "x": -0.7071068286895752,
+                "y": 0.0,
+                "z": -0.7071067094802856
+            },
+            "startPosition": {
+                "x": -39.597984313964847,
+                "y": -3.9800000190734865,
+                "z": -39.59797668457031
+            },
+            "finalPosition": {
+                "x": -42.14756774902344,
+                "y": -3.9800000190734865,
+                "z": -42.14746856689453
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_47",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_48"
+            ]
+        },
+        {
+            "index": 21,
+            "angleDegrees": 236.25,
+            "outwardDirection": {
+                "x": -0.5555704236030579,
+                "y": 0.0,
+                "z": -0.8314694762229919
+            },
+            "startPosition": {
+                "x": -31.1119441986084,
+                "y": -3.9800000190734865,
+                "z": -46.56229019165039
+            },
+            "finalPosition": {
+                "x": -33.11515808105469,
+                "y": -3.9800000190734865,
+                "z": -49.5601921081543
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_50",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_51"
+            ]
+        },
+        {
+            "index": 22,
+            "angleDegrees": 247.5,
+            "outwardDirection": {
+                "x": -0.38268357515335085,
+                "y": 0.0,
+                "z": -0.9238795042037964
+            },
+            "startPosition": {
+                "x": -21.430280685424806,
+                "y": -3.9800000190734865,
+                "z": -51.73725128173828
+            },
+            "finalPosition": {
+                "x": -22.810144424438478,
+                "y": -3.9800000190734865,
+                "z": -55.068355560302737
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_53",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_54"
+            ]
+        },
+        {
+            "index": 23,
+            "angleDegrees": 258.75,
+            "outwardDirection": {
+                "x": -0.1950903832912445,
+                "y": 0.0,
+                "z": -0.9807852506637573
+            },
+            "startPosition": {
+                "x": -10.925061225891114,
+                "y": -3.9800000190734865,
+                "z": -54.923973083496097
+            },
+            "finalPosition": {
+                "x": -11.628541946411133,
+                "y": -3.9800000190734865,
+                "z": -58.46027374267578
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_56",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_57"
+            ]
+        },
+        {
+            "index": 24,
+            "angleDegrees": 270.0,
+            "outwardDirection": {
+                "x": 1.1924880638503055e-8,
+                "y": 0.0,
+                "z": -1.0
+            },
+            "startPosition": {
+                "x": 6.677933015453164e-7,
+                "y": -3.9800000190734865,
+                "z": -56.0
+            },
+            "finalPosition": {
+                "x": 0.00006408314220607281,
+                "y": -3.9800000190734865,
+                "z": -59.60558319091797
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.60558319091797,
+            "finalRadius": 59.60558319091797,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_59",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_60"
+            ]
+        },
+        {
+            "index": 25,
+            "angleDegrees": 281.25,
+            "outwardDirection": {
+                "x": 0.1950904130935669,
+                "y": 0.0,
+                "z": -0.9807852506637573
+            },
+            "startPosition": {
+                "x": 10.925063133239746,
+                "y": -3.9800000190734865,
+                "z": -54.923973083496097
+            },
+            "finalPosition": {
+                "x": 11.628541946411133,
+                "y": -3.9800000190734865,
+                "z": -58.46027755737305
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605594635009769,
+            "finalRadius": 59.605594635009769,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_62",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_63"
+            ]
+        },
+        {
+            "index": 26,
+            "angleDegrees": 292.5,
+            "outwardDirection": {
+                "x": 0.3826836049556732,
+                "y": 0.0,
+                "z": -0.9238794445991516
+            },
+            "startPosition": {
+                "x": 21.430282592773439,
+                "y": -3.9800000190734865,
+                "z": -51.737247467041019
+            },
+            "finalPosition": {
+                "x": 22.810022354125978,
+                "y": -3.9800000190734865,
+                "z": -55.06840896606445
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605594635009769,
+            "finalRadius": 59.605594635009769,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_65",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_66"
+            ]
+        },
+        {
+            "index": 27,
+            "angleDegrees": 303.75,
+            "outwardDirection": {
+                "x": 0.5555700659751892,
+                "y": 0.0,
+                "z": -0.831469714641571
+            },
+            "startPosition": {
+                "x": 31.111923217773439,
+                "y": -3.9800000190734865,
+                "z": -46.56230545043945
+            },
+            "finalPosition": {
+                "x": 33.11502456665039,
+                "y": -3.9800000190734865,
+                "z": -49.56027603149414
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_68",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_69"
+            ]
+        },
+        {
+            "index": 28,
+            "angleDegrees": 315.0,
+            "outwardDirection": {
+                "x": 0.7071066498756409,
+                "y": 0.0,
+                "z": -0.70710688829422
+            },
+            "startPosition": {
+                "x": 39.59797286987305,
+                "y": -3.9800000190734865,
+                "z": -39.597984313964847
+            },
+            "finalPosition": {
+                "x": 42.147464752197269,
+                "y": -3.9800000190734865,
+                "z": -42.14756774902344
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_71",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_72"
+            ]
+        },
+        {
+            "index": 29,
+            "angleDegrees": 326.25,
+            "outwardDirection": {
+                "x": 0.8314695954322815,
+                "y": 0.0,
+                "z": -0.5555703043937683
+            },
+            "startPosition": {
+                "x": 46.56229782104492,
+                "y": -3.9800000190734865,
+                "z": -31.111936569213868
+            },
+            "finalPosition": {
+                "x": 49.56026840209961,
+                "y": -3.9800000190734865,
+                "z": -33.11503982543945
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.605587005615237,
+            "finalRadius": 59.605587005615237,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_74",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_75"
+            ]
+        },
+        {
+            "index": 30,
+            "angleDegrees": 337.5,
+            "outwardDirection": {
+                "x": 0.9238795638084412,
+                "y": 0.0,
+                "z": -0.3826834261417389
+            },
+            "startPosition": {
+                "x": 51.73725509643555,
+                "y": -3.9800000190734865,
+                "z": -21.43027114868164
+            },
+            "finalPosition": {
+                "x": 55.068359375,
+                "y": -3.9800000190734865,
+                "z": -22.810131072998048
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_77",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_78"
+            ]
+        },
+        {
+            "index": 31,
+            "angleDegrees": 348.75,
+            "outwardDirection": {
+                "x": 0.9807853102684021,
+                "y": 0.0,
+                "z": -0.19509023427963258
+            },
+            "startPosition": {
+                "x": 54.92397689819336,
+                "y": -3.9800000190734865,
+                "z": -10.925052642822266
+            },
+            "finalPosition": {
+                "x": 58.46027374267578,
+                "y": -3.9800000190734865,
+                "z": -11.628531455993653
+            },
+            "completedSteps": 70,
+            "sideCollisionSteps": 34,
+            "belowCollisionSteps": 70,
+            "aboveCollisionSteps": 0,
+            "maximumRadius": 59.6055908203125,
+            "finalRadius": 59.6055908203125,
+            "stayedInside": true,
+            "reachedBoundaryBand": true,
+            "sawSideCollision": true,
+            "passed": true,
+            "result": "PASS",
+            "obstaclesNearStart": [],
+            "obstaclesNearEnd": [
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_80",
+                "Map/RecoveryYard_FullMap_120m/BoundaryVisuals_Radius60/BoundaryCollision_81"
+            ]
+        }
+    ],
+    "scope": "One synchronous Play Mode call, using the existing player's actual CharacterController.Move. PlayerController is temporarily disabled so MapBounds.ClampToInside cannot hide wall failures. At each of 32 world-space directions the controller is disabled, teleported to radius 56m with the original Y, enabled, and moved outward 70 times. Each move includes 0.02m down. Position and enabled states are restored in finally; no scene or save file is written. This is not a full-run, navigation, continuous angular coverage, or FPS test. Nearby collider names are diagnostic proximity samples, not authoritative controller hit events."
+}

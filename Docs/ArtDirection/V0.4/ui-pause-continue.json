@@ -1,0 +1,385 @@
+{
+  "passed": true,
+  "entry": "GameSession.PauseRun -> real continueButton.onClick",
+  "paused": {
+    "passed": true,
+    "issues": [],
+    "state": "Paused",
+    "timeScale": 0.0,
+    "probe": "presentation only; restore explicitly",
+    "openingFadeSettledCheck": true,
+    "hud": {
+      "path": "Canvas/HUDPanel",
+      "active": true,
+      "interactable": false,
+      "blocksRaycasts": false,
+      "alpha": 0.0,
+      "visibleGraphics": 0,
+      "blockingGraphics": 0,
+      "interactableSelectables": 0
+    },
+    "bag": {
+      "isBagOpen": false,
+      "surface": {
+        "path": "Canvas/BagPanel",
+        "active": true,
+        "interactable": false,
+        "blocksRaycasts": false,
+        "alpha": 0.0,
+        "visibleGraphics": 0,
+        "blockingGraphics": 0,
+        "interactableSelectables": 0
+      }
+    },
+    "pause": {
+      "path": "Canvas/V04Pause",
+      "active": true,
+      "interactable": true,
+      "blocksRaycasts": true,
+      "alpha": 1.0,
+      "visibleGraphics": 9,
+      "blockingGraphics": 5,
+      "interactableSelectables": 3
+    },
+    "upgrade": {
+      "IsOpen": false,
+      "VisibleOptionCount": 0,
+      "surface": {
+        "path": "Canvas/NightUpgradeChoice",
+        "active": false,
+        "interactable": false,
+        "blocksRaycasts": false,
+        "alpha": 0.0,
+        "visibleGraphics": 0,
+        "blockingGraphics": 0,
+        "interactableSelectables": 0
+      }
+    },
+    "result": {
+      "path": "Canvas/V04Result",
+      "active": false,
+      "interactable": false,
+      "blocksRaycasts": false,
+      "alpha": 0.0,
+      "visibleGraphics": 0,
+      "blockingGraphics": 0,
+      "interactableSelectables": 0
+    },
+    "coveredSurfaces": [
+      "Canvas/HUDPanel",
+      "Canvas/BagPanel",
+      "Canvas/ItemTooltip",
+      "Canvas/V04InteractPrompt",
+      "Canvas/V04BagFullNotice"
+    ],
+    "pauseButtons": [
+      {
+        "field": "continueButton",
+        "path": "Canvas/V04Pause/PauseDialog/Continue",
+        "bound": true,
+        "expectedHandler": "HandleContinueClicked",
+        "handlerBound": true,
+        "active": true,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "restartButton",
+        "path": "Canvas/V04Pause/PauseDialog/Restart",
+        "bound": true,
+        "expectedHandler": "HandleRestartClicked",
+        "handlerBound": true,
+        "active": true,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "mainMenuButton",
+        "path": "Canvas/V04Pause/PauseDialog/MainMenu",
+        "bound": true,
+        "expectedHandler": "HandleMainMenuClicked",
+        "handlerBound": true,
+        "active": true,
+        "interactable": true,
+        "navigation": "None"
+      }
+    ],
+    "resultButtons": [
+      {
+        "field": "restartButton",
+        "path": "Canvas/V04Result/ResultDialog/Restart",
+        "bound": true,
+        "expectedHandler": "HandleRestartClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "quitButton",
+        "path": "Canvas/V04Result/ResultDialog/MainMenu",
+        "bound": true,
+        "expectedHandler": "HandleQuitClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      }
+    ],
+    "statistics": [
+      {
+        "name": "Elapsed",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Elapsed/Value",
+        "boundToCorrectCell": true,
+        "text": "00:00",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Level",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Level/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Kills",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Kills/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Gold",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Gold/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "BackpackValue",
+        "path": "Canvas/V04Result/ResultDialog/Stat_BackpackValue/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "LegendaryCount",
+        "path": "Canvas/V04Result/ResultDialog/Stat_LegendaryCount/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      }
+    ],
+    "resultTitle": "行动结束",
+    "resultSubtitle": "本次行动已结束",
+    "resultSummary": "总经验  0    ·    传说装备价值  ￥0",
+    "focus": {
+      "selected": null,
+      "configuredFirstSelected": null,
+      "noDefaultFocusAtOpen": true,
+      "policy": "No automatic focus at modal open; explicit keyboard navigation may select a button."
+    },
+    "coverageLimit": "Restart and main-menu bindings are inspected without invoking scene loads; synthetic final states do not test persistence or the game-over producer."
+  },
+  "resumed": {
+    "passed": true,
+    "issues": [],
+    "state": "Running",
+    "timeScale": 1.0,
+    "probe": "presentation only; restore explicitly",
+    "openingFadeSettledCheck": true,
+    "hud": {
+      "path": "Canvas/HUDPanel",
+      "active": true,
+      "interactable": true,
+      "blocksRaycasts": true,
+      "alpha": 1.0,
+      "visibleGraphics": 28,
+      "blockingGraphics": 2,
+      "interactableSelectables": 2
+    },
+    "bag": {
+      "isBagOpen": false,
+      "surface": {
+        "path": "Canvas/BagPanel",
+        "active": true,
+        "interactable": false,
+        "blocksRaycasts": false,
+        "alpha": 0.0,
+        "visibleGraphics": 0,
+        "blockingGraphics": 0,
+        "interactableSelectables": 0
+      }
+    },
+    "pause": {
+      "path": "Canvas/V04Pause",
+      "active": false,
+      "interactable": false,
+      "blocksRaycasts": false,
+      "alpha": 0.0,
+      "visibleGraphics": 0,
+      "blockingGraphics": 0,
+      "interactableSelectables": 0
+    },
+    "upgrade": {
+      "IsOpen": false,
+      "VisibleOptionCount": 0,
+      "surface": {
+        "path": "Canvas/NightUpgradeChoice",
+        "active": false,
+        "interactable": false,
+        "blocksRaycasts": false,
+        "alpha": 0.0,
+        "visibleGraphics": 0,
+        "blockingGraphics": 0,
+        "interactableSelectables": 0
+      }
+    },
+    "result": {
+      "path": "Canvas/V04Result",
+      "active": false,
+      "interactable": false,
+      "blocksRaycasts": false,
+      "alpha": 0.0,
+      "visibleGraphics": 0,
+      "blockingGraphics": 0,
+      "interactableSelectables": 0
+    },
+    "coveredSurfaces": [
+      "Canvas/HUDPanel",
+      "Canvas/BagPanel",
+      "Canvas/ItemTooltip",
+      "Canvas/V04InteractPrompt",
+      "Canvas/V04BagFullNotice"
+    ],
+    "pauseButtons": [
+      {
+        "field": "continueButton",
+        "path": "Canvas/V04Pause/PauseDialog/Continue",
+        "bound": true,
+        "expectedHandler": "HandleContinueClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "restartButton",
+        "path": "Canvas/V04Pause/PauseDialog/Restart",
+        "bound": true,
+        "expectedHandler": "HandleRestartClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "mainMenuButton",
+        "path": "Canvas/V04Pause/PauseDialog/MainMenu",
+        "bound": true,
+        "expectedHandler": "HandleMainMenuClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      }
+    ],
+    "resultButtons": [
+      {
+        "field": "restartButton",
+        "path": "Canvas/V04Result/ResultDialog/Restart",
+        "bound": true,
+        "expectedHandler": "HandleRestartClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      },
+      {
+        "field": "quitButton",
+        "path": "Canvas/V04Result/ResultDialog/MainMenu",
+        "bound": true,
+        "expectedHandler": "HandleQuitClicked",
+        "handlerBound": true,
+        "active": false,
+        "interactable": true,
+        "navigation": "None"
+      }
+    ],
+    "statistics": [
+      {
+        "name": "Elapsed",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Elapsed/Value",
+        "boundToCorrectCell": true,
+        "text": "00:00",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Level",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Level/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Kills",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Kills/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "Gold",
+        "path": "Canvas/V04Result/ResultDialog/Stat_Gold/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "BackpackValue",
+        "path": "Canvas/V04Result/ResultDialog/Stat_BackpackValue/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      },
+      {
+        "name": "LegendaryCount",
+        "path": "Canvas/V04Result/ResultDialog/Stat_LegendaryCount/Value",
+        "boundToCorrectCell": true,
+        "text": "0",
+        "expected": null,
+        "matches": null
+      }
+    ],
+    "resultTitle": "行动结束",
+    "resultSubtitle": "本次行动已结束",
+    "resultSummary": "总经验  0    ·    传说装备价值  ￥0",
+    "focus": {
+      "selected": null,
+      "configuredFirstSelected": null,
+      "noDefaultFocusAtOpen": true,
+      "policy": "No automatic focus at modal open; explicit keyboard navigation may select a button."
+    },
+    "coverageLimit": "Restart and main-menu bindings are inspected without invoking scene loads; synthetic final states do not test persistence or the game-over producer."
+  },
+  "restored": {
+    "restored": true,
+    "requestedState": "Paused",
+    "gameplayUnchanged": true,
+    "state": "Running",
+    "timeScale": 1.0,
+    "canvasGroupsRestored": true,
+    "focusRestored": true
+  }
+}

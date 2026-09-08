@@ -1,0 +1,23 @@
+Built-in image_gen generation. The first image contained a baked checkerboard; a targeted alpha edit also returned RGB. User then explicitly approved local background removal and compression. Production art uses that approved local processing.
+
+Use case: stylized-concept / game inventory sprite atlas. The reference image is ONLY the approved illustration style: compact blue-gray survival equipment, readable stylized 3D inventory art, broad shapes, restrained amber/green/ice-blue indicators. Produce a PRODUCTION SPRITE SHEET, not a UI screenshot. A square 1024x1024 PNG canvas with a genuinely transparent alpha background. Absolutely no scene, cards, labels, letters, numbers, borders, frames, grids or checkerboard baked into the pixels.
+
+STRICT LAYOUT: exactly FOUR equal columns and FOUR equal rows, a regular 4x4 grid of 256x256 cells. Thirteen separate equipment icons fill the first thirteen cells in row-major order. The final THREE cells (row4 columns2,3,4) are COMPLETELY EMPTY transparent. Every object centered in its assigned cell; all visible pixels, light accents and tiny contact shadow must stay inside the central 200x200 region of that cell with at least 28px transparent padding on all sides. Icons do not overlap or touch. Consistent three-quarter inventory viewpoint, studio lighting from upper left, dark crisp outline and small cool rim highlights for readability on a dark blue UI. Render in the clean, relatively simple painted 3D style of the reference icons, not photorealism. No elaborate textures, decorative backgrounds or complex particles.
+
+Exact cell content and ordering:
+ROW 1 COL 1 — DAMAGE: a compact blue-black assault rifle with a chunky reinforced barrel and one small warm amber indicator, matching the rifle in the reference.
+ROW 1 COL 2 — FIRE RATE: a compact mechanical weapon feed module with two dark blue magazines and three brass rounds arranged as a rapid feed assembly. Distinct silhouette from the full rifle; subtle amber accent.
+ROW 1 COL 3 — MOVE SPEED: a pair of rugged blue-gray tactical boots, matching the boots in the reference, small pale blue accent.
+ROW 1 COL 4 — MAX HEALTH: a blue-gray padded protective vest with a small green medical cross light, matching the vest in the reference.
+ROW 2 COL 1 — PICKUP RANGE: a compact dark blue salvage backpack fitted with a small horseshoe-shaped electromagnetic pickup attachment, restrained mint/cyan accent. Clear backpack silhouette.
+ROW 2 COL 2 — CRITICAL CHANCE: a compact dark blue weapon optic scope with a clean amber reticle visible in its glass, no gun attached.
+ROW 2 COL 3 — PROJECTILE SPEED: a single large sleek pointed brass projectile and dark blue cartridge sleeve angled upward, with two tiny pale-blue speed streaks close to its silhouette.
+ROW 2 COL 4 — WEAPON RANGE: a small pair of blue-gray field binoculars / laser rangefinder, two visible cool blue glass lenses, no text.
+ROW 3 COL 1 — CRITICAL DAMAGE: an armor-piercing projectile lodged in a small fractured blue-gray target plate, two restrained amber impact chips, no flames or gore. Keep compact readable silhouette.
+ROW 3 COL 2 — DAMAGE REDUCTION: a reinforced blue-gray shield plate with a small muted green status stripe; distinct from the vest, no cross.
+ROW 3 COL 3 — EXPERIENCE GAIN: a compact blue-gray field training manual and a small cyan data-chip tab, recognizable closed book silhouette with plain embossed abstract circuit mark, absolutely no text.
+ROW 3 COL 4 — GOLD GAIN: a small dark-blue salvage pouch with three visible warm gold coins, simple coin circles with no currency lettering.
+ROW 4 COL 1 — EXTRA WEAPON SLOT: a compact modular blue-gray weapon mounting rail with TWO clearly visible empty U-shaped clamps and one small cyan indicator, readable equipment expansion module, no extra guns.
+ROW 4 COL 2, COL 3, COL 4 — EMPTY TRANSPARENT.
+
+All thirteen icons must be present, unique and entirely inside their own equal cells. Same visual scale and light direction. Preserve real alpha transparency around the icons and through empty areas. No enclosing boxes, no background gradients, no white matte, no black matte, no checkerboard texture. This sheet will be sliced into thirteen lightweight sprites and used in an actual Unity upgrade-choice UI.

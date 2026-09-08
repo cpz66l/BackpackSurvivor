@@ -1,0 +1,219 @@
+{
+  "status": "PASS",
+  "sharedMaterial": "ENV_AtlasSurface",
+  "uniqueTriangles": 5448,
+  "glbTotalBytes": 408172,
+  "assets": [
+    {
+      "asset": "ConcreteBarrier",
+      "triangles": 456,
+      "primitives": 1,
+      "materials": 1,
+      "vertices": 876,
+      "paletteIndices": [
+        0,
+        2,
+        3
+      ],
+      "images": [
+        {
+          "type": "Emission",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ],
+      "glbBytes": 33184,
+      "sampler": "NEAREST / no mipmaps / CLAMP_TO_EDGE"
+    },
+    {
+      "asset": "FenceSegment",
+      "triangles": 1024,
+      "primitives": 1,
+      "materials": 1,
+      "vertices": 2160,
+      "paletteIndices": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "images": [
+        {
+          "type": "Emission",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ],
+      "glbBytes": 77664,
+      "sampler": "NEAREST / no mipmaps / CLAMP_TO_EDGE"
+    },
+    {
+      "asset": "SupplyTerminal",
+      "triangles": 1348,
+      "primitives": 1,
+      "materials": 1,
+      "vertices": 2802,
+      "paletteIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "images": [
+        {
+          "type": "Emission",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ],
+      "glbBytes": 100172,
+      "sampler": "NEAREST / no mipmaps / CLAMP_TO_EDGE"
+    },
+    {
+      "asset": "CargoCrate",
+      "triangles": 904,
+      "primitives": 1,
+      "materials": 1,
+      "vertices": 1952,
+      "paletteIndices": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ],
+      "images": [
+        {
+          "type": "Emission",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ],
+      "glbBytes": 70284,
+      "sampler": "NEAREST / no mipmaps / CLAMP_TO_EDGE"
+    },
+    {
+      "asset": "SmallGenerator",
+      "triangles": 1716,
+      "primitives": 1,
+      "materials": 1,
+      "vertices": 3568,
+      "paletteIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "images": [
+        {
+          "type": "Emission",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 81
+        },
+        {
+          "type": "BaseColor",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 107
+        },
+        {
+          "type": "MetallicRoughness",
+          "size": [
+            16,
+            2
+          ],
+          "embeddedBytes": 100
+        }
+      ],
+      "glbBytes": 126868,
+      "sampler": "NEAREST / no mipmaps / CLAMP_TO_EDGE"
+    }
+  ]
+}

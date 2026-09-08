@@ -1,0 +1,8 @@
+{
+  "Repository": "https://github.com/CoplayDev/unity-mcp",
+  "Release": "v10.2.0",
+  "ArchiveUrl": "https://codeload.github.com/CoplayDev/unity-mcp/zip/refs/tags/v10.2.0",
+  "ArchiveSHA256": "AC18487F6BDE1D0CB506AF4CD9891BF1ACC66F9493D5F3A350AB3FD134E74A1D",
+  "PackageName": "com.coplaydev.unity-mcp",
+  "PackageVersion": "10.2.0"
+}

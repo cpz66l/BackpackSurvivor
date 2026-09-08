@@ -1,0 +1,179 @@
+{
+    "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+    "recordedUtc": "2026-09-08T13:10:02.9366836Z",
+    "isPlaying": false,
+    "randomSeed": 20260908,
+    "mapRadius": 60.0,
+    "nearBoundaryRadius": 57.0,
+    "ringMinimum": 20.0,
+    "ringMaximum": 30.0,
+    "spawnY": 1.0,
+    "halfExtents": {
+        "x": 0.8500000238418579,
+        "y": 1.5499999523162842,
+        "z": 0.8500000238418579
+    },
+    "attemptsPerSample": 24,
+    "matchesCurrentSpawnerSettings": true,
+    "samples": 576,
+    "successes": 576,
+    "failures": 0,
+    "invalidSuccesses": 0,
+    "passed": true,
+    "positions": [
+        {
+            "name": "Center",
+            "playerPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.01261329650879,
+            "maximumSpawnDistance": 29.908668518066408
+        },
+        {
+            "name": "Edge_0deg",
+            "playerPosition": {
+                "x": 57.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.05240249633789,
+            "maximumSpawnDistance": 29.90243911743164
+        },
+        {
+            "name": "Edge_45deg",
+            "playerPosition": {
+                "x": 40.305084228515628,
+                "y": 0.0,
+                "z": 40.305084228515628
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.066659927368165,
+            "maximumSpawnDistance": 29.574649810791017
+        },
+        {
+            "name": "Edge_90deg",
+            "playerPosition": {
+                "x": -0.0000024915491394494894,
+                "y": 0.0,
+                "z": 57.0
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.679800033569337,
+            "maximumSpawnDistance": 29.810077667236329
+        },
+        {
+            "name": "Edge_135deg",
+            "playerPosition": {
+                "x": -40.305084228515628,
+                "y": 0.0,
+                "z": 40.305084228515628
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.29033660888672,
+            "maximumSpawnDistance": 29.77875328063965
+        },
+        {
+            "name": "Edge_180deg",
+            "playerPosition": {
+                "x": -57.0,
+                "y": 0.0,
+                "z": -0.000004983098278898979
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.061840057373048,
+            "maximumSpawnDistance": 29.175731658935548
+        },
+        {
+            "name": "Edge_225deg",
+            "playerPosition": {
+                "x": -40.30508041381836,
+                "y": 0.0,
+                "z": -40.305091857910159
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.295063018798829,
+            "maximumSpawnDistance": 29.88673210144043
+        },
+        {
+            "name": "Edge_270deg",
+            "playerPosition": {
+                "x": 6.79718198171031e-7,
+                "y": 0.0,
+                "z": -57.0
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.118804931640626,
+            "maximumSpawnDistance": 29.96792221069336
+        },
+        {
+            "name": "Edge_315deg",
+            "playerPosition": {
+                "x": 40.30509948730469,
+                "y": 0.0,
+                "z": -40.30507278442383
+            },
+            "samples": 64,
+            "successes": 64,
+            "failures": 0,
+            "successRate": 1.0,
+            "outsideMap": 0,
+            "outsideRing": 0,
+            "obstacleOverlaps": 0,
+            "minimumSpawnDistance": 20.065492630004884,
+            "maximumSpawnDistance": 29.709148406982423
+        }
+    ],
+    "scope": "Deterministic production spawn sampler coverage at the center and eight positions 3m inside the edge, 64 trials each. Each success is independently checked for full-footprint containment, configured ring distance, and obstacle overlap. Random.State is restored. This does not test enemy routing, player traversal, a full run, or FPS."
+}

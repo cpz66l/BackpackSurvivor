@@ -1,0 +1,9 @@
+{
+    "allPassed": true,
+    "landedColliderEnabled": true,
+    "beamVisible": true,
+    "reusedMaterial": true,
+    "hiddenAfterReturn": true,
+    "distanceToTarget": 0.0,
+    "styleIndex": 2
+}

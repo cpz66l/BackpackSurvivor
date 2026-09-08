@@ -37,29 +37,25 @@ namespace BS.GamePlay.Loot
         [SerializeField] private float minDistToPlayer = 12f;   // 别刷脸
         [SerializeField] private int maxAttempts = 10;         // 重试预算
         [SerializeField] private int maxFieldCount = 5;        // 场上上限
+        // Covers the current chest's 1 x 1 x 1.9216 footprint at any horizontal rotation.
+        [SerializeField] private Vector3 spawnHalfExtents = new Vector3(1.15f, 0.55f, 1.15f);
 
         private Health playerH;
         private MapBounds mapBounds;
 
         private void Awake()
         {
-            playerH = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null) playerH = player.GetComponent<Health>();
             mapBounds = FindAnyObjectByType<MapBounds>();
         }
 
         private bool TryFindSpawnPoint(out Vector3 result)
         {
-            for (int i = 0; i < maxAttempts; i++)
-            {
-                Vector3 pos = mapBounds.GetRandomPoint();
-                float sqrDistToPlayer = (pos - playerH.Position).sqrMagnitude;
-                if (sqrDistToPlayer < minDistToPlayer * minDistToPlayer) continue;
-                pos.y = 0.5f;
-                result = pos;
-                return true;
-            }
             result = Vector3.zero;
-            return false;
+            return playerH != null && SpawnPositionSampler.TryFindInMap(
+                mapBounds, playerH.Position, minDistToPlayer, 0.5f,
+                spawnHalfExtents, maxAttempts, out result);
         }
 
         private bool TrySpawnChest()

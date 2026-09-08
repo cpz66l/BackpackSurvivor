@@ -24,6 +24,7 @@ namespace BS.Presentation
         [SerializeField] private AudioClip buttonClickClip;
         [SerializeField] private AudioSource uiAudioSource;
         [SerializeField] private float sceneLoadDelayAfterClick = 0.08f;
+        [SerializeField] private string runSceneName = "01-Run";
 
         private bool isLeavingScene;
 
@@ -86,7 +87,7 @@ namespace BS.Presentation
             isLeavingScene = true;
             PlayButtonClickAcrossScene();
             Time.timeScale = 1f;
-            SceneManager.LoadScene("01-Run");
+            SceneManager.LoadScene(runSceneName);
         }
 
         private void QuitButton()

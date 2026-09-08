@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "Esc pauses with no default focus",
+    "Down selects Continue explicitly",
+    "Enter continues through UI input module",
+    "Esc reopens and Esc resumes"
+  ],
+  "error": null,
+  "state": "Running",
+  "timeScale": 1.0,
+  "devicesRestored": true
+}

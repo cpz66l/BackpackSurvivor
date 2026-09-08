@@ -12,6 +12,10 @@ namespace BS.GamePlay.Waves
         [SerializeField] private float spawnOutsideRadius = 15f;
         [SerializeField] private float spawnInsideRadius = 10f;
         [SerializeField] private Transform playerTf;
+        [SerializeField, Min(1)] private int maxSpawnAttempts = 24;
+        // Covers the current 1.5x elite's controller, with a small obstacle clearance.
+        [SerializeField] private Vector3 spawnHalfExtents = new Vector3(0.85f, 1.55f, 0.85f);
+        private MapBounds mapBounds;
         private float normalEnemyMaxHp = 40f;
         private float eliteEnemyMaxHp = 150f;
         private float rangedEnemyMaxHp = 80f;
@@ -27,7 +31,12 @@ namespace BS.GamePlay.Waves
         private void Start()
         {
             //如果没拖拽，直接通过找脚本获得Player
-            if (playerTf == null) playerTf = FindAnyObjectByType<PlayerController>().transform;
+            if (playerTf == null)
+            {
+                PlayerController player = FindAnyObjectByType<PlayerController>();
+                if (player != null) playerTf = player.transform;
+            }
+            mapBounds = FindAnyObjectByType<MapBounds>();
         }
 
         private void Update()
@@ -35,12 +44,11 @@ namespace BS.GamePlay.Waves
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnInterval && TargetRegistry.Count < maxAlive) 
             {
-                float radius = Random.Range(spawnInsideRadius, spawnOutsideRadius);
-                float angle = Random.Range(0f,360f) * Mathf.Deg2Rad;
-                float z = Mathf.Sin(angle) * radius;
-                float x = Mathf.Cos(angle) * radius;
-                Vector3 spawnPos = playerTf.position + new Vector3 (x,0,z);
-                spawnPos.y = 1f;//如果敌人换体型了，得再改改
+                // A blocked map consumes this scheduled attempt rather than retrying every frame.
+                spawnTimer = 0f;
+                if (playerTf == null || !SpawnPositionSampler.TryFindInRing(
+                    mapBounds, playerTf.position, spawnInsideRadius, spawnOutsideRadius,
+                    1f, spawnHalfExtents, maxSpawnAttempts, out Vector3 spawnPos)) return;
                 ObjectPool selectedPool = PickEnemyPool();
                 if (selectedPool == null) return;
                 if (selectedPool == normalEnemyPool)
@@ -58,7 +66,6 @@ namespace BS.GamePlay.Waves
                     GameObject obj = selectedPool.Get(spawnPos);
                     obj.GetComponent<Health>()?.SetMaxHpAndReset(rangedEnemyMaxHp);
                 }
-                spawnTimer = 0f;
             }
         }
 

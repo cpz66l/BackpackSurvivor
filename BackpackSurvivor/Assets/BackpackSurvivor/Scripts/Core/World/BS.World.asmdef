@@ -1,0 +1,6 @@
+{
+    "name": "BS.World",
+    "rootNamespace": "BS.Core",
+    "references": [],
+    "autoReferenced": true
+}

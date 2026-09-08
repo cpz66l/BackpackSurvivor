@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 namespace BS.Presentation
@@ -22,8 +23,30 @@ namespace BS.Presentation
         [SerializeField] private SfxPlayer sfx;
         [SerializeField] private float sceneLoadDelayAfterClick = 0.08f;
 
+        [Header("V0.4 presentation (optional)")]
+        [SerializeField] private RectTransform dialog;
+        [SerializeField] private TMP_Text subtitleText;
+        // Elapsed, level, kills, gold, backpack value, legendary count: existing snapshot only.
+        [SerializeField] private TMP_Text[] statisticValues;
+        [SerializeField] private TMP_Text legendarySummaryText;
+        [SerializeField] private string mainMenuSceneName = "MainMenu";
+        [SerializeField] private string restartSceneFallback = "01-Run";
+
         private bool isLeavingScene;
-        
+        private Button[] menuButtons;
+        private int openedFrame;
+
+        public void ConfigurePresentation(GameSession session, GameObject visualRoot, RectTransform content,
+            TMP_Text title, TMP_Text subtitle, TMP_Text[] values, TMP_Text legendarySummary,
+            Button restart, Button mainMenu, Color victoryColor, Color defeatColor)
+        {
+            gameSession = session; panel = visualRoot; dialog = content;
+            titleText = title; subtitleText = subtitle; statisticValues = values;
+            legendarySummaryText = legendarySummary; statsText = null;
+            restartButton = restart; quitButton = mainMenu;
+            victoryTitleColor = victoryColor; defeatTitleColor = defeatColor;
+            menuButtons = new[] { restartButton, quitButton };
+        }
 
         private void Awake()
         {
@@ -31,7 +54,7 @@ namespace BS.Presentation
                 gameSession = FindAnyObjectByType<GameSession>();
             if (sfx == null)
                 sfx = FindAnyObjectByType<SfxPlayer>();
-
+            menuButtons = new[] { restartButton, quitButton };
         }
 
         private void OnEnable()
@@ -56,31 +79,56 @@ namespace BS.Presentation
 
         private void Start()
         {
-            panel.SetActive(false);
+            if (panel != null) panel.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (panel == null || !panel.activeInHierarchy || dialog == null) return;
+            RunMenuPresentation.FitDialog(panel.transform as RectTransform, dialog);
+            if (!isLeavingScene) RunMenuPresentation.Navigate(menuButtons, true, openedFrame);
         }
 
         private void HandleRunEnded(RunResult runResult)
         {
-            panel.SetActive(true);
+            if (panel != null) panel.SetActive(true);
+            openedFrame = Time.frameCount;
+            isLeavingScene = false;
+            if (restartButton != null) restartButton.interactable = true;
+            if (quitButton != null) quitButton.interactable = true;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
+            RunMenuPresentation.FitDialog(panel != null ? panel.transform as RectTransform : null, dialog);
             if(runResult.FinalState == GameState.Victory)
             {
-                titleText.text = "游戏胜利";
-                titleText.color = victoryTitleColor;
+                if (titleText != null) { titleText.text = "行动成功"; titleText.color = victoryTitleColor; }
+                if (subtitleText != null) subtitleText.text = "已完成本次行动";
                 sfx?.PlaySfx(SfxId.GameVictory);
             }
             else if(runResult.FinalState == GameState.Defeat)
             {
-                titleText.text = "游戏失败";
-                titleText.color = defeatTitleColor;
+                if (titleText != null) { titleText.text = "行动失败"; titleText.color = defeatTitleColor; }
+                if (subtitleText != null) subtitleText.text = "本次行动已结束";
                 sfx?.PlaySfx(SfxId.GameDefeat);
             }
 
-            statsText.text =
+            if (statsText != null) statsText.text =
                 $"存活时间：{FormatTime(runResult.Elapsed)}\r\n" +
                 $"等级：{runResult.Level}\r\n" +
                 $"总经验：{runResult.TotalXp}\r\n" +
                 $"击杀数：{runResult.KillCount}\r\n" +
                 $"背包价值：￥{runResult.BackpackValue}";
+
+            string[] values =
+            {
+                FormatTime(runResult.Elapsed), runResult.Level.ToString(), runResult.KillCount.ToString("N0"),
+                "￥" + runResult.TotalGold.ToString("N0"), "￥" + runResult.BackpackValue.ToString("N0"),
+                runResult.LegendaryFoundCount.ToString("N0")
+            };
+            if (statisticValues != null)
+                for (int i = 0; i < statisticValues.Length && i < values.Length; i++)
+                    if (statisticValues[i] != null) statisticValues[i].text = values[i];
+            if (legendarySummaryText != null)
+                legendarySummaryText.text = $"总经验  {runResult.TotalXp:N0}    ·    传说装备价值  ￥{runResult.LegendaryCollectedValue:N0}";
         }
         //计算显示时间
         private string FormatTime(float seconds)
@@ -94,23 +142,29 @@ namespace BS.Presentation
         private void HandleRestartClicked()
         {
             if (isLeavingScene) return;
-            sfx?.PlaySfx(SfxId.ButtonClick);
-            Time.timeScale = 1f;
-            StartCoroutine(LoadSceneAfterClick("01-Run"));
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            BeginSceneLoad(string.IsNullOrEmpty(currentSceneName) ? restartSceneFallback : currentSceneName);
         }
 
         private void HandleQuitClicked()
         {
             if (isLeavingScene) return;
+            BeginSceneLoad(mainMenuSceneName);
+        }
+
+        private void BeginSceneLoad(string sceneName)
+        {
+            isLeavingScene = true;
+            if (restartButton != null) restartButton.interactable = false;
+            if (quitButton != null) quitButton.interactable = false;
             sfx?.PlaySfx(SfxId.ButtonClick);
-            Time.timeScale = 1f;
-            StartCoroutine(LoadSceneAfterClick("MainMenu"));
+            StartCoroutine(LoadSceneAfterClick(sceneName));
         }
 
         private IEnumerator LoadSceneAfterClick(string sceneName)
         {
-            isLeavingScene = true;
             yield return new WaitForSecondsRealtime(sceneLoadDelayAfterClick);
+            Time.timeScale = 1f;
             SceneManager.LoadScene(sceneName);
         }
     }

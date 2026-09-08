@@ -1,0 +1,120 @@
+{
+  "seed": 709120,
+  "dimensions": [
+    512,
+    512
+  ],
+  "sourceBytes": 782481,
+  "corrections": [
+    "One stroke intensity shared by all periodic copies",
+    "Gaussian blur across a 3x3 periodic neighbourhood",
+    "Normal G stores +image-row derivative for world +Z"
+  ],
+  "edgeDifferenceNote": "First and last texels are adjacent samples, not duplicates; nonzero differences are expected. Compare with interior neighbouring samples, especially for narrow crossing cracks.",
+  "channels": {
+    "aggregate": {
+      "range": [
+        0.0784313725490196,
+        0.8156862745098039
+      ],
+      "mean": 0.45001907348632814,
+      "edgeDifferenceX": {
+        "mean": 0.02580422794117647,
+        "max": 0.09411764705882353
+      },
+      "edgeDifferenceY": {
+        "mean": 0.024241727941176468,
+        "max": 0.0862745098039216
+      },
+      "interiorNeighborDifferenceX": {
+        "mean": 0.037596333482022945,
+        "max": 0.2392156862745098
+      },
+      "interiorNeighborDifferenceY": {
+        "mean": 0.0379018366764514,
+        "max": 0.2274509803921569
+      }
+    },
+    "cracks": {
+      "range": [
+        0.0,
+        0.8666666666666667
+      ],
+      "mean": 0.005838401644837622,
+      "edgeDifferenceX": {
+        "mean": 0.002879901960784314,
+        "max": 0.2901960784313725
+      },
+      "edgeDifferenceY": {
+        "mean": 0.00019914215686274515,
+        "max": 0.043137254901960784
+      },
+      "interiorNeighborDifferenceX": {
+        "mean": 0.00409681852192932,
+        "max": 0.6666666666666666
+      },
+      "interiorNeighborDifferenceY": {
+        "mean": 0.003336163232416254,
+        "max": 0.5882352941176471
+      }
+    },
+    "moisture": {
+      "range": [
+        0.0,
+        1.0
+      ],
+      "mean": 0.5880308113846127,
+      "edgeDifferenceX": {
+        "mean": 0.00019914215686274512,
+        "max": 0.0039215686274510775
+      },
+      "edgeDifferenceY": {
+        "mean": 9.191176470588224e-05,
+        "max": 0.0039215686274510775
+      },
+      "interiorNeighborDifferenceX": {
+        "mean": 0.004755039858409118,
+        "max": 0.03529411764705884
+      },
+      "interiorNeighborDifferenceY": {
+        "mean": 0.004513359282068991,
+        "max": 0.0313725490196079
+      }
+    },
+    "macro": {
+      "range": [
+        0.28627450980392155,
+        0.7254901960784313
+      ],
+      "mean": 0.5219515781776576,
+      "edgeDifferenceX": {
+        "mean": 3.063725490196089e-05,
+        "max": 0.0039215686274510775
+      },
+      "edgeDifferenceY": {
+        "mean": 2.2977941176470723e-05,
+        "max": 0.0039215686274510775
+      },
+      "interiorNeighborDifferenceX": {
+        "mean": 0.0009600372683319905,
+        "max": 0.0039215686274510775
+      },
+      "interiorNeighborDifferenceY": {
+        "mean": 0.0013243118308967421,
+        "max": 0.007843137254902044
+      }
+    }
+  },
+  "normalDirection": {
+    "coordinateSystem": "Unity UV bottom-to-top; R world X and G world Z",
+    "expectedEncodedImageComponents": [
+      "-dx",
+      "+dy"
+    ],
+    "correlationWithDeliveredHeightX": 0.9997338052954652,
+    "correlationWithDeliveredHeightZ": 0.9997332375942328,
+    "meanAbsoluteComponentError": 0.004377744393716928,
+    "maxAbsoluteComponentError": 0.014454937281720495,
+    "passed": true
+  }
+}

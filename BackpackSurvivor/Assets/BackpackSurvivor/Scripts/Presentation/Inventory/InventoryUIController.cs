@@ -308,6 +308,10 @@ namespace BS.Presentation
 
         public void HandleOpenBag()
         {
+            BS.GamePlay.Run.GameSession session = FindAnyObjectByType<BS.GamePlay.Run.GameSession>();
+            if (session != null && (session.State == BS.GamePlay.Run.GameState.LevelUpSelecting ||
+                session.State == BS.GamePlay.Run.GameState.Paused || session.State == BS.GamePlay.Run.GameState.Victory ||
+                session.State == BS.GamePlay.Run.GameState.Defeat)) return;
             if(bagPanelcanvasGroup == null || isDragging) return;
             isBagOpen = !isBagOpen;
             if (isBagOpen)

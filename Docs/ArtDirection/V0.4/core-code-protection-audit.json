@@ -1,0 +1,513 @@
+{
+  "capturedAt": "2026-09-08T23:48:17.480336+08:00",
+  "scope": "V0.4 GamePlay / Inventory / Core C# source only, relative to gameplay-baseline-hashes.json",
+  "allPassed": true,
+  "baselineFiles": 66,
+  "groupFileCounts": {
+    "GamePlay": 50,
+    "Inventory": 10,
+    "Core": 6
+  },
+  "byteIdenticalFiles": 64,
+  "changedFiles": 2,
+  "addedProtectedCodeFiles": [],
+  "missingProtectedCodeFiles": [],
+  "verifiedAllowedChanges": [
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/DropItem.cs",
+      "authorizedChanges": [
+        "Add BS.Presentation namespace",
+        "Add nullable serialized LootRarityBeacon reference",
+        "Initialize: optional SetRarity(lootEntry.rarity)",
+        "OnGetFromPool: optional ResetVisual()",
+        "OnReturnPool: optional ResetVisual()"
+      ],
+      "inverseReconstructionMatchesBaselineSha256": true,
+      "reconstructedSha256": "386F713835AFC35AE35A12FB07ADA31100953DFF1232ACAC73A0C47DA1A5ACB4",
+      "lineEndingRestoration": "Restore existing mixed CRLF/LF and UTF-8 BOM only for byte comparison; runtime source was not changed.",
+      "diff": "DropItem.cs.baseline-diff.txt"
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/GameSession.cs",
+      "authorizedChanges": [
+        "PauseRun: private -> public; method body unchanged",
+        "ResumeRun: private -> public; method body unchanged"
+      ],
+      "inverseReconstructionMatchesBaselineSha256": true,
+      "reconstructedSha256": "7079F294E4E8B4E6CFAD9106FE5FFA62AB3ADD4E467C4B9498723EFB0CB2DB9B",
+      "lineEndingRestoration": "Restore existing mixed CRLF/LF and UTF-8 BOM only for byte comparison; runtime source was not changed.",
+      "diff": "GameSession.cs.baseline-diff.txt"
+    }
+  ],
+  "files": [
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Damage/Health.cs",
+      "baselineSha256": "790347F59B874DF5350CE461214B852198C513A80854D8E9AFADB9449282594D",
+      "currentSha256": "790347F59B874DF5350CE461214B852198C513A80854D8E9AFADB9449282594D",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Damage/IDamageable.cs",
+      "baselineSha256": "F07C0D6133A172161DC21FD9269A3ED7A3018217FDA9B5976906A730EBB88E1E",
+      "currentSha256": "F07C0D6133A172161DC21FD9269A3ED7A3018217FDA9B5976906A730EBB88E1E",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Projectiles/Projectile.cs",
+      "baselineSha256": "79B6077D211057459BFD81CE3B3ECAC788789969E99E92E54F1B68A398E7A107",
+      "currentSha256": "79B6077D211057459BFD81CE3B3ECAC788789969E99E92E54F1B68A398E7A107",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Projectiles/ProjectilePoolProvider.cs",
+      "baselineSha256": "73C2F12D61A3528D74147C92AAB689B4BF98B84B6FF0884F053D8740AF96C925",
+      "currentSha256": "73C2F12D61A3528D74147C92AAB689B4BF98B84B6FF0884F053D8740AF96C925",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Targeting/TargetRegistry.cs",
+      "baselineSha256": "1A769E55413B370689AB29A64793A6404490E40CF895082E03020A06962F401B",
+      "currentSha256": "1A769E55413B370689AB29A64793A6404490E40CF895082E03020A06962F401B",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Weapons/ActiveWeapon.cs",
+      "baselineSha256": "4C86E3E6584D59B1C3DFB1C2A2B0F07E89E44EA545F59659490CB7A6B70E8A5B",
+      "currentSha256": "4C86E3E6584D59B1C3DFB1C2A2B0F07E89E44EA545F59659490CB7A6B70E8A5B",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Weapons/AutoWeapon.cs",
+      "baselineSha256": "94DCB878B29FCA07BCEDBA2A1B842798521B57CD0F106EBDD93E9A5FE0718DB8",
+      "currentSha256": "94DCB878B29FCA07BCEDBA2A1B842798521B57CD0F106EBDD93E9A5FE0718DB8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Weapons/BackpackWeaponActivator.cs",
+      "baselineSha256": "E74BC42338F92BF1C53E662CF359DE2EFCA9833E02F3369AAE70DD2A9802FF1B",
+      "currentSha256": "E74BC42338F92BF1C53E662CF359DE2EFCA9833E02F3369AAE70DD2A9802FF1B",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Weapons/WeaponBase.cs",
+      "baselineSha256": "39D69E275E1DD1A922FE542B38FDF417471FBD16647AA945B63C6FAFF700A4C7",
+      "currentSha256": "39D69E275E1DD1A922FE542B38FDF417471FBD16647AA945B63C6FAFF700A4C7",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Combat/Weapons/WeaponItemStatResolver.cs",
+      "baselineSha256": "0A632506F5B976C6160592EFEF2E48DE21FA4A1DA53BA7ADE2C4CFA6A3E166EA",
+      "currentSha256": "0A632506F5B976C6160592EFEF2E48DE21FA4A1DA53BA7ADE2C4CFA6A3E166EA",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Enemies/AI/EnemyAI.cs",
+      "baselineSha256": "CF19CB9C40BD11C1FB3D335BA1343A83AB1324AEFF0892B733654B7E70A9E6F9",
+      "currentSha256": "CF19CB9C40BD11C1FB3D335BA1343A83AB1324AEFF0892B733654B7E70A9E6F9",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Enemies/AI/EnemyMovement.cs",
+      "baselineSha256": "491EAE02A2B60722623F3A72F8896FAFF4F137497174FA025034216A17A503B8",
+      "currentSha256": "491EAE02A2B60722623F3A72F8896FAFF4F137497174FA025034216A17A503B8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Enemies/AI/RangedEnemyAI.cs",
+      "baselineSha256": "94C8D343030C45EB6F18CE08947CA8E9986D56E2B09AAD910DC99486B52372D8",
+      "currentSha256": "94C8D343030C45EB6F18CE08947CA8E9986D56E2B09AAD910DC99486B52372D8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Interaction/IInteractable.cs",
+      "baselineSha256": "8BB3D58E7175CDE5359AE2EF2C7F67C799AF84EBC9888958386EC1EB9B52BD46",
+      "currentSha256": "8BB3D58E7175CDE5359AE2EF2C7F67C799AF84EBC9888958386EC1EB9B52BD46",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Interaction/InteractDetector.cs",
+      "baselineSha256": "40F329EBD6000C142827E51B5A2FAED5FAD468EF95D080E8447174241A3C0FF8",
+      "currentSha256": "40F329EBD6000C142827E51B5A2FAED5FAD468EF95D080E8447174241A3C0FF8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Inventory/BackpackEffectCollector.cs",
+      "baselineSha256": "2C0052B8DDEF850CE0FC71DCE52F411815B54E4732AEE328EF5CE8665B3F3344",
+      "currentSha256": "2C0052B8DDEF850CE0FC71DCE52F411815B54E4732AEE328EF5CE8665B3F3344",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Inventory/BackpackGlobalModifier.cs",
+      "baselineSha256": "C0E99BA8356FE62E17121EEA3FD1C18E62EA2DA1B4A770D21B2385EBD50EE21E",
+      "currentSha256": "C0E99BA8356FE62E17121EEA3FD1C18E62EA2DA1B4A770D21B2385EBD50EE21E",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Inventory/BackpackItemModifier.cs",
+      "baselineSha256": "2C891E92377D106D812208BF916E191C6D4AC74519F4C00F721B95001BAABEE1",
+      "currentSha256": "2C891E92377D106D812208BF916E191C6D4AC74519F4C00F721B95001BAABEE1",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Inventory/BackpackPassiveCollector.cs",
+      "baselineSha256": "A1A916F863B0BED83BE10B08648B2BA9B8D724D61F7E10818B4175BDFB634C1C",
+      "currentSha256": "A1A916F863B0BED83BE10B08648B2BA9B8D724D61F7E10818B4175BDFB634C1C",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Inventory/InventorySystem.cs",
+      "baselineSha256": "89F800F3BBC61FC03C26FDB537DF32332750BBECE697D8E86F964D3274AD266E",
+      "currentSha256": "89F800F3BBC61FC03C26FDB537DF32332750BBECE697D8E86F964D3274AD266E",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Chests/ChestSpawner.cs",
+      "baselineSha256": "9421832D70E84841EE4100CF81FB215AF17C0696CB86FF345E655C9BC5C6261E",
+      "currentSha256": "9421832D70E84841EE4100CF81FB215AF17C0696CB86FF345E655C9BC5C6261E",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Chests/ChestVisualLibrary.cs",
+      "baselineSha256": "1660D82FEB716CB1F8E71EC99214A92E315B73C56C15662C606DDA20FC79CD5C",
+      "currentSha256": "1660D82FEB716CB1F8E71EC99214A92E315B73C56C15662C606DDA20FC79CD5C",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Chests/LootChest.cs",
+      "baselineSha256": "0690FF8DFE0981E7E447BCFDCA859E8857993244CCEBCBC2D49F5B8FBB162CE1",
+      "currentSha256": "0690FF8DFE0981E7E447BCFDCA859E8857993244CCEBCBC2D49F5B8FBB162CE1",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Chests/LootChestVisual.cs",
+      "baselineSha256": "E423DBC4DE9B65499677EAABFB34A8731C1FF7E9F680A0D4E27B9209BB6F9307",
+      "currentSha256": "E423DBC4DE9B65499677EAABFB34A8731C1FF7E9F680A0D4E27B9209BB6F9307",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Collection/ICollectable.cs",
+      "baselineSha256": "C466551AAC827E5405B139ACDF3271CC9FD049DE0F5BC2AE1472CD8CCB9674C7",
+      "currentSha256": "C466551AAC827E5405B139ACDF3271CC9FD049DE0F5BC2AE1472CD8CCB9674C7",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Collection/PickupLogger.cs",
+      "baselineSha256": "EED44084543AFB02ADE6F924FB5E91542E5079D43ACB8F4BF43B1C50B3E80D91",
+      "currentSha256": "EED44084543AFB02ADE6F924FB5E91542E5079D43ACB8F4BF43B1C50B3E80D91",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Collection/PickUpMagnet.cs",
+      "baselineSha256": "C4B90313A60D6A58998D4A54FFD4B1570304D5B6962CD4529EC9490322C8D5A9",
+      "currentSha256": "C4B90313A60D6A58998D4A54FFD4B1570304D5B6962CD4529EC9490322C8D5A9",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/DropItem.cs",
+      "baselineSha256": "386F713835AFC35AE35A12FB07ADA31100953DFF1232ACAC73A0C47DA1A5ACB4",
+      "currentSha256": "FE490D40332372951FD8EEF955B304266BCF8BAD2CBBA87CBC3E4D5AF5BCA546",
+      "unchanged": false,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/GoldOrb.cs",
+      "baselineSha256": "EE11EB513E79F1568FB6933732AFD0CEE06D6F36B15EBADDA02483CC0455EBAC",
+      "currentSha256": "EE11EB513E79F1568FB6933732AFD0CEE06D6F36B15EBADDA02483CC0455EBAC",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/XpOrb.cs",
+      "baselineSha256": "51192D3DF3E9EA2A11A31DEF2BE62EA6851EB6B2649289BE089414DD7DA53403",
+      "currentSha256": "51192D3DF3E9EA2A11A31DEF2BE62EA6851EB6B2649289BE089414DD7DA53403",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Rolling/LootManager.cs",
+      "baselineSha256": "98ED265E3EBD6DF1C2B7E4870E6E24A56F1CE5A52489773DC4703080EBF3D246",
+      "currentSha256": "98ED265E3EBD6DF1C2B7E4870E6E24A56F1CE5A52489773DC4703080EBF3D246",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Rolling/LootRoller.cs",
+      "baselineSha256": "CED6890A2EE2C00A1DF6CAD0AD9A5D59BA4195826165EF33AEBB34475A6D6CF5",
+      "currentSha256": "CED6890A2EE2C00A1DF6CAD0AD9A5D59BA4195826165EF33AEBB34475A6D6CF5",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Player/InputReader.cs",
+      "baselineSha256": "1426647C7E8096502F7FA8BF3DB6892D77948FA1A19086D55C4EFB9C7E6BC3A5",
+      "currentSha256": "1426647C7E8096502F7FA8BF3DB6892D77948FA1A19086D55C4EFB9C7E6BC3A5",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Player/PlayerController.cs",
+      "baselineSha256": "6BD68D5096C961D5B9F44ED168FF7A28138D3B3C4ADD565B9AAC1E53084D9575",
+      "currentSha256": "6BD68D5096C961D5B9F44ED168FF7A28138D3B3C4ADD565B9AAC1E53084D9575",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/GameSession.cs",
+      "baselineSha256": "7079F294E4E8B4E6CFAD9106FE5FFA62AB3ADD4E467C4B9498723EFB0CB2DB9B",
+      "currentSha256": "D266F5B1F513D8989E2848676C6AF0E37D29EEBB372C77B15E55269F32536B64",
+      "unchanged": false,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/GameState.cs",
+      "baselineSha256": "DCC24D65AA6ED4CF6A4B36153B470165113140D791017D75D86965C6370E5D2D",
+      "currentSha256": "DCC24D65AA6ED4CF6A4B36153B470165113140D791017D75D86965C6370E5D2D",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/LevelProgress.cs",
+      "baselineSha256": "02729A57EE7C17A8B674790855E5454E4FF9D83CAF542C50172441E29051460B",
+      "currentSha256": "02729A57EE7C17A8B674790855E5454E4FF9D83CAF542C50172441E29051460B",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/RunResult.cs",
+      "baselineSha256": "19E6C0647EDCED9BA6C60821EF2028756BFFD7F092251DE0B5ECECB4DCD30E2C",
+      "currentSha256": "19E6C0647EDCED9BA6C60821EF2028756BFFD7F092251DE0B5ECECB4DCD30E2C",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Run/RunTimer.cs",
+      "baselineSha256": "DFA51C760AC0A03A290345842AA6734C087EDAAD7A25BAE3197AC91ADA3999A0",
+      "currentSha256": "DFA51C760AC0A03A290345842AA6734C087EDAAD7A25BAE3197AC91ADA3999A0",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Save/SaveData.cs",
+      "baselineSha256": "803A45B4021AF478D528E0C731C1FBEF48CBB5112C701EC40967000621661479",
+      "currentSha256": "803A45B4021AF478D528E0C731C1FBEF48CBB5112C701EC40967000621661479",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Save/SaveService.cs",
+      "baselineSha256": "CB194E4DAD9EC6EA5F9E2626B1263879FDCF9183C755393D37CDBF537DC638EB",
+      "currentSha256": "CB194E4DAD9EC6EA5F9E2626B1263879FDCF9183C755393D37CDBF537DC638EB",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Stats/PlayerRunStats.cs",
+      "baselineSha256": "5493A0AC93C3BB217E851C9FB176084C18A659AC73D0D9522FC47A9F9EC6AADE",
+      "currentSha256": "5493A0AC93C3BB217E851C9FB176084C18A659AC73D0D9522FC47A9F9EC6AADE",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Upgrades/Definitions/LevelUpOptionCategory.cs",
+      "baselineSha256": "2CEEB4A859ADC2B07AF5A112645C94237BB46B06B1FB5087991F53833C041D33",
+      "currentSha256": "2CEEB4A859ADC2B07AF5A112645C94237BB46B06B1FB5087991F53833C041D33",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Upgrades/Definitions/LevelUpOptionDefinition.cs",
+      "baselineSha256": "B4B6CC105FEAF8E7831337AB715BD696C9F715976AFDEBD39C860A911114F093",
+      "currentSha256": "B4B6CC105FEAF8E7831337AB715BD696C9F715976AFDEBD39C860A911114F093",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Upgrades/Definitions/LevelUpOptionId.cs",
+      "baselineSha256": "9109E7BA8D518B1B7BBED69F9000746CA1B67EE89ACF1E8895CA644BBB8116F7",
+      "currentSha256": "9109E7BA8D518B1B7BBED69F9000746CA1B67EE89ACF1E8895CA644BBB8116F7",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Upgrades/Generation/LevelUpOptionGenerator.cs",
+      "baselineSha256": "930DDECEF20ED87B1568A7FDF48837A4906BD465CA05DB888BE983EDAB211131",
+      "currentSha256": "930DDECEF20ED87B1568A7FDF48837A4906BD465CA05DB888BE983EDAB211131",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Upgrades/Runtime/LevelUpOption.cs",
+      "baselineSha256": "3F5B8DFEA847D197312C56FF1F8DFD40EBED3019A2E4DE8768BE2CE78227AA20",
+      "currentSha256": "3F5B8DFEA847D197312C56FF1F8DFD40EBED3019A2E4DE8768BE2CE78227AA20",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Waves/EnemySpawner.cs",
+      "baselineSha256": "A8CC0A00C2D6E9DAB22006B597CECE9910DDD4A5EA8FA814CC7AD03696BF0AA9",
+      "currentSha256": "A8CC0A00C2D6E9DAB22006B597CECE9910DDD4A5EA8FA814CC7AD03696BF0AA9",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Waves/WaveDirector.cs",
+      "baselineSha256": "875D775237B3C3853DF8A77E38D5F38467453BA9392EB4B2F4E78456C7C767FB",
+      "currentSha256": "875D775237B3C3853DF8A77E38D5F38467453BA9392EB4B2F4E78456C7C767FB",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Zones/HazardZone.cs",
+      "baselineSha256": "F5238FAA52B39283E65445E3B524C5B9FF40A43764ECB53191DEFFCBE2DEA4D2",
+      "currentSha256": "F5238FAA52B39283E65445E3B524C5B9FF40A43764ECB53191DEFFCBE2DEA4D2",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Adjacency/AdjacencyEffect.cs",
+      "baselineSha256": "C04F989118B9B0B76768BF11ED51C04CAA57B8DF92C1F31C8D4F188D0B86B371",
+      "currentSha256": "C04F989118B9B0B76768BF11ED51C04CAA57B8DF92C1F31C8D4F188D0B86B371",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Adjacency/AdjacencyEffectId.cs",
+      "baselineSha256": "003D4B0600ACF91742A5F9AE330A18009009FB93B81B003663594A8F0FB0A486",
+      "currentSha256": "003D4B0600ACF91742A5F9AE330A18009009FB93B81B003663594A8F0FB0A486",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Adjacency/AdjacencyEffectResolver.cs",
+      "baselineSha256": "3AE28F70694CE3C95E0072DE5E2B68EBCB200D98E56BC7DA6FAD7675A8527176",
+      "currentSha256": "3AE28F70694CE3C95E0072DE5E2B68EBCB200D98E56BC7DA6FAD7675A8527176",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Adjacency/AdjacencyRule.cs",
+      "baselineSha256": "AC0A36CEB401F91476466E1B238E902FF8895EC8BADBE20E8DA4735D02198D6E",
+      "currentSha256": "AC0A36CEB401F91476466E1B238E902FF8895EC8BADBE20E8DA4735D02198D6E",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Adjacency/AdjacencyRuleBook.cs",
+      "baselineSha256": "E822E9FD592AE8E64F4F0E8692BB812655CEEB56CB2F82C2933EC207CDCB5EA3",
+      "currentSha256": "E822E9FD592AE8E64F4F0E8692BB812655CEEB56CB2F82C2933EC207CDCB5EA3",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Core/InventoryGrid.cs",
+      "baselineSha256": "AC10301A7EF369AF8D6FB0840A92CB8056BA6684AE83718F6D75A14E41804799",
+      "currentSha256": "AC10301A7EF369AF8D6FB0840A92CB8056BA6684AE83718F6D75A14E41804799",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Items/ConnectableSides.cs",
+      "baselineSha256": "611E157FE97BF225FC251125AD26E51658FD0C5360AD04D40A4FFA721B70B8A8",
+      "currentSha256": "611E157FE97BF225FC251125AD26E51658FD0C5360AD04D40A4FFA721B70B8A8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Items/Item.cs",
+      "baselineSha256": "3F5E3D15928BB0128BA851F119BEEB416C8062091649B589D9AC0D92A62CDE8A",
+      "currentSha256": "3F5E3D15928BB0128BA851F119BEEB416C8062091649B589D9AC0D92A62CDE8A",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Items/ItemTag.cs",
+      "baselineSha256": "D5E2EC42ABFF3B88EB2263F6E43C060F86167AB316A295D560BD4BE9F474B73C",
+      "currentSha256": "D5E2EC42ABFF3B88EB2263F6E43C060F86167AB316A295D560BD4BE9F474B73C",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Inventory/Items/Rarity.cs",
+      "baselineSha256": "C5A3532269BB748E93D78EDB7C9A5B760455CF2F4580F9C2764221C97FE3E586",
+      "currentSha256": "C5A3532269BB748E93D78EDB7C9A5B760455CF2F4580F9C2764221C97FE3E586",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/Pooling/IPoolable.cs",
+      "baselineSha256": "B2CAAFE275973232E2C4C76F078B2464EEC51C508BC64CB6314506D5DAB9DAAE",
+      "currentSha256": "B2CAAFE275973232E2C4C76F078B2464EEC51C508BC64CB6314506D5DAB9DAAE",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/Pooling/ObjectPool.cs",
+      "baselineSha256": "7281B757D2FAC43E26E7D4DF80C1CE97E165A3B001303890A9CF86968BAE70D8",
+      "currentSha256": "7281B757D2FAC43E26E7D4DF80C1CE97E165A3B001303890A9CF86968BAE70D8",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/Settings/GameSettings.cs",
+      "baselineSha256": "42596D902298D683C330DF90C9AE39F2981EC95CA9C84EDF3F0D6B81829F8D8F",
+      "currentSha256": "42596D902298D683C330DF90C9AE39F2981EC95CA9C84EDF3F0D6B81829F8D8F",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/Settings/SettingsService.cs",
+      "baselineSha256": "F4385CC673C8E14F477BA31C58A084DC806AC3A1FE561C448343E94A09700D81",
+      "currentSha256": "F4385CC673C8E14F477BA31C58A084DC806AC3A1FE561C448343E94A09700D81",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/World/MapBounds.cs",
+      "baselineSha256": "5FA8E6FC42C8E5D1C223194A75B8848307B936D4BCF926A99A4A2773B9E4F559",
+      "currentSha256": "5FA8E6FC42C8E5D1C223194A75B8848307B936D4BCF926A99A4A2773B9E4F559",
+      "unchanged": true,
+      "exists": true
+    },
+    {
+      "path": "BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/World/SpawnPositionSampler.cs",
+      "baselineSha256": "0A489BBEA8AACDA15EA29BE56CE58ECA0FC8EBBB84EFFD2C2641A8B8FE86A469",
+      "currentSha256": "0A489BBEA8AACDA15EA29BE56CE58ECA0FC8EBBB84EFFD2C2641A8B8FE86A469",
+      "unchanged": true,
+      "exists": true
+    }
+  ],
+  "limitations": [
+    "Presentation, Editor, assets, scene bindings and build settings are outside this protected-source hash scope.",
+    "This is not a gameplay runtime test or a Windows 15-minute acceptance test."
+  ],
+  "lastRecheckedAt": "2026-09-09T00:22:43.865524+08:00",
+  "currentFilesRecheckPassed": true,
+  "currentFilesRechecked": 66
+}

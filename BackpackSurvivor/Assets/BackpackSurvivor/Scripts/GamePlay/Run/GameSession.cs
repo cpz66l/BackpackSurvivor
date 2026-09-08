@@ -222,14 +222,14 @@ namespace BS.GamePlay.Run
                 ResumeRun();
         }
         //暂停
-        private void PauseRun()
+        public void PauseRun()
         {
             if(state != GameState.Running) return;
             Time.timeScale = 0f;
             SetState(GameState.Paused);
         }
         //继续
-        private void ResumeRun()
+        public void ResumeRun()
         {
             if (state != GameState.Paused) return;
             Time.timeScale = 1f;

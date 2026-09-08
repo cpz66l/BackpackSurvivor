@@ -1,0 +1,39 @@
+--- baseline/BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/DropItem.cs
++++ current/BackpackSurvivor/Assets/BackpackSurvivor/Scripts/GamePlay/Loot/Drops/DropItem.cs
+@@ -1,6 +1,7 @@
+ using BS.Core;
+ using BS.GamePlay.Interaction;
+ using BS.Inventory;
++using BS.Presentation;
+ using System;
+ using System.Collections;
+ using UnityEngine;
+@@ -19,6 +20,7 @@
+         [SerializeField] private float flightDuration = 0.4f;// 飞行时长
+         [SerializeField] private float arcHeight = 2f;// 抛物线峰值高度
+         [SerializeField] private Material visualMaterial;
++        [SerializeField] private LootRarityBeacon rarityBeacon;
+         private float survivalTimer = 0f;
+         private bool isCollected;
+         private Coroutine flightRoutine;
+@@ -72,6 +74,7 @@
+         {
+             this.lootEntry = lootEntry;
+             ApplyVisualColor(GetRarityColor(lootEntry.rarity));
++            rarityBeacon?.SetRarity(lootEntry.rarity);
+         }
+ 
+         private Color GetRarityColor(Rarity rarity)
+@@ -179,10 +182,11 @@
+             survivalTimer = 0f;
+             itemCollider.enabled = true;// 防"飞行中被回收"留下的关碰撞器中毒态
+             isCollected = false;
++            rarityBeacon?.ResetVisual();
+         }
+         public void OnReturnPool()
+         {
+-
++            rarityBeacon?.ResetVisual();
+         }
+     }
+ }

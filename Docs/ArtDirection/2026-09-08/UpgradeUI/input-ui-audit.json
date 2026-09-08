@@ -1,0 +1,78 @@
+{
+  "allPassed": true,
+  "cleanupPassed": true,
+  "hudRestored": true,
+  "settingsRestored": true,
+  "devicesRestored": true,
+  "pairingRestored": true,
+  "reopenedWithoutFocus": true,
+  "scene": "Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+  "selected": "FireRateUp",
+  "finalState": "Running",
+  "error": null,
+  "finalTimeScale": 1.0,
+  "statApplyEvents": 1,
+  "tabInputEvents": 1,
+  "elapsedSeconds": 0.70953120000012859,
+  "checks": [
+    {
+      "name": "Initial Enter has no selection",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Initial Space has no selection",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Right focuses card 1",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Right focuses card 2",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Left returns to card 1",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Enter after clearing focus does not submit",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Tab reaches InputReader and does not alter inventory",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Digit 2 applies once and restores HUD",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Repeated Digit 2 cannot apply again",
+      "passed": true,
+      "dynamicPress": true,
+      "dynamicRelease": true
+    },
+    {
+      "name": "Second real XP offer opens with no selection",
+      "passed": true
+    }
+  ],
+  "method": "Virtual Keyboard QueueStateEvent press/release processed by normal Dynamic player-loop updates; real XP -> GameSession -> LevelUpChoiceView. No manual input update or direct choice calls."
+}

@@ -1,0 +1,149 @@
+{
+  "generatedBy": "build_landmark_modules.py / Blender 5.2.1 LTS",
+  "assets": [
+    {
+      "name": "ShippingContainer",
+      "triangles": 1568,
+      "vertices": 1064,
+      "unityDimensions": [
+        6.06,
+        2.59,
+        2.44
+      ],
+      "blenderBounds": {
+        "min": [
+          -3.0299999713897705,
+          -1.21999990940094,
+          -1.1920928955078125e-07
+        ],
+        "max": [
+          3.0299999713897705,
+          1.21999990940094,
+          2.5900001525878906
+        ]
+      },
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "primitives": 1,
+      "glbBytes": 113796,
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "pivot": "bottom centre",
+      "unityFront": "+Z",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/ShippingContainer.glb",
+      "simpleCollidersUnity": [
+        {
+          "center": [
+            0,
+            1.295,
+            0
+          ],
+          "size": [
+            6.06,
+            2.59,
+            2.44
+          ]
+        }
+      ],
+      "doorDirection": "+X"
+    },
+    {
+      "name": "CheckpointCanopy",
+      "triangles": 784,
+      "vertices": 464,
+      "unityDimensions": [
+        8.0,
+        4.4,
+        3.00087
+      ],
+      "blenderBounds": {
+        "min": [
+          -4.0,
+          -1.5004349946975708,
+          0.0
+        ],
+        "max": [
+          4.0,
+          1.5004349946975708,
+          4.399999618530273
+        ]
+      },
+      "materials": [
+        "ENV_AtlasSurface"
+      ],
+      "primitives": 1,
+      "glbBytes": 60008,
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "pivot": "bottom centre",
+      "unityFront": "+Z",
+      "file": "BackpackSurvivor/Assets/BackpackSurvivor/Art/Environment/VNext/Models/CheckpointCanopy.glb",
+      "simpleCollidersUnity": [
+        {
+          "center": [
+            -3.5,
+            2.01,
+            -1.1
+          ],
+          "size": [
+            0.52,
+            4.02,
+            0.52
+          ]
+        },
+        {
+          "center": [
+            -3.5,
+            2.01,
+            1.1
+          ],
+          "size": [
+            0.52,
+            4.02,
+            0.52
+          ]
+        },
+        {
+          "center": [
+            3.5,
+            2.01,
+            -1.1
+          ],
+          "size": [
+            0.52,
+            4.02,
+            0.52
+          ]
+        },
+        {
+          "center": [
+            3.5,
+            2.01,
+            1.1
+          ],
+          "size": [
+            0.52,
+            4.02,
+            0.52
+          ]
+        }
+      ],
+      "placement": "Perimeter only; four column boxes, never a solid full-canopy box."
+    }
+  ],
+  "totalTriangles": 2352,
+  "totalGlbBytes": 173804,
+  "paletteSha256": {
+    "ENV_Palette_BaseColor.png": "2ab28d81fd2527d685dbf9a161fb9cd5467b69b79eff1acfa449bf5a1ec1354a",
+    "ENV_Palette_Emission.png": "595015a43b3466604551640d0aef30d3d844f44f69e8ed3b36ac112e4d0e2f5b",
+    "ENV_Palette_MetallicRoughness.png": "9570943098a0eec1a85767bf47017536116cb7b3b163b2d84bb6b281c1571e7b",
+    "ENV_Palette_MetallicSmoothness.png": "5d53f2685f3077290d112db160f3f14fb8b6046d7cdf8855a99b2a23ce782122"
+  }
+}

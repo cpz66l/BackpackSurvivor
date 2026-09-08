@@ -1,0 +1,1054 @@
+{
+  "capturedAt": "2026-09-09T00:22:43.865524+08:00",
+  "scope": "Offline serialized Map subtree, including all directly represented components and 97 referenced PrefabInstance records; no Unity editor operations.",
+  "allPassed": true,
+  "baselineScene": "Docs/ArtDirection/V0.4/01-Run_ArtFull.before-v04.unity",
+  "baselineSceneSha256": "7364BB7750D27186A64C0DE1FB8488E102696E7B794DC5C893AC74A7159FC17B",
+  "currentArtScene": "BackpackSurvivor/Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity",
+  "currentArtSceneSha256": "8E03A7153AC8CD18E876495D5502CC06E66B2EE429367F4F16618AE045F839D2",
+  "mapRootName": "Map",
+  "mapObjectAndComponentRecords": 1055,
+  "componentTypeCounts": {
+    "GameObject": 277,
+    "Transform": 374,
+    "BoxCollider": 97,
+    "MeshRenderer": 149,
+    "MeshFilter": 149,
+    "MonoBehaviour": 5,
+    "Light": 4
+  },
+  "transformRecords": 374,
+  "fullTransformRecords": 277,
+  "strippedPrefabTransformRecords": 97,
+  "meshFilterRecords": 149,
+  "boxColliderRecords": 97,
+  "prefabInstanceRecords": 97,
+  "prefabInstancesByteSemanticEqual": true,
+  "mapRecordFileIdSetsEqual": true,
+  "baselineMapSemanticSha256ExcludingRendererMaterials": "3950047EA037150506DD4B8D8853D69C076A8181823041F1C212A2E747DC5012",
+  "currentMapSemanticSha256ExcludingRendererMaterials": "3950047EA037150506DD4B8D8853D69C076A8181823041F1C212A2E747DC5012",
+  "mapRadiusBefore": 60,
+  "mapRadiusAfter": 60,
+  "mapDiameterMeters": 120,
+  "permittedMaterialOnlyChanges": 56,
+  "materialChanges": [
+    {
+      "rendererFileID": 20443069,
+      "gameObject": "InfieldPad_1",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 69073128,
+      "gameObject": "RepairApron",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 72352182,
+      "gameObject": "Sector_3_2_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 73244116,
+      "gameObject": "CentralRecoveryApron",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "ce8d36b77c1b4df4a87fb5e199221014",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "b877616b3600c0c45af3c9d79952e731",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 81539239,
+      "gameObject": "Sector_0_1_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 111902915,
+      "gameObject": "Sector_0_1_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 121759892,
+      "gameObject": "Sector_0_2_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 132279968,
+      "gameObject": "Sector_2_1_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 173221375,
+      "gameObject": "Sector_2_1_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 182030936,
+      "gameObject": "ApproachRoad_2",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "12d67a3c0abca68448d0c33e4acf53d9",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "34d9c84214ef355448aac4d001e28da6",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 242101338,
+      "gameObject": "Sector_0_3_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 365292779,
+      "gameObject": "Sector_1_2_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 388866138,
+      "gameObject": "Sector_1_3_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 435710859,
+      "gameObject": "Sector_1_2_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 453198118,
+      "gameObject": "Sector_3_1_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 496425656,
+      "gameObject": "OuterRoadEdge",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 526362005,
+      "gameObject": "PlayableBoundaryMark",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 575258148,
+      "gameObject": "Sector_3_2_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 599024835,
+      "gameObject": "Sector_0_0_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 601183921,
+      "gameObject": "Sector_2_3_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 629542359,
+      "gameObject": "Sector_3_3_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 687690107,
+      "gameObject": "CentralRecoveryMark",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 697753621,
+      "gameObject": "Sector_2_2_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 905148962,
+      "gameObject": "Sector_3_0_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 922195063,
+      "gameObject": "Sector_2_0_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 979998187,
+      "gameObject": "CargoApron",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "ce8d36b77c1b4df4a87fb5e199221014",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "b877616b3600c0c45af3c9d79952e731",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1046745839,
+      "gameObject": "Sector_2_2_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1051727490,
+      "gameObject": "Sector_1_0_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1089293582,
+      "gameObject": "Sector_0_2_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1097324422,
+      "gameObject": "InnerRoadEdge",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1120992510,
+      "gameObject": "CirculationRoad_10m",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "12d67a3c0abca68448d0c33e4acf53d9",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "34d9c84214ef355448aac4d001e28da6",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1164851745,
+      "gameObject": "Sector_1_3_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1171997387,
+      "gameObject": "Sector_3_1_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1322094331,
+      "gameObject": "Sector_2_2_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1351729301,
+      "gameObject": "Sector_1_1_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1402636506,
+      "gameObject": "Sector_2_0_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1434189675,
+      "gameObject": "InfieldPad_3",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1473144309,
+      "gameObject": "Sector_1_0_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1634241623,
+      "gameObject": "ApproachRoad_3",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "12d67a3c0abca68448d0c33e4acf53d9",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "34d9c84214ef355448aac4d001e28da6",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1713266528,
+      "gameObject": "Sector_1_2_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1743197840,
+      "gameObject": "Sector_1_0_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1744821876,
+      "gameObject": "ApproachRoad_0",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "12d67a3c0abca68448d0c33e4acf53d9",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "34d9c84214ef355448aac4d001e28da6",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1755103418,
+      "gameObject": "Sector_2_3_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1787419854,
+      "gameObject": "Sector_1_1_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1827676527,
+      "gameObject": "Sector_3_2_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1845797233,
+      "gameObject": "InfieldPad_0",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 1898796052,
+      "gameObject": "CheckpointApron",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2030730526,
+      "gameObject": "Sector_2_3_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2037693221,
+      "gameObject": "CentralMaintenanceInset",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2058692636,
+      "gameObject": "Sector_2_1_AmberPaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d922256a9d000ab4cb8292c992547f31",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "a9f0270669ccaeb4c85e7fd55b7bb128",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2068830426,
+      "gameObject": "Sector_3_1_Patch",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d6fe249cf4e7f024f933eef26a1b9984",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "5e8eeb7007622a9408a22d7e8a45e948",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2095679547,
+      "gameObject": "ApproachRoad_1",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "12d67a3c0abca68448d0c33e4acf53d9",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "34d9c84214ef355448aac4d001e28da6",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2107997053,
+      "gameObject": "CentralSupplyInset",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2118439917,
+      "gameObject": "Sector_1_3_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2120811721,
+      "gameObject": "Sector_1_1_WhitePaint",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "aa5e7d79eff2b63468a85398cc7ed75c",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4f9f82be16b895c4fa716e41cad12e0d",
+          "type": 2
+        }
+      ]
+    },
+    {
+      "rendererFileID": 2123619356,
+      "gameObject": "InfieldPad_2",
+      "before": [
+        {
+          "fileID": 2100000,
+          "guid": "d1411bb5b904599478e15c3eccde9994",
+          "type": 2
+        }
+      ],
+      "after": [
+        {
+          "fileID": 2100000,
+          "guid": "4277097f6d7a0324ba98113dbb2d715f",
+          "type": 2
+        }
+      ]
+    }
+  ],
+  "unexpectedChanges": [],
+  "formalScene": "BackpackSurvivor/Assets/BackpackSurvivor/Scenes/Run/01-Run.unity",
+  "formalExpectedSha256": "06A4F25DCCFAA16A88A71809CF941BBE0794872AA3AD303507FC675D20043BA1",
+  "formalActualSha256": "06A4F25DCCFAA16A88A71809CF941BBE0794872AA3AD303507FC675D20043BA1",
+  "formalSceneHashMatches": true,
+  "limitations": [
+    "Compares scene-serialized geometry, mesh/collider references and prefab instance source/overrides; it does not expand or byte-compare external model/mesh asset contents without an asset baseline.",
+    "ArtFull file hash is expected to differ from the snapshot because permitted UI bindings and renderer materials changed.",
+    "No gameplay/FPS/Windows 15-minute result is inferred from this offline structural audit."
+  ]
+}
