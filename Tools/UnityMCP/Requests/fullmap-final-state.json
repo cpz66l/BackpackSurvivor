@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"manage_scene","arguments":{"action":"get_active"}},{"kind":"tool","tool":"read_console","arguments":{"action":"get","types":["error","warning"],"count":10}}]}

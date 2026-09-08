@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"execute_code","arguments":{"action":"execute","code":"BackpackSurvivor.EditorTools.ArtPreviewBuilder.Build(); return BackpackSurvivor.EditorTools.ArtPreviewBuilder.PreviewScene;"}}]}

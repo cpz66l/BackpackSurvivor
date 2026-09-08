@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"generate_model","arguments":{"action":"list_providers"}},{"kind":"tool","tool":"read_console","arguments":{"action":"get","types":["error"],"count":20}}]}

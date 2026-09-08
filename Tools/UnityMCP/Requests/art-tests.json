@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"run_tests","arguments":{"mode":"EditMode","assembly_names":["BS.World.Tests"],"include_details":true}}]}

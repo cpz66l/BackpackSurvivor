@@ -1,0 +1,7 @@
+{
+  "requests": [
+    {"kind":"tool","tool":"manage_scene","arguments":{"action":"load","path":"Assets/BackpackSurvivor/Scenes/Run/01-Run.unity"}},
+    {"kind":"tool","tool":"manage_scene","arguments":{"action":"get_active"}},
+    {"kind":"tool","tool":"manage_scene","arguments":{"action":"get_hierarchy","page_size":40,"max_depth":2,"include_transform":true}}
+  ]
+}

@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"manage_camera","arguments":{"action":"screenshot","camera":"Main Camera","screenshot_super_size":2,"include_image":true,"max_resolution":1600,"screenshot_file_name":"recovery-yard-slice","output_folder":"Logs/ArtAudit"}},{"kind":"tool","tool":"read_console","arguments":{"action":"get","types":["error"],"count":15}}]}

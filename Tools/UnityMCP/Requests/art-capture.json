@@ -1,0 +1,7 @@
+{
+  "requests": [
+    {"kind":"tool","tool":"manage_camera","arguments":{"action":"screenshot","camera":"Main Camera","include_image":true,"max_resolution":1600,"screenshot_file_name":"art-audit-run-camera","output_folder":"Logs/ArtAudit"}},
+    {"kind":"tool","tool":"manage_scene","arguments":{"action":"get_active"}},
+    {"kind":"tool","tool":"read_console","arguments":{"action":"get","types":["error"],"count":10}}
+  ]
+}

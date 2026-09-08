@@ -1,0 +1,13 @@
+{
+  "requests": [
+    {
+      "arguments": {
+        "include_details": true,
+        "job_id": "797f5435231e49d2a551f13a3440c9b3",
+        "wait_timeout": 30
+      },
+      "tool": "get_test_job",
+      "kind": "tool"
+    }
+  ]
+}

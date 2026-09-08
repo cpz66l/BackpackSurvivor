@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"execute_code","arguments":{"action":"execute","code":"return BackpackSurvivor.EditorTools.FullMapArtCapture.CaptureAll();"}},{"kind":"tool","tool":"read_console","arguments":{"action":"get","types":["error","warning"],"count":15}}]}

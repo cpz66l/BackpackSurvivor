@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"execute_code","arguments":{"action":"execute","code":"return UnityEditor.AssetDatabase.RenameAsset(\"Assets/BackpackSurvivor/Editor/FullMapArtAudit.cs\", \"FullMapSceneAudit\");"}},{"kind":"tool","tool":"refresh_unity","arguments":{"mode":"force","scope":"all","compile":"request","wait_for_ready":false}}]}

@@ -1,0 +1,1 @@
+{"requests":[{"kind":"tool","tool":"get_test_job","arguments":{"job_id":"185c105abcc049ed83dea8221d1348bc","include_details":true,"wait_timeout":30}}]}
