@@ -357,3 +357,8 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 
 
 S8 追加：新增 `NpcDialogueService`，使用现有配置解析和 UnityWebRequest 调用 DeepSeek，固定 thinking disabled，事实块注入、原始响应和工具审计日志、校验失败离线回退已具备。当前请求仍为无工具的最小文本通道，工具白名单与三种 UI 面板待补。
+
+
+## S9/S10 · 表现接口（进行中）
+
+新增 `QuestTrackerView`，统一消费 `QuestEvaluator` 结果；新增 `RadioSubtitleView`，订阅现有 `WaveDirector.OnWaveStageChanged(int,string,Color)` 并提供超时字幕。两者已编译通过，尚未绑定正式 Builder 场景，也未接入 S9 的全量实时事件和 S10 的异步 DeepSeek 脉冲请求。
