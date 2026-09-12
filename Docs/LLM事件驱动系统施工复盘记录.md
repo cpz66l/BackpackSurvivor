@@ -454,3 +454,15 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 **未验证或已知限制**：测试快照为纯 C# 构造，S3 真实快照回放仍需单独加入固定样本；`Progress01` 对物品类条件仍只提供 0/1 结果，属于表现层后续优化，不影响本地完成判定。
 
 **超出范围未做**：未修改战斗、掉落、存档或 UI；未接入 LLM。
+
+## S5 验收补齐 · 事件池连续抽签与存档往返（2026-09-13）
+
+**阶段**：S5 · 事件池与抽签器。
+
+**核心链路**：`QuestDatabase → QuestDrawer → QuestInstance → CampaignSave`。
+
+**验证结果**：UnityMCP 直接调用 `QuestS5Audit.Run()`，读取真实 `Data/Quest/` 资产。审计按 tier 1 至 5 连续抽取，每层均得到该层候选；每次接受均冻结 seed、definitionVersion、条件和全量 questOnly 名单。已完成事件再次抽签被过滤，最后将 5 个已完成事件及 pending 合同经 `JsonUtility` 序列化并反序列化，字段完整恢复。证据见 `Docs/Evidence/S5/verification.txt`。
+
+**未验证或已知限制**：这是 Editor 级连续流程审计，不模拟五次真实胜利结算；由 S11 负责将真实胜利结果以幂等方式写入 completed/tier。终局事件的可达性留待 S12 采样。
+
+**超出范围未做**：不接 LLM，不做正式内容与美术，不改掉落权重。

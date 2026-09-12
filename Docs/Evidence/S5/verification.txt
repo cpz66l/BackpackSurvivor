@@ -1,0 +1,7 @@
+2026-09-12T16:07:26.1070479Z
+PASS tier=1 event=prototype-t1-2 seed=5001
+PASS tier=2 event=prototype-t2-3 seed=5002
+PASS tier=3 event=prototype-t3-2 seed=5003
+PASS tier=4 event=prototype-t4-3 seed=5004
+PASS tier=5 event=prototype-t5-2 seed=5005
+PASS campaign JSON roundtrip: completed=5 pending=frozen
