@@ -1,0 +1,6 @@
+{
+  "name": "BS.Npc.Core",
+  "references": ["BS.Quest.Core"],
+  "noEngineReferences": true,
+  "autoReferenced": true
+}
