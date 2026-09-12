@@ -30,6 +30,9 @@ namespace BS.GamePlay.Loot
         /// <param name="bundle">掉落频道</param>
         /// <returns>选中的频道，若无有效条目则返回 null</returns>
         public List<LootEntry> RollBundle(LootTableData bundle)
+            => RollBundle(bundle, LootContext.Normal);
+
+        public List<LootEntry> RollBundle(LootTableData bundle, LootContext context)
         {
             List<LootEntry> entries = new List<LootEntry>();
             // 若频道为空或无效，直接返回 null
@@ -39,7 +42,7 @@ namespace BS.GamePlay.Loot
             {
                 if(UnityEngine.Random.value < c.probability)
                 {
-                    LootEntry entry = Roll(c.subTable);
+                    LootEntry entry = Roll(c.subTable, context);
                     if (entry != null)
                         entries.Add(entry);
                 }
@@ -53,6 +56,9 @@ namespace BS.GamePlay.Loot
         /// <param name="table">掉落表资产</param>
         /// <returns>选中的掉落条目，若无有效条目则返回 null</returns>
         public LootEntry Roll(LootTableData table)
+            => Roll(table, LootContext.Normal);
+
+        public LootEntry Roll(LootTableData table, LootContext context)
         {
             // 若条目为空或无效，直接返回 null
             if (table == null || table.entries == null || table.entries.Length == 0)
@@ -64,6 +70,7 @@ namespace BS.GamePlay.Loot
                 //获得从稀有度≥蓝 的条目
                 LootEntry[] eligible = Array.FindAll
                     (table.entries, e => e != null && e.weight > 0
+                    && (context == null || context.Allows(e.id, e.questOnly))
                     && (int)e.rarity >= (int)Rarity.Rare);
 
                 if (eligible.Length > 0)
@@ -77,7 +84,8 @@ namespace BS.GamePlay.Loot
                 }
             }
             //全表抽取
-            LootEntry result = PickByWeight(table.entries);
+            LootEntry[] candidates = Array.FindAll(table.entries, e => e != null && e.weight > 0 && (context == null || context.Allows(e.id, e.questOnly)));
+            LootEntry result = PickByWeight(candidates);
             if (result == null) return null;
 
             //中蓝以上保底也清零

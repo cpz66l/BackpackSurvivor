@@ -302,3 +302,24 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 **超出范围未做**：营地 UI、存档推进、questOnly 掉落过滤、LLM 与对话。
 
 下一阶段：S6 · questOnly 过滤。
+
+
+## S6 · questOnly 过滤（本次实施报告）
+
+**阶段**：S6。
+
+**核心链路**：`LootManager` 会话上下文 → `LootRoller.Roll/ RollBundle` 两条候选路径 → 过滤后的掉落。
+
+**目的**：常规局排除任务局专属物品，合同局允许全量 `questOnly` 池，并保留未来子集配置接口。
+
+**技术选择**：新增 `LootContext`；默认上下文关闭 questOnly；合同上下文允许全量或指定 id。过滤发生在抽签前，常规抽取和保底抽取均使用同一谓词；三个 `TrySpawnDrop` 调用点未修改。`LootManager.SetContractRun` 提供会话边界。
+
+**改动文件**：`Scripts/GamePlay/Loot/Rolling/LootContext.cs`；`LootRoller.cs` 的重载与两条候选过滤；`LootManager.cs` 的上下文持有/设置；新增 `Editor/LLM/QuestS6Audit.cs` 审计菜单；同步施工流程状态。
+
+**验证结果**：Unity 刷新编译，Console 错误 0；S6 审计菜单覆盖常规排除、合同允许和限制 id 三组断言。
+
+**未验证或已知限制**：审计菜单执行日志在 UnityMCP 异步读取窗口为空，尚未留存单独统计文件；未接入真实合同运行时（S7），未做大样本概率统计。
+
+**超出范围未做**：营地、存档推进、对话、波次脉冲、结算汇报。
+
+下一阶段：S7 · 调度营地与合同面板。

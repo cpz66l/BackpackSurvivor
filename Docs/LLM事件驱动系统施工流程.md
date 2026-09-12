@@ -123,7 +123,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 已完成（16 类条件、死亡/AND/空任务边界，3/3 EditMode 测试通过） |
 | S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 已完成（4/4 EditMode 测试通过；存档接入留给 S7） |
-| S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 未开始 |
+| S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 已完成（编译通过，过滤审计菜单已加入） |
 | S7 | 调度营地与合同面板 | 抽签 → 营地 → 面板 → 进图 → 合同生效 | S5、S6 | 未开始 |
 | S8 | 营地对话接入 | 合同 → 事实块 → 工具 → 校验 → 对话 | S1、S2、S7 | 未开始 |
 | S9 | 局内追踪器 | 多源进度事件 → 判定 → HUD | S3、S4、S7 | 未开始 |

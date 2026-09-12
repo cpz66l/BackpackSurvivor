@@ -14,6 +14,11 @@ namespace BS.GamePlay.Loot
         [SerializeField] private float offset = 0.8f;
 
         private LootRoller lootRoller;
+        private LootContext context = LootContext.Normal;
+        public bool ContractRun => context.AllowQuestOnly;
+
+        public void SetContractRun(bool active, IReadOnlyCollection<string> allowedQuestOnlyItemIds = null)
+        { context = new LootContext(active, allowedQuestOnlyItemIds); }
 
         void Start ()
         {
@@ -25,7 +30,7 @@ namespace BS.GamePlay.Loot
         public List<GameObject> TrySpawnDrop(Vector3 position , LootTableData bundle)
         {
             List<GameObject> spawned = new List<GameObject>();
-            List<LootEntry> list = lootRoller.RollBundle(bundle);
+            List<LootEntry> list = lootRoller.RollBundle(bundle, context);
             foreach (LootEntry entry in list)
             {
                 GameObject go = SpawnEntry(entry, position);
