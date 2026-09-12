@@ -137,14 +137,27 @@ namespace BS.GamePlay.Save
 
         private void OnDestroy() { if (Instance == this) Instance = null; }
 
+        public bool TryCompleteQuest(QuestInstance quest, bool final, out string error)
+        {
+            error = null;
+            if (quest == null || string.IsNullOrWhiteSpace(quest.eventId)) { error="合同无效。"; return false; }
+            var next = JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(CurrentData ?? SaveData.CreateDefault()));
+            if (next.campaign == null) next.campaign = new CampaignSave();
+            if (next.campaign.completedEventIds == null) next.campaign.completedEventIds = new System.Collections.Generic.List<string>();
+            if (next.campaign.completedEventIds.Contains(quest.eventId)) return true;
+            next.campaign.completedEventIds.Add(quest.eventId);
+            next.campaign.pendingQuest = null;
+            if (!final) next.campaign.tier = Math.Max(next.campaign.tier, quest.tier + 1);
+            next.campaign.finalCompleted |= final;
+            if (!CampaignFile.TryWrite(SavePath, JsonUtility.ToJson(next, true), out error)) return false;
+            CurrentData = next;
+            return true;
+        }
+
         public void CompleteQuest(QuestInstance quest, bool final)
         {
-            if (CurrentData == null) CurrentData = SaveData.CreateDefault();
-            if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
-            if (quest != null && !CurrentData.campaign.completedEventIds.Contains(quest.eventId)) CurrentData.campaign.completedEventIds.Add(quest.eventId);
-            CurrentData.campaign.pendingQuest = null;
-            if (quest != null && !final) CurrentData.campaign.tier = Math.Max(CurrentData.campaign.tier, quest.tier + 1);
-            CurrentData.campaign.finalCompleted |= final; Save();
+            TryCompleteQuest(quest, final, out string error);
+            if (!string.IsNullOrEmpty(error)) Debug.LogWarning("合同结算写档失败：" + error);
         }
 
     }

@@ -322,7 +322,10 @@ namespace BS.GamePlay.Run
             {
                 lastQuestOutcome = QuestEvaluator.Evaluate(questAtSettlement, snapshot);
                 if (lastQuestOutcome.Completed)
-                    SaveService.Instance.CompleteQuest(questAtSettlement, questAtSettlement.isFinal);
+                {
+                    if (!SaveService.Instance.TryCompleteQuest(questAtSettlement, questAtSettlement.isFinal, out string saveError))
+                        Debug.LogWarning("[Quest] completion not committed: " + saveError);
+                }
             }
             QuestTelemetry.Record(questAtSettlement, snapshot, lastQuestOutcome);
             int backpackValue = snapshot.backpackValue;

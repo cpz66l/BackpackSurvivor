@@ -482,3 +482,9 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 ## S10 实施记录 · 波次脉冲接入 DeepSeek（2026-09-13）
 
 `WavePulseService` 继续订阅现有 `WaveDirector.OnWaveStageChanged(int,string,Color)`，延迟后构造当前阶段事实并调用 NPC 服务的 Pulse 路由；无历史、不写营地/结算记录，使用 token、阶段编号与 realtime TTL 丢弃过期回调。Pulse 路由上限为 60 字，失败回落本地阶段文案。编译验证无错误；尚未完成打满一局的 4 次阶段切换和人为慢响应截图，S10 仍为进行中。
+
+## S11 实施记录 · 结算完成写档原子性（2026-09-13）
+
+`GameSession.EndRun` 继续只使用冻结的 `QuestRunSnapshot` 做本地判定；只有 `QuestOutcome.Completed` 时调用新的 `SaveService.TryCompleteQuest`。该接口先深拷贝存档，在临时文件 Flush 后 Replace 成功时才替换内存并清除 pending、记录 completed、推进 tier；同一事件重复提交直接幂等返回，不会重复推进。写档失败保留 pending，且只输出错误摘要。Unity 编译验证无错误。
+
+结算页已有本地任务结果入口和返回营地按钮，但逐件物品高亮、完整汇报请求及四种真实结算场景仍待补齐，S11 尚未完成。
