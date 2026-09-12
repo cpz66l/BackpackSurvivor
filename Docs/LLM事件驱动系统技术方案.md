@@ -201,6 +201,8 @@ public class QuestInstance
     public string eventId;
     public int tier;
     public int seed;                              // 可复现，同时作为 LLM 的多样性种子
+    public int tag;                               // 接受时冻结的去重分类编号
+    public bool isFinal;                          // 接受时冻结终局属性，不再查可变定义
     public string definitionVersion;              // 接受合同时记录的定义版本；后续可发布新版本，但不改写已接受实例
     public List<ObjectiveClause> objectives;      // 权威条件，本地持有
     public List<string> activeQuestOnlyItemIds;   // 首版固定为全量 questOnly 池；字段保留以支持后续子集配置
@@ -854,14 +856,13 @@ LLM 网络层是整个方案里唯一的外部依赖。建议先做一个"一厘
 [Serializable]
 public class CampaignSave
 {
-    public int campaignTier = 1;                 // 已解锁的最高层级
-    public List<string> completedEventIds;       // 已完成事件
-    public string pendingEventId;                // 已抽未完成的合同
-    public int pendingEventSeed;
-    public string pendingDefinitionVersion;      // 接受合同时记录的合同定义版本
-    public List<string> pendingQuestOnlyItemIds;
-    public int contractRuns;
-    public int contractClears;
+    public int tier = 1;                          // 已解锁的最高层级
+    public List<string> completedEventIds = new List<string>();
+    public QuestInstance pendingQuest;            // 完整权威快照，含定义版本、seed、条件及全量专属名单
+    public bool finalCompleted;
+    public int drawCount;                         // 首版仅记录，不限制重抽
+    public int lastTag = -1;
+    public List<string> recentEventIds = new List<string>(); // 最近五次抽签，用于降权
 }
 ```
 

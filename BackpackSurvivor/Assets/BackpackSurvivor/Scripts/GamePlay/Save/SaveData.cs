@@ -37,4 +37,7 @@ namespace BS.GamePlay.Save
         public List<string> completedEventIds = new List<string>();
         public QuestInstance pendingQuest;
         public bool finalCompleted;
+        public int drawCount;
+        public int lastTag = -1;
+        public List<string> recentEventIds = new List<string>();
     }

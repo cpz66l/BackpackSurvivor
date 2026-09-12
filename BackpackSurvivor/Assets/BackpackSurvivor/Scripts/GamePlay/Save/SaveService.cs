@@ -9,7 +9,17 @@ namespace BS.GamePlay.Save
     {
         //持久化配置，先用常量保存文件名与路劲，防止拼写错误
         private const string SaveFileName = "save_data.json";
-        private string SavePath => Path.Combine(UnityEngine.Application.persistentDataPath, SaveFileName);
+        private string SavePath
+        {
+            get
+            {
+#if UNITY_EDITOR
+                string auditPath = UnityEditor.SessionState.GetString("BS.Quest.AuditSavePath", "");
+                if (!string.IsNullOrEmpty(auditPath)) return auditPath;
+#endif
+                return Path.Combine(Application.persistentDataPath, SaveFileName);
+            }
+        }
 
         public static SaveService Instance { get; private set; } //实现单例
         public SaveData CurrentData { get; private set; }
@@ -106,12 +116,26 @@ namespace BS.GamePlay.Save
 
             Save();
         }
-        public void SetPendingQuest(QuestInstance quest)
+        public bool TrySetPendingQuest(QuestInstance quest, out string error)
         {
-            if (CurrentData == null) CurrentData = SaveData.CreateDefault();
-            if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
-            CurrentData.campaign.pendingQuest = quest; Save();
+            error = null;
+            if (quest == null || string.IsNullOrWhiteSpace(quest.eventId) || quest.objectives == null || quest.objectives.Count == 0)
+            { error = "合同数据不完整，无法接受。"; return false; }
+            var next = JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(CurrentData ?? SaveData.CreateDefault()));
+            if (next.campaign == null) next.campaign = new CampaignSave();
+            if (next.campaign.finalCompleted) { error = "当前战役已通关。"; return false; }
+            next.campaign.pendingQuest = quest.Copy();
+            next.campaign.drawCount++;
+            next.campaign.lastTag = quest.tag;
+            if (next.campaign.recentEventIds == null) next.campaign.recentEventIds = new System.Collections.Generic.List<string>();
+            next.campaign.recentEventIds.Add(quest.eventId);
+            while (next.campaign.recentEventIds.Count > 5) next.campaign.recentEventIds.RemoveAt(0);
+            if (!CampaignFile.TryWrite(SavePath, JsonUtility.ToJson(next, true), out error)) return false;
+            CurrentData = next;
+            return true;
         }
+
+        private void OnDestroy() { if (Instance == this) Instance = null; }
 
         public void CompleteQuest(QuestInstance quest, bool final)
         {

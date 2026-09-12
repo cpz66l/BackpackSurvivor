@@ -403,3 +403,40 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 **未验证或已知限制**：本次测试是真实掉落配置与掷骰器，未把脚本掷骰称为人工开箱游玩。营地目前还不能生成真实合同，S7 完成前不宣称玩家入口闭环已通。S4/S5/S7 的此前完成报告有验收缺项，状态表已纠正，后续继续补齐。
 
 **超出范围未做**：S12 难度/可达性校准；没有修改任何现有掉落权重，没有定向保底，没有把合同模式的空名单视作全量池。
+
+## S7 验收补齐 · 合同发放与营地往返（2026-09-13）
+
+**阶段**：S7 · 调度营地与合同面板。
+
+**核心链路**：本地事件池 → 抽签并冻结条件 → 成功写档 → 营地面板 → 出击注入合同及全量任务物品池 → 暂停/死亡返回营地 → 重试或重抽。
+
+**目的**：补齐此前仅有空合同容器的缺口，证明玩家能沿实际按钮路径连续出击，并在重启后保留同一合同。
+
+**技术选择**：沿用 Editor Builder 和项目中文字体；15 个本地占位事件（5 层、每层 3 个），不作为最终内容或难度结论。接受合同深拷贝条件及集合，避免修改 SO 或原候选。抽签记录最近五次事件并降低重复权重；重抽不限次数。接受合同采用临时文件 Flush/Replace 成功后再替换内存。验收通过 Editor SessionState 指定临时存档并跨 Play 重启，不读写玩家真实存档；临时启用后台帧后恢复。
+
+**改动文件**（以下路径相对 `BackpackSurvivor/Assets/BackpackSurvivor/`，新增资产均含 Unity meta）：
+
+- `Scripts/Quest/Core/QuestConditions.cs`、`QuestDrawer.cs`：冻结 tag/isFinal、深拷贝、重复降权及非法权重过滤。
+- `Scripts/Quest/Core/ObjectiveText.cs`：16 种条件的本地中文表达，开箱品质精确计数。
+- `Scripts/Quest/QuestDatabase.cs`：读取全量 questOnly 资产池并提供候选。
+- `Editor/QuestCatalogBuilder.cs`、`Data/Quest/`：建立数据库及 15 个可本地维护的占位定义；已有数据库不会被重建覆盖。
+- `Scripts/GamePlay/Save/SaveData.cs`、`SaveService.cs`、`CampaignFile.cs`：抽签状态、接受合同写档接口和测试隔离路径。
+- `Scripts/Quest/CampController.cs`、`Editor/CampSceneBuilder.cs`、`Scenes/Camp/Camp.unity`：可出击、重抽、返回的营地；未开局背包为空，UI 使用新输入系统。
+- `Scripts/Presentation/Pause/PauseMenuView.cs`、`Result/ResultView.cs`：重试及结算返回营地。
+- `Editor/V04MainMenuArtBuilder.cs`、`V04RunMenusArtBuilder.cs`，`Scenes/MainMenu/MainMenu.unity`、`Scenes/Run/01-Run_ArtFull.unity`：入口和按钮文案；场景由 Builder 重建保存，生成对象 ID 带来较多 YAML 差异。
+- `Art/Font/SourceHanSansCN-Normal SDF.asset`：实际 UI 新增中文字符的动态字形。
+- `Editor/LLM/QuestS7Audit.cs`、`Docs/Evidence/S7/`：自动化实景验收入口、日志、营地截图及恢复存档。
+- 技术方案、施工流程、本记录：同步实际合同存储结构和验收状态。
+
+**验证结果**：
+
+- 非 Play 模式打开已保存的 Camp，执行 `Tools/Backpack Survivor/Quest/S7 Verify Camp Roundtrip`。
+- 2026-09-13 00:00（北京时间）的最终复验全部通过：15 个唯一事件、各层 3 个、两个任务专属 ID；接受后修改条件/标签集合不影响候选。
+- 初次进营地自动抽签并写档，原格式存档的 totalRuns=77、totalGold=123 保留；通过 LaunchButton 进入 ArtFull，逐字段对比接受实例一致且 LootManager 合同模式启用。
+- 实际暂停菜单 Restart 按钮返回营地并保留原条件；点击 RedrawButton 后 drawCount 加一，再次出击；真实 Health 致死后本地判定未完成且 pending 保留，ResultDialog 的 Restart 按钮返回营地。
+- 退出并再次进入 Play，合同完整条件与 seed 未变；测试覆盖写入目标被目录占用时失败并保留原目标。
+- 证据：`Docs/Evidence/S7/verification.txt`、`camp.png`、`restored-save.json`。已目视检查营地截图，正文和按钮无重叠、中文可读。最终审核标记关闭、测试存档覆盖路径清除，Unity 已退出 Play；Console 无错误。
+
+**未验证或已知限制**：Play 重启是存档加载验证，不等同于重启 Unity 进程或发布构建测试。S4 的全部失败边界、S5 连续胜利推进尚待补齐；现存 CompleteQuest 结算写档尚未做幂等与失败回滚，归 S11 修复。首次场景重建后的复验停留在初始化，退出 Play、完成编译并重新运行后通过；后台帧设置已纳入审计脚本。事件门槛未做 S12 可达性校准，不能作为平衡结论。
+
+**超出范围未做**：本阶段没有接入 DeepSeek、波次字幕或结算汇报，没有新增美术或更改常规掉落权重。新增本地事件资产与接受接口是营地发放链路的缺失前置；不据此把 S5 全部标为完成。

@@ -28,13 +28,13 @@ namespace BackpackSurvivor.EditorTools
             V04HudArtBuilder.Label("V04Subtitle", main, "生存 · 搜刮 · 构筑", -465, 249, 620, 45, 26, V04HudArtBuilder.Muted);
             var version = V04HudArtBuilder.Label("V04Version", main, "v0.4  ·  美术迭代预览", 0, 0, 400, 34, 18, V04HudArtBuilder.Muted);
             V04HudArtBuilder.Pin(version.rectTransform, new Vector2(0, 0), new Vector2(0, 0), new Vector2(35, 24));
-            StyleButton(main.Find("StartButton").GetComponent<Button>(), "开始行动", new Vector2(-465, 120), new Vector2(340, 70), true);
+            StyleButton(main.Find("StartButton").GetComponent<Button>(), "进入调度营地", new Vector2(-465, 120), new Vector2(340, 70), true);
             StyleButton(main.Find("SettingsButton").GetComponent<Button>(), "设置", new Vector2(-555, 31), new Vector2(160, 56));
             StyleButton(main.Find("RecordButton").GetComponent<Button>(), "本地记录", new Vector2(-375, 31), new Vector2(160, 56));
             StyleButton(main.Find("GameplayGuideButton").GetComponent<Button>(), "玩法说明", new Vector2(-465, -55), new Vector2(340, 60));
             StyleButton(main.Find("StatementButton").GetComponent<Button>(), "制作者说明", new Vector2(-465, -134), new Vector2(340, 60));
             StyleButton(main.Find("QuitButton").GetComponent<Button>(), "退出游戏", new Vector2(-465, -213), new Vector2(340, 60));
-            var data = new SerializedObject(controller); data.FindProperty("runSceneName").stringValue = "01-Run_ArtFull"; data.ApplyModifiedPropertiesWithoutUndo();
+            var data = new SerializedObject(controller); data.FindProperty("runSceneName").stringValue = "Camp"; data.ApplyModifiedPropertiesWithoutUndo();
             Transform canvas = main.parent;
             StyleTextPanel(canvas.Find("AboutPanel") as RectTransform);
             StyleTextPanel(canvas.Find("GameplayGuidePanel") as RectTransform);

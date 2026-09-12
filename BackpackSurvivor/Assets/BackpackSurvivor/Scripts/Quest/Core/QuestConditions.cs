@@ -20,6 +20,13 @@ namespace BS.Quest
         public int minValue, maxValue;
         public ChestQuality minChestQuality = ChestQuality.Unknown;
         public bool optional;
+        public ObjectiveClause Copy()
+        {
+            var result = (ObjectiveClause)MemberwiseClone();
+            result.tags = tags == null ? null : new List<ItemTag>(tags);
+            result.itemIds = itemIds == null ? null : new List<string>(itemIds);
+            return result;
+        }
     }
 
     [Serializable]
@@ -36,6 +43,14 @@ namespace BS.Quest
         public string briefingHint;
         public string briefingSource;
         public bool isFinal;
+        public int tag;
+        public QuestInstance Copy()
+        {
+            var result = (QuestInstance)MemberwiseClone();
+            result.objectives = objectives == null ? null : objectives.ConvertAll(c => c?.Copy());
+            result.activeQuestOnlyItemIds = activeQuestOnlyItemIds == null ? null : new List<string>(activeQuestOnlyItemIds);
+            return result;
+        }
     }
 
     public sealed class QuestCandidate

@@ -1,4 +1,4 @@
-﻿using BS.GamePlay.Run;
+using BS.GamePlay.Run;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -149,14 +149,13 @@ namespace BS.Presentation
         private void HandleRestartClicked()
         {
             if (isLeavingScene) return;
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            BeginSceneLoad(string.IsNullOrEmpty(currentSceneName) ? restartSceneFallback : currentSceneName);
+            BeginSceneLoad("Camp");
         }
 
         private void HandleQuitClicked()
         {
             if (isLeavingScene) return;
-            BeginSceneLoad(mainMenuSceneName);
+            BeginSceneLoad("Camp");
         }
 
         private void BeginSceneLoad(string sceneName)

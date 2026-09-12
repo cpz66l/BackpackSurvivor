@@ -122,9 +122,9 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S2 | 模型配置面板 | 主菜单 → Key 与四项上限配置 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
 | S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 待补充边界验收（已有 3 个聚合测试，未覆盖所有类型失败边界与 S3 回放） |
-| S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 待补齐验收（缺真实事件资产、连续推进及重启恢复证据） |
+| S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 部分验收（S7 已补 15 个占位事件与 pending 重启恢复；连续完成推进待补） |
 | S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 过滤已实测通过（真实资产已标记；合同发放闭环随 S7 验收） |
-| S7 | 调度营地与合同面板 | 抽签 → 营地存档接口 → 面板 → 进图 | S5、S6 | 进行中（场景存在；合同发放、重抽与往返运行尚未打通） |
+| S7 | 调度营地与合同面板 | 抽签 → 营地存档接口 → 面板 → 进图 | S5、S6 | 核心链路已验收（抽签/写档/出击/暂停重试/死亡返回/重抽/Play 重启恢复；上游完整验收仍待补） |
 | S8 | 营地对话接入 | 合同 → 事实块 → 路由/校验 → 对话服务接口 | S1、S2、S7 | 进行中（Core 防护接口已建立，DeepSeek UI 请求待接） |
 | S9 | 局内追踪器 | 多源进度事件 → 判定 → HUD | S3、S4、S7 | 进行中（追踪器接口已建立，运行时绑定待接） |
 | S10 | 波次脉冲 | `OnWaveStageChanged` → 脉冲请求 → 字幕 | S1、S2、S7 | 进行中（延迟/TTL 丢弃服务已接，DeepSeek 文案接入待补） |
@@ -496,4 +496,4 @@ noEngineReferences 配置）；引用 BS.Inventory 复用 ItemTag/Rarity；
 - 新增测试目录：`Assets/BackpackSurvivor/Tests/EditMode/`
 - S0 需要在本机配置环境变量 `DEEPSEEK_API_KEY`（Key 在 DeepSeek 开放平台申请）。实现先读进程级变量，再在 Windows 回退读取用户级变量，因此已打开的 Editor 通常也能完成 S0；S2 的用户级配置文件在运行时读取，适合发布构建，不应把 Key 写入仓库
 - 依赖包已具备：`com.unity.test-framework`、`com.unity.modules.unitywebrequest` 均在 `Packages/manifest.json` 中
-- 现有入口：`MainMenuController.runSceneName` 当前序列化值指向 `01-Run_ArtFull`；S7 会把入口改为营地。直接打开旧单局场景时必须确保 SaveService/合同运行时初始化，否则不属于完整流程验收
+- 现有入口：S7 已将 `MainMenuController.runSceneName` 的场景与 Builder 配置改为 `Camp`。直接打开旧单局场景时必须确保 SaveService/合同运行时初始化，否则不属于完整流程验收

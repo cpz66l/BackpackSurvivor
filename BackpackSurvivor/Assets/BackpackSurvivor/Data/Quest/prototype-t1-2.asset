@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d799636220e909d4587ea269d07289f5, type: 3}
+  m_Name: prototype-t1-2
+  m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Quest.QuestEventDefinition
+  eventId: prototype-t1-2
+  tier: 1
+  tag: 1
+  definitionVersion: prototype-1
+  codename: "\u6E05\u7406\u8DEF\u7EBF"
+  briefingSeed: "\u8C03\u5EA6\u5458\uFF0C\u7B80\u6D01\u52A1\u5B9E\uFF0C\u56DE\u6536\u884C\u52A8"
+  offlineBriefing: "\u8FD9\u6B21\u884C\u52A8\u7684\u76EE\u6807\u5DF2\u5217\u5728\u5408\u540C\u4E0A\u3002\u8BF7\u6838\u5BF9\u88C5\u5907\uFF0C\u5B8C\u6210\u8981\u6C42\u540E\u5B58\u6D3B\u5E26\u51FA\u3002"
+  objectives:
+  - type: 11
+    tag: 0
+    tags: 
+    itemId: 
+    itemIds: []
+    rarity: 0
+    itemLevel: 1
+    count: 30
+    minValue: 0
+    maxValue: 0
+    minChestQuality: -1
+    optional: 0
+  baseWeight: 1
+  unlockAfter: []
+  isFinal: 0

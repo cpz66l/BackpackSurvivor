@@ -93,8 +93,7 @@ namespace BS.Presentation
         private void HandleRestartClicked()
         {
             if (isLeavingScene || gameSession == null || gameSession.State != GameState.Paused) return;
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            BeginSceneLoad(string.IsNullOrEmpty(currentSceneName) ? restartSceneFallback : currentSceneName);
+            BeginSceneLoad("Camp");
         }
 
         private void HandleMainMenuClicked()

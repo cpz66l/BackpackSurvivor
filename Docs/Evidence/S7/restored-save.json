@@ -1,0 +1,52 @@
+{
+    "totalRuns": 79,
+    "totalWins": 0,
+    "bestBackpackValue": 0,
+    "totalGold": 123,
+    "legendaryFoundCount": 0,
+    "legendaryCollectedValue": 0,
+    "lastPlayedVersion": "v0.3.10",
+    "campaign": {
+        "tier": 1,
+        "completedEventIds": [],
+        "pendingQuest": {
+            "eventId": "prototype-t1-2",
+            "tier": 1,
+            "seed": 959385208,
+            "definitionVersion": "prototype-1",
+            "objectives": [
+                {
+                    "type": 11,
+                    "tag": 0,
+                    "tags": [],
+                    "itemId": "",
+                    "itemIds": [],
+                    "rarity": 0,
+                    "itemLevel": 1,
+                    "count": 30,
+                    "minValue": 0,
+                    "maxValue": 0,
+                    "minChestQuality": -1,
+                    "optional": false
+                }
+            ],
+            "activeQuestOnlyItemIds": [
+                "方舟计划核心",
+                "星火反应炉"
+            ],
+            "briefingTitle": "清理路线",
+            "briefingBody": "这次行动的目标已列在合同上。请核对装备，完成要求后存活带出。",
+            "briefingHint": "",
+            "briefingSource": "offline",
+            "isFinal": false,
+            "tag": 1
+        },
+        "finalCompleted": false,
+        "drawCount": 2,
+        "lastTag": 1,
+        "recentEventIds": [
+            "prototype-t1-1",
+            "prototype-t1-2"
+        ]
+    }
+}
