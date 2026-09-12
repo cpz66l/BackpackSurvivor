@@ -1,0 +1,8 @@
+{
+  "name": "BS.Quest.Tests",
+  "references": ["BS.Quest.Core", "BS.Inventory", "UnityEngine.TestRunner"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": []
+}

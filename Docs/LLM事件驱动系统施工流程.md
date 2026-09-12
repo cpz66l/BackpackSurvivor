@@ -121,7 +121,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 已完成（真实 SSE、UTF-8、工具参数与取消验证） |
 | S2 | 模型配置面板 | 主菜单 → Key 与四项上限配置 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
 | S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
-| S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 未开始 |
+| S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 已完成（16 类条件、死亡/AND/空任务边界，3/3 EditMode 测试通过） |
 | S5 | 事件池与抽签器 | 抽签 → 合同 → 存档 → 下一 tier | S4 | 未开始 |
 | S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 未开始 |
 | S7 | 调度营地与合同面板 | 抽签 → 营地 → 面板 → 进图 → 合同生效 | S5、S6 | 未开始 |

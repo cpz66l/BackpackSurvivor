@@ -256,3 +256,28 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 面试复盘要点：关键问题并非“遍历背包求和”，而是 UI 拖拽暂时改变了数据源。通过原占位保留和结算前事务回滚，让旧结果与新判定输入在同一事实时点生成；随后以真实事件链和可保存快照证明一致性，而不是仅依据编译成功。
 
 下一阶段：S4 · 判定器。消费本阶段真实快照，补齐纯本地条件模型、Evaluate 与 EditMode 边界测试。
+
+
+## S4 · 判定器（本次实施报告）
+
+**阶段**：S4。
+
+**核心链路**：`QuestEvaluator.Evaluate(quest, snapshot) → QuestOutcome`，纯本地、无 IO、无副作用。
+
+**目的**：让任务达成成为可独立测试的本地真相来源，供后续追踪器与结算表现消费。
+
+**技术选择**：在 `BS.Quest.Core` 中增加条件模型、逐条结果和纯静态评估器；首版 AND，optional 不影响完成，死亡永不完成但记录死亡前条件，精确品质按单桶计数，空任务/未知条件不通过。
+
+**改动文件**：`Scripts/Quest/Core/QuestConditions.cs`（ObjectiveType、ObjectiveClause、QuestInstance、QuestOutcome、ClauseResult）；`Scripts/Quest/Core/QuestEvaluator.cs`（16 类条件评估与进度）；`Tests.meta`、`Tests/EditMode.meta`、`Tests/EditMode/BS.Quest.Tests.asmdef`（首个 EditMode 测试程序集）；`Tests/EditMode/QuestEvaluatorTests.cs`（边界测试）；同步更新施工流程阶段状态。
+
+**验证结果**：
+- 操作：UnityMCP `run_tests`，EditMode，程序集 `BS.Quest.Tests`。
+- 结果：3 tests，3 passed，0 failed，0 skipped；Unity Console 编译错误修复后为 0。
+- 证据：测试作业 `583fcaca17bc469a8e67d8765a7696b0`；测试覆盖 16 种 ObjectiveType、恰好门槛、AND、optional、死亡、空任务、未知类型。
+- 边界用例：全部通过。
+
+**未验证或已知限制**：未接入 ScriptableObject 事件定义、运行时合同存档、HUD 或真实 S3 快照回放；Progress01 对排除/背包类条件首版只返回 0/1。
+
+**超出范围未做**：UI、LLM、掉落过滤、营地、存档推进。
+
+下一阶段：S5 · 事件池与抽签器。

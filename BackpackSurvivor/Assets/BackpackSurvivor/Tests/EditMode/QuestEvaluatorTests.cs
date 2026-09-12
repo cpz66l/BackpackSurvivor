@@ -1,0 +1,48 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using BS.Inventory;
+using BS.Quest;
+
+public class QuestEvaluatorTests
+{
+    static QuestRunSnapshot Snapshot(RunOutcome outcome = RunOutcome.Survived)
+    {
+        return new QuestRunSnapshot { outcome = outcome, level = 3, kills = 10, eliteKills = 2, elapsed = 120, backpackValue = 500,
+            items = new List<ItemRecord> { new ItemRecord { id = "核心", tag = ItemTag.Rifle, rarity = Rarity.Epic, level = 3, scoreValue = 300 }, new ItemRecord { id = "药", tag = ItemTag.Medical, rarity = Rarity.Common, level = 1, scoreValue = 200 } },
+            chestsOpenedByQuality = new[] { 0, 1, 2, 0, 0 } };
+    }
+    static QuestInstance Q(ObjectiveClause c) => new QuestInstance { objectives = new List<ObjectiveClause> { c } };
+
+    [Test] public void EveryObjectiveTypeBoundaries()
+    {
+        var s = Snapshot();
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryTag, tag=ItemTag.Rifle, count=1 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryTagSet, tags=new List<ItemTag>{ItemTag.Rifle,ItemTag.Pistol}, count=1 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryRarity, rarity=Rarity.Rare, count=1 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryItem, itemId="核心" }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryItemAtLevel, itemId="核心", itemLevel=3 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryAnyItemAtLevel, itemLevel=3 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryItemAnyOf, itemIds=new List<string>{"核心","x"} }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.BackpackValueAtLeast, minValue=500 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.BackpackValueAtMost, maxValue=500 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.ExcludeTag, tag=ItemTag.Pistol }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.ExcludeRarity, rarity=Rarity.Legendary }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillTotal, count=10 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillElite, count=2 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.OpenChestAtLeast, minChestQuality=ChestQuality.Rare, count=2 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.ReachLevel, count=3 }), s).Completed);
+        Assert.IsTrue(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.SurviveToSecond, count=120 }), s).Completed);
+    }
+    [Test] public void DeathNeverCompletesButRecordsPriorConditions()
+    {
+        var result = QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillElite, count=2 }), Snapshot(RunOutcome.Died));
+        Assert.IsFalse(result.Completed); Assert.IsTrue(result.ConditionsSatisfiedBeforeDeath); Assert.AreEqual(1f, result.Progress01);
+    }
+    [Test] public void AndOptionalUnknownAndEmptyBoundaries()
+    {
+        var s=Snapshot(); var q=new QuestInstance { objectives=new List<ObjectiveClause>{new ObjectiveClause{type=ObjectiveType.KillTotal,count=11},new ObjectiveClause{type=ObjectiveType.KillElite,count=99,optional=true}}};
+        var r=QuestEvaluator.Evaluate(q,s); Assert.IsFalse(r.Completed); Assert.AreEqual(0f,r.Progress01);
+        Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance(),s).Completed);
+        Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance{objectives=new List<ObjectiveClause>{new ObjectiveClause{type=(ObjectiveType)999}}},s).Completed);
+    }
+}
