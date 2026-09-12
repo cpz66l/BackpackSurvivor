@@ -54,6 +54,30 @@ public class QuestEvaluatorTests
         Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.OpenChestAtLeast, minChestQuality=ChestQuality.Unknown, count=1 }),s).Completed);
         Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryAnyItemAtLevel, itemLevel=0, count=1 }),s).Completed);
     }
+    [Test] public void EveryObjectiveTypeHasARealFailureBoundary()
+    {
+        var s=Snapshot();
+        var failures=new List<ObjectiveClause>{
+            new ObjectiveClause{type=ObjectiveType.CarryTag,tag=ItemTag.SniperRifle,count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryTagSet,tags=new List<ItemTag>{ItemTag.Pistol},count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryRarity,rarity=Rarity.Legendary,count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryItem,itemId="不存在",count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryItemAtLevel,itemId="核心",itemLevel=4,count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryAnyItemAtLevel,itemLevel=4,count=1},
+            new ObjectiveClause{type=ObjectiveType.CarryItemAnyOf,itemIds=new List<string>{"不存在"},count=1},
+            new ObjectiveClause{type=ObjectiveType.BackpackValueAtLeast,minValue=501},
+            new ObjectiveClause{type=ObjectiveType.BackpackValueAtMost,maxValue=499},
+            new ObjectiveClause{type=ObjectiveType.ExcludeTag,tag=ItemTag.Medical},
+            new ObjectiveClause{type=ObjectiveType.ExcludeRarity,rarity=Rarity.Common},
+            new ObjectiveClause{type=ObjectiveType.KillTotal,count=11},
+            new ObjectiveClause{type=ObjectiveType.KillElite,count=3},
+            new ObjectiveClause{type=ObjectiveType.OpenChestAtLeast,minChestQuality=ChestQuality.Rare,count=3},
+            new ObjectiveClause{type=ObjectiveType.ReachLevel,count=4},
+            new ObjectiveClause{type=ObjectiveType.SurviveToSecond,count=121}
+        };
+        foreach(var clause in failures) Assert.IsFalse(QuestEvaluator.Evaluate(Q(clause),s).Completed,clause.type.ToString());
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(failures[0]),null).Completed);
+    }
     [Test] public void DrawerFiltersTierCompletedAndUnlocksDeterministically()
     {
         var candidates = new List<QuestCandidate> {
