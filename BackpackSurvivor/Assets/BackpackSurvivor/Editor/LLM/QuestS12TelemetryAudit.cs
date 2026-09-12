@@ -11,7 +11,7 @@ namespace BackpackSurvivor.EditorTools
         public static void Export()
         {
             var source = Path.Combine(Application.persistentDataPath, "quest_telemetry.jsonl");
-            var projectRoot = Directory.GetParent(Application.dataPath).FullName;
+            var projectRoot = Directory.GetParent(Directory.GetParent(Application.dataPath).FullName).FullName;
             var target = Path.Combine(projectRoot, "Docs/Evidence/S12/telemetry-summary.txt");
             Directory.CreateDirectory(Path.GetDirectoryName(target));
             if (!File.Exists(source)) { File.WriteAllText(target, "NO_DATA telemetry file missing: " + source + "\n"); Debug.Log("[S12] no telemetry data"); return; }
