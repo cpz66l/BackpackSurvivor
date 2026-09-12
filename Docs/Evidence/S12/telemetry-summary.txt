@@ -1,5 +1,5 @@
-rows=5
-victoryRows=0
-diedRows=5
+rows=7
+victoryRows=1
+diedRows=6
 completedRows=0
 source=C:/Users/cp/AppData/LocalLow/DefaultCompany/BackpackSurvivor\quest_telemetry.jsonl
