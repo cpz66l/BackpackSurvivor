@@ -27,7 +27,7 @@ namespace BS.Quest
 
         static bool EvaluateClause(ObjectiveClause c, QuestRunSnapshot s)
         {
-            if (c == null) return false;
+            if (!IsValidClause(c)) return false;
             var items = s.items ?? new System.Collections.Generic.List<ItemRecord>();
             int count = Math.Max(0, c.count);
             switch (c.type)
@@ -52,10 +52,39 @@ namespace BS.Quest
             }
         }
 
+        static bool IsValidClause(ObjectiveClause c)
+        {
+            if (c == null) return false;
+            switch (c.type)
+            {
+                case ObjectiveType.CarryTag:
+                case ObjectiveType.CarryRarity:
+                case ObjectiveType.CarryItem:
+                case ObjectiveType.CarryItemAtLevel:
+                case ObjectiveType.CarryAnyItemAtLevel:
+                case ObjectiveType.CarryItemAnyOf:
+                case ObjectiveType.CarryTagSet:
+                case ObjectiveType.KillTotal:
+                case ObjectiveType.KillElite:
+                case ObjectiveType.OpenChestAtLeast:
+                case ObjectiveType.ReachLevel:
+                case ObjectiveType.SurviveToSecond:
+                    if (c.count <= 0) return false;
+                    break;
+            }
+            if ((c.type == ObjectiveType.CarryItem || c.type == ObjectiveType.CarryItemAtLevel) && string.IsNullOrWhiteSpace(c.itemId)) return false;
+            if (c.type == ObjectiveType.CarryItemAnyOf && (c.itemIds == null || c.itemIds.Count == 0 || c.itemIds.Exists(string.IsNullOrWhiteSpace))) return false;
+            if (c.type == ObjectiveType.CarryTagSet && (c.tags == null || c.tags.Count == 0)) return false;
+            if ((c.type == ObjectiveType.CarryItemAtLevel || c.type == ObjectiveType.CarryAnyItemAtLevel) && c.itemLevel <= 0) return false;
+            if (c.type == ObjectiveType.OpenChestAtLeast && ((int)c.minChestQuality < 0 || (int)c.minChestQuality > 4)) return false;
+            return true;
+        }
+
         static float Progress(ObjectiveClause c, QuestRunSnapshot s, bool ok)
         {
             if (ok) return 1f;
             if (c == null) return 0f;
+            if (!IsValidClause(c)) return 0f;
             int target = Math.Max(1, c.count); int actual = 0;
             var items = s.items ?? new System.Collections.Generic.List<ItemRecord>();
             switch (c.type) { case ObjectiveType.KillTotal: actual=s.kills; break; case ObjectiveType.KillElite: actual=s.eliteKills; break; case ObjectiveType.ReachLevel: actual=s.level; break; case ObjectiveType.SurviveToSecond: actual=(int)s.elapsed; break; case ObjectiveType.OpenChestAtLeast: int q=(int)c.minChestQuality; if(q>=0&&q<5&&s.chestsOpenedByQuality!=null&&s.chestsOpenedByQuality.Length>q) actual=s.chestsOpenedByQuality[q]; break; default: return 0f; }

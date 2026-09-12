@@ -45,6 +45,15 @@ public class QuestEvaluatorTests
         Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance(),s).Completed);
         Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance{objectives=new List<ObjectiveClause>{new ObjectiveClause{type=(ObjectiveType)999}}},s).Completed);
     }
+    [Test] public void InvalidRequiredFieldsNeverPass()
+    {
+        var s=Snapshot();
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillTotal, count=0 }),s).Completed);
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryItem, itemId="", count=1 }),s).Completed);
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryTagSet, count=1, tags=new List<ItemTag>() }),s).Completed);
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.OpenChestAtLeast, minChestQuality=ChestQuality.Unknown, count=1 }),s).Completed);
+        Assert.IsFalse(QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.CarryAnyItemAtLevel, itemLevel=0, count=1 }),s).Completed);
+    }
     [Test] public void DrawerFiltersTierCompletedAndUnlocksDeterministically()
     {
         var candidates = new List<QuestCandidate> {
