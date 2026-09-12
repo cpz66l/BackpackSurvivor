@@ -18,3 +18,5 @@
 ## 真实 telemetry 首批样本（2026-09-13）
 
 S12 菜单从 Unity `Application.persistentDataPath` 导出首批 5 行真实埋点：胜利 0、死亡 5、完成合同 0。该样本只能确认死亡路径已写入 JSONL，样本量不足以调整权重或计算达成率；后续继续累积胜利局。
+
+真实 telemetry 已增至 7 行：胜利 1、死亡 6、完成合同 0。胜利行来自开发期强制结束流程，验证 `EndRun(Victory)` 能写入 outcome=0；不计作自然胜率样本，也不代表合同完成。
