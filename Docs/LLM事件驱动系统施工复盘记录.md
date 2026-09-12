@@ -328,3 +328,24 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 ## S7 · 调度营地与合同面板（进行中）
 
 本轮先完成 `CampaignSave` 数据结构及 `SaveService.SetPendingQuest/CompleteQuest`，兼容旧存档空值；Unity 编译通过。营地场景、Builder UI、出击入口和真实重启验证尚未完成，故不标记 S7 完成。
+
+
+## S7 · 调度营地与合同面板（本次实施报告）
+
+**阶段**：S7。
+
+**核心链路**：主菜单 → Builder 生成 Camp 场景 → 本地合同/空背包面板 → 进入 `01-Run_ArtFull`。
+
+**目的**：提供跨局合同循环的本地承载容器，并在未开局时显示空背包事实。
+
+**技术选择**：新增 `CampaignSave` 与 SaveService 合同接口；新增 CampController 和 CampSceneBuilder，UI 使用占位文本，场景纳入 Build Settings；主菜单入口改为 Camp。
+
+**改动文件**：`Scripts/GamePlay/Save/SaveData.cs`、`SaveService.cs`；新增 `Scripts/Quest/CampController.cs`、`Editor/CampSceneBuilder.cs`；新增 `Scenes/Camp/Camp.unity`；修改 MainMenu 场景入口；同步施工流程。
+
+**验证结果**：UnityMCP 刷新编译无错误；执行 Builder 菜单后 Camp 场景文件存在并加入构建列表；入口序列化值为 Camp。
+
+**未验证或已知限制**：尚未在完整持久化运行中人工点击营地按钮并跨场景重启；正式事件资产尚未创建，当前为空合同占位。
+
+**超出范围未做**：S8 对话、S9 追踪器、S10 波次脉冲、S11 结算任务区。
+
+下一阶段：S8 · 营地对话接入。

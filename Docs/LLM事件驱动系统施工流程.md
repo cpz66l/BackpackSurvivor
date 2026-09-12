@@ -124,7 +124,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 已完成（16 类条件、死亡/AND/空任务边界，3/3 EditMode 测试通过） |
 | S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 已完成（4/4 EditMode 测试通过；存档接入留给 S7） |
 | S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 已完成（编译通过，过滤审计菜单已加入） |
-| S7 | 调度营地与合同面板 | 抽签 → 营地存档接口 → 面板 → 进图 | S5、S6 | 进行中（CampaignSave 接口已加入；场景/UI 待续） |
+| S7 | 调度营地与合同面板 | 抽签 → 营地存档接口 → 面板 → 进图 | S5、S6 | 已完成（Builder 场景、空背包事实、出击入口已验证） |
 | S8 | 营地对话接入 | 合同 → 事实块 → 工具 → 校验 → 对话 | S1、S2、S7 | 未开始 |
 | S9 | 局内追踪器 | 多源进度事件 → 判定 → HUD | S3、S4、S7 | 未开始 |
 | S10 | 波次脉冲 | `OnWaveStageChanged` → 脉冲请求 → 字幕 | S1、S2、S7 | 未开始 |

@@ -2447,7 +2447,7 @@ MonoBehaviour:
   buttonClickClip: {fileID: 8300000, guid: e06245848e93aa4499766043dbcc00ca, type: 3}
   uiAudioSource: {fileID: 0}
   sceneLoadDelayAfterClick: 0.08
-  runSceneName: 01-Run_ArtFull
+  runSceneName: Camp
 --- !u!82 &350221167
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17344,3 +17344,4 @@ SceneRoots:
   - {fileID: 2103950291}
   - {fileID: 329545874}
   - {fileID: 794069863}
+
