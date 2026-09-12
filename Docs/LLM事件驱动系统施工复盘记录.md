@@ -367,3 +367,6 @@ S8 追加：新增 `NpcDialogueService`，使用现有配置解析和 UnityWebRe
 ## S11/S12 · 结算推进与埋点（进行中）
 
 `GameSession.EndRun` 现在以冻结快照调用 `QuestEvaluator`，只有胜利且完成才清除 pending 并推进 tier；死亡/未达成保留合同。ResultView 提供可选任务结果文本。新增 `QuestTelemetry` 将结算最小字段写入本地 JSONL；`EnemySpawner` 已放宽间隔校验到只拒绝 <=0，使 0.05 配置生效。尚未完成结算汇报 UI、完整合同资产和 S12 统计采样报告。
+
+
+S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使用递增 request token 和 realtime TTL 丢弃过期回调；`RadioPulseReplyView` 负责字幕显示与超时清空。当前回复为本地占位文本，尚未接 DeepSeek。
