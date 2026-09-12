@@ -570,3 +570,7 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 ## S12 初始统计 · 掉落可达性基线（2026-09-13）
 
 根据 S6 固定种子样本整理 `Docs/Evidence/S12/statistics.md`。样本证明普通局 questOnly 为 0、合同局可达，且没有改动权重或引入定向保底；由于尚无真实胜利/失败局 JSONL 汇总，本阶段仍为初始基线，不宣称完成可达性校准。
+
+## S11 结算矩阵 · 判定边界（2026-09-13）
+
+新增 `SettlementMatrixRequiresVictoryAndCompletedObjectives`，验证胜利且目标完成、胜利但目标未完成、死亡但条件已满足、死亡且条件未满足四种情况；只有胜利且目标完成返回 `Completed`。UnityMCP EditMode 作业 `23eaac20b1564caf8371c47161045f2d`：27/27 Passed。该作业验证判定矩阵，不替代真实场景结算往返。

@@ -38,6 +38,18 @@ public class QuestEvaluatorTests
         var result = QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillElite, count=2 }), Snapshot(RunOutcome.Died));
         Assert.IsFalse(result.Completed); Assert.IsTrue(result.ConditionsSatisfiedBeforeDeath); Assert.AreEqual(1f, result.Progress01);
     }
+    [Test] public void SettlementMatrixRequiresVictoryAndCompletedObjectives()
+    {
+        var q=Q(new ObjectiveClause { type=ObjectiveType.KillTotal, count=10 });
+        var victory=QuestEvaluator.Evaluate(q, Snapshot(RunOutcome.Survived));
+        var victoryIncomplete=QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillTotal, count=11 }), Snapshot(RunOutcome.Survived));
+        var deathCompleteConditions=QuestEvaluator.Evaluate(q, Snapshot(RunOutcome.Died));
+        var deathIncomplete=QuestEvaluator.Evaluate(Q(new ObjectiveClause { type=ObjectiveType.KillTotal, count=11 }), Snapshot(RunOutcome.Died));
+        Assert.IsTrue(victory.Completed, "victory + objectives complete");
+        Assert.IsFalse(victoryIncomplete.Completed, "victory + objectives incomplete");
+        Assert.IsFalse(deathCompleteConditions.Completed, "death invalidates otherwise complete conditions");
+        Assert.IsFalse(deathIncomplete.Completed, "death + objectives incomplete");
+    }
     [Test] public void AndOptionalUnknownAndEmptyBoundaries()
     {
         var s=Snapshot(); var q=new QuestInstance { objectives=new List<ObjectiveClause>{new ObjectiveClause{type=ObjectiveType.KillTotal,count=11},new ObjectiveClause{type=ObjectiveType.KillElite,count=99,optional=true}}};
