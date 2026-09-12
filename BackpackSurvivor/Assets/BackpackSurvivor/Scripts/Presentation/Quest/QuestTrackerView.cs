@@ -8,6 +8,9 @@ namespace BS.Presentation
     {
         [SerializeField] TMP_Text text;
         QuestInstance quest;
+        BS.GamePlay.Run.GameSession session;
+        void Awake(){session=FindAnyObjectByType<BS.GamePlay.Run.GameSession>();}
+        void Update(){if(session!=null){if(quest==null) quest=session.CurrentQuest; Refresh(session.State==BS.GamePlay.Run.GameState.Running?session.BuildLiveQuestSnapshot():session.LastQuestSnapshot);}}
         public void SetQuest(QuestInstance value) { quest=value; Refresh(null); }
         public void Refresh(QuestRunSnapshot snapshot)
         {

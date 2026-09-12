@@ -36,10 +36,18 @@ namespace BS.GamePlay.Run
         private bool isEnding;
         private QuestRunSnapshot lastQuestSnapshot;
         private QuestOutcome lastQuestOutcome;
+        private QuestInstance currentQuest;
         public int KillCount => killCount;
         public int EliteKillCount => eliteKillCount;
         public QuestRunSnapshot LastQuestSnapshot => lastQuestSnapshot?.Copy();
         public QuestOutcome LastQuestOutcome => lastQuestOutcome;
+        public QuestInstance CurrentQuest => currentQuest;
+        public QuestRunSnapshot BuildLiveQuestSnapshot()
+        {
+            var s = new QuestRunSnapshot { outcome = RunOutcome.Survived, elapsed = Elapsed, level = Level, kills = killCount, eliteKills = eliteKillCount, gold = totalGold, chestsOpened = LootChest.RunOpenedCount, chestsOpenedByQuality = LootChest.CopyRunOpenedByQuality() };
+            if (inventorySystem != null && inventorySystem.Grid != null) foreach (var item in inventorySystem.Grid.GetUniqueItems()) { s.backpackValue += item.ScoreValue; s.items.Add(new ItemRecord { id=item.Id, rarity=item.Rarity, tag=item.Tag, level=item.Level, scoreValue=item.ScoreValue, questOnly=item.QuestOnly }); }
+            return s;
+        }
         private int totalGold;
 
 
@@ -132,6 +140,10 @@ namespace BS.GamePlay.Run
             isEnding = false;
             lastQuestSnapshot = null;
             lastQuestOutcome = null;
+            currentQuest = SaveService.Instance != null && SaveService.Instance.CurrentData != null && SaveService.Instance.CurrentData.campaign != null
+                ? SaveService.Instance.CurrentData.campaign.pendingQuest : null;
+            var lootManager = FindAnyObjectByType<LootManager>();
+            lootManager?.SetContractRun(currentQuest != null, currentQuest == null ? null : currentQuest.activeQuestOnlyItemIds);
             totalGold = 0;
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
