@@ -354,3 +354,6 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 ## S8 · 营地对话接入（进行中）
 
 本轮建立 `BS.Npc.Core` 纯 C# 程序集及 `FactBlockBuilder`、`NpcResponseValidator`、`DialogueRouter`。事实块只读合同/快照，路由固定三个对话面，输出校验拒绝空响应、超长响应和承诺性措辞。DeepSeek 流式请求、工具审计、离线文案 UI 尚未接入，因此暂不标记完成。
+
+
+S8 追加：新增 `NpcDialogueService`，使用现有配置解析和 UnityWebRequest 调用 DeepSeek，固定 thinking disabled，事实块注入、原始响应和工具审计日志、校验失败离线回退已具备。当前请求仍为无工具的最小文本通道，工具白名单与三种 UI 面板待补。
