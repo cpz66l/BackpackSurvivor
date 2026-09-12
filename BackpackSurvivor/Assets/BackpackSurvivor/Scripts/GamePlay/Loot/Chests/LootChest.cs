@@ -33,6 +33,7 @@ namespace BS.GamePlay.Loot {
         public static int ActiveCount { get; private set; }
         public static int RunOpenedCount { get; private set; }
         public static int RunUnknownQualityOpenedCount { get; private set; }
+        public static event System.Action<ChestQuality> OnOpened;
         private static readonly int[] runOpenedByQuality = new int[5];
         public static int[] CopyRunOpenedByQuality() => (int[])runOpenedByQuality.Clone();
         public ChestQuality Quality => lootBundle != null ? lootBundle.chestQuality : ChestQuality.Unknown;
@@ -92,6 +93,7 @@ namespace BS.GamePlay.Loot {
             int qualityIndex = (int)Quality;
             if (qualityIndex >= 0 && qualityIndex < runOpenedByQuality.Length) runOpenedByQuality[qualityIndex]++;
             else RunUnknownQualityOpenedCount++;
+            OnOpened?.Invoke(Quality);
             unopenedChests.Remove(this);
             //关闭碰撞器，避免再次检测
             if (chestCollider) chestCollider.enabled = false;
