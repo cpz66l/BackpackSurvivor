@@ -53,6 +53,9 @@ namespace BackpackSurvivor.EditorTools
                 if (canvas.Find(name)) modals.Add(canvas.Find(name).gameObject);
             var overlay = main.GetComponent<MainMenuOverlayPresentation>() ?? main.gameObject.AddComponent<MainMenuOverlayPresentation>();
             overlay.Configure(modals.ToArray(), surfaces.ToArray());
+            // Keep the independently-owned model configuration panel in sync when
+            // the main-menu art builder is rerun.
+            LlmConfigPanelBuilder.Build(controller);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(controller.gameObject.scene);
         }
 

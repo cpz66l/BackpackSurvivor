@@ -146,3 +146,42 @@ Editor 菜单：
 ### 下一步
 
 S1 已完成，可以进入 S2 模型配置面板。S2 之前不接入正式对话历史、营地 UI 或游戏状态变更。
+
+## S2 · 模型配置面板
+
+### 目标
+
+在主菜单提供独立的模型配置面板，持久化 BYOK Key 与四项软上限，显示实际生效的密钥来源，并复用 DeepSeek 非流式 JSON 请求形状完成连通性自检。
+
+### 已实施改动
+
+- `BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/LLM/LlmModelConfig.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Core/LLM/LlmConfigService.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Scripts/Presentation/MainMenu/NpcConfigView.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Editor/LlmConfigPanelBuilder.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Editor/V04MainMenuArtBuilder.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Scenes/MainMenu/MainMenu.unity`
+
+实现约定：
+
+- 配置文件固定写入 `Application.persistentDataPath/llm_model_config.json`，不进入 `save_data.json`、`Resources/`、`StreamingAssets/` 或仓库。
+- Key 解析顺序为进程环境变量 → Windows 用户级环境变量 → 独立配置文件；环境变量存在时，面板明确显示“环境变量优先”，不会使用文件 Key 发请求。
+- 面板使用密码输入框，状态只显示“已配置/未配置”或掩码末四位；异常响应会再次掩码，日志不写 Key 明文。
+- UI 通过 `LlmConfigPanelBuilder` 生成独立 `NpcConfigModalRoot`，并纳入 `MainMenuOverlayPresentation`；没有手工摆放场景对象，也没有复用普通音量设置。
+- 四项默认值为 `20 / 40000 / 200 / 60`，本阶段只保存软上限，不统计实际额度。
+
+### UnityMCP / API 验证
+
+状态：**已完成**。
+
+- UnityMCP 已加载 `MainMenu.unity`，执行 `Tools/Backpack Survivor/UI/Build LLM Config Panel` 成功；场景中出现 `LlmConfigButton`、`NpcConfigModalRoot` 和 `NpcConfigView`。
+- 通过 UnityMCP `execute_code` 打开面板并调用自检，状态文本返回“自检成功：DeepSeek 已连通”，来源显示为环境变量优先，Key 仅显示掩码末四位。
+- 自检完成后再次读取配置，确认文件存在于 `C:/Users/cp/AppData/LocalLow/DefaultCompany/BackpackSurvivor/llm_model_config.json`，默认上限仍为 `20 / 40000`，说明写入路径与读取路径一致。
+- 写入临时 `FILE_SENTINEL` 后解析配置，仍返回环境变量来源和环境变量掩码；随后恢复原文件，证明优先级和恢复操作正确。
+- UnityMCP `read_console` 错误数为 `0`。本次没有启动游戏构建，也没有改动 `runSceneName`；主菜单入口仍保持 `01-Run_ArtFull`，入口切换属于 S7。
+- 保存后重新加载 `MainMenu.unity`，UnityMCP 查到 `NpcConfigView=True`、`LlmConfigButton=True`，面板默认保持非激活，证明序列化引用可恢复。
+- 错误 Key 的 HTTP 失败文案已实现并掩码，但由于本机环境变量有效，本次未通过真实错误 Key 覆盖该分支；后续在无环境变量的独立发布配置环境补测。
+
+### 下一步
+
+S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实采集，但仍不接入 NPC 对话内容。
