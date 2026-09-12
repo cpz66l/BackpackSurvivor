@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Threading.Tasks;
+using BS.GamePlay.Npc;
 
 namespace BS.GamePlay.Quest
 {
@@ -19,13 +21,16 @@ namespace BS.GamePlay.Quest
         [SerializeField] Button launchButton;
         [SerializeField] Button redrawButton;
         [SerializeField] Button menuButton;
+        [SerializeField] TMP_InputField dialogueInput;
+        [SerializeField] TMP_Text dialogueOutput;
         bool leaving;
         public QuestInstance CurrentQuest => SaveService.Instance?.CurrentData?.campaign?.pendingQuest?.Copy();
 
-        public void Configure(QuestDatabase data, TMP_Text contract, TMP_Text facts, TMP_Text status, Button launch, Button redraw, Button menu)
+        public void Configure(QuestDatabase data, TMP_Text contract, TMP_Text facts, TMP_Text status, Button launch, Button redraw, Button menu, TMP_InputField input = null, TMP_Text output = null)
         {
             database=data; contractText=contract; factsText=facts; statusText=status;
             launchButton=launch; redrawButton=redraw; menuButton=menu;
+            dialogueInput=input; dialogueOutput=output;
         }
         void Start()
         {
@@ -34,6 +39,7 @@ namespace BS.GamePlay.Quest
             launchButton.onClick.AddListener(Launch);
             redrawButton.onClick.AddListener(Redraw);
             menuButton.onClick.AddListener(ReturnToMenu);
+            if (dialogueInput != null) dialogueInput.onSubmit.AddListener(AskNpc);
             if (CurrentQuest == null && !SaveService.Instance.CurrentData.campaign.finalCompleted) Redraw();
             else Refresh();
         }
@@ -42,6 +48,15 @@ namespace BS.GamePlay.Quest
             if (launchButton) launchButton.onClick.RemoveListener(Launch);
             if (redrawButton) redrawButton.onClick.RemoveListener(Redraw);
             if (menuButton) menuButton.onClick.RemoveListener(ReturnToMenu);
+            if (dialogueInput != null) dialogueInput.onSubmit.RemoveListener(AskNpc);
+        }
+        public async void AskNpc(string question)
+        {
+            if (string.IsNullOrWhiteSpace(question)) return;
+            if (dialogueOutput != null) dialogueOutput.text = "调度员正在回复…";
+            string reply = await new NpcDialogueService().RequestCampReplyAsync(question, CurrentQuest, null, "离线简报：合同条件以本地记录为准，先检查装备再出发。");
+            if (dialogueOutput != null) dialogueOutput.text = reply;
+            if (dialogueInput != null) dialogueInput.text = string.Empty;
         }
         public void Redraw()
         {

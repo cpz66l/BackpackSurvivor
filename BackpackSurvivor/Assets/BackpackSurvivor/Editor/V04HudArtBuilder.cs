@@ -17,7 +17,7 @@ namespace BackpackSurvivor.EditorTools
         public static readonly Color BorderColor = new Color(.36f, .48f, .59f, .9f);
         public static readonly Color TextColor = new Color(.94f, .96f, .98f);
         public static readonly Color Muted = new Color(.65f, .75f, .84f);
-        static TMP_FontAsset Font => AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/BackpackSurvivor/Art/Font/SourceHanSansCN-Normal SDF.asset");
+        public static TMP_FontAsset Font => AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/BackpackSurvivor/Art/Font/SourceHanSansCN-Normal SDF.asset");
 
         public static void ApplyToActiveScene()
         {
