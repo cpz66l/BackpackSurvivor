@@ -685,6 +685,8 @@ DeepSeek 的上下文缓存默认开启、无需改代码，按**前缀匹配**�
 | `get_progress()` | 长线进度：已完成事件、当前层级 | 营地 |
 | `get_run_state()` | 局内实时状态：波次、血量、击杀、背包 | 仅脉冲 |
 
+S8 实现采用更严格的字段引用协议：模型的 `objectiveEcho` 必须依次给出本地目标的零基索引，完整目标仍由本地 `ObjectiveText` 渲染。文本中的具体事实只能使用 `[[objective:0]]`、`[[progress:0]]`、`[[item:0]]`、`[[definition:0]]`、`[[backpack:0]]`、`[[run:0]]`、`[[contract:0]]`、`[[campaign:0]]` 引用；客户端逐句绑定后替换。裸数字、物品名、未知引用和未经绑定的目标陈述不显示。流式 JSON 必须先输出完整 objectiveEcho，再输出 text；尾部 verdict 必须与本地事实一致。已显示句子均独立通过校验，尾部失败只降级尚未显示内容，不撤回已验证句子。
+
 营地响应内部统一为 `{ "text": "...", "objectiveEcho": [...], "toolTrace": [...] }`；`objectiveEcho` 只能引用本地渲染的目标字段，`toolTrace` 由客户端记录实际执行结果，不能由模型自报。模型输出仍按句缓冲，句子通过字段级校验后才上屏。
 
 结算汇报的响应额外带 `verdict`（`complete` / `partial` / `failed`）。注意 `verdict` **只用于挑选话术**，真值来自本地判定；两者不一致时以本地为准并记录日志。
@@ -716,7 +718,7 @@ DeepSeek 的上下文缓存默认开启、无需改代码，按**前缀匹配**�
 - 简报不必等玩家开口：进入营地后后台发起，玩家先看到合同面板，NPC 的开场白到达后填充
 - 脉冲由阶段切换触发，延迟 2–3 秒发起，不流式；请求含局次/阶段/token/最大响应年龄，超时直接丢弃
 - 汇报异步进行：结算页先瞬时显示本地判定结果，话术到达后再淡入；结算时 `timeScale=0`，退避、超时和淡入使用Realtime时钟
-- 最多发起两次请求，第一次失败后等待0.5s，第二次失败后等待1.5s不再重试，之后降级
+- 初始工具请求最多尝试两次：第一次 HTTP 失败后等待 0.5s，第二次失败后等待 1.5s 并降级。工具调用成功后仅发一次最终回复请求，最终轮失败直接降级；因此一次正常回复是两个 HTTP 请求，初始轮重试后成功时最多三个。该上限包含工具协议必要的回填，避免把“回复次数”误当成“HTTP 次数”。
 - DeepSeek 前缀缓存只使用固定人设/格式前缀；应用层响应缓存必须包含 `sessionId + surface + eventId + seed + 事实摘要哈希 + 历史哈希 + 玩家输入哈希 + 模型版本`，营地默认不跨会话复用回答
 
 ### 9.15 对话层抽象
@@ -726,24 +728,20 @@ DeepSeek 的上下文缓存默认开启、无需改代码，按**前缀匹配**�
 ```csharp
 public interface INpcDialogue
 {
-    // 营地对话：流式，有历史，不可丢弃
-    IAsyncEnumerable<string> StreamCampReplyAsync(
-        DialogueRequest request, CancellationToken ct);
-
-    // 波次脉冲：一次性，无历史，可丢弃
-    Awaitable<string> RequestPulseAsync(
-        PulseRequest request, CancellationToken ct);
-
-    // 结算汇报：一次性，无历史，可降级
-    Awaitable<string> RequestDebriefAsync(
-        DebriefRequest request, CancellationToken ct);
+    // Unity 主线程上逐句回调；Task 表示最终已校验文本，不向 UI 暴露原始 token。
+    Task<string> StreamCampReplyAsync(string input, QuestInstance quest, string offline,
+        Action<string> sentence, CancellationToken ct);
+    Task<string> RequestPulseReplyAsync(string stage, QuestInstance quest,
+        QuestRunSnapshot snapshot, string offline, CancellationToken ct = default);
+    Task<string> RequestDebriefAsync(QuestInstance quest, QuestRunSnapshot snapshot,
+        CancellationToken ct = default);
 }
 ```
 
 两个正式实现与一个占位：
 
-- `MockNpcDialogue`：编辑器默认，从 ScriptableObject 读取预制响应，零成本、零网络、可复现
-- `DeepSeekNpcDialogue`：BYOK 直连，使用 `UnityWebRequest` + Unity 6 的 `Awaitable`；营地对话走流式，脉冲与汇报走一次性
+- `MockNpcDialogue`：编辑器默认，从 `Data/Quest/NpcPersona.asset` 读取预制响应，零成本、零网络、可复现。关闭该资产的 `useMockInEditor` 可运行真实 DeepSeek；真实网络审计入口使用会话覆盖开关，结束后清除。
+- `DeepSeekNpcDialogue`：BYOK 直连，`UnityWebRequest` 保持在 Unity 同步上下文，`Task` 与逐句回调承载异步生命周期；营地最终轮走流式，脉冲与汇报走一次性。`NpcDialogueService` 实现业务接口，底层 `INpcTransport` 可注入真实或 Mock 传输用于边界验收。复用工程已安装的 Newtonsoft JSON 3.2.2，不新增第三方依赖。
 - `RelayNpcDialogue`：保留接口，将来接中转服务
 
 一个需要留意的 DeepSeek 细节：**带 `tools` 的多轮对话需要把上一轮的 `reasoning_content` 回传**，不带 tools 的请求则不需要。本方案关闭了 thinking，因此该分支暂不生效，但将来若改动 thinking 设置，历史组装逻辑要连带检查这一点。

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using BS.Data;
 using BS.GamePlay.Quest;
 using BS.Inventory;
@@ -16,8 +17,13 @@ namespace BackpackSurvivor.EditorTools
             const string folder = "Assets/BackpackSurvivor/Data/Quest";
             if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/BackpackSurvivor/Data", "Quest");
             var database = AssetDatabase.LoadAssetAtPath<QuestDatabase>(DatabasePath);
-            if (database != null) return database; // Later content edits belong to the local assets.
+            if (database != null)
+            {
+                if(database.itemCatalog==null || database.itemCatalog.Count==0){SetItemCatalog(database);EditorUtility.SetDirty(database);AssetDatabase.SaveAssets();}
+                return database; // Later content edits belong to the local assets.
+            }
             database = ScriptableObject.CreateInstance<QuestDatabase>();
+            SetItemCatalog(database);
             database.questOnlyPool = AssetDatabase.LoadAssetAtPath<LootTableData>("Assets/BackpackSurvivor/Data/EquipDrops/LegendaryBonusDrops.asset");
             var weaponTags = new List<ItemTag> { ItemTag.Pistol, ItemTag.Rifle, ItemTag.Shotgun };
             var sets = new[] {
@@ -55,6 +61,11 @@ namespace BackpackSurvivor.EditorTools
             AssetDatabase.CreateAsset(database, DatabasePath);
             AssetDatabase.SaveAssets();
             return database;
+        }
+        static void SetItemCatalog(QuestDatabase database)
+        {
+            database.itemCatalog=AssetDatabase.FindAssets("t:LootTableData",new[]{"Assets/BackpackSurvivor/Data/EquipDrops"})
+                .Select(AssetDatabase.GUIDToAssetPath).OrderBy(p=>p).Select(AssetDatabase.LoadAssetAtPath<LootTableData>).ToList();
         }
         static ObjectiveClause Value(int value) => new ObjectiveClause { type=ObjectiveType.BackpackValueAtLeast,minValue=value };
         static ObjectiveClause FinalItem(QuestDatabase database) => new ObjectiveClause { type=ObjectiveType.CarryItemAnyOf,itemIds=database.AllQuestOnlyIds };

@@ -86,7 +86,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | 程序集 | 位置 | 属性 | 内容 |
 |---|---|---|---|
 | `BS.Quest.Core` | `Scripts/Quest/Core/` | `noEngineReferences: true`，references 指向 `BS.Inventory` | `ObjectiveClause`、`ObjectiveType`、`QuestTag`、`QuestInstance`、`QuestRunSnapshot`、`ItemRecord`、`ChestQuality`、`QuestOutcome`、`RunOutcome`、`QuestEvaluator`、`QuestDrawer` |
-| `BS.Npc.Core` | `Scripts/Npc/Core/` | `noEngineReferences: true`，references 指向 `BS.Quest.Core` | `FactBlockBuilder`、`NpcResponseValidator`、`DialogueRouter` |
+| `BS.Npc.Core` | `Scripts/Npc/Core/` | `noEngineReferences: true`，references 指向 `BS.Quest.Core` 与 `BS.Inventory` | `FactBlockBuilder`、`NpcResponseValidator`、`DialogueRouter` |
 | `BS.Quest.Tests` | `Tests/EditMode/` | EditMode only，references 指向 `BS.Quest.Core`、`BS.Npc.Core`、`UnityEngine.TestRunner`、`UnityEditor.TestRunner`，`precompiledReferences` 含 `nunit.framework.dll`，`overrideReferences: true` | 判定、抽签、事实块与校验器的单元测试 |
 | 默认程序集 | `Scripts/Quest/`、`Scripts/Npc/` 的其余部分 | 不设 asmdef | `QuestEventDefinition`（ScriptableObject）、`QuestDatabase`、`QuestDirector`、`NpcPersona`、`NpcDialogueService`、`INpcDialogue` 及其实现、各 View |
 
@@ -121,11 +121,11 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 已完成（真实 SSE、UTF-8、工具参数与取消验证） |
 | S2 | 模型配置面板 | 主菜单 → Key 与四项上限配置 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
 | S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
-| S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 已完成（16 类型通过/失败边界、死亡语义、无效字段与精确品质 EditMode 验证） |
+| S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 待补齐验收（已有聚合通过用例与非法字段测试；并非全部 16 类型失败边界，缺 S3 回放） |
 | S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 部分验收（S7 已补 15 个占位事件与 pending 重启恢复；连续完成推进待补） |
 | S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 过滤已实测通过（真实资产已标记；合同发放闭环随 S7 验收） |
 | S7 | 调度营地与合同面板 | 抽签 → 营地存档接口 → 面板 → 进图 | S5、S6 | 核心链路已验收（抽签/写档/出击/暂停重试/死亡返回/重抽/Play 重启恢复；上游完整验收仍待补） |
-| S8 | 营地对话接入 | 合同 → 事实块 → 路由/校验 → 对话服务接口 | S1、S2、S7 | 进行中（Core 防护接口已建立，DeepSeek UI 请求待接） |
+| S8 | 营地对话接入 | 合同 → 事实块 → 路由/校验 → 对话服务接口 | S1、S2、S7 | 核心链路已实测（真实工具回填、流式 UI、按句字段校验、开发审计、Mock、失败/额度/取消；证据见 S8） |
 | S9 | 局内追踪器 | 多源进度事件 → 判定 → HUD | S3、S4、S7 | 进行中（追踪器接口已建立，运行时绑定待接） |
 | S10 | 波次脉冲 | `OnWaveStageChanged` → 脉冲请求 → 字幕 | S1、S2、S7 | 进行中（延迟/TTL 丢弃服务已接，DeepSeek 文案接入待补） |
 | S11 | 结算任务区与汇报 | 冻结快照 → 判定 → 存档推进 → 汇报 | S4、S7、S9 | 进行中（本地判定/推进/任务文本接口已接入，LLM 汇报 UI 待续） |

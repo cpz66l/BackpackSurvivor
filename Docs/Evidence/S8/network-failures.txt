@@ -1,0 +1,3 @@
+PASS endpoint=https://api.deepseek.com/chat/completions fallback=tool_http_failed reply=先核对合同，准备好再出发。
+PASS endpoint=https://127.0.0.1:1 fallback=tool_http_failed reply=先核对合同，准备好再出发。
+PASS two real UnityWebRequest failure paths

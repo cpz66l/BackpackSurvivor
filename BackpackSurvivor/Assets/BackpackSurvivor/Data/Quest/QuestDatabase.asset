@@ -29,3 +29,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7aeafe39d6e3d2f4da0fa73d3dc78aea, type: 2}
   - {fileID: 11400000, guid: 6b78781b6f65bf346b04c0b2a9a7b536, type: 2}
   questOnlyPool: {fileID: 11400000, guid: 25d6a4192fa8db147ba6d0795aecae65, type: 2}
+  itemCatalog:
+  - {fileID: 11400000, guid: a58ed44a0afd4e044996d6e218a17394, type: 2}
+  - {fileID: 11400000, guid: c7459bb5cff5f664a9c22ac72d741f45, type: 2}
+  - {fileID: 11400000, guid: 25d6a4192fa8db147ba6d0795aecae65, type: 2}
+  - {fileID: 11400000, guid: fca669af801c4044f870139dc57b9408, type: 2}
+  - {fileID: 11400000, guid: 164bdb73d497b3c4991abb463be3e737, type: 2}

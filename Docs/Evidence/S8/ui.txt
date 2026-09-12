@@ -1,0 +1,6 @@
+2026-09-12T16:43:49.0986299Z
+2026-09-12T16:43:59.8241000Z PASS live opening tools=4 turns=1
+2026-09-12T16:44:03.0070475Z PASS actual input onSubmit -> live tools -> validated text: 当前合同是适应战区。要求为达到等级 3。目标1：当前条件未满足。当前背包：空；尚未开始本局。当前合同层级 1，已完成事件 0。
+2026-09-12T16:44:06.0147986Z PASS restricted input stayed local; audit panel displayed
+2026-09-12T16:44:07.5985986Z PASS departed while NPC request pending; no dependency on reply
+2026-09-12T16:44:07.6001846Z PASS live UI audit; temporary save only

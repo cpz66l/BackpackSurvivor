@@ -504,3 +504,51 @@ Unity 编译请求已发出，当前未采集足够真实局数，尚不能给�
 Camp Builder 新增中文文本输入框和回复区，回车调用 `NpcDialogueService.RequestCampReplyAsync`；离线回复仍保留，玩家输入只进入对话服务，不触发任何状态、背包或存档修改。CampController 对输入回调在销毁时解除。Builder 已重新生成并保存 Camp 场景，UnityMCP 编译无错误。
 
 S8 仍待完成真实流式分片显示、工具调用后的最终回答网络证据和超时/诱导测试。
+
+## S8 验收纠偏 · 真实工具回填与营地流式交互（2026-09-13）
+
+**阶段**：S8 · 营地对话接入。
+
+**核心链路**：营地输入 → 本地预分类 → 冻结事实 → 白名单工具请求/执行/回填 → DeepSeek 流式最终 JSON → 按句字段绑定 → UI；失败保留本地事实文案，出击可取消请求。
+
+**目的**：把此前只会回退且缺少错误证据的占位服务，替换成在 Unity 内实测成功、可观测、可取消的真实对话链路。
+
+**技术选择**：
+
+- 按消息类型组装 JObject，避免无关的空工具字段进入请求。复用已安装的 Newtonsoft JSON 3.2.2，无新增包。
+- 工具轮非流式且 required；客户端验证工具白名单、参数、调用 id 和最多六个调用，按顺序回填。最终轮不携带工具定义，关闭 thinking，使用 JSON Output；营地最终轮 SSE 经严格 UTF-8 Decoder 处理。
+- 模型只输出目标索引和字段引用，数量/单位/物品名最终由本地替换；不采用“只要数字出现过就放行”的弱校验。objectiveEcho 先于 text，完整句通过校验才回调 UI；未通过的尾部降级，已显示安全句不撤回。
+- 一个营地会话复用一个服务及历史；重抽、离场销毁或取消。服务层执行轮次/总 token 上限，按实际 usage 计数，缺失 usage 时保守预留。初始 HTTP 失败最多重试一次，最终轮不重试。
+- `NpcPersona.asset` 本地维护离线、受限话题、收尾及 Mock 文案；Editor 默认 Mock，关闭 `useMockInEditor` 后使用 DeepSeek，发布构建走正常密钥解析。入口自动发起开场，首句到达前保留本地简报。
+- 玩家只看到文本；开发审计面板单独显示脱敏的请求、响应、实际工具执行和回填顺序。文本不启用富文本，审计使用滚动区域。
+
+**改动文件**（前缀 `BackpackSurvivor/Assets/BackpackSurvivor/`，新增均含 meta）：
+
+- `Scripts/Npc/NpcTransport.cs`：真实 UnityWebRequest/SSE 传输与可注入测试边界。
+- `Scripts/Npc/NpcDialogueService.cs`：三面接口、协议组装、只读工具、历史/额度、句缓冲、降级、审计与取消。
+- `Scripts/Npc/Core/NpcCore.cs`、`BS.Npc.Core.asmdef`：纯 C# 事实块、路由、字段绑定；读取现有 ItemTag/Rarity 因而新增 BS.Inventory 引用，仍无引擎引用。
+- `Scripts/Npc/NpcPersona.cs`、`MockNpcDialogue.cs`、`Data/Quest/NpcPersona.asset`：本地维护的无网络响应。
+- `Scripts/Quest/QuestDatabase.cs`、`Editor/QuestCatalogBuilder.cs`、`Data/Quest/QuestDatabase.asset`：只读物品定义目录，不向模型提供权重或掉落来源。
+- `Scripts/Quest/Core/ObjectiveText.cs`：复用本地中文品质和类别名称。
+- `Scripts/Quest/CampController.cs`、`Editor/CampSceneBuilder.cs`、`Scenes/Camp/Camp.unity`：会话生命周期、输入/滚动回复、开发审计；取消不阻塞出击。
+- `Art/Font/SourceHanSansCN-Normal SDF.asset`：新增界面中文字形。
+- `Tests/EditMode/NpcBindingTests.cs`：越权输入、数值改写、未知引用、富文本和本地字段隔离。
+- `Editor/LLM/QuestS8Audit.cs`、`QuestS8SafetyAudit.cs`、`QuestS8UiAudit.cs`：真实请求、故障注入和实景验收入口。
+- `Docs/Evidence/S8/`、两份方案、本复盘记录：证据与实现约定同步。
+
+**验证结果**：
+
+- 实际 Unity 请求：4 个工具调用，64 个 SSE 分片，首句 1460.5ms，1663 tokens。操作：`Tools/Backpack Survivor/LLM/S8 Verify Camp Tool Roundtrip`。证据：`verification.txt`、`sentences.txt`、`audit.txt`。这是一次样本延迟，不作为长期 SLA。
+- 真实营地 UI：使用临时存档及临时 Live 覆盖，自动开场成功；调用实际输入框 onSubmit 后完成第二轮；合同内容未改；开发面板可显示和滚动审计；越权输入走本地化解；请求未完成时点击出击，ArtFull 已 Running 且合同一致。证据：`ui.txt`、`camp-live.png`、`camp-reply.png`、`camp-audit.png`，已目视确认布局与中文可读。测试触发 UI 事件，不冒称物理鼠标/键盘人工操作。
+- 错误密钥/连接失败：真实 UnityWebRequest 分别访问 DeepSeek（测试假 Key，401）和本机无服务端口（status 0）；两者均退回本地文案，真实 Key 未发送到测试本机地址。证据：`network-failures.txt`、`unauthorized.txt`、`connection-failure.txt`。
+- 服务故障注入：14 组通过，覆盖未知工具、错参数、循环、错误目标索引、裸数字、残缺流、verdict 不一致、受限输入、轮次/token 额度、历史顺序、执行中取消。证据：`safety.txt`。故障注入通过同一个 NpcDialogueService，不把 Mock 结果当作真实网络成功。
+- EditMode 最终作业 `c4c9e03d71814529b9987c3db41a2492`：25/25 Passed；其中 18 个新增 NPC 字段/路由用例。证据：`editmode.json`。
+- Editor 默认 Mock 下重新执行 S7 完整往返：出击、暂停重试、重抽、真实死亡、返回营地、Play 重启恢复全部通过（`Docs/Evidence/S7/verification.txt`）。该验收不用网络，也未使用玩家实际存档。
+
+**未验证或已知限制**：
+
+- 并未穷尽所有自然语言内容风险；实现为人设规则、输入预分类、只读工具、字段约束和禁词校验的组合，仍需后续内容回归。没有声称大规模统计或发布构建验证。
+- 此次没有重新运行 900 秒胜利局；离线情况下的死亡结算及营地往返已测。S9 实景进度、S10 全波次及慢响应、S11 四种结算和可靠推进、S12 采样报告仍不算完成。
+- S4 的既有“16 类型通过/失败都覆盖”表述经再次核对不成立：原聚合测试主要验证通过路径。状态表已恢复为待补齐，不让新增加的 NPC 测试掩盖该缺项。
+
+**超出范围未做**：本次不调整权重、不新增美术、不改任务达成权、不引入中转服务；Pulse/Debrief 共用的服务接口已提供，但未据此宣称 S10/S11 玩家链路完成。

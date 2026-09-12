@@ -31,8 +31,8 @@ namespace BS.Quest
             }
             return (c.optional ? "加分项：" : "") + text;
         }
-        static string Quality(int value) => value >= 0 && value < 5 ? new[] { "普通", "不普通", "稀有", "史诗", "传说" }[value] : "未知品质";
-        static string Tag(ItemTag tag)
+        public static string Quality(int value) => value >= 0 && value < 5 ? new[] { "普通", "不普通", "稀有", "史诗", "传说" }[value] : "未知品质";
+        public static string Tag(ItemTag tag)
         {
             string[] names = { "未分类物品", "手枪", "步枪", "霰弹枪", "狙击枪", "攻击芯片", "攻速芯片", "弹鼓", "瞄准镜", "火焰核心", "护甲", "医疗物品", "收集品", "机械臂", "磁吸核心" };
             int i = (int)tag; return i >= 0 && i < names.Length ? names[i] : "未知标签";

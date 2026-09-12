@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Threading.Tasks;
+using System.Threading;
 using BS.GamePlay.Npc;
 
 namespace BS.GamePlay.Quest
@@ -23,6 +23,20 @@ namespace BS.GamePlay.Quest
         [SerializeField] Button menuButton;
         [SerializeField] TMP_InputField dialogueInput;
         [SerializeField] TMP_Text dialogueOutput;
+        [SerializeField] NpcPersona persona;
+        [SerializeField] TMP_Text auditText;
+        [SerializeField] GameObject auditPanel;
+        [SerializeField] Button auditOpen, auditClose;
+        NpcDialogueService dialogue;
+        CancellationTokenSource replyCancellation;
+        int replyRevision;
+        public string DialogueText => dialogueOutput == null ? "" : dialogueOutput.text;
+        public bool DialogueBusy { get; private set; }
+        public string DialogueFailure => dialogue?.LastFailure;
+        public int DialogueTurns => dialogue?.Turns ?? 0;
+        public int DialogueTools => dialogue?.ToolCount ?? 0;
+        public void ConfigureDialogue(NpcPersona local, TMP_Text audit, GameObject panel, Button open, Button close)
+        { persona=local; auditText=audit; auditPanel=panel; auditOpen=open; auditClose=close; }
         bool leaving;
         public QuestInstance CurrentQuest => SaveService.Instance?.CurrentData?.campaign?.pendingQuest?.Copy();
 
@@ -40,8 +54,15 @@ namespace BS.GamePlay.Quest
             redrawButton.onClick.AddListener(Redraw);
             menuButton.onClick.AddListener(ReturnToMenu);
             if (dialogueInput != null) dialogueInput.onSubmit.AddListener(AskNpc);
+            if(auditOpen) auditOpen.onClick.AddListener(OpenAudit);
+            if(auditClose) auditClose.onClick.AddListener(CloseAudit);
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            if(auditOpen) auditOpen.gameObject.SetActive(false);
+#endif
             if (CurrentQuest == null && !SaveService.Instance.CurrentData.campaign.finalCompleted) Redraw();
             else Refresh();
+            ResetDialogue();
+            AskNpc("准备开始行动，请简短提醒我。");
         }
         void OnDestroy()
         {
@@ -49,14 +70,64 @@ namespace BS.GamePlay.Quest
             if (redrawButton) redrawButton.onClick.RemoveListener(Redraw);
             if (menuButton) menuButton.onClick.RemoveListener(ReturnToMenu);
             if (dialogueInput != null) dialogueInput.onSubmit.RemoveListener(AskNpc);
+            if(auditOpen) auditOpen.onClick.RemoveListener(OpenAudit);
+            if(auditClose) auditClose.onClick.RemoveListener(CloseAudit);
+            CancelReply();
+            if(dialogue!=null) dialogue.AuditChanged-=UpdateAudit;
         }
         public async void AskNpc(string question)
         {
-            if (string.IsNullOrWhiteSpace(question)) return;
-            if (dialogueOutput != null) dialogueOutput.text = "调度员正在回复…";
-            string reply = await new NpcDialogueService().RequestCampReplyAsync(question, CurrentQuest, null, "离线简报：合同条件以本地记录为准，先检查装备再出发。");
-            if (dialogueOutput != null) dialogueOutput.text = reply;
-            if (dialogueInput != null) dialogueInput.text = string.Empty;
+            if (leaving || DialogueBusy || string.IsNullOrWhiteSpace(question)) return;
+            if(dialogue==null) ResetDialogue();
+            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision;
+            DialogueBusy=true;
+            if(dialogueInput) dialogueInput.interactable=false;
+            bool receivedSentence=false;
+            try
+            {
+                string local=CurrentQuest?.briefingBody ?? persona?.offlineBriefing;
+                string reply=await dialogue.StreamCampReplyAsync(question,CurrentQuest,local,sentence=>{
+                    if(this!=null && !leaving && revision==replyRevision && dialogueOutput)
+                    {
+                        if(!receivedSentence){dialogueOutput.text="";receivedSentence=true;}
+                        dialogueOutput.text+=sentence;
+                    }
+                },replyCancellation.Token);
+                if(this!=null && !leaving && revision==replyRevision && dialogueOutput)dialogueOutput.text=reply;
+            }
+            catch(OperationCanceledException) { }
+            finally
+            {
+                if(this!=null && revision==replyRevision)
+                {
+                    DialogueBusy=false;
+                    if(dialogueInput){dialogueInput.interactable=!leaving;dialogueInput.text="";}
+                    UpdateAudit();
+                }
+            }
+        }
+        void CancelReply(){replyRevision++;replyCancellation?.Cancel();replyCancellation?.Dispose();replyCancellation=null;DialogueBusy=false;}
+        void ResetDialogue()
+        {
+            CancelReply();if(dialogue!=null)dialogue.AuditChanged-=UpdateAudit;
+            INpcTransport transport=new DeepSeekNpcDialogue();
+#if UNITY_EDITOR
+            if(persona && persona.useMockInEditor)transport=new MockNpcDialogue(persona);
+            if(UnityEditor.SessionState.GetBool("BS.Npc.UseLiveAudit",false))transport=new DeepSeekNpcDialogue();
+#endif
+            dialogue=new NpcDialogueService(transport,null,persona?.restrictedReply,persona?.closingReply);
+            dialogue.ItemDefinitions=database?.ItemDefinitions;
+            dialogue.AuditChanged+=UpdateAudit;
+            if(dialogueInput)dialogueInput.interactable=true;
+            if(dialogueOutput)dialogueOutput.text=CurrentQuest?.briefingBody??persona?.offlineBriefing;
+        }
+        void OpenAudit(){if(auditPanel)auditPanel.SetActive(true);UpdateAudit();}
+        void CloseAudit(){if(auditPanel)auditPanel.SetActive(false);}
+        void UpdateAudit()
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if(auditText && dialogue!=null) auditText.text="轮次 "+dialogue.Turns+" · tokens "+dialogue.Tokens+" · "+(dialogue.UsedFallback?"本地回退 "+dialogue.LastFailure:"回复处理中/已验证")+"\n"+dialogue.Audit;
+#endif
         }
         public void Redraw()
         {
@@ -71,6 +142,7 @@ namespace BS.GamePlay.Quest
             if (!SaveService.Instance.TrySetPendingQuest(quest, out string error)) statusText.text="合同保存失败：" + error;
             else statusText.text="合同已保存。出击或下次返回营地均使用这份条件。";
             Refresh();
+            ResetDialogue();
         }
         public void Refresh()
         {
@@ -80,7 +152,7 @@ namespace BS.GamePlay.Quest
                 q.briefingTitle + " · " + new string('★', Math.Max(1,Math.Min(5,q.tier))) + "\n\n" + q.briefingBody +
                 "\n\n必须存活带出，并满足以下全部必选条件：\n" + string.Join("\n", q.objectives.Select(c => "• " + ObjectiveText.Format(c))) +
                 "\n\n任务局专属池：" + string.Join(" / ", q.activeQuestOnlyItemIds);
-            factsText.text = "调度员\n\n" + (q?.briefingBody ?? "检查合同与装备，准备好再出发。") + "\n\n当前背包：空\n尚未开始本局。\n死亡或未达成会保留合同，可重试或重抽。";
+            factsText.text = "调度员\n当前背包：空 · 尚未开始本局\n死亡或未达成会保留合同，可重试或重抽。";
             launchButton.interactable = q != null && !final && !leaving;
             redrawButton.interactable = database != null && !final && !leaving;
         }
@@ -88,10 +160,11 @@ namespace BS.GamePlay.Quest
         {
             if (leaving || CurrentQuest == null || SaveService.Instance.CurrentData.campaign.finalCompleted) return;
             leaving=true;
+            CancelReply();
             Debug.Log("[Quest Camp] depart: " + CurrentQuest.eventId + ", seed=" + CurrentQuest.seed + ", tier=" + CurrentQuest.tier);
             Time.timeScale=1f;
             SceneManager.LoadScene("01-Run_ArtFull");
         }
-        public void ReturnToMenu() { if (leaving) return; leaving=true; SceneManager.LoadScene("MainMenu"); }
+        public void ReturnToMenu() { if (leaving) return; leaving=true; CancelReply(); SceneManager.LoadScene("MainMenu"); }
     }
 }
