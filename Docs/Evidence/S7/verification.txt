@@ -1,6 +1,6 @@
-2026-09-12T16:58:31.8121989Z
-2026-09-12T16:58:31.8352931Z PASS catalog: 15 events/5 tiers, full quest pool, accepted clause isolation.
-2026-09-12T16:58:41.3043740Z PASS initial camp draw + disk save, old save preserved; prototype-t1-3
-2026-09-12T16:58:43.6493248Z PASS camp-to-run contract identity and loot context; pause retry returns to camp.
-2026-09-12T16:58:45.5589526Z PASS redraw then second launch; real death preserved pending; result button returned to camp.
-2026-09-12T16:58:52.0023316Z PASS Play restart restored complete pending conditions; test used temporary save only.
+2026-09-12T17:11:29.0991212Z
+2026-09-12T17:11:29.1158613Z PASS catalog: 15 events/5 tiers, full quest pool, accepted clause isolation.
+2026-09-12T17:11:38.8441104Z PASS initial camp draw + disk save, old save preserved; prototype-t1-1
+2026-09-12T17:11:41.1937444Z PASS camp-to-run contract identity and loot context; pause retry returns to camp.
+2026-09-12T17:11:43.0376144Z PASS redraw then second launch; real death preserved pending; result button returned to camp.
+2026-09-12T17:11:49.8127351Z PASS Play restart restored complete pending conditions; test used temporary save only.

@@ -12,7 +12,7 @@
         "pendingQuest": {
             "eventId": "prototype-t1-3",
             "tier": 1,
-            "seed": 354716803,
+            "seed": -1661321696,
             "definitionVersion": "prototype-1",
             "objectives": [
                 {
@@ -45,7 +45,7 @@
         "drawCount": 2,
         "lastTag": 2,
         "recentEventIds": [
-            "prototype-t1-3",
+            "prototype-t1-1",
             "prototype-t1-3"
         ]
     }
