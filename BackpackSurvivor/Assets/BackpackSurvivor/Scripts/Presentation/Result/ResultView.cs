@@ -39,11 +39,12 @@ namespace BS.Presentation
 
         public void ConfigurePresentation(GameSession session, GameObject visualRoot, RectTransform content,
             TMP_Text title, TMP_Text subtitle, TMP_Text[] values, TMP_Text legendarySummary,
-            Button restart, Button mainMenu, Color victoryColor, Color defeatColor)
+            Button restart, Button mainMenu, Color victoryColor, Color defeatColor, TMP_Text questOutcome = null)
         {
             gameSession = session; panel = visualRoot; dialog = content;
             titleText = title; subtitleText = subtitle; statisticValues = values;
             legendarySummaryText = legendarySummary; statsText = null;
+            questOutcomeText = questOutcome;
             restartButton = restart; quitButton = mainMenu;
             victoryTitleColor = victoryColor; defeatTitleColor = defeatColor;
             menuButtons = new[] { restartButton, quitButton };

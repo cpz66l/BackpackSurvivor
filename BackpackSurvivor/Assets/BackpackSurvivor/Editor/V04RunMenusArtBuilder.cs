@@ -104,11 +104,12 @@ namespace BackpackSurvivor.EditorTools
 
             TextMeshProUGUI summary = Text("SupplementaryStats", dialog, "总经验  0    ·    传说装备价值  ￥0", 0, -160, 1036, 44, 25, Muted);
             summary.enableAutoSizing = true; summary.fontSizeMin = 20; summary.fontSizeMax = 25;
+            TextMeshProUGUI questOutcome = Text("QuestOutcome", dialog, "当前没有进行中的合同", 0, -200, 1036, 36, 22, Muted);
             Divider("FooterDivider", dialog, -202, 1036);
             Button restart = MenuButton("Restart", dialog, "再次行动", -245, -278, 450, 88, true);
             Button mainMenu = MenuButton("MainMenu", dialog, "主菜单", 245, -278, 450, 88, false);
             resultView.ConfigurePresentation(session, root.gameObject, dialog, title, subtitle, values, summary,
-                restart, mainMenu, new Color(.56f, .88f, .72f, 1f), new Color(.95f, .73f, .65f, 1f));
+                restart, mainMenu, new Color(.56f, .88f, .72f, 1f), new Color(.95f, .73f, .65f, 1f), questOutcome);
             root.gameObject.SetActive(false);
         }
 
