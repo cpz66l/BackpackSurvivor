@@ -370,3 +370,36 @@ S8 追加：新增 `NpcDialogueService`，使用现有配置解析和 UnityWebRe
 
 
 S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使用递增 request token 和 realtime TTL 丢弃过期回调；`RadioPulseReplyView` 负责字幕显示与超时清空。当前回复为本地占位文本，尚未接 DeepSeek。
+
+
+## S6 验收纠偏 · 真实资产与候选过滤
+
+**阶段**：S6 返修与验证，2026-09-12。
+
+**核心链路**：真实 LegendaryBonusDrops 标记 → 冻结合同名单 → 常规/保底候选过滤 → Epic/Legendary 宝箱束掷骰。
+
+**目的**：修复“接口存在但真实资产未启用”和“空上下文放行”两处缺口，取得与原权重保持一致的实测证据。
+
+**技术选择**：只标记设计明确的方舟计划核心、星火反应炉；其余三件传说仍常规。LootContext 保存 HashSet 副本并对外只读，缺失名单关闭权限；两条候选路径均把 null context 视作普通局。LootManager 初始化提前到 Awake，避免 GameSession.Start 与管理器 Start 顺序不确定。保留全部权重与既有保底行为。
+
+**改动文件**：
+
+- `Scripts/GamePlay/Loot/Rolling/LootContext.cs`：冻结名单，移除空名单通配。
+- `Scripts/GamePlay/Loot/Rolling/LootRoller.cs`：null 上下文关闭权限，束中的空 channel 保护。
+- `Scripts/GamePlay/Loot/Rolling/LootManager.cs`：Awake 初始化。
+- `Data/EquipDrops/LegendaryBonusDrops.asset`：两个 questOnly 标记，权重仍 35/25/20/10/10。
+- `Editor/LLM/QuestS6Audit.cs`：真实资产、参考序列、分布和保底审计，恢复 Random.state，销毁临时表。
+- `Docs/Evidence/S6/verification.txt`：固定种子完整输出。
+- 两份方案与本记录：澄清名单语义，纠正先前基于接口/编译的完成标记。
+
+**验证结果**：
+
+- UnityMCP 在非 Play 模式先执行 `Tools/Backpack Survivor/Quest/S6 Configure QuestOnly Assets`，再执行 `S6 Check QuestOnly Filter`；编译无错误，逐项断言通过。
+- seed=20260912。每种宝箱/上下文各 10000 次：普通局 Epic/Legendary 的任务物品均为 0；合同局分别 748、3633。
+- 与保留原权重和通道概率的参考表对照，40000 次宝箱输出序列逐次一致；常规传说池的剩余权重比为 35:20:10，样本分布在断言容差内。
+- 保底用真实 Common 未命中累积触发：普通局任务命中 0/1000，合同局 990/1000；null、空名单、未知 id、全部过滤与名单防外部修改均验证普通/保底两条分支。
+- 证据：`Docs/Evidence/S6/verification.txt`。无网络调用、无玩家存档写入、无场景修改。
+
+**未验证或已知限制**：本次测试是真实掉落配置与掷骰器，未把脚本掷骰称为人工开箱游玩。营地目前还不能生成真实合同，S7 完成前不宣称玩家入口闭环已通。S4/S5/S7 的此前完成报告有验收缺项，状态表已纠正，后续继续补齐。
+
+**超出范围未做**：S12 难度/可达性校准；没有修改任何现有掉落权重，没有定向保底，没有把合同模式的空名单视作全量池。

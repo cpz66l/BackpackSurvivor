@@ -1,4 +1,4 @@
-﻿using BS.Data;
+using BS.Data;
 using BS.Inventory;
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,7 @@ namespace BS.GamePlay.Loot
                 return entries;
             foreach (var c in bundle.channels)
             {
-                if(UnityEngine.Random.value < c.probability)
+                if(c != null && UnityEngine.Random.value < c.probability)
                 {
                     LootEntry entry = Roll(c.subTable, context);
                     if (entry != null)
@@ -70,7 +70,7 @@ namespace BS.GamePlay.Loot
                 //获得从稀有度≥蓝 的条目
                 LootEntry[] eligible = Array.FindAll
                     (table.entries, e => e != null && e.weight > 0
-                    && (context == null || context.Allows(e.id, e.questOnly))
+                    && (context ?? LootContext.Normal).Allows(e.id, e.questOnly)
                     && (int)e.rarity >= (int)Rarity.Rare);
 
                 if (eligible.Length > 0)
@@ -84,7 +84,7 @@ namespace BS.GamePlay.Loot
                 }
             }
             //全表抽取
-            LootEntry[] candidates = Array.FindAll(table.entries, e => e != null && e.weight > 0 && (context == null || context.Allows(e.id, e.questOnly)));
+            LootEntry[] candidates = Array.FindAll(table.entries, e => e != null && e.weight > 0 && (context ?? LootContext.Normal).Allows(e.id, e.questOnly));
             LootEntry result = PickByWeight(candidates);
             if (result == null) return null;
 

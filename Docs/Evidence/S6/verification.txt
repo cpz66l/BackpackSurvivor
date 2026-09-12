@@ -1,0 +1,10 @@
+2026-09-12T15:42:59.0076664Z
+Seed=20260912
+LEAF normal 避难所主密钥=5322, 方舟计划核心=0, 完整撤离坐标=3061, 热成像狙击镜=1617, 星火反应炉=0
+LEAF contract 避难所主密钥=3486, 方舟计划核心=2485, 完整撤离坐标=2011, 热成像狙击镜=978, 星火反应炉=1040
+Epic normal: boxes=10000, questDrops=0, regularLegendary=2035, exact reference matches=10000
+Epic contract: boxes=10000, questDrops=748, regularLegendary=1287, exact reference matches=10000
+Legendary normal: boxes=10000, questDrops=0, regularLegendary=10000, exact reference matches=10000
+Legendary contract: boxes=10000, questDrops=3633, regularLegendary=6367, exact reference matches=10000
+PITY: normal quest hits=0/1000; contract quest hits=990/1000; null/empty/restricted/all-filtered/immutable context checks PASS on both paths.
+PASS all assertions; Random.state restored; no scene, save or gameplay state changed.

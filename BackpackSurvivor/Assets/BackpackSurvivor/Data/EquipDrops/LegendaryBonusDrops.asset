@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b294446e5ff3164db1def38dba77c82, type: 3}
   m_Name: LegendaryBonusDrops
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
+  chestQuality: -1
   channels: []
   entries:
   - category: 2
@@ -27,6 +28,7 @@ MonoBehaviour:
     scoreValue: 12000
     effectValue: 0
     level: 1
+    questOnly: 0
   - category: 2
     id: "\u65B9\u821F\u8BA1\u5212\u6838\u5FC3"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -40,6 +42,7 @@ MonoBehaviour:
     scoreValue: 15000
     effectValue: 0
     level: 1
+    questOnly: 1
   - category: 2
     id: "\u5B8C\u6574\u64A4\u79BB\u5750\u6807"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -53,6 +56,7 @@ MonoBehaviour:
     scoreValue: 10000
     effectValue: 0
     level: 1
+    questOnly: 0
   - category: 2
     id: "\u70ED\u6210\u50CF\u72D9\u51FB\u955C"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -66,6 +70,7 @@ MonoBehaviour:
     scoreValue: 10000
     effectValue: 0.5
     level: 1
+    questOnly: 0
   - category: 2
     id: "\u661F\u706B\u53CD\u5E94\u7089"
     dropPrefab: {fileID: 7901897680390709044, guid: bb5942195c1657541a7dde3204047a7e, type: 3}
@@ -79,3 +84,4 @@ MonoBehaviour:
     scoreValue: 30000
     effectValue: 0
     level: 1
+    questOnly: 1

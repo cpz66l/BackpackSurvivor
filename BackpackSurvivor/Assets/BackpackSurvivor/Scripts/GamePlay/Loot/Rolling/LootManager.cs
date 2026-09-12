@@ -1,4 +1,4 @@
-﻿using BS.Core;
+using BS.Core;
 using BS.Data;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +20,7 @@ namespace BS.GamePlay.Loot
         public void SetContractRun(bool active, IReadOnlyCollection<string> allowedQuestOnlyItemIds = null)
         { context = new LootContext(active, allowedQuestOnlyItemIds); }
 
-        void Start ()
+        void Awake ()
         {
             lootRoller = new LootRoller(pityThreshold);
         }

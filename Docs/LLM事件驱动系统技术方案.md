@@ -243,7 +243,7 @@ public struct ItemRecord
 }
 ```
 
-S3 实施：`LootTableData.chestQuality` 显式配置宝箱 bundle 品质，其他掉落表默认为 `Unknown=-1`。`EndRun` 先将拖拽物品恢复原方向与锚点，再从同一物品列表计算快照与既有 `RunResult`；原占位在拖拽期间保留，其他拾取不能占用。`LastQuestSnapshot` 返回数组和物品列表的副本，外部修改不会污染冻结结果。`questOnly` 的物品透传已实现，资产标记和过滤仍属于 S6。
+S3 实施：`LootTableData.chestQuality` 显式配置宝箱 bundle 品质，其他掉落表默认为 `Unknown=-1`。`EndRun` 先将拖拽物品恢复原方向与锚点，再从同一物品列表计算快照与既有 `RunResult`；原占位在拖拽期间保留，其他拾取不能占用。`LastQuestSnapshot` 返回数组和物品列表的副本，外部修改不会污染冻结结果。`questOnly` 的物品透传已实现；S6 已标记方舟计划核心/星火反应炉并实测过滤，合同生成闭环仍需 S7 验收。
 
 ### 5.5 判定器 QuestEvaluator
 
@@ -312,7 +312,7 @@ EnemySpawner / LootChest
         → PickByWeight(已过滤候选集)
 ```
 
-`LootContext` 至少包含 `AllowQuestOnly` 与 `AllowedQuestOnlyItemIds`。首版合同局把名单设置为全部 `questOnly` 物品，常规局名单为空；字段保留以便后续需求允许子集时继续使用。上下文由 `LootManager` 持有会话状态并在内部构造，避免改动三个调用点。
+`LootContext` 至少包含 `AllowQuestOnly` 与 `AllowedQuestOnlyItemIds`。首版合同局把名单设置为全部 `questOnly` 物品，常规局名单为空；字段保留以便后续需求允许子集时继续使用。上下文由 `LootManager` 持有会话状态并在内部构造，避免改动三个调用点。实现采用冻结后的名单副本；null 上下文按常规局处理，缺失/空名单不放行任务物品，不能把“全量池”解释为“空名单通配”。
 
 ### 6.4 判定口径与可达性
 
