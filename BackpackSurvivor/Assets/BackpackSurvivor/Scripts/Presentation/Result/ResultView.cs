@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Linq;
 
 namespace BS.Presentation
 {
@@ -134,8 +135,14 @@ namespace BS.Presentation
             if (questOutcomeText != null)
             {
                 var outcome = gameSession == null ? null : gameSession.LastQuestOutcome;
-                questOutcomeText.text = outcome == null ? "当前没有进行中的合同" : (outcome.Completed ? "合同已完成" : "合同未达成，已保留") + $" · 进度 {outcome.Progress01:P0}";
+                questOutcomeText.text = outcome == null ? "当前没有进行中的合同" : (outcome.Completed ? "合同已完成" : "合同未达成，已保留") + $" · 进度 {outcome.Progress01:P0}" + FormatQuestItems();
             }
+        }
+        string FormatQuestItems()
+        {
+            var snapshot = gameSession == null ? null : gameSession.LastQuestSnapshot;
+            if (snapshot == null || snapshot.items == null || snapshot.items.Count == 0) return "\n带出物品：空";
+            return "\n带出物品：" + string.Join("、", snapshot.items.Select(i => (i.questOnly ? "★" : "") + i.id + " Lv" + i.level).ToArray());
         }
         //计算显示时间
         private string FormatTime(float seconds)

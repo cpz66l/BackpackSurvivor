@@ -494,3 +494,7 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 `QuestTelemetry` JSONL 行新增 eventId、seed、eliteKills、各品质宝箱数组、任务专属物品数量等字段，保留 outcome/tier/kills/chests/backpackValue/completed；写入仍在结算冻结快照之后，失败只记录警告，不参与判定。`EnemySpawner.ApplyWaveSettings` 当前已只拒绝 `spawnInterval <= 0`，因此 0.05 秒配置可生效。
 
 Unity 编译请求已发出，当前未采集足够真实局数，尚不能给出可达性统计报告或调整配置，S12 仍为进行中。
+
+## S11 追加 · 结算逐件物品呈现（2026-09-13）
+
+结算页任务区现在消费冻结快照，列出带出物品的 id 与等级，并以星标突出 `questOnly` 物品；空背包明确显示为空。该列表与本地判定使用同一份 `LastQuestSnapshot`，不受 LLM 文案影响。Unity 编译验证无错误。结算汇报异步请求和完整四类结算实景验收仍待补齐。
