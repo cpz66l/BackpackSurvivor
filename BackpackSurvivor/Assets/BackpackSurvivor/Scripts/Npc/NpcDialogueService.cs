@@ -22,8 +22,12 @@ namespace BS.GamePlay.Npc
         [Serializable] class Response { public Choice[] choices; }
         [Serializable] class Choice { public Message message; }
         public async Task<string> RequestCampReplyAsync(string playerText, QuestInstance quest, QuestRunSnapshot snapshot, string offline)
+        { return await RequestReplyAsync(DialogueSurface.Camp, playerText, quest, snapshot, offline); }
+        public async Task<string> RequestPulseReplyAsync(string stage, QuestInstance quest, QuestRunSnapshot snapshot, string offline)
+        { return await RequestReplyAsync(DialogueSurface.Pulse, "当前阶段="+stage, quest, snapshot, offline); }
+        async Task<string> RequestReplyAsync(DialogueSurface surface, string playerText, QuestInstance quest, QuestRunSnapshot snapshot, string offline)
         {
-            if (!DialogueRouter.TryRoute(DialogueSurface.Camp, out int max)) return offline;
+            if (!DialogueRouter.TryRoute(surface, out int max)) return offline;
             string facts=FactBlockBuilder.Build(quest,snapshot);
             ResolvedLlmConfig config=LlmConfigService.Resolve();
             if (string.IsNullOrEmpty(config.ApiKey)) return offline;

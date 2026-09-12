@@ -478,3 +478,7 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 `QuestTrackerView` 已移除每帧 `Update` 刷新，改为订阅 GameSession 的状态、时间、经验事件，以及 LootChest 开箱和 DropItem 拾取事件；启动时做一次初始化快照。显示逐条本地 objectiveText、完成勾选、总体进度，死亡结算明确显示本局失效。LootChest 新增只读 `OnOpened(ChestQuality)` 事件，保留原有计数语义。
 
 验证：UnityMCP 编译无错误，EditMode 作业 `50478d61f1d0454689238855b946e5f7` 结果 7/7 Passed。已验证核心纯函数和事件订阅编译链；尚未在 Builder 生成的正式 Run HUD 中截图人工拾取全过程，故 S9 状态仍为进行中。
+
+## S10 实施记录 · 波次脉冲接入 DeepSeek（2026-09-13）
+
+`WavePulseService` 继续订阅现有 `WaveDirector.OnWaveStageChanged(int,string,Color)`，延迟后构造当前阶段事实并调用 NPC 服务的 Pulse 路由；无历史、不写营地/结算记录，使用 token、阶段编号与 realtime TTL 丢弃过期回调。Pulse 路由上限为 60 字，失败回落本地阶段文案。编译验证无错误；尚未完成打满一局的 4 次阶段切换和人为慢响应截图，S10 仍为进行中。
