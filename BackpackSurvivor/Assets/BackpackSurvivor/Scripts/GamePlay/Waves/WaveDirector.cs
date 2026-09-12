@@ -33,6 +33,14 @@ namespace BS.GamePlay.Waves
 
         private int currentStageIndex = -1;
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        /// <summary>Editor verification hook; emits the same pulse event without changing run state.</summary>
+        public void EmitStageForAudit(int index, string name)
+        {
+            OnWaveStageChanged?.Invoke(index, name, Color.cyan);
+        }
+#endif
+
         private void Awake()
         {
             if(gameSession == null)
