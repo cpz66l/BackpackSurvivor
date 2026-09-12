@@ -1,7 +1,8 @@
-﻿using BS.GamePlay.Run;
+using BS.GamePlay.Run;
 using System;
 using UnityEngine;
 using System.IO;
+using BS.Quest;
 namespace BS.GamePlay.Save
 {
     public class SaveService : MonoBehaviour
@@ -51,6 +52,7 @@ namespace BS.GamePlay.Save
                 }
 
                 CurrentData = data;
+                if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
                 CurrentData.lastPlayedVersion = "v0.3.10";
                 Save();
             }
@@ -104,5 +106,22 @@ namespace BS.GamePlay.Save
 
             Save();
         }
+        public void SetPendingQuest(QuestInstance quest)
+        {
+            if (CurrentData == null) CurrentData = SaveData.CreateDefault();
+            if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
+            CurrentData.campaign.pendingQuest = quest; Save();
+        }
+
+        public void CompleteQuest(QuestInstance quest, bool final)
+        {
+            if (CurrentData == null) CurrentData = SaveData.CreateDefault();
+            if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
+            if (quest != null && !CurrentData.campaign.completedEventIds.Contains(quest.eventId)) CurrentData.campaign.completedEventIds.Add(quest.eventId);
+            CurrentData.campaign.pendingQuest = null;
+            if (quest != null && !final) CurrentData.campaign.tier = Math.Max(CurrentData.campaign.tier, quest.tier + 1);
+            CurrentData.campaign.finalCompleted |= final; Save();
+        }
+
     }
 }

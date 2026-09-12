@@ -1,4 +1,6 @@
-﻿namespace BS.GamePlay.Save
+using System.Collections.Generic;
+using BS.Quest;
+namespace BS.GamePlay.Save
 {
     [System.Serializable]
     public class SaveData
@@ -10,6 +12,7 @@
         public int legendaryFoundCount; //传说物品胜利带出数
         public int legendaryCollectedValue; //传说物品胜利带出总价值
         public string lastPlayedVersion;    //上次游玩版本
+        public CampaignSave campaign = new CampaignSave();
 
         public static SaveData CreateDefault()
         {
@@ -25,3 +28,13 @@
         }
     }
 }
+
+
+    [System.Serializable]
+    public class CampaignSave
+    {
+        public int tier = 1;
+        public List<string> completedEventIds = new List<string>();
+        public QuestInstance pendingQuest;
+        public bool finalCompleted;
+    }
