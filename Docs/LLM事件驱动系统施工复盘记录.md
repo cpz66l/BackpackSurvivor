@@ -488,3 +488,9 @@ S10 追加：新增 `WavePulseService`，订阅阶段事件、延迟 2 秒、使
 `GameSession.EndRun` 继续只使用冻结的 `QuestRunSnapshot` 做本地判定；只有 `QuestOutcome.Completed` 时调用新的 `SaveService.TryCompleteQuest`。该接口先深拷贝存档，在临时文件 Flush 后 Replace 成功时才替换内存并清除 pending、记录 completed、推进 tier；同一事件重复提交直接幂等返回，不会重复推进。写档失败保留 pending，且只输出错误摘要。Unity 编译验证无错误。
 
 结算页已有本地任务结果入口和返回营地按钮，但逐件物品高亮、完整汇报请求及四种真实结算场景仍待补齐，S11 尚未完成。
+
+## S12 实施记录 · 结算埋点字段补齐（2026-09-13）
+
+`QuestTelemetry` JSONL 行新增 eventId、seed、eliteKills、各品质宝箱数组、任务专属物品数量等字段，保留 outcome/tier/kills/chests/backpackValue/completed；写入仍在结算冻结快照之后，失败只记录警告，不参与判定。`EnemySpawner.ApplyWaveSettings` 当前已只拒绝 `spawnInterval <= 0`，因此 0.05 秒配置可生效。
+
+Unity 编译请求已发出，当前未采集足够真实局数，尚不能给出可达性统计报告或调整配置，S12 仍为进行中。
