@@ -1,0 +1,3 @@
+2026-09-13 UnityMCP EditMode job 23eaac20b1564caf8371c47161045f2d
+PASS SettlementMatrixRequiresVictoryAndCompletedObjectives: victory+complete, victory+incomplete, death+complete-conditions, death+incomplete all verified.
+PASS total=27 passed=27 failed=0 skipped=0 duration=0.7746s
