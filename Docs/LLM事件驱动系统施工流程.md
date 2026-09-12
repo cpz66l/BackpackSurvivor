@@ -118,7 +118,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | 阶段 | 名称 | 核心链路 | 依赖 | 状态 |
 |---|---|---|---|---|
 | S0 | LLM 非流式最小请求 | Editor 菜单 → DeepSeek → Console | 环境变量已配置 | 已完成（UnityMCP + 真实 API 验证） |
-| S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 未开始 |
+| S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 已完成（真实 SSE、UTF-8、工具参数与取消验证） |
 | S2 | 模型配置面板 | 主菜单 → Key 与上限配置 → 配置文件 | S0 | 未开始 |
 | S3 | 判定输入补齐 | Core DTO、开箱计数与快照采集 → Console | S0（仅工程结构，不依赖网络） | 未开始 |
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 未开始 |
@@ -177,7 +177,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 
 **验证方式**：
 
-记录并留存：首字延迟、完整响应耗时、SSE 分片数量、跨分片 UTF-8 解码结果、工具参数跨分片组装结果、取消/超时/`data: [DONE]` 后是否干净退出。与 S0 的非流式耗时做对比。
+记录并留存：首个网络字节延迟、首个 SSE data 事件延迟、首个非空 token 延迟、完整响应耗时、SSE 分片数量、跨分片 UTF-8 解码结果、工具参数跨分片组装结果、取消/超时/`data: [DONE]` 后是否干净退出。与 S0 的非流式耗时做对比。首版取消通过 Editor 菜单触发 `UnityWebRequest.Abort()`；超时沿用 UnityWebRequest 的 30 秒配置，若未单独触发则在报告中标记未实测。
 
 **本阶段不做**：不做 UI，不做历史管理，不做降级。
 

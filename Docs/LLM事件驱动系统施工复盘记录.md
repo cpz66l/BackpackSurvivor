@@ -102,3 +102,47 @@ Editor 菜单：`Tools/Backpack Survivor/LLM/S0 Probe DeepSeek (Non-Streaming)`�
 ### 下一步
 
 S0 已完成，可以进入 S1 流式最小验证。S1 之前不接入游戏逻辑、营地 UI 或正式对话服务。
+
+## S1 · 流式最小验证
+
+### 目标
+
+在不接入游戏逻辑的前提下，使用 `DownloadHandlerScript` 实际接收 DeepSeek SSE，验证分片组帧、跨分片 UTF-8、工具参数累加、`[DONE]` 收尾、首字延迟和 Editor 主动取消。
+
+### 已实施改动
+
+- `BackpackSurvivor/Assets/BackpackSurvivor/Editor/LLM/DeepSeekS1StreamingProbe.cs`
+- `BackpackSurvivor/Assets/BackpackSurvivor/Editor/LLM/DeepSeekS1StreamingProbe.cs.meta`
+
+Editor 菜单：
+
+- `Tools/Backpack Survivor/LLM/S1 Probe DeepSeek (Streaming)`
+- `Tools/Backpack Survivor/LLM/S1 Cancel Active Stream`
+
+实现要点：
+
+- 使用 `DownloadHandlerScript.ReceiveData` 接收原始字节，用严格 UTF-8 `Decoder` 跨网络分片解码。
+- 按 SSE 空行组帧，支持 CRLF/LF、多个 `data:` 行和精确的 `data: [DONE]` 终止。
+- 解析 `choices[].delta.tool_calls[].function.arguments`，按 tool-call index 使用 `StringBuilder` 累加，结束后再解析完整 JSON。
+- 工具轮保持 `thinking: disabled` 和 `tool_choice: required`，不强制 JSON Output，避免工具轮返回 DSML。
+- 取消菜单在 Unity 主线程调用 `Abort()`；取消异常单独记录为预期中断，不计入普通错误。
+- 不访问游戏状态、存档、正式 NPC 或 UI。
+
+### UnityMCP / API 验证
+
+状态：**已完成**。
+
+真实运行结果（Unity `Editor.log`）：
+
+- 首次完整流：首个网络字节 `95 ms`，首个 SSE data 事件 `96 ms`，首个非空 token `1192 ms`，总耗时 `1413 ms`。
+- 收到 `25` 个 SSE 事件，解析 `24` 个 JSON 分片，`parseFailures=0`、`decodeFailures=0`。
+- 收到 `finish_reason=tool_calls`，随后收到 `data: [DONE]`，`doneSeen=true`。
+- UTF-8 完整解码通过；工具参数共 `22` 个增量片段，组装为 `{"probe_text": "流式中文 UTF-8 分片验证。"}`，最终参数校验 `validated=true`。
+- 取消验证：连续执行 Start 与 Cancel 菜单后记录 `stream cancelled; no gameplay state was changed`，没有记录普通错误，也没有后续完成摘要。
+- UnityMCP `read_console` 读取错误数为 `0`。本次没有单独等待 30 秒超时，超时路径标记为未实测。
+
+本次使用的流式工具名为 `echo_stream_probe`，仅用于只读兼容性验证；未执行任何游戏内工具。
+
+### 下一步
+
+S1 已完成，可以进入 S2 模型配置面板。S2 之前不接入正式对话历史、营地 UI 或游戏状态变更。
