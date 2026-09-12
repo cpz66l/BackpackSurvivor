@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 using BS.GamePlay.Waves;
 using UnityEngine;
 using BS.GamePlay.Run;
@@ -12,11 +13,11 @@ namespace BS.GamePlay.Npc
         [SerializeField] RadioPulseReplyView view;
         [SerializeField] float delaySeconds=2f;
         [SerializeField] float ttlSeconds=8f;
-        WaveDirector wave; int token; int stage;
-        void OnEnable(){wave=FindAnyObjectByType<WaveDirector>();if(wave!=null)wave.OnWaveStageChanged+=OnStage;}
-        void OnDisable(){if(wave!=null)wave.OnWaveStageChanged-=OnStage;}
-        void OnStage(int index,string name,Color color){stage=index;int t=++token;_=Request(t,index,name,color);}
-        async Task Request(int t,int index,string name,Color color){float start=Time.realtimeSinceStartup;await Task.Delay(Mathf.Max(0,(int)(delaySeconds*1000)));if(t!=token)return;var session=FindAnyObjectByType<GameSession>();string text=await new NpcDialogueService().RequestPulseReplyAsync(name,session==null?null:session.CurrentQuest,session==null?null:session.BuildLiveQuestSnapshot(),$"无线电：{name} 阶段已开始。");if(Time.realtimeSinceStartup-start>ttlSeconds||index!=stage||t!=token)return;view?.Show(text,color);}
+        WaveDirector wave; GameSession session; int token; int stage; int sessionId; CancellationTokenSource cancellation;
+        void OnEnable(){wave=FindAnyObjectByType<WaveDirector>();session=FindAnyObjectByType<GameSession>();sessionId=session==null?0:session.GetInstanceID();cancellation=new CancellationTokenSource();if(wave!=null)wave.OnWaveStageChanged+=OnStage;}
+        void OnDisable(){if(wave!=null)wave.OnWaveStageChanged-=OnStage;if(cancellation!=null){cancellation.Cancel();cancellation.Dispose();cancellation=null;}++token;}
+        void OnStage(int index,string name,Color color){stage=index;int t=++token;_=Request(t,index,name,color,sessionId,cancellation==null?CancellationToken.None:cancellation.Token);}
+        async Task Request(int t,int index,string name,Color color,int expectedSessionId,CancellationToken ct){float start=Time.realtimeSinceStartup;try{await Task.Delay(Mathf.Max(0,(int)(delaySeconds*1000)),ct);if(t!=token)return;var current=FindAnyObjectByType<GameSession>();if(current==null||current.GetInstanceID()!=expectedSessionId)return;string text=await new NpcDialogueService().RequestPulseReplyAsync(name,current.CurrentQuest,current.BuildLiveQuestSnapshot(),$"无线电：{name} 阶段已开始。");if(ct.IsCancellationRequested||Time.realtimeSinceStartup-start>ttlSeconds||index!=stage||t!=token)return;view?.Show(text,color);}catch(OperationCanceledException){}}
     }
     public sealed class RadioPulseReplyView : MonoBehaviour
     {
