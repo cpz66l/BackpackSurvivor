@@ -9,15 +9,17 @@ namespace BS.Presentation
         [SerializeField] TMP_Text text;
         QuestInstance quest;
         BS.GamePlay.Run.GameSession session;
+        int lastSecond = -1;
         void Awake(){session=FindAnyObjectByType<BS.GamePlay.Run.GameSession>();}
-        void OnEnable(){if(session==null) session=FindAnyObjectByType<BS.GamePlay.Run.GameSession>(); if(session!=null){session.OnStateChanged+=OnState;session.OnTimeChanged+=OnTime;session.OnXpChanged+=OnXp;} BS.GamePlay.Loot.LootChest.OnOpened+=OnChest; BS.GamePlay.Loot.DropItem.OnCollected+=OnItem;}
-        void OnDisable(){if(session!=null){session.OnStateChanged-=OnState;session.OnTimeChanged-=OnTime;session.OnXpChanged-=OnXp;} BS.GamePlay.Loot.LootChest.OnOpened-=OnChest; BS.GamePlay.Loot.DropItem.OnCollected-=OnItem;}
+        void OnEnable(){if(session==null) session=FindAnyObjectByType<BS.GamePlay.Run.GameSession>(); if(session!=null){session.OnStateChanged+=OnState;session.OnTimeChanged+=OnTime;session.OnXpChanged+=OnXp;} BS.GamePlay.Loot.LootChest.OnOpened+=OnChest; BS.GamePlay.Loot.DropItem.OnCollected+=OnItem; BS.GamePlay.Enemies.EnemyAI.OnEnemyDied+=OnEnemy;}
+        void OnDisable(){if(session!=null){session.OnStateChanged-=OnState;session.OnTimeChanged-=OnTime;session.OnXpChanged-=OnXp;} BS.GamePlay.Loot.LootChest.OnOpened-=OnChest; BS.GamePlay.Loot.DropItem.OnCollected-=OnItem; BS.GamePlay.Enemies.EnemyAI.OnEnemyDied-=OnEnemy;}
         void Start(){if(quest==null&&session!=null) quest=session.CurrentQuest; RefreshSnapshot();}
         void OnState(BS.GamePlay.Run.GameState value){RefreshSnapshot();}
-        void OnTime(float a,float b){RefreshSnapshot();}
+        void OnTime(float a,float b){int second=Mathf.FloorToInt(a); if(second!=lastSecond){lastSecond=second;RefreshSnapshot();}}
         void OnXp(int a,int b,int c,int d){RefreshSnapshot();}
         void OnChest(ChestQuality q){RefreshSnapshot();}
         void OnItem(BS.Data.LootTableData.LootEntry e){RefreshSnapshot();}
+        void OnEnemy(BS.GamePlay.Enemies.EnemyKind kind){RefreshSnapshot();}
         void RefreshSnapshot(){if(session!=null) Refresh(session.State==BS.GamePlay.Run.GameState.Running?session.BuildLiveQuestSnapshot():session.LastQuestSnapshot);}
         public void SetQuest(QuestInstance value) { quest=value; Refresh(null); }
         public void Refresh(QuestRunSnapshot snapshot)

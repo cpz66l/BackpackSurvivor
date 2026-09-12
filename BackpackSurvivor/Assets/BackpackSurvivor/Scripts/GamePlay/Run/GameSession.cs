@@ -141,7 +141,8 @@ namespace BS.GamePlay.Run
             lastQuestSnapshot = null;
             lastQuestOutcome = null;
             currentQuest = SaveService.Instance != null && SaveService.Instance.CurrentData != null && SaveService.Instance.CurrentData.campaign != null
-                ? SaveService.Instance.CurrentData.campaign.pendingQuest : null;
+                && SaveService.Instance.CurrentData.campaign.pendingQuest != null
+                ? SaveService.Instance.CurrentData.campaign.pendingQuest.Copy() : null;
             var lootManager = FindAnyObjectByType<LootManager>();
             lootManager?.SetContractRun(currentQuest != null, currentQuest == null ? null : currentQuest.activeQuestOnlyItemIds);
             totalGold = 0;
@@ -316,8 +317,10 @@ namespace BS.GamePlay.Run
                 }
             }
             lastQuestSnapshot = snapshot;
-            var campaign = SaveService.Instance != null && SaveService.Instance.CurrentData != null ? SaveService.Instance.CurrentData.campaign : null;
-            var questAtSettlement = campaign == null ? null : campaign.pendingQuest;
+            // Evaluate the immutable contract captured at run start. Camp state may be
+            // mutated by UI or persistence while the run is settling, so it must not
+            // replace the authoritative in-run contract.
+            var questAtSettlement = currentQuest?.Copy();
             if (questAtSettlement != null)
             {
                 lastQuestOutcome = QuestEvaluator.Evaluate(questAtSettlement, snapshot);

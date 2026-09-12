@@ -5,7 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System;
 using System.Linq;
+using System.Threading;
+using BS.GamePlay.Npc;
+using BS.Quest;
 
 namespace BS.Presentation
 {
@@ -31,21 +35,24 @@ namespace BS.Presentation
         [SerializeField] private TMP_Text[] statisticValues;
         [SerializeField] private TMP_Text legendarySummaryText;
         [SerializeField] private TMP_Text questOutcomeText;
+        [SerializeField] private TMP_Text debriefText;
         [SerializeField] private string mainMenuSceneName = "MainMenu";
         [SerializeField] private string restartSceneFallback = "01-Run";
 
         private bool isLeavingScene;
+        private CancellationTokenSource debriefCancellation;
         private Button[] menuButtons;
         private int openedFrame;
 
         public void ConfigurePresentation(GameSession session, GameObject visualRoot, RectTransform content,
             TMP_Text title, TMP_Text subtitle, TMP_Text[] values, TMP_Text legendarySummary,
-            Button restart, Button mainMenu, Color victoryColor, Color defeatColor, TMP_Text questOutcome = null)
+            Button restart, Button mainMenu, Color victoryColor, Color defeatColor, TMP_Text questOutcome = null, TMP_Text debrief = null)
         {
             gameSession = session; panel = visualRoot; dialog = content;
             titleText = title; subtitleText = subtitle; statisticValues = values;
             legendarySummaryText = legendarySummary; statsText = null;
             questOutcomeText = questOutcome;
+            debriefText = debrief;
             restartButton = restart; quitButton = mainMenu;
             victoryTitleColor = victoryColor; defeatTitleColor = defeatColor;
             menuButtons = new[] { restartButton, quitButton };
@@ -72,6 +79,7 @@ namespace BS.Presentation
 
         private void OnDisable()
         {
+            if (debriefCancellation != null) { debriefCancellation.Cancel(); debriefCancellation.Dispose(); debriefCancellation = null; }
             if (gameSession != null)
                 gameSession.OnRunEnded -= HandleRunEnded;
             if (restartButton != null)
@@ -137,6 +145,19 @@ namespace BS.Presentation
                 var outcome = gameSession == null ? null : gameSession.LastQuestOutcome;
                 questOutcomeText.text = outcome == null ? "当前没有进行中的合同" : (outcome.Completed ? "合同已完成" : "合同未达成，已保留") + $" · 进度 {outcome.Progress01:P0}" + FormatQuestItems();
             }
+            if(debriefText!=null){debriefText.text="本地结算已完成，结果以本地判定为准。"; if (debriefCancellation != null) { debriefCancellation.Cancel(); debriefCancellation.Dispose(); } debriefCancellation = new CancellationTokenSource(); _ = RequestDebriefAsync(debriefCancellation.Token);}
+        }
+        async System.Threading.Tasks.Task RequestDebriefAsync(CancellationToken cancellationToken)
+        {
+            var snapshot=gameSession==null?null:gameSession.LastQuestSnapshot;
+            var quest=gameSession==null?null:gameSession.CurrentQuest;
+            if(snapshot==null||quest==null)return;
+            try
+            {
+                string text=await new NpcDialogueService().RequestDebriefAsync(quest,snapshot,cancellationToken);
+                if(!string.IsNullOrWhiteSpace(text)&&debriefText!=null)debriefText.text=text;
+            }
+            catch(OperationCanceledException){}
         }
         string FormatQuestItems()
         {
