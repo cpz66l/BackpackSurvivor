@@ -67,6 +67,16 @@ namespace BackpackSurvivor.EditorTools
             Bind(bindings, "goldText", gold); bindings.ApplyModifiedPropertiesWithoutUndo();
             var chest = canvas.GetComponent<ChestDistanceView>(); if (chest) { var data = new SerializedObject(chest); Bind(data, "chestDistanceText", distance); data.ApplyModifiedPropertiesWithoutUndo(); }
 
+            // Contract tracker is part of the generated HUD so runtime scenes always
+            // expose the live local progress, including an explicit empty state.
+            Remove(root, "V04QuestTracker");
+            RectTransform tracker = Box("V04QuestTracker", root, 0, 0, 330, 190);
+            Pin(tracker, new Vector2(0, .5f), new Vector2(0, .5f), new Vector2(28, 10));
+            var trackerText = Label("Text", tracker, "暂无进行中的合同", 12, 0, 306, 172, 17, TextColor, TextAlignmentOptions.TopLeft);
+            trackerText.textWrappingMode = TextWrappingModes.Normal;
+            var trackerView = tracker.gameObject.AddComponent<QuestTrackerView>();
+            var trackerData = new SerializedObject(trackerView); Bind(trackerData, "text", trackerText); trackerData.ApplyModifiedPropertiesWithoutUndo();
+
             Button bag = Button("V04BagButton", root, "TAB  背包", 190, 56);
             Pin((RectTransform)bag.transform, Vector2.zero, Vector2.zero, new Vector2(28, 25));
             var inventory = UnityEngine.Object.FindAnyObjectByType<InventoryUIController>();
