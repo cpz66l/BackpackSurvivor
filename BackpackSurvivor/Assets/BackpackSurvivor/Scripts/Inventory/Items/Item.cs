@@ -1,8 +1,9 @@
-﻿namespace BS.Inventory
+namespace BS.Inventory
 {
     public class Item
     {
         public string Id { get;}
+        public bool QuestOnly { get; }
         public Rarity Rarity { get;}
         public int Level { get; private set; }
         public int MaxLevel { get; private set; }
@@ -47,9 +48,10 @@
             Rarity rarity, int width, int height 
             , ItemTag itemTag ,
             ConnectableSides connectableSides,
-            int scoreValue,float effectValue,int level)
+            int scoreValue,float effectValue,int level, bool questOnly = false)
         {
             Id = id;
+            QuestOnly = questOnly;
             baseWidth = width;
             baseHeight = height;
             Rarity = rarity;

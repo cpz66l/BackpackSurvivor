@@ -1,4 +1,4 @@
-﻿using BS.Core;
+using BS.Core;
 using BS.Data;
 using BS.GamePlay.Combat;
 using BS.GamePlay.Loot;
@@ -14,7 +14,9 @@ namespace BS.GamePlay.Enemies
     public class EnemyAI : MonoBehaviour, IPoolable
     {
         //播报死亡
-        public static event Action OnEnemyDied;
+        public static event Action<EnemyKind> OnEnemyDied;
+        [SerializeField] private EnemyKind enemyKind = EnemyKind.Normal;
+        public EnemyKind Kind => enemyKind;
         //追击
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private float viewRange = 50f;//视野范围
@@ -109,7 +111,7 @@ namespace BS.GamePlay.Enemies
         private void Die()
         {
             //广播死亡
-            RaiseEnemyDied();
+            RaiseEnemyDied(enemyKind);
             //生成掉落物
             lootManager.TrySpawnDrop(health.Position , lootTable);
             //防御，防止忘设pool，或者是没经过池子的敌人
@@ -134,9 +136,9 @@ namespace BS.GamePlay.Enemies
         }
 
         //公开静态方法，供给其他敌人调用
-        public static void RaiseEnemyDied()
+        public static void RaiseEnemyDied(EnemyKind kind)
         {
-            OnEnemyDied?.Invoke();
+            OnEnemyDied?.Invoke(kind);
         }
     }
 }

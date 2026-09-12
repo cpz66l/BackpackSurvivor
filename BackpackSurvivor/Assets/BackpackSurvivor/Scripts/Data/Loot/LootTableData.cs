@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using UnityEngine;
 using BS.Inventory;
+using BS.Quest;
 
 namespace BS.Data
 {
@@ -10,6 +11,8 @@ namespace BS.Data
     [CreateAssetMenu(fileName = "NewLootTable",menuName = "BackpackSurvivor/LootTable")]
     public class LootTableData : ScriptableObject
     {
+        [Tooltip("宝箱束的精确品质；非宝箱表保持 Unknown")]
+        public ChestQuality chestQuality = ChestQuality.Unknown;
         //一张表要么是束（channels 非空）要么是叶（entries 非空），只许一种。
         //嵌套类：掉落频道（束结构）
         [Serializable] public class DropChannel
@@ -60,6 +63,8 @@ namespace BS.Data
 
             [Tooltip("运行时物品等级，掉落配置默认 1")]
             public int level = 1;
+
+            public bool questOnly;
         }
         [Tooltip("所有可能的掉落条目")]
         public LootEntry[] entries ;

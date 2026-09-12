@@ -1,5 +1,6 @@
-﻿using BS.Core;
+using BS.Core;
 using BS.Data;
+using BS.Quest;
 using BS.GamePlay.Interaction;
 using BS.Presentation;
 using System.Collections.Generic;
@@ -30,6 +31,11 @@ namespace BS.GamePlay.Loot {
 
         //宝箱数目
         public static int ActiveCount { get; private set; }
+        public static int RunOpenedCount { get; private set; }
+        public static int RunUnknownQualityOpenedCount { get; private set; }
+        private static readonly int[] runOpenedByQuality = new int[5];
+        public static int[] CopyRunOpenedByQuality() => (int[])runOpenedByQuality.Clone();
+        public ChestQuality Quality => lootBundle != null ? lootBundle.chestQuality : ChestQuality.Unknown;
 
         //池化
         private ObjectPool pool;
@@ -80,8 +86,12 @@ namespace BS.GamePlay.Loot {
         
         public bool Interact()
         {
-            if(opened) return false;
+            if(opened || !isActiveAndEnabled || lootManager == null || lootBundle == null) return false;
             opened = true;
+            RunOpenedCount++;
+            int qualityIndex = (int)Quality;
+            if (qualityIndex >= 0 && qualityIndex < runOpenedByQuality.Length) runOpenedByQuality[qualityIndex]++;
+            else RunUnknownQualityOpenedCount++;
             unopenedChests.Remove(this);
             //关闭碰撞器，避免再次检测
             if (chestCollider) chestCollider.enabled = false;
@@ -162,6 +172,9 @@ namespace BS.GamePlay.Loot {
         {
             unopenedChests.Clear();
             ActiveCount = 0;
+            RunOpenedCount = 0;
+            RunUnknownQualityOpenedCount = 0;
+            System.Array.Clear(runOpenedByQuality, 0, runOpenedByQuality.Length);
         }
     } 
 }

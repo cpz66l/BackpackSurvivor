@@ -54,7 +54,7 @@
 |---|---|
 | **本方案做** | 跨局合同循环；本地达成判定；任务局专属传说与其掉落过滤；存档推进与通关；调度营地场景；可对话 NPC（文本，只设一个）；三个对话面（营地对话、波次脉冲、结算汇报）；意图路由与三层防护；模型配置面板；局内追踪器 |
 | **本方案不做** | 提前撤离；定向保底；语音输入与语音合成；多 NPC 与说话人路由；商店与经济系统；新敌人与新武器；角色/敌人模型重构；局外成长树；LLM 参与抽签；对话历史跨局保存；多语言；中转服务（首版走环境变量或 BYOK）；收藏室与成就室（只预留营地容器） |
-| **暂缓但预留接口** | `RelayNpcDialogue`；条件 DSL 的 OR 扩展点；精英击杀统计（若走替代条件路线）；跨局对话记忆 |
+| **暂缓但预留接口** | `RelayNpcDialogue`；条件 DSL 的 OR 扩展点；跨局对话记忆 |
 
 提前撤离虽然已确认有价值，但属于"玩法补充"而非"链路打通"，不在本方案范围内。
 
@@ -85,7 +85,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 
 | 程序集 | 位置 | 属性 | 内容 |
 |---|---|---|---|
-| `BS.Quest.Core` | `Scripts/Quest/Core/` | `noEngineReferences: true`，references 指向 `BS.Inventory` | `ObjectiveClause`、`ObjectiveType`、`QuestTag`、`QuestInstance`、`QuestRunSnapshot`、`ItemRecord`、`QuestOutcome`、`RunOutcome`、`QuestEvaluator`、`QuestDrawer` |
+| `BS.Quest.Core` | `Scripts/Quest/Core/` | `noEngineReferences: true`，references 指向 `BS.Inventory` | `ObjectiveClause`、`ObjectiveType`、`QuestTag`、`QuestInstance`、`QuestRunSnapshot`、`ItemRecord`、`ChestQuality`、`QuestOutcome`、`RunOutcome`、`QuestEvaluator`、`QuestDrawer` |
 | `BS.Npc.Core` | `Scripts/Npc/Core/` | `noEngineReferences: true`，references 指向 `BS.Quest.Core` | `FactBlockBuilder`、`NpcResponseValidator`、`DialogueRouter` |
 | `BS.Quest.Tests` | `Tests/EditMode/` | EditMode only，references 指向 `BS.Quest.Core`、`BS.Npc.Core`、`UnityEngine.TestRunner`、`UnityEditor.TestRunner`，`precompiledReferences` 含 `nunit.framework.dll`，`overrideReferences: true` | 判定、抽签、事实块与校验器的单元测试 |
 | 默认程序集 | `Scripts/Quest/`、`Scripts/Npc/` 的其余部分 | 不设 asmdef | `QuestEventDefinition`（ScriptableObject）、`QuestDatabase`、`QuestDirector`、`NpcPersona`、`NpcDialogueService`、`INpcDialogue` 及其实现、各 View |
@@ -120,7 +120,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 | S0 | LLM 非流式最小请求 | Editor 菜单 → DeepSeek → Console | 环境变量已配置 | 已完成（UnityMCP + 真实 API 验证） |
 | S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 已完成（真实 SSE、UTF-8、工具参数与取消验证） |
 | S2 | 模型配置面板 | 主菜单 → Key 与四项上限配置 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
-| S3 | 判定输入补齐 | Core DTO、开箱计数与快照采集 → Console | S0（仅工程结构，不依赖网络） | 未开始 |
+| S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 未开始 |
 | S5 | 事件池与抽签器 | 抽签 → 合同 → 存档 → 下一 tier | S4 | 未开始 |
 | S6 | questOnly 过滤 | 会话状态 → 候选集过滤 → 宝箱产出 | S5 | 未开始 |
@@ -213,7 +213,10 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 
 **技术选择**：
 
-- 本阶段先建立 `BS.Quest.Core` 的快照 DTO、`RunOutcome`、物品记录和开箱品质记录；S4 只补判定器
+- 本阶段先建立 `BS.Quest.Core` 的快照 DTO、`RunOutcome`、物品记录和开箱品质记录；S4 补条件模型、判定器与测试
+- 为使快照的 `questOnly` 字段来自真实物品，本阶段增加 `LootEntry.questOnly` → `Item.QuestOnly` → 丢弃再拾取的数据透传；S6 才启用资产标记和候选池过滤
+- 开箱品质由五张宝箱 bundle 的 `chestQuality` 显式配置，固定 Common=0 到 Legendary=4；未知配置单独计数，不推断为普通品质
+- 拖拽开始时由网格保留原占位，防止拾取占用回滚位置；结算前恢复原方向与锚点，再冻结 DTO；对外返回快照副本
 - 开箱计数复制 `LootChest` 现有的静态计数模式，并处理重复交互、跨局清零和品质映射；这不等于 `GameSession` 完全零改动，`EndRun` 仍需采集快照
 - 结算采集前先收束或取消背包拖拽，冻结同一份物品快照；不改 `RunResult` 结构与状态机语义
 - 补齐敌人身份事件：死亡事件携带 `EnemyKind`，总击杀、宝箱进度和精英击杀分别由现有订阅者消费；S3/S4 必须真实验收 `KillElite`
@@ -234,7 +237,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 
 **技术选择**：
 
-- 新增 `BS.Quest.Core` 纯 C# 程序集（照 `BS.Inventory` 的 `noEngineReferences: true` 配置）
+- 扩展 S3 已建立的 `BS.Quest.Core` 纯 C# 程序集（保留 `noEngineReferences: true`）
 - 引用 `BS.Inventory` 以复用 `ItemTag` 与 `Rarity`
 - 不引用 `GameState`，改用 Quest 自有的 `RunOutcome`，由默认程序集侧映射
 - 首版条件组合只做 AND；`optional` 子句只影响评价，不影响达成
@@ -446,7 +449,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 
 **目的**：让"任务是否达成"成为可单测的纯函数，作为后续表现层的唯一真相来源
 
-**技术选择**：新增 BS.Quest.Core 纯 C# 程序集（照 BS.Inventory 的
+**技术选择**：扩展 S3 已建立的 BS.Quest.Core 纯 C# 程序集（保留 BS.Inventory 的
 noEngineReferences 配置）；引用 BS.Inventory 复用 ItemTag/Rarity；
 不引用 GameState，改用 RunOutcome 映射；条件组合首版只做 AND
 

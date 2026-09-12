@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b294446e5ff3164db1def38dba77c82, type: 3}
   m_Name: EpicChestLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
+  chestQuality: 3
   channels:
   - probability: 1
     subTable: {fileID: 11400000, guid: c7459bb5cff5f664a9c22ac72d741f45, type: 2}

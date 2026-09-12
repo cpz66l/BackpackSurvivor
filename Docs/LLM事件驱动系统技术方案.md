@@ -91,9 +91,8 @@ Assets/BackpackSurvivor/Scripts/Quest/
     QuestTag.cs
     QuestInstance.cs             运行时合同，可序列化存入存档
     QuestRunSnapshot.cs          结算快照，判定输入
-    ItemRecord.cs
+    // ItemRecord 与 RunOutcome 首版同放 QuestRunSnapshot.cs
     QuestOutcome.cs              判定结果
-    RunOutcome.cs                Survived / Died，替代 GameState
     QuestEvaluator.cs            任务达成判定
     ObjectiveClauseEvaluator.cs  单条子句判定
     QuestDrawer.cs               抽签与层级推进
@@ -223,9 +222,10 @@ public class QuestRunSnapshot
     public float elapsed;
     public int level;
     public int kills;
-    public int eliteKills;      // 需新增计数器
-    public int chestsOpened;    // 需新增计数器
-    public int[] chestsOpenedByQuality; // 固定顺序由 ChestQuality 定义，避免 Dictionary
+    public int eliteKills;      // S3 已采集
+    public int chestsOpened;    // S3 已采集，含未知品质
+    public int[] chestsOpenedByQuality; // 长度 5：Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4
+    public int unknownQualityChestsOpened; // 品质缺失/非法时单独记录，不计入任何精确品质条件
     public int backpackValue;
     public int gold;
     public List<ItemRecord> items;
@@ -242,6 +242,8 @@ public struct ItemRecord
     public bool questOnly;
 }
 ```
+
+S3 实施：`LootTableData.chestQuality` 显式配置宝箱 bundle 品质，其他掉落表默认为 `Unknown=-1`。`EndRun` 先将拖拽物品恢复原方向与锚点，再从同一物品列表计算快照与既有 `RunResult`；原占位在拖拽期间保留，其他拾取不能占用。`LastQuestSnapshot` 返回数组和物品列表的副本，外部修改不会污染冻结结果。`questOnly` 的物品透传已实现，资产标记和过滤仍属于 S6。
 
 ### 5.5 判定器 QuestEvaluator
 
@@ -783,9 +785,9 @@ LLM 网络层是整个方案里唯一的外部依赖。建议先做一个"一厘
 
 这一步必须排在所有 UI 工作之前。若它不通，后续界面工作全部要返工。
 
-### 10.2 阻塞点二：精英击杀数目前统计不到
+### 10.2 阻塞点二：精英击杀身份（S3 已补齐）
 
-`EnemyAI.OnEnemyDied` 是 `static event Action`，触发方法 `RaiseEnemyDied()` 不携带任何敌人信息。现有两个订阅者：`GameSession.HandleEnemyDied()`（数总击杀）与 `ChestSpawner.AddKillsCount()`（数宝箱进度）。
+实施前：`EnemyAI.OnEnemyDied` 是 `static event Action`，触发方法 `RaiseEnemyDied()` 不携带任何敌人信息。现有两个订阅者：`GameSession.HandleEnemyDied()`（数总击杀）与 `ChestSpawner.AddKillsCount()`（数宝箱进度）。
 
 而敌人的身份在生成时是明确的——`EnemySpawner` 有 `normalEnemyPool` / `eliteEnemyPool` / `rangedEnemyPool` 三个池——只是死亡事件把它丢掉了。Tier 4 的 `KillElite` 条件依赖这份数据。
 
@@ -793,7 +795,7 @@ LLM 网络层是整个方案里唯一的外部依赖。建议先做一个"一厘
 
 | 选定方案 | 改动面 | 说明 |
 |---|---|---|
-| 事件签名改为 `Action<EnemyKind>` | 至少四个现有文件：近战/远程两处触发、GameSession/ChestSpawner 两处订阅；还要从生成池保存身份 | 已选。将敌人生成池身份带入死亡事件，更新总击杀、宝箱击杀和精英击杀订阅者；S3/S4 在事件签名完成后验收 `KillElite` |
+| 事件签名改为 `Action<EnemyKind>` | 近战/远程两处触发、GameSession/ChestSpawner 两处订阅，新增 EnemyKind 与精英 prefab 身份字段 | S3 已完成。普通/精英由池使用的 prefab 保存身份，远程路径明确传 Ranged；不改 EnemySpawner。总击杀与宝箱进度继续计入所有类型，精英单独计数。S4 验收 KillElite 判定边界 |
 
 ### 10.3 阻塞点三：questOnly 过滤的传递方式
 
@@ -835,8 +837,8 @@ LLM 网络层是整个方案里唯一的外部依赖。建议先做一个"一厘
 | `Scripts/GamePlay/Loot/Rolling/LootRoller.cs` | `Roll` / `RollBundle` 增加 `LootContext`，两条候选路径均前置过滤 |
 | `Scripts/GamePlay/Loot/Rolling/LootManager.cs` | 持有合同局会话状态并在内部构造 `LootContext`，调用点无需改动（见 10.3） |
 | `Scripts/GamePlay/Loot/Chests/LootChest.cs` | 新增静态 `RunOpenedCount`，`Interact()` 自增、`ResetRuntimeState()` 清零（见 10.4） |
-| `Scripts/GamePlay/Enemies/AI/EnemyAI.cs` | 可选：死亡事件携带敌人类型，用于统计精英击杀（见 10.2） |
-| `Scripts/Data/Loot/LootTableData.cs` | `LootEntry` 增加 `questOnly` |
+| `Scripts/GamePlay/Enemies/AI/EnemyAI.cs` | 已实施：死亡事件携带敌人类型，用于统计精英击杀（见 10.2） |
+| `Scripts/Data/Loot/LootTableData.cs` | `LootEntry` 增加 `questOnly`；根配置增加 `chestQuality`（S3 已实施） |
 | `Scripts/Inventory/Items/Item.cs` | 增加 `QuestOnly` 透传字段 |
 | `Scripts/Presentation/MainMenu/MainMenuController.cs` | 入口由"进入封锁区"改为"进入调度营地"；新增模型配置面板入口 |
 | `Assets/BackpackSurvivor/Scenes/Camp/` | 新增调度营地场景，承接对话、合同面板，以及后续的收藏室与成就室 |

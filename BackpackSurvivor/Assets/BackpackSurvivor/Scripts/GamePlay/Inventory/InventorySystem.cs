@@ -1,4 +1,4 @@
-﻿using BS.GamePlay.Combat;
+using BS.GamePlay.Combat;
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
 using BS.Inventory;
@@ -81,7 +81,8 @@ namespace BS.GamePlay
                 connectableSides = item.LocalConnectableSides,
                 scoreValue = item.BaseScoreValue,
                 effectValue = item.BaseEffectValue,
-                level = item.Level
+                level = item.Level,
+                questOnly = item.QuestOnly
             };
 
             Vector3 from = playerHealth.Position;                       // 玩家胸口（aimPoint）
@@ -106,7 +107,8 @@ namespace BS.GamePlay
                 entry.connectableSides,
                 entry.scoreValue,
                 entry.effectValue,
-                entry.level);
+                entry.level,
+                entry.questOnly);
         }
     }
 }

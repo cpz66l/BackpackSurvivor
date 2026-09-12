@@ -9,6 +9,24 @@ namespace BS.Inventory {
         public int Width { get; }
         public int Height { get; }
         private readonly Item[,] cells;// 二维数组，注意逗号语法
+        private Item reservedItem;
+        private int reservedX, reservedY, reservedWidth, reservedHeight;
+
+        // A detached drag owns its old footprint until drop/cancel. Pickups must not
+        // consume this space, otherwise settlement cannot reliably roll the drag back.
+        public bool TryReserveDragOrigin(Item item)
+        {
+            if (item == null || reservedItem != null || !TryGetAnchor(item, out reservedX, out reservedY)) return false;
+            reservedItem = item;
+            reservedWidth = item.Width;
+            reservedHeight = item.Height;
+            return true;
+        }
+
+        public void ReleaseDragOrigin(Item item)
+        {
+            if (ReferenceEquals(reservedItem, item)) reservedItem = null;
+        }
 
         public Item this[int x, int y] => GetItemAt(x, y);
         //这里只用this直接指的是这个InventoryGrid背包网格，后续可以直接使用grid[x,y]读取cells[x,y]的内容了
@@ -31,6 +49,9 @@ namespace BS.Inventory {
             if (item == null) return false;
             if (x < 0 || y < 0 || x + item.Width > Width || y + item.Height > Height)
                 return false;
+            if (reservedItem != null && !ReferenceEquals(reservedItem, item) &&
+                x < reservedX + reservedWidth && x + item.Width > reservedX &&
+                y < reservedY + reservedHeight && y + item.Height > reservedY) return false;
             for(int i = 0; i < item.Width; i++)
             {
                 for(int j = 0; j < item.Height; j++)

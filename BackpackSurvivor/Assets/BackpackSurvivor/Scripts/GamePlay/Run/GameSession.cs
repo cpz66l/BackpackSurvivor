@@ -1,4 +1,4 @@
-﻿using BS.GamePlay.Combat;
+using BS.GamePlay.Combat;
 using BS.GamePlay.Enemies;
 using BS.GamePlay.Loot;
 using BS.GamePlay.Player;
@@ -6,6 +6,7 @@ using BS.GamePlay.Save;
 using BS.GamePlay.Stats;
 using BS.GamePlay.Upgrades;
 using BS.Inventory;
+using BS.Quest;
 using BS.Presentation;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,12 @@ namespace BS.GamePlay.Run
         private GameState state = GameState.NotStarted;
         private LevelUpOptionGenerator levelUpOptionGenerator;
         private int killCount;
+        private int eliteKillCount;
+        private bool isEnding;
+        private QuestRunSnapshot lastQuestSnapshot;
+        public int KillCount => killCount;
+        public int EliteKillCount => eliteKillCount;
+        public QuestRunSnapshot LastQuestSnapshot => lastQuestSnapshot?.Copy();
         private int totalGold;
 
 
@@ -118,6 +125,9 @@ namespace BS.GamePlay.Run
             levelUpOptionGenerator.ResetRuntimeState();
             SaveService.Instance?.RecordRunStarted();
             killCount = 0;
+            eliteKillCount = 0;
+            isEnding = false;
+            lastQuestSnapshot = null;
             totalGold = 0;
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
@@ -237,42 +247,74 @@ namespace BS.GamePlay.Run
         }
 
         //统计杀敌数目
-        private void HandleEnemyDied()
+        private void HandleEnemyDied(EnemyKind kind)
         {
             if (state != GameState.Running) return;
 
             killCount++;
+            if (kind == EnemyKind.Elite) eliteKillCount++;
         }
 
         //结束设置
         private void EndRun(GameState finalState)
         {
-            if (state != GameState.Running) return;
-            SetState(finalState);
-            Time.timeScale = 0f;
-            int backpackValue = 0;
-            int legendaryFoundCount = 0;
-            int legendaryCollectedValue = 0;
+            if (state != GameState.Running || isEnding) return;
+            isEnding = true;
+            // Restore the detached item BEFORE state listeners cover/hide the inventory.
             if (inventorySystem != null && inventorySystem.Grid != null)
             {
-                backpackValue = inventorySystem.Grid.GetTotalScoreValue();
-
-                List<Item> items = inventorySystem.Grid.GetUniqueItems();
-                foreach (var item in items)
-                {
-                    if(item.Rarity != Rarity.Legendary) continue;
-                    legendaryFoundCount++;
-                    legendaryCollectedValue += item.ScoreValue;
-                }
+                foreach (var view in FindObjectsByType<InventoryUIController>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                    view.CancelDragForSettlement(inventorySystem.Grid);
             }
 
+            var snapshot = new QuestRunSnapshot
+            {
+                outcome = finalState == GameState.Victory ? RunOutcome.Survived : RunOutcome.Died,
+                elapsed = Elapsed,
+                level = Level,
+                kills = killCount,
+                eliteKills = eliteKillCount,
+                gold = totalGold,
+                chestsOpened = LootChest.RunOpenedCount,
+                chestsOpenedByQuality = LootChest.CopyRunOpenedByQuality(),
+                unknownQualityChestsOpened = LootChest.RunUnknownQualityOpenedCount
+            };
+            int legendaryFoundCount = 0;
+            int legendaryCollectedValue = 0;
+            // Both result types are derived from this single detached item list.
+            if (inventorySystem != null && inventorySystem.Grid != null)
+            {
+                foreach (Item item in inventorySystem.Grid.GetUniqueItems())
+                {
+                    snapshot.items.Add(new ItemRecord
+                    {
+                        id = item.Id, rarity = item.Rarity, tag = item.Tag,
+                        level = item.Level, scoreValue = item.ScoreValue, questOnly = item.QuestOnly
+                    });
+                    snapshot.backpackValue += item.ScoreValue;
+                    if (item.Rarity == Rarity.Legendary)
+                    {
+                        legendaryFoundCount++;
+                        legendaryCollectedValue += item.ScoreValue;
+                    }
+                }
+            }
+            lastQuestSnapshot = snapshot;
+            int backpackValue = snapshot.backpackValue;
+            int totalXpAtSettlement = TotalXp;
+            SetState(finalState);
+            Time.timeScale = 0f;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.Log("[Quest S3] frozen snapshot: " + JsonUtility.ToJson(snapshot));
+#endif
+
             RunResult runResult = new RunResult(finalState,
-                Elapsed,
-                Level,
-                TotalXp,
-                killCount,
+                snapshot.elapsed,
+                snapshot.level,
+                totalXpAtSettlement,
+                snapshot.kills,
                 backpackValue,
-                totalGold,
+                snapshot.gold,
                 legendaryFoundCount,
                 legendaryCollectedValue
                 );

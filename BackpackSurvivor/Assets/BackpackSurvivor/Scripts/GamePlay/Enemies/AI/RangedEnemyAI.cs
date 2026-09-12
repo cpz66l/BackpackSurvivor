@@ -1,4 +1,4 @@
-﻿using BS.Core;
+using BS.Core;
 using BS.Data;
 using BS.GamePlay.Combat;
 using BS.GamePlay.Loot;
@@ -151,7 +151,7 @@ namespace BS.GamePlay.Enemies
         private void Die()
         {
             //广播死亡
-            EnemyAI.RaiseEnemyDied();
+            EnemyAI.RaiseEnemyDied(EnemyKind.Ranged);
             //生成掉落物
             lootManager.TrySpawnDrop(health.Position, lootTable);
             //防御，防止忘设pool，或者是没经过池子的敌人

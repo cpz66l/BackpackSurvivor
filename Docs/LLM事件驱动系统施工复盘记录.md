@@ -185,3 +185,74 @@ S1 已完成，可以进入 S2 模型配置面板。S2 之前不接入正式对�
 ### 下一步
 
 S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实采集，但仍不接入 NPC 对话内容。
+
+
+## S3 · 判定输入补齐（本次实施报告）
+
+**阶段**：S3，2026-09-12。
+
+**核心链路**：真实敌人死亡/宝箱交互 → 分类计数 → 结算前取消拖拽 → 同一物品列表冻结 `QuestRunSnapshot` 与既有 `RunResult` → Console / JSON。
+
+**目的**：为 S4 提供可验证的本地事实，避免精英身份、精确开箱品质和拖拽中的物品在结算时丢失。
+
+**技术选择**：
+
+- `BS.Quest.Core` 只引用纯 C# 的 `BS.Inventory`，设置 `noEngineReferences: true`；使用自有 `RunOutcome`，不引用默认程序集的 GameState。
+- `EnemyKind` 从池使用的 prefab 保留到死亡事件：普通默认 Normal、精英 prefab 显式 Elite、远程触发 Ranged；保留总击杀与宝箱进度的原有统计语义。
+- 五个宝箱 bundle 显式存品质索引 0–4，成功交互只计一次；未知品质另计，不猜测颜色/名称。不改权重和 TrySpawnDrop 调用签名。
+- 拖拽是从网格暂时移除物品的事务。原占位保留可阻止并发拾取占用；结算先恢复原方向与锚点，再聚合逐件值。对外快照复制数组/列表，隔离后续修改与下一局重置。
+- S3 为既定快照字段补上 questOnly 数据透传，含丢弃后再拾取；S6 再做资产标记和过滤。两份方案同步记录此阶段分工。
+
+**改动文件**（以下 Unity 路径以 `BackpackSurvivor/Assets/BackpackSurvivor/` 为前缀）：
+
+- 新增 `Scripts/Quest/Core/BS.Quest.Core.asmdef`：纯程序集。
+- 新增 `Scripts/Quest/Core/QuestRunSnapshot.cs`：快照、ItemRecord、RunOutcome、ChestQuality 与副本方法。
+- 新增 `Scripts/GamePlay/Enemies/AI/EnemyKind.cs`：敌人分类。
+- 修改 `Scripts/GamePlay/Enemies/AI/EnemyAI.cs`：携带身份的死亡事件；`Scripts/GamePlay/Enemies/AI/RangedEnemyAI.cs`：远程身份触发。
+- 修改 `Scripts/GamePlay/Loot/Chests/ChestSpawner.cs`：适配事件参数，总击杀计数语义不变。
+- 修改 `Prefabs/Enemy/EliteEnemy.prefab`：精英分类配置。
+- 修改 `Scripts/Data/Loot/LootTableData.cs`：bundle 品质和条目 questOnly 字段。
+- 修改 `Data/ChestDropLoot/CommonChestLoot.asset`、`UncommonChestLoot.asset`、`RareChestLoot.asset`、`EpicChestLoot.asset`、`LegendaryChestLoot.asset`：各只新增对应品质索引。
+- 修改 `Scripts/GamePlay/Loot/Chests/LootChest.cs`：总数、精确品质和未知品质计数，重复交互保护与跨局清零。
+- 修改 `Scripts/Inventory/Items/Item.cs`、`Scripts/GamePlay/Inventory/InventorySystem.cs`：questOnly 构造/拾取/丢弃透传。
+- 修改 `Scripts/Inventory/Core/InventoryGrid.cs`：拖拽原占位保留。
+- 修改 `Scripts/Presentation/Inventory/InventoryUIController.cs`：记录原方向、收束拖拽；没有新增 UI。
+- 修改 `Scripts/GamePlay/Run/GameSession.cs`：精英计数、结束重入保护、拖拽恢复、冻结快照、统一结算事实来源与 Console 输出。
+- 新增 `Editor/LLM/QuestS3Audit.cs`：身份资产配置菜单与纯数据验证菜单。
+- 新增 `Editor/LLM/QuestS3PlayAudit.cs`：真实 prefab/Health/交互/拾取/计时结束/死亡验证及证据导出。
+- 新增以上五个代码/程序集资产的 `.meta`，以及 `Scripts/Quest.meta`、`Scripts/Quest/Core.meta`。
+- 修改 `Docs/LLM事件驱动系统技术方案.md`、`Docs/LLM事件驱动系统施工流程.md`：事实模型、身份实现、阶段分工与状态；修改本复盘记录。
+- 新增 `Docs/Evidence/S3/verification.txt`、`victory.json`、`death.json`、`victory.png`、`death.png`：实际运行产物（死亡截图限制见下）。
+
+**验证结果**：
+
+操作（UnityMCP 驱动实际 Editor，菜单也可人工复现）：
+
+1. 在非 Play 模式执行 `Tools/Backpack Survivor/Quest/S3 Configure Fact Identities`，写入五档品质与精英身份；等待编译。
+2. 执行 `Tools/Backpack Survivor/Quest/S3 Check Pure Data`。验证旋转回滚、原占位阻止并发拾取、非保留位置仍可拾取、总值 201、questOnly 与快照副本隔离。
+3. 直接打开 `Assets/BackpackSurvivor/Scenes/Run/01-Run_ArtFull.unity` 并进入 Play，执行 `Tools/Backpack Survivor/Quest/S3 Begin Full Duration Play Audit`。审计要求无常驻 SaveService，避免修改玩家存档。
+4. 真实普通/精英/远程 prefab 经 Health.TakeDamage 死亡，重复伤害不重复计数；同一宝箱实例按池生命周期复用，五档 bundle 各开一次并重复交互；克隆运行时条目执行真实拾取→丢弃→拾取。
+5. 审计以 30 倍时间、测试用高生命值跑完场景配置的 900 秒，不跳过计时结束；结束前将物品从网格拖出并旋转，验证自动恢复。订阅独立死亡台账与 OnRunEnded，断言旧结果、快照与网格值一致。
+6. 胜利后执行 `Tools/Backpack Survivor/Quest/S3 Check Death And Reset`，验证下一次 StartRun 清零；再次拖拽旋转并经真实玩家 Health 死亡，核对死亡快照；修改返回副本不影响存储的快照。
+7. 等待截图写出，读取 Console 错误，退出 Play；不保存运行时场景修改。
+
+结果与证据：
+
+- 纯数据、真实三类死亡、宝箱五档/重复交互/池复用、questOnly 拾取往返、完整计时胜利、死亡拖拽与跨局快照隔离均通过。逐项时间戳见 `Docs/Evidence/S3/verification.txt`。
+- 胜利快照：约 900 秒、等级 1、总击杀 3/精英 1、开箱 5，品质桶 `[1,1,1,1,1]`、未知品质 0、金币 0、背包价值 12000。物品“避难所主密钥”为 Legendary、等级 1、questOnly=true（仅测试实例）。完整机器可读字段见 `victory.json`。
+- `victory.png` 显示原 ResultView 的 15:00、击杀 3、金币 0、背包价值 12000、传说物品 1，与快照一致；精英、开箱和逐件字段由独立断言核对，旧页面原本没有这些字段。
+- 死亡快照：Died、时间 0、等级 1、击杀与开箱均清零，拖拽物品仍在快照内、价值 12000；见 `death.json`。
+- Unity 编译和 Console 错误数为 0；Git 差异无空白错误。常规掉落资产只新增品质字段，未改变权重。
+
+**未验证或已知限制**：
+
+- 这是受控集成验证，不能代表原始难度的人工完整游玩或掉落可达性结论；未做 Player 构建。S12 再做概率与压力校准。
+- 真实条目 questOnly 标记尚未启用；测试条目只在运行时克隆。未知品质计数路径已实现，本次未在 Play 注入损坏品质资产。
+- 重置验证聚焦新计数与快照；直接调用 StartRun 不代表完整的清场/重试流程验收，正式合同重试在 S7/S11 接入。
+- 死亡 JSON 与 OnRunEnded 断言通过，但 `death.png` 实际捕获到重置画面，没有显示死亡结果页，不能用作死亡页显示通过的证据；本次未定位该截图时机/同场景重置的表现问题。S11 正式结算界面需单独验收。
+
+**超出范围未做**：判定器、合同抽签/存档推进、questOnly 候选过滤、NPC 对话和任务 UI、波次压力/间隔调整、权重校准。
+
+面试复盘要点：关键问题并非“遍历背包求和”，而是 UI 拖拽暂时改变了数据源。通过原占位保留和结算前事务回滚，让旧结果与新判定输入在同一事实时点生成；随后以真实事件链和可保存快照证明一致性，而不是仅依据编译成功。
+
+下一阶段：S4 · 判定器。消费本阶段真实快照，补齐纯本地条件模型、Evaluate 与 EditMode 边界测试。

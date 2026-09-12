@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b294446e5ff3164db1def38dba77c82, type: 3}
   m_Name: RareChestLoot
   m_EditorClassIdentifier: Assembly-CSharp::BS.Data.LootTableData
+  chestQuality: 2
   channels:
   - probability: 1
     subTable: {fileID: 11400000, guid: fca669af801c4044f870139dc57b9408, type: 2}

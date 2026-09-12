@@ -1,4 +1,4 @@
-﻿using BS.Core;
+using BS.Core;
 using BS.Data;
 using BS.GamePlay.Combat;
 using BS.GamePlay.Enemies;
@@ -74,7 +74,7 @@ namespace BS.GamePlay.Loot
         }
 
 
-        private void AddKillsCount()
+        private void AddKillsCount(EnemyKind kind)
         {
             killsCount++;
             if(killsCount >= killsToSpawn)

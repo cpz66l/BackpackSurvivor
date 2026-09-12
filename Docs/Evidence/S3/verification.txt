@@ -1,0 +1,14 @@
+2026-09-12T14:20:09.4397208Z PASS pure data: reserved rollback, rotation, concurrent pickup, questOnly, detached snapshot.
+2026-09-12T14:23:24.1898940Z PASS real Health death path: normal+elite+ranged=3, elite=1; repeated damage does not double count.
+2026-09-12T14:23:24.2288866Z PASS chest reuse + duplicate interaction: opened=5, exact buckets=[1,1,1,1,1].
+2026-09-12T14:23:24.2445406Z PASS questOnly real pickup-discard-pickup roundtrip.
+2026-09-12T14:23:24.2445406Z BEGIN full 900s configured timer at 30x, controlled player health; combat/spawners remain active.
+2026-09-12T14:23:54.5322564Z PASS full-duration timer settlement with active drag; snapshot/result/grid agree.
+2026-09-12T14:24:11.1583859Z PASS death while dragging, reset counters, detached snapshots across runs.
+2026-09-12T14:29:13.5942971Z PASS pure data: reserved rollback, rotation, concurrent pickup, questOnly, detached snapshot.
+2026-09-12T14:29:26.1093053Z PASS real Health death path: normal+elite+ranged=3, elite=1; repeated damage does not double count.
+2026-09-12T14:29:26.1223747Z PASS chest reuse + duplicate interaction: opened=5, exact buckets=[1,1,1,1,1].
+2026-09-12T14:29:26.1313950Z PASS questOnly real pickup-discard-pickup roundtrip.
+2026-09-12T14:29:26.1324003Z BEGIN full 900s configured timer at 30x, controlled player health; combat/spawners remain active.
+2026-09-12T14:30:06.1977769Z PASS full-duration timer settlement with active drag; snapshot/result/grid agree.
+2026-09-12T14:30:55.0939850Z PASS death while dragging, reset counters, detached snapshots across runs.

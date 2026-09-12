@@ -1,0 +1,9 @@
+{
+  "name": "BS.Quest.Core",
+  "rootNamespace": "BS.Quest",
+  "references": [
+    "BS.Inventory"
+  ],
+  "autoReferenced": true,
+  "noEngineReferences": true
+}

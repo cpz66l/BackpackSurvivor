@@ -1,0 +1,28 @@
+{
+    "outcome": 0,
+    "elapsed": 900.0781860351563,
+    "level": 1,
+    "kills": 3,
+    "eliteKills": 1,
+    "chestsOpened": 5,
+    "chestsOpenedByQuality": [
+        1,
+        1,
+        1,
+        1,
+        1
+    ],
+    "unknownQualityChestsOpened": 0,
+    "backpackValue": 12000,
+    "gold": 0,
+    "items": [
+        {
+            "id": "避难所主密钥",
+            "rarity": 4,
+            "tag": 12,
+            "level": 1,
+            "scoreValue": 12000,
+            "questOnly": true
+        }
+    ]
+}

@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c276242f69146241be4aa5ccc41f523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Enemies.EnemyAI
+  enemyKind: 1
   moveSpeed: 3
   viewRange: 50
   attackRange: 3

@@ -29,6 +29,7 @@ namespace BS.Presentation
         private Item dragItem;
         private ItemView ghost;// 被拖的那个视图
         private int oldX, oldY;// 旧锚点（回滚用）
+        private Rotation oldRotation;
         private int targetX, targetY;// 当前鼠标悬停的目标格子
         private bool needsRedrawAfterDrag; //拖拽期间漏掉重绘的补偿机制
 
@@ -129,8 +130,12 @@ namespace BS.Presentation
         //监听鼠标按下瞬间，获取选中的物品
         public void BeginDrag(Item item, ItemView view)
         {
+            var session = FindAnyObjectByType<BS.GamePlay.Run.GameSession>();
+            if (isDragging || view == null || (session != null && session.State != BS.GamePlay.Run.GameState.Running)) return;
             //获取oldX和oldY
             if (!grid.TryGetAnchor(item, out oldX, out oldY)) return;
+            if (!grid.TryReserveDragOrigin(item)) return;
+            oldRotation = item.RotationState;
             targetX = oldX; targetY = oldY;
             dragItem = item; 
             ghost = view;
@@ -172,6 +177,7 @@ namespace BS.Presentation
         public void EndDrag(Vector2 pointerPos)
         {
             if (!isDragging) return;
+            grid.ReleaseDragOrigin(dragItem);
             isDragging = false;
 
 
@@ -236,6 +242,22 @@ namespace BS.Presentation
             // 清理拖拽引用（ghost 会在 Redraw 中被销毁）
             dragItem = null;
             ghost = null;
+        }
+
+        public void CancelDragForSettlement(InventoryGrid expectedGrid)
+        {
+            if (!isDragging || grid != expectedGrid) return;
+            Item item = dragItem;
+            while (item.RotationState != oldRotation) item.Rotate();
+            // Keep redraw gated until all data is restored and references are cleared.
+            if (!grid.Place(oldX, oldY, item))
+                throw new System.InvalidOperationException("Reserved drag origin could not be restored.");
+            grid.ReleaseDragOrigin(item);
+            dragItem = null;
+            ghost = null;
+            isDragging = false;
+            HideTooltip();
+            Redraw();
         }
 
         //旋转90度
