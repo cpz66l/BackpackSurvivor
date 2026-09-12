@@ -45,4 +45,17 @@ public class QuestEvaluatorTests
         Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance(),s).Completed);
         Assert.IsFalse(QuestEvaluator.Evaluate(new QuestInstance{objectives=new List<ObjectiveClause>{new ObjectiveClause{type=(ObjectiveType)999}}},s).Completed);
     }
+    [Test] public void DrawerFiltersTierCompletedAndUnlocksDeterministically()
+    {
+        var candidates = new List<QuestCandidate> {
+            new QuestCandidate { eventId="a", tier=1, tag=1, baseWeight=1 },
+            new QuestCandidate { eventId="done", tier=1, baseWeight=99 },
+            new QuestCandidate { eventId="locked", tier=1, unlockAfter=new[]{"missing"} }
+        };
+        var picked = QuestDrawer.Pick(candidates, 1, new HashSet<string>{"done"}, new HashSet<int>(), 7);
+        Assert.AreEqual("a", picked.eventId);
+        Assert.IsNull(QuestDrawer.Pick(candidates, 2, new HashSet<string>(), new HashSet<int>(), 7));
+        var instance = QuestDrawer.Accept(picked, 42, new List<string>{"quest-item"});
+        Assert.AreEqual(42, instance.seed); Assert.AreEqual("quest-item", instance.activeQuestOnlyItemIds[0]);
+    }
 }

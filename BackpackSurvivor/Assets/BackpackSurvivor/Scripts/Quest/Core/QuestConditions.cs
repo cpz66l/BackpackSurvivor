@@ -31,6 +31,24 @@ namespace BS.Quest
         public string definitionVersion;
         public List<ObjectiveClause> objectives = new List<ObjectiveClause>();
         public List<string> activeQuestOnlyItemIds = new List<string>();
+        public string briefingTitle;
+        public string briefingBody;
+        public string briefingHint;
+        public string briefingSource;
+    }
+
+    public sealed class QuestCandidate
+    {
+        public string eventId;
+        public int tier;
+        public int seed;
+        public string definitionVersion;
+        public int tag;
+        public float baseWeight = 1f;
+        public string[] unlockAfter;
+        public bool isFinal;
+        public List<ObjectiveClause> objectives = new List<ObjectiveClause>();
+        public string briefingTitle, briefingBody, briefingHint, briefingSource;
     }
 
     [Serializable]

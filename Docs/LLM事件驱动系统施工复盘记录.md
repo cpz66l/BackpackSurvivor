@@ -281,3 +281,24 @@ S2 已完成，可以进入 S3 判定输入补齐。S3 开始接入局内事实�
 **超出范围未做**：UI、LLM、掉落过滤、营地、存档推进。
 
 下一阶段：S5 · 事件池与抽签器。
+
+
+## S5 · 事件池与抽签器（本次实施报告）
+
+**阶段**：S5。
+
+**核心链路**：`QuestDatabase` → Core `QuestDrawer` → `QuestInstance`。
+
+**目的**：建立按 tier 分桶、完成去重、前置解锁、近期 tag 降权和确定性随机抽签的本地合同来源。
+
+**技术选择**：ScriptableObject 只负责定义与投影为纯 DTO；Core 不引用 Unity。抽签使用 seed 驱动 `System.Random`，过滤 tier、已完成事件和 `unlockAfter`，近期相同 tag 权重乘 0.25；候选为空返回 null，不伪造合同。接受合同复制条件列表，并首版接收全量 `questOnly` id。
+
+**改动文件**：`Scripts/Quest/Core/QuestConditions.cs` 增加 QuestCandidate/合同文案字段；新增 `QuestDrawer.cs`；新增默认程序集 `Scripts/Quest/QuestEventDefinition.cs` 和 `QuestDatabase.cs`；`Tests/EditMode/QuestEvaluatorTests.cs` 增加抽签边界；同步更新施工流程。
+
+**验证结果**：UnityMCP EditMode 测试程序集 `BS.Quest.Tests`，作业 `6bf38582a38042fcba5687ed6eca686e`：**4 passed / 0 failed / 0 skipped**。覆盖四层过滤、确定性 seed、空候选、合同复制和全量 questOnly 名单。
+
+**未验证或已知限制**：CampaignSave 尚未接入现有 SaveService；没有创建正式事件资产，尚未做连续运行/重启存档验证；tag 当前使用整数占位，后续事件内容确定后可替换为 QuestTag 枚举。
+
+**超出范围未做**：营地 UI、存档推进、questOnly 掉落过滤、LLM 与对话。
+
+下一阶段：S6 · questOnly 过滤。
