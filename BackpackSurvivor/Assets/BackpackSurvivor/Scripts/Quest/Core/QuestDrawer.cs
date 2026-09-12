@@ -30,6 +30,7 @@ namespace BS.Quest
         {
             if (c == null) return null;
             var q = new QuestInstance { eventId=c.eventId, tier=c.tier, seed=seed, definitionVersion=c.definitionVersion,
+                isFinal=c.isFinal,
                 briefingTitle=c.briefingTitle, briefingBody=c.briefingBody, briefingHint=c.briefingHint, briefingSource=c.briefingSource,
                 objectives = c.objectives == null ? new List<ObjectiveClause>() : new List<ObjectiveClause>(c.objectives) };
             if (allQuestOnlyIds != null) q.activeQuestOnlyItemIds = new List<string>(allQuestOnlyIds);

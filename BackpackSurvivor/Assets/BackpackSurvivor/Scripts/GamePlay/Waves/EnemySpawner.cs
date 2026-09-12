@@ -78,7 +78,7 @@ namespace BS.GamePlay.Waves
             float eliteEnemyMaxHp,
             float rangedEnemyMaxHp)
         {
-            if(spawnInterval < 0.1||maxAlive <=0) return;
+            if(spawnInterval <= 0||maxAlive <=0) return;
             this.spawnInterval = spawnInterval;
             this.maxAlive = maxAlive;
 

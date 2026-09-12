@@ -5,6 +5,7 @@ using BS.GamePlay.Player;
 using BS.GamePlay.Save;
 using BS.GamePlay.Stats;
 using BS.GamePlay.Upgrades;
+using BS.GamePlay.Quest;
 using BS.Inventory;
 using BS.Quest;
 using BS.Presentation;
@@ -34,9 +35,11 @@ namespace BS.GamePlay.Run
         private int eliteKillCount;
         private bool isEnding;
         private QuestRunSnapshot lastQuestSnapshot;
+        private QuestOutcome lastQuestOutcome;
         public int KillCount => killCount;
         public int EliteKillCount => eliteKillCount;
         public QuestRunSnapshot LastQuestSnapshot => lastQuestSnapshot?.Copy();
+        public QuestOutcome LastQuestOutcome => lastQuestOutcome;
         private int totalGold;
 
 
@@ -128,6 +131,7 @@ namespace BS.GamePlay.Run
             eliteKillCount = 0;
             isEnding = false;
             lastQuestSnapshot = null;
+            lastQuestOutcome = null;
             totalGold = 0;
             //初始广播，对HUD进行初始化
             SetState(GameState.Running);
@@ -300,6 +304,15 @@ namespace BS.GamePlay.Run
                 }
             }
             lastQuestSnapshot = snapshot;
+            var campaign = SaveService.Instance != null && SaveService.Instance.CurrentData != null ? SaveService.Instance.CurrentData.campaign : null;
+            var questAtSettlement = campaign == null ? null : campaign.pendingQuest;
+            if (questAtSettlement != null)
+            {
+                lastQuestOutcome = QuestEvaluator.Evaluate(questAtSettlement, snapshot);
+                if (lastQuestOutcome.Completed)
+                    SaveService.Instance.CompleteQuest(questAtSettlement, questAtSettlement.isFinal);
+            }
+            QuestTelemetry.Record(questAtSettlement, snapshot, lastQuestOutcome);
             int backpackValue = snapshot.backpackValue;
             int totalXpAtSettlement = TotalXp;
             SetState(finalState);

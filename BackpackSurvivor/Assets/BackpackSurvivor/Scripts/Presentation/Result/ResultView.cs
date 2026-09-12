@@ -29,6 +29,7 @@ namespace BS.Presentation
         // Elapsed, level, kills, gold, backpack value, legendary count: existing snapshot only.
         [SerializeField] private TMP_Text[] statisticValues;
         [SerializeField] private TMP_Text legendarySummaryText;
+        [SerializeField] private TMP_Text questOutcomeText;
         [SerializeField] private string mainMenuSceneName = "MainMenu";
         [SerializeField] private string restartSceneFallback = "01-Run";
 
@@ -129,6 +130,11 @@ namespace BS.Presentation
                     if (statisticValues[i] != null) statisticValues[i].text = values[i];
             if (legendarySummaryText != null)
                 legendarySummaryText.text = $"总经验  {runResult.TotalXp:N0}    ·    传说装备价值  ￥{runResult.LegendaryCollectedValue:N0}";
+            if (questOutcomeText != null)
+            {
+                var outcome = gameSession == null ? null : gameSession.LastQuestOutcome;
+                questOutcomeText.text = outcome == null ? "当前没有进行中的合同" : (outcome.Completed ? "合同已完成" : "合同未达成，已保留") + $" · 进度 {outcome.Progress01:P0}";
+            }
         }
         //计算显示时间
         private string FormatTime(float seconds)

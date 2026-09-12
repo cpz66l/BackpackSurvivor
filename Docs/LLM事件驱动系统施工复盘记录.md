@@ -362,3 +362,8 @@ S8 追加：新增 `NpcDialogueService`，使用现有配置解析和 UnityWebRe
 ## S9/S10 · 表现接口（进行中）
 
 新增 `QuestTrackerView`，统一消费 `QuestEvaluator` 结果；新增 `RadioSubtitleView`，订阅现有 `WaveDirector.OnWaveStageChanged(int,string,Color)` 并提供超时字幕。两者已编译通过，尚未绑定正式 Builder 场景，也未接入 S9 的全量实时事件和 S10 的异步 DeepSeek 脉冲请求。
+
+
+## S11/S12 · 结算推进与埋点（进行中）
+
+`GameSession.EndRun` 现在以冻结快照调用 `QuestEvaluator`，只有胜利且完成才清除 pending 并推进 tier；死亡/未达成保留合同。ResultView 提供可选任务结果文本。新增 `QuestTelemetry` 将结算最小字段写入本地 JSONL；`EnemySpawner` 已放宽间隔校验到只拒绝 <=0，使 0.05 配置生效。尚未完成结算汇报 UI、完整合同资产和 S12 统计采样报告。

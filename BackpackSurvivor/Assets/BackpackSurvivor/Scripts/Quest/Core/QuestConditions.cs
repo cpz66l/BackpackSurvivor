@@ -35,6 +35,7 @@ namespace BS.Quest
         public string briefingBody;
         public string briefingHint;
         public string briefingSource;
+        public bool isFinal;
     }
 
     public sealed class QuestCandidate
