@@ -123,6 +123,13 @@ namespace BS.GamePlay.Npc
                     messages.Add(Message("system","本轮是局内波次无线电广播，不是营地对话。当前阶段刚切换，仅调用 get_run_state 核对局势；不要查询未知物品。text 严格只写一个短句并以句号结束，不提问、不复述合同清单、不建议出击前配装。阶段名称只能引用 [[stage:0]]；不要引用包含多个句子的 run 字段。例：{\"objectiveEcho\":[0],\"text\":\"[[stage:0]]阶段已开始，保持专注。\",\"verdict\":\"partial\"}。索引和 verdict 以本轮事实为准。"));
                 if(surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation)
                     messages.Add(Message("system","本轮是小芯的自由闲聊。先接住玩家的情绪和话题，再自然回应；不要把聊天改写成任务报告。"));
+                if(surface==DialogueSurface.Camp && intent==DialogueIntent.Facts)
+                {
+                    bool asksProgress = input.IndexOf("进度",StringComparison.Ordinal)>=0 || input.IndexOf("完成",StringComparison.Ordinal)>=0 || input.IndexOf("满足",StringComparison.Ordinal)>=0 || input.IndexOf("条件",StringComparison.Ordinal)>=0;
+                    messages.Add(Message("system", asksProgress
+                        ? "玩家明确追问进度或条件时，才说明相关条件与本地判定；只回答被问到的部分，不逐条复读所有未满足目标。"
+                        : "玩家是在询问任务概览。只说明合同名称、目标要做什么和必要的行动方向；不要播报‘当前条件未满足’、‘目标一/目标二’或整张进度表，因为玩家知道尚未完成。不要主动输出背包、价值、击杀或其他状态。"));
+                }
                 if(surface==DialogueSurface.Camp) foreach(var h in history) messages.Add(h.DeepClone());
                 if(surface==DialogueSurface.Camp && !naturalCamp && !string.IsNullOrWhiteSpace(campHistoricalContext))
                     messages.Add(Message("system","上一趟结算记录（仅供营地回忆，不是当前背包，也不能替代当前合同）：\n"+campHistoricalContext));
