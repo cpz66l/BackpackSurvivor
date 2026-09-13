@@ -87,6 +87,7 @@ namespace BackpackSurvivor.EditorTools
             UnityEventTools.AddPersistentListener(pause.onClick, session.PauseRun);
             var keys = Label("V04Controls", root, "WASD 移动  ·  鼠标瞄准  ·  E 交互", 0, 0, 640, 30, 22, Muted);
             Pin(keys.rectTransform, new Vector2(.5f, 0), new Vector2(.5f, 0), new Vector2(0, 35));
+            RunNpcFeedbackBuilder.BuildOn(root);
             BuildPrompt(canvas);
             EditorUtility.SetDirty(hud);
         }

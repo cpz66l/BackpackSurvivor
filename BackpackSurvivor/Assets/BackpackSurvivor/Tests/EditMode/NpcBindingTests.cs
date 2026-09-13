@@ -40,6 +40,13 @@ public class NpcBindingTests
     [TestCase("浓一点，样本。", false)]
     public void ConversationalDegreeDoesNotWeakenFactGuards(string source, bool expected)
     { Assert.AreEqual(expected,NpcResponseValidator.TryRenderSentence(source,Facts(),200,out _)); }
+    [Test] public void PulseStageReferenceComesOnlyFromLocalStage()
+    {
+        var f=FactBlockBuilder.Capture(null,null,stage:"局势升温");
+        Assert.IsTrue(NpcResponseValidator.TryRenderSentence("[[stage:0]]阶段已开始。",f,60,out string text));
+        Assert.AreEqual("局势升温阶段已开始。",text);
+        Assert.IsFalse(NpcResponseValidator.TryRenderSentence("[[stage:0]]。",Facts(),60,out _));
+    }
     [Test] public void CampCannotReusePriorBackpack()
     {
         var f=Facts();StringAssert.Contains("尚未开始本局",f.run);Assert.AreEqual(0,f.items.Length);StringAssert.Contains("空",f.backpack);

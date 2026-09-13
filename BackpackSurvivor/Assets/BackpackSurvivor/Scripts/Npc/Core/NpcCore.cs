@@ -13,7 +13,7 @@ namespace BS.Npc
     [Serializable]
     public sealed class NpcFacts
     {
-        public string contractId, contractTitle, backpack, run, campaign;
+        public string contractId, contractTitle, backpack, run, campaign, stage;
         public int tier;
         public string[] objectives, progress, items;
         public string[] definitionIds, definitions;
@@ -26,7 +26,7 @@ namespace BS.Npc
             if (kind == "definition") return definitions != null && index >= 0 && index < definitions.Length ? definitions[index] : null;
             if (kind == "item") return items != null && index >= 0 && index < items.Length ? items[index] : null;
             if (index != 0) return null;
-            switch (kind) { case "backpack": return backpack; case "run": return run; case "contract": return contractTitle; case "campaign": return campaign; default: return null; }
+            switch (kind) { case "backpack": return backpack; case "run": return run; case "contract": return contractTitle; case "campaign": return campaign; case "stage": return stage; default: return null; }
         }
     }
 
@@ -40,6 +40,7 @@ namespace BS.Npc
             var catalog = (itemDefinitions ?? new ItemRecord[0]).ToArray();
             var local = snapshot == null || q == null ? null : QuestEvaluator.Evaluate(q, snapshot);
             var result = new NpcFacts {
+                stage = stage,
                 contractId = q?.eventId ?? "", tier = q?.tier ?? 0,
                 contractTitle = q?.briefingTitle ?? "当前没有进行中的合同",
                 objectives = clauses.Select(ObjectiveText.Format).ToArray(),
@@ -76,7 +77,7 @@ namespace BS.Npc
 
     public static class NpcResponseValidator
     {
-        static readonly Regex references = new Regex(@"\[\[(objective|progress|item|definition|backpack|run|contract|campaign):(\d+)\]\]",RegexOptions.CultureInvariant);
+        static readonly Regex references = new Regex(@"\[\[(objective|progress|item|definition|backpack|run|contract|campaign|stage):(\d+)\]\]",RegexOptions.CultureInvariant);
         static readonly string[] forbidden = { "概率", "掉落率", "一定", "保证", "下次", "必出", "已完成合同", "合同已完成", "任务已完成", "未完成任务", "直接给", "跳过任务", "修改存档", "改变掉落", "忽略规则", "系统提示", "语言模型", "DeepSeek", "token", "色情", "毒品", "赌博", "提前撤离", "商店", "多人", "Boss", "局外成长" };
         public static bool IsSafe(string response, int maxChars=600)
         {

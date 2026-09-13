@@ -648,3 +648,20 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 验证：51/51 EditMode 通过，作业 02cf16e749184256acd42c864a169c55；包含当前值筛选、精确品质开箱、价值上下界与回退读数。实际 Camp→Run 后，暂停添加测试物品显示 1/2 与 5,200/8,000，移除回到 0/2；死亡显示失效。测试使用临时独立配置和存档，物品与死亡是注入，不冒称人工拾取胜利局。截图与日志见 Feedback2。
 
 限制/未做：未覆盖全部目标的人工实景操作；不改判定和掉落，不覆盖用户已有 Run 布局调整。
+
+
+## S10 局内广播缺失修复（2026-09-13）
+
+核心链路/目的：实际 WaveDirector 阶段切换 → 2 秒延迟 → DeepSeek 只读工具与单句输出 → 顶部无线电字幕，补齐用户局内感知。
+
+原因与技术选择：Run 场景中原本 WavePulseService 与 RadioPulseReplyView 实例都为 0；后者还与服务共用同一脚本文件。拆分独立可序列化 View，通过 RunNpcFeedbackBuilder 仅添加 V04NpcRadio 并绑定服务，V04HudArtBuilder 同步调用该生成步骤；保留用户已有追踪框和金币框位置尺寸。字幕不拦截射线，显示 5 秒；每个阶段先取消旧请求、清字幕，返回时检查阶段/请求序号/场景会话/合同引用/8 秒 TTL。取消令牌实际传到 HTTP 服务；胜负结束或离场清除。
+
+真实请求首次暴露另一缺口：未指定 Pulse 面，模型按营地聊天生成多句，随后被单句守卫丢弃。新增仅 Pulse 生效的广播上下文及本地 stage 字段引用，不修改营地人设；不放宽单句、字数、事实和本地判定边界。
+
+改动文件：WavePulseService.cs、独立 RadioPulseReplyView.cs、RunNpcFeedbackBuilder.cs、V04HudArtBuilder.cs、Run 场景新增绑定；NpcCore.cs、NpcDialogueService.cs、NpcBindingTests.cs；RunRadioFeedbackAudit.cs 及新增 meta；Feedback2/radio*、final-tests.json；施工流程状态与技术说明。
+
+验证结果：52/52 EditMode Passed（ff4bde775fbc47ee9cf0becb38790922）。实际 Run 中在配置时间 0、180、360、600、780 秒逐阶段推进 RunTimer，由真实 WaveDirector.Update 应用阶段并触发事件，五次真实 API 广播全部显示，逐阶段响应与截图已保存。注入慢/忽略取消的回复，验证新阶段取消旧令牌且旧回复不覆盖、TTL 丢弃、同场景 StartRun 隔离旧合同、总开关零请求、组件停用取消并清字幕。使用临时独立配置和存档、冻结战斗并推进计时器，不冒称人工打满 900 秒胜利局。Console 错误 0。
+
+未验证或限制：网络超过 TTL 或输出不合规仍会丢弃；不以单次五阶段通过证明长期成功率。物理输入法候选选字与正常战斗节奏需用户试玩确认。用户原有 Run 与字库改动保留，不混入本次功能提交；UI 截图以用户当前布局为准。
+
+超出范围未做：未讨论或调整 NPC 人设/长期记忆，不调权重或更改任务完成条件。

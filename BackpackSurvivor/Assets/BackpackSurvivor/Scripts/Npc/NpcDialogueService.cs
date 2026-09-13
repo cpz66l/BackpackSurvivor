@@ -92,11 +92,13 @@ namespace BS.GamePlay.Npc
                 { LastFailure="local_route"; UsedFallback=true; Emit(restrictedReply); Log("route=restricted; network=0",settings.ApiKey); return emitted.ToString(); }
                 if(string.IsNullOrWhiteSpace(settings.ApiKey) && transport is DeepSeekNpcDialogue) throw new InvalidOperationException("key_not_configured");
                 var messages=new JArray(Message("system",Persona),Message("system",Format+" 本次显示文字总长不超过 "+limit+" 字。"));
+                if(surface==DialogueSurface.Pulse)
+                    messages.Add(Message("system","本轮是局内波次无线电广播，不是营地对话。当前阶段刚切换，仅调用 get_run_state 核对局势；不要查询未知物品。text 严格只写一个短句并以句号结束，不提问、不复述合同清单、不建议出击前配装。阶段名称只能引用 [[stage:0]]；不要引用包含多个句子的 run 字段。例：{\"objectiveEcho\":[0],\"text\":\"[[stage:0]]阶段已开始，保持专注。\",\"verdict\":\"partial\"}。索引和 verdict 以本轮事实为准。"));
                 if(surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation)
                     messages.Add(Message("system","本轮是自由闲聊：只回应玩家当前话题，不复读合同、目标、背包或进度，不在 text 中插入事实引用。objectiveEcho 与 verdict 仍照常填写。若玩家含糊地问玩法，请先澄清，不猜测。"));
                 if(surface==DialogueSurface.Camp) foreach(var h in history) messages.Add(h.DeepClone());
                 messages.Add(Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)));
-                messages.Add(Message("user",input));
+                messages.Add(Message("user",surface==DialogueSurface.Pulse?"请对刚切换的当前阶段发出一句简短无线电提醒。":input));
                 // Casual conversation needs no forced data lookup; factual surfaces retain the audited tool round.
                 if(surface!=DialogueSurface.Camp || intent==DialogueIntent.Facts)
                 {

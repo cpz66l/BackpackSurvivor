@@ -1,0 +1,6 @@
+2026-09-13T07:27:29.7341205Z
+PASS enable real radio in isolated configuration
+PASS Run scene has attached service and subtitle view
+FAIL System.InvalidOperationException: real phase 0 radio displayed; status=empty_or_rejected:pulse_requires_one_sentence
+  at BackpackSurvivor.EditorTools.RunRadioFeedbackAudit.Check (System.Boolean ok, System.String text) [0x0001a] in E:\YouXiKaiFa\Backpack Survivor\BackpackSurvivor\Assets\BackpackSurvivor\Editor\LLM\RunRadioFeedbackAudit.cs:126 
+  at BackpackSurvivor.EditorTools.RunRadioFeedbackAudit.Tick () [0x001c4] in E:\YouXiKaiFa\Backpack Survivor\BackpackSurvivor\Assets\BackpackSurvivor\Editor\LLM\RunRadioFeedbackAudit.cs:73 

@@ -1,0 +1,19 @@
+2026-09-13T07:29:46.7803838Z
+PASS enable real radio in isolated configuration
+PASS Run scene has attached service and subtitle view
+PASS real phase 0 radio displayed; status=shown
+调度员 · 洒洒水阶段已开始，保持专注。
+PASS real phase 1 radio displayed; status=shown
+调度员 · 简单阶段已开始，保持专注。
+PASS real phase 2 radio displayed; status=shown
+调度员 · 普通阶段已开始，保持专注。
+PASS real phase 3 radio displayed; status=shown
+调度员 · 上压力阶段已开始，保持专注。
+PASS real phase 4 radio displayed; status=shown
+调度员 · 终局阶段已开始，稳住呼吸。
+PASS new phase cancels old token; late old response never replaces subtitle
+PASS TTL discards slow response
+PASS same scene StartRun rejects previous contract response
+PASS AI switch prevents radio request
+PASS disable cancels request and clears subtitle
+PASS five real configured phase transitions and injected lifecycle boundaries; isolated config/save; timer accelerated
