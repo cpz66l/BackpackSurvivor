@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,12 +71,12 @@ namespace BS.Npc
         public static bool IsHistoryQuery(string input)
         {
             if(string.IsNullOrWhiteSpace(input)) return false;
-            return new[]{"上一趟","上次","经历","战绩","记得","带回","死亡后","胜利后"}.Any(input.Contains);
+            return new[]{"上一趟","上次","经历","战绩","记得","带回","死亡后","胜利后","历史","之前","过去","曾经","哪一局","哪次"}.Any(input.Contains);
         }
         public static DialogueIntent Classify(string input)
         {
             if (string.IsNullOrWhiteSpace(input) || input.Length>1000 || input.IndexOfAny(new[]{'<','>','\0'})>=0 || restricted.Any(w=>input.IndexOf(w,StringComparison.OrdinalIgnoreCase)>=0)) return DialogueIntent.Restricted;
-            return new[]{"任务","合同","目标","背包","进度","物品","等级","价值","击杀","上一趟","上次","经历","战绩","记得","带回","死亡","胜利"}.Any(input.Contains) ? DialogueIntent.Facts : DialogueIntent.Conversation;
+            return new[]{"任务","合同","目标","背包","进度","物品","等级","价值","击杀","上一趟","上次","经历","战绩","记得","带回","死亡","胜利","历史","之前","过去","曾经"}.Any(input.Contains) ? DialogueIntent.Facts : DialogueIntent.Conversation;
         }
     }
 

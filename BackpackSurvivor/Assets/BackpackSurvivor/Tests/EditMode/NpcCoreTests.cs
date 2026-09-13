@@ -12,6 +12,12 @@ public class NpcCoreTests
         Assert.IsTrue(DialogueRouter.TryRoute(DialogueSurface.Camp, out int campLimit));
         Assert.AreEqual(600, campLimit);
     }
+    [Test] public void HistoryQueriesRouteToFacts()
+    {
+        Assert.IsTrue(DialogueRouter.IsHistoryQuery("之前的历史记录"));
+        Assert.AreEqual(DialogueIntent.Facts, DialogueRouter.Classify("之前的历史记录"));
+        Assert.AreEqual(DialogueIntent.Facts, DialogueRouter.Classify("过去发生过什么"));
+    }
     [Test] public void FreeTextAllowsNaturalNamesNumbersAndQuotes()
     {
         Assert.IsTrue(NpcResponseValidator.TryRenderFreeText("我想了 3 个名字，下次再说。", 600, out var rendered));
@@ -26,3 +32,4 @@ public class NpcCoreTests
         Assert.IsFalse(NpcResponseValidator.IsSafe(new string('字', 601)));
     }
 }
+
