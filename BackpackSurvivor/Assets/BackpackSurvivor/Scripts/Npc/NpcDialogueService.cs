@@ -63,6 +63,11 @@ namespace BS.GamePlay.Npc
         public Task<string> RequestDebriefAsync(QuestInstance quest, QuestRunSnapshot snapshot, CancellationToken ct=default)
             => Reply(DialogueSurface.Settlement,"请简短总结刚结束的行动。",quest,snapshot,"",null,ct);
 
+        public void NotifyContractChanged()
+        {
+            history.Add(Message("system","合同已重抽。此前聊天仍属于本次营地会话；此前提到的合同条件属于旧合同，当前任务请以本轮本地查询为准。"));
+        }
+
         public void SetCampHistoricalContext(QuestInstance quest, QuestRunSnapshot snapshot, IEnumerable<RunMemoryRecord> records=null)
         {
             var context=new JObject();
@@ -88,7 +93,7 @@ namespace BS.GamePlay.Npc
             var emitted=new StringBuilder();
             var settings=configProvider();
             var facts=FactBlockBuilder.Capture(quest,snapshot,CompletedEvents(),surface==DialogueSurface.Pulse?input:null,ItemDefinitions);
-            var intent=DialogueRouter.Classify(input);
+            var intent=recordHistory?DialogueRouter.Classify(input):DialogueIntent.Conversation;
             bool naturalCamp=surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation;
             string fallback=surface==DialogueSurface.Camp ? (naturalCamp?conversationFallback:(string.IsNullOrWhiteSpace(offline)?restrictedReply:offline)) : "";
             int limit=surface==DialogueSurface.Pulse?Math.Min(60,settings.Settings.maxPulseCharacters):settings.Settings.maxResponseCharacters;
@@ -130,11 +135,16 @@ namespace BS.GamePlay.Npc
                         ? "玩家明确追问进度或条件时，才说明相关条件与本地判定；只回答被问到的部分，不逐条复读所有未满足目标。"
                         : "玩家是在询问任务概览。只说明合同名称、目标要做什么和必要的行动方向；不要播报‘当前条件未满足’、‘目标一/目标二’或整张进度表，因为玩家知道尚未完成。不要主动输出背包、价值、击杀或其他状态。"));
                 }
-                if(surface==DialogueSurface.Camp) foreach(var h in history) messages.Add(h.DeepClone());
+                if(surface==DialogueSurface.Camp)
+                {
+                    messages.Add(Message("system","以下是本次营地停留中已经说过的话，包括你自己的开场白。承接玩家提到的‘刚才、那个、第二个’和临时称呼，先从对话中寻找指代；玩家纠正后采用最新说法。历史聊天不是当前游戏事实，也不能用于修改行动档案。"));
+                    foreach(var h in history) messages.Add(h.DeepClone());
+                    Log("context session="+sessionId+" messages="+history.Count+" event="+(recordHistory?"PlayerTurn":"CampGreeting"),settings.ApiKey);
+                }
                 if(surface==DialogueSurface.Camp && !naturalCamp && !string.IsNullOrWhiteSpace(campHistoricalContext))
                     messages.Add(Message("system","上一趟结算记录（仅供营地回忆，不是当前背包，也不能替代当前合同）：\n"+campHistoricalContext));
                 if(!naturalCamp) messages.Add(Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)));
-                messages.Add(Message("user",surface==DialogueSurface.Pulse?"请对刚切换的当前阶段发出一句简短无线电提醒。":input));
+                messages.Add(Message(recordHistory?"user":"system",surface==DialogueSurface.Pulse?"请对刚切换的当前阶段发出一句简短无线电提醒。":input));
                 // Casual conversation needs no forced data lookup; factual surfaces retain the audited tool round.
                 if(surface!=DialogueSurface.Camp || intent==DialogueIntent.Facts)
                 {
@@ -207,7 +217,6 @@ namespace BS.GamePlay.Npc
                 if(emitted.Length==0) Emit(renderedAll);
                 else if(renderedAll.StartsWith(emitted.ToString(),StringComparison.Ordinal)) Emit(renderedAll.Substring(emitted.Length));
                 else throw new InvalidOperationException("stream_final_mismatch");
-                if(surface==DialogueSurface.Camp && recordHistory){history.Add(Message("user",input));history.Add(Message("assistant",content));}
                 Log("PASS session="+sessionId+" turns="+Turns+" tokens="+Tokens+" chunks="+StreamChunks+" firstSentenceMs="+(int)FirstSentenceMilliseconds,settings.ApiKey);
                 return emitted.ToString();
             }
@@ -229,6 +238,8 @@ namespace BS.GamePlay.Npc
                             Message("system","上一稿文字未通过客户端校验。请用非常简短的日常话重新回应玩家，只写不含任何数量、计量单位或机制词的温和感想。不要补充事实，不重复已显示片段。text 不超过 "+Math.Min(remaining,80)+" 字；objectiveEcho/verdict 仍按事实填写。"),
                             Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)),
                             Message("user","本轮玩家输入："+input+"\n已显示片段（仅作避免重复的参考）："+emitted));
+                        // Preserve the conversation when repairing prose; only the rejected draft is discarded.
+                        for(int i=0;i<history.Count;i++) repairMessages.Insert(2+i,history[i].DeepClone());
                         var repairRequest=Body(repairMessages,false,400);
                         repairRequest["response_format"]=new JObject{["type"]="json_object"};
                         var repair=await Send(repairRequest,settings,surface,ct,null);
@@ -237,8 +248,6 @@ namespace BS.GamePlay.Npc
                         Require(ValidEcho(repaired["objectiveEcho"] as JArray,facts.objectives.Length) && (string)repaired["verdict"]==facts.verdict,"rewrite_facts_failed");
                         Require(NpcResponseValidator.TryRenderSentence((string)repaired["text"],facts,remaining,out string repairedText),"rewrite_validation_failed");
                         Emit(repairedText); UsedFallback=false; LastFailure=null;
-                        history.Add(Message("user",input));
-                        history.Add(Message("assistant",new JObject{["objectiveEcho"]=new JArray(Enumerable.Range(0,facts.objectives.Length)),["text"]=emitted.ToString(),["verdict"]=facts.verdict}.ToString(Formatting.None)));
                         Log("PASS validated rewrite; safe prefix retained",settings.ApiKey);
                         return emitted.ToString();
                     }
@@ -255,7 +264,17 @@ namespace BS.GamePlay.Npc
                 }
                 return emitted.ToString();
             }
-            finally {busy=false;}
+            finally
+            {
+                // Remember exactly what was displayed, including greetings and local fallbacks.
+                // Store resolved text so old fact references cannot bind to a different contract later.
+                if(surface==DialogueSurface.Camp && emitted.Length>0)
+                {
+                    if(recordHistory) history.Add(Message("user",input));
+                    history.Add(Message("assistant",new JObject{["text"]=emitted.ToString()}.ToString(Formatting.None)));
+                }
+                busy=false;
+            }
         }
         async Task<NpcWireReply> Send(JObject request,ResolvedLlmConfig config,DialogueSurface surface,CancellationToken ct,Action<string> delta)
         {

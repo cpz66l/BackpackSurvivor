@@ -98,7 +98,9 @@ namespace BS.GamePlay.Quest
             try
             {
                 string prompt=persona?.greetingPrompt??NpcPersonaDefaults.GreetingPrompt;
-                await dialogue.StreamCampGreetingAsync(CurrentQuest,prompt,sentence=>{ if(this!=null&&!leaving&&revision==replyRevision&&dialogueOutput){shown+=sentence;PresentDialogue(shown);} },replyCancellation.Token);
+                string reply=await dialogue.StreamCampGreetingAsync(CurrentQuest,prompt,sentence=>{ if(this!=null&&!leaving&&revision==replyRevision&&dialogueOutput){shown+=sentence;PresentDialogue(shown);} },replyCancellation.Token);
+                if(this!=null&&!leaving&&revision==replyRevision&&!string.IsNullOrWhiteSpace(reply))
+                    visibleHistory.Enqueue((persona?.displayName??NpcPersonaDefaults.DisplayName)+"："+reply);
             }
             catch(OperationCanceledException) { }
             finally { if(this!=null&&revision==replyRevision){DialogueBusy=false;if(dialogueInput)dialogueInput.interactable=!leaving&&aiEnabled;UpdateAudit();} }
@@ -185,7 +187,7 @@ namespace BS.GamePlay.Quest
         }
         public void Redraw()
         {
-            if (leaving) return;
+            if (leaving || DialogueBusy) return;
             var campaign = SaveService.Instance.CurrentData.campaign;
             if (database == null || campaign.finalCompleted) { Refresh(); return; }
             int seed = Guid.NewGuid().GetHashCode();
@@ -194,9 +196,12 @@ namespace BS.GamePlay.Quest
             if (picked == null) { statusText.text="当前层级没有可用合同。已保留原合同。"; Refresh(); return; }
             var quest = QuestDrawer.Accept(picked, seed, database.AllQuestOnlyIds);
             if (!SaveService.Instance.TrySetPendingQuest(quest, out string error)) statusText.text="合同保存失败：" + error;
-            else statusText.text="合同已保存。出击或下次返回营地均使用这份条件。";
+            else
+            {
+                statusText.text="合同已保存。出击或下次返回营地均使用这份条件。";
+                dialogue?.NotifyContractChanged();
+            }
             Refresh();
-            ResetDialogue();
         }
         public void Refresh()
         {
