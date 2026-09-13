@@ -13,7 +13,7 @@ namespace BS.GamePlay.Npc
         public void Show(string text,Color color)
         {
             if(!subtitle || string.IsNullOrWhiteSpace(text)){Clear();return;}
-            subtitle.text="调度员 · "+text;subtitle.color=color;
+            subtitle.text="小芯 · "+text;subtitle.color=color;
             if(group)group.alpha=1;
             until=Time.unscaledTime+seconds;
         }
