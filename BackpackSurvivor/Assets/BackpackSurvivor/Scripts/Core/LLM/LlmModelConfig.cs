@@ -5,6 +5,9 @@ namespace BS.Core.LLM
     [Serializable]
     public sealed class LlmModelConfig
     {
+        public const string DefaultModel = "deepseek-flash";
+        public bool npcEnabled = true;
+        public string model = DefaultModel;
         public string apiKey = string.Empty;
         public int maxSessionTurns = 20;
         public int maxTotalTokens = 40000;
@@ -18,6 +21,7 @@ namespace BS.Core.LLM
 
         public void Normalize()
         {
+            model = string.IsNullOrWhiteSpace(model) ? DefaultModel : model.Trim();
             apiKey = apiKey == null ? string.Empty : apiKey.Trim();
             maxSessionTurns = Clamp(maxSessionTurns, 1, 1000, 20);
             maxTotalTokens = Clamp(maxTotalTokens, 1000, 1000000, 40000);

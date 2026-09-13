@@ -30,7 +30,17 @@ namespace BS.Core.LLM
         public const string ApiKeyEnvironmentName = "DEEPSEEK_API_KEY";
         public const string ConfigFileName = "llm_model_config.json";
 
-        public static string ConfigPath => Path.Combine(Application.persistentDataPath, ConfigFileName);
+        public static string ConfigPath
+        {
+            get
+            {
+#if UNITY_EDITOR
+                string auditPath = UnityEditor.SessionState.GetString("BS.Npc.AuditConfigPath", "");
+                if (!string.IsNullOrWhiteSpace(auditPath)) return auditPath;
+#endif
+                return Path.Combine(Application.persistentDataPath, ConfigFileName);
+            }
+        }
 
         public static LlmModelConfig LoadFile()
         {
@@ -41,8 +51,8 @@ namespace BS.Core.LLM
                 string json = File.ReadAllText(ConfigPath);
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    LlmModelConfig parsed = JsonUtility.FromJson<LlmModelConfig>(json);
-                    if (parsed != null) config = parsed;
+                    // Preserve defaults for fields absent from older configuration files.
+                    JsonUtility.FromJsonOverwrite(json, config);
                 }
             }
             catch (Exception exception)
@@ -66,7 +76,7 @@ namespace BS.Core.LLM
             config.Normalize();
             try
             {
-                Directory.CreateDirectory(Application.persistentDataPath);
+                Directory.CreateDirectory(Path.GetDirectoryName(ConfigPath));
                 File.WriteAllText(ConfigPath, JsonUtility.ToJson(config, true));
                 return true;
             }
@@ -80,7 +90,13 @@ namespace BS.Core.LLM
 
         public static ResolvedLlmConfig Resolve()
         {
-            LlmModelConfig fileConfig = LoadFile();
+            return Resolve(LoadFile());
+        }
+
+        public static ResolvedLlmConfig Resolve(LlmModelConfig fileConfig)
+        {
+            fileConfig = fileConfig ?? LlmModelConfig.CreateDefault();
+            fileConfig.Normalize();
             string environmentKey = ReadEnvironmentKey();
             if (!string.IsNullOrWhiteSpace(environmentKey))
                 return new ResolvedLlmConfig(fileConfig, environmentKey, LlmKeySource.Environment);

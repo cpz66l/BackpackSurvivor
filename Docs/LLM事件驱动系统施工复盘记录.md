@@ -589,3 +589,18 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 **未验证或已知限制**：物品和死亡通过测试注入，不能替代人工完整胜利局或所有目标类型实景验收。
 
 **超出范围未做**：此提交不改 NPC、配置面板和掉落权重。
+
+
+## S2 用户需求增补 · 主菜单 AI NPC 设置（2026-09-13）
+
+**核心链路与目的**：主菜单入口 → 开关/模型/额度草稿 → 显式保存或 DeepSeek 自检。开发默认开启，模型 deepseek-flash，thinking 关闭，密钥仍优先读环境变量。
+
+**技术选择**：沿用 Editor Builder；新增 npcEnabled 与 model，旧 JSON 在默认对象上覆盖以保留新增字段默认值。自检使用草稿且验证 ok=true，不提前写盘；关闭面板中止请求；密码字段隐藏并不回填密钥。
+
+**改动文件**：LlmModelConfig.cs、LlmConfigService.cs、NpcConfigView.cs、LlmConfigPanelBuilder.cs、MainMenu.unity、动态中文字库；NpcConfigFeedbackAudit.cs 与 meta；Feedback/config.txt、mainmenu-ai-config.png；两份方案同步。
+
+**验证结果**：UnityMCP 调用 S2 Verify Config Feedback。首次入口打开、旧配置迁移、开关/自定义模型保存后重开、非法模型拒绝、恢复默认、密码掩码、环境变量优先全部通过；真实 deepseek-flash 自检返回成功，确认自检不改已保存配置。使用独立临时配置和存档路径，截图已目视检查，无字段遮挡。
+
+**未验证或已知限制**：尚未测试发布构建；此提交仅完成配置基础设施，三个对话面对开关与模型的读取在紧接的 S8 修复中验证。
+
+**超出范围未做**：不新增供应商或可变 API 地址，不将密钥写入仓库。

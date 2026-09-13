@@ -37,7 +37,7 @@ namespace BackpackSurvivor.EditorTools
             V04HudArtBuilder.Remove(main, "LlmConfigButton");
             V04HudArtBuilder.Remove(canvas.transform, "NpcConfigModalRoot");
 
-            Button entry = V04HudArtBuilder.Button("LlmConfigButton", main, "模型配置", 160, 56);
+            Button entry = V04HudArtBuilder.Button("LlmConfigButton", main, "AI NPC 设置", 190, 56);
             V04HudArtBuilder.Pin((RectTransform)entry.transform, new Vector2(0, 0.5f), new Vector2(0, 0.5f), new Vector2(-195, 31));
 
             GameObject rootObject = new GameObject("NpcConfigModalRoot", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
@@ -51,37 +51,54 @@ namespace BackpackSurvivor.EditorTools
             RectTransform panel = V04HudArtBuilder.Box("NpcConfigPanel", root, 0, 0, 1200, 880);
             V04HudArtBuilder.Pin(panel, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero);
             panel.GetComponent<UpgradeRoundedGraphic>().raycastTarget = true;
-            V04HudArtBuilder.Label("TitleText", panel, "模型配置", 0, 370, 600, 58, 42, V04HudArtBuilder.TextColor);
-            V04HudArtBuilder.Label("IntroText", panel, "配置仅用于 NPC 对话额度；API Key 不进入游戏存档。", 0, 322, 920, 32, 22, V04HudArtBuilder.Muted);
+            V04HudArtBuilder.Label("TitleText", panel, "AI NPC 设置", 0, 370, 600, 58, 42, V04HudArtBuilder.TextColor);
+            V04HudArtBuilder.Label("IntroText", panel, "营地对话、波次提醒、结算汇报统一开关；合同始终由本地判定。", 0, 322, 920, 32, 22, V04HudArtBuilder.Muted);
 
-            V04HudArtBuilder.Label("ApiKeyLabel", panel, "DeepSeek API Key", -385, 258, 260, 32, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
-            TMP_InputField apiKey = Input("ApiKeyInput", panel, -15, 258, 520, 48, "留空保持已保存的 Key");
+            RectTransform switchBox = V04HudArtBuilder.Box("NpcEnabledToggle", panel, -480, 265, 40, 40);
+            Toggle enabled = switchBox.gameObject.AddComponent<Toggle>();
+            enabled.targetGraphic = switchBox.GetComponent<UpgradeRoundedGraphic>();
+            enabled.targetGraphic.raycastTarget = true;
+            TMP_Text check = V04HudArtBuilder.Label("Check", switchBox, "✓", 0, 0, 40, 40, 30, V04HudArtBuilder.TextColor);
+            check.raycastTarget = false;
+            enabled.graphic = check;
+            enabled.isOn = true;
+            enabled.navigation = new Navigation { mode = Navigation.Mode.None };
+            V04HudArtBuilder.Label("EnabledLabel", panel, "启用 AI NPC（关闭后使用本地简报）", -100, 265, 690, 40, 24, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            V04HudArtBuilder.Label("ModelLabel", panel, "DeepSeek 模型 ID", -385, 192, 260, 32, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField model = Input("ModelInput", panel, 120, 192, 720, 48, BS.Core.LLM.LlmModelConfig.DefaultModel);
+            V04HudArtBuilder.Label("EndpointText", panel, "https://api.deepseek.com · thinking 关闭 · 事实查询启用只读工具", 0, 147, 1030, 30, 19, V04HudArtBuilder.Muted);
+            V04HudArtBuilder.Label("ApiKeyLabel", panel, "DeepSeek API Key", -385, 95, 260, 32, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField apiKey = Input("ApiKeyInput", panel, 120, 95, 720, 48, "留空保持已保存的 Key；环境变量优先");
             apiKey.contentType = TMP_InputField.ContentType.Password;
-            apiKey.inputType = TMP_InputField.InputType.Standard;
-            TMP_Text source = V04HudArtBuilder.Label("SourceText", panel, "当前生效：未配置", 0, 207, 900, 30, 21, V04HudArtBuilder.Muted);
+            apiKey.inputType = TMP_InputField.InputType.Password;
+            TMP_Text source = V04HudArtBuilder.Label("SourceText", panel, "当前生效：未配置", 0, 49, 1000, 30, 21, V04HudArtBuilder.Muted);
 
-            V04HudArtBuilder.Label("TurnsLabel", panel, "单次会话轮次上限", -385, 132, 300, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
-            TMP_InputField turns = Input("TurnsInput", panel, -15, 132, 230, 46, "20");
-            V04HudArtBuilder.Label("TokensLabel", panel, "单会话总 token 上限", 115, 132, 300, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
-            TMP_InputField tokens = Input("TokensInput", panel, 460, 132, 230, 46, "40000");
+            V04HudArtBuilder.Label("TurnsLabel", panel, "会话轮次上限", -395, -26, 230, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField turns = Input("TurnsInput", panel, -155, -26, 220, 46, "20");
+            V04HudArtBuilder.Label("TokensLabel", panel, "会话 token 上限", 145, -26, 260, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField tokens = Input("TokensInput", panel, 425, -26, 220, 46, "40000");
+            V04HudArtBuilder.Label("ResponseLabel", panel, "回复字数上限", -395, -100, 230, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField response = Input("ResponseInput", panel, -155, -100, 220, 46, "200");
+            V04HudArtBuilder.Label("PulseLabel", panel, "波次提醒字数上限", 145, -100, 260, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
+            TMP_InputField pulse = Input("PulseInput", panel, 425, -100, 220, 46, "60");
 
-            V04HudArtBuilder.Label("ResponseLabel", panel, "单次响应长度上限", -385, 56, 300, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
-            TMP_InputField response = Input("ResponseInput", panel, -15, 56, 230, 46, "200");
-            V04HudArtBuilder.Label("PulseLabel", panel, "脉冲响应长度上限", 115, 56, 300, 30, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
-            TMP_InputField pulse = Input("PulseInput", panel, 460, 56, 230, 46, "60");
-
-            TMP_Text status = V04HudArtBuilder.Label("StatusText", panel, "", 0, -30, 1000, 42, 21, V04HudArtBuilder.Muted);
-            status.enableAutoSizing = true; status.fontSizeMin = 16; status.fontSizeMax = 21;
+            TMP_Text status = V04HudArtBuilder.Label("StatusText", panel, "", 0, -215, 1060, 84, 22, V04HudArtBuilder.Muted);
+            status.enableAutoSizing = true; status.fontSizeMin = 18; status.fontSizeMax = 22;
+            Button defaults = V04HudArtBuilder.Button("DefaultsButton", panel, "开发默认值", 220, 60);
+            V04HudArtBuilder.Pin((RectTransform)defaults.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(-390, -350));
             Button apply = V04HudArtBuilder.Button("ApplyButton", panel, "保存配置", 220, 60);
-            V04HudArtBuilder.Pin((RectTransform)apply.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(-280, -350));
-            Button test = V04HudArtBuilder.Button("SelfTestButton", panel, "连通性自检", 250, 60);
-            V04HudArtBuilder.Pin((RectTransform)test.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(0, -350));
-            Button close = V04HudArtBuilder.Button("CloseButton", panel, "关闭", 180, 60);
-            V04HudArtBuilder.Pin((RectTransform)close.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(280, -350));
+            V04HudArtBuilder.Pin((RectTransform)apply.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(-130, -350));
+            Button test = V04HudArtBuilder.Button("SelfTestButton", panel, "连通性自检", 220, 60);
+            V04HudArtBuilder.Pin((RectTransform)test.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(130, -350));
+            Button close = V04HudArtBuilder.Button("CloseButton", panel, "关闭", 220, 60);
+            V04HudArtBuilder.Pin((RectTransform)close.transform, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(390, -350));
 
             NpcConfigView view = panel.gameObject.AddComponent<NpcConfigView>();
             SerializedObject data = new SerializedObject(view);
             Bind(data, "panelRoot", rootObject);
+            Bind(data, "npcEnabledToggle", enabled);
+            Bind(data, "modelInput", model);
+            Bind(data, "defaultsButton", defaults);
             Bind(data, "apiKeyInput", apiKey);
             Bind(data, "maxTurnsInput", turns);
             Bind(data, "maxTokensInput", tokens);
@@ -111,7 +128,10 @@ namespace BackpackSurvivor.EditorTools
             field.navigation = new Navigation { mode = Navigation.Mode.None };
             TMP_Text text = V04HudArtBuilder.Label("Text", rect, string.Empty, 0, 0, width - 26, height - 8, 22, V04HudArtBuilder.TextColor, TextAlignmentOptions.Left);
             text.margin = new Vector4(14, 0, 14, 0);
-            field.textComponent = text as TMP_Text;
+            text.richText = false;
+            field.richText = false;
+            field.textViewport = rect;
+            field.textComponent = text;
             TMP_Text hint = V04HudArtBuilder.Label("Placeholder", rect, placeholder, 0, 0, width - 26, height - 8, 21, new Color(.65f, .75f, .84f, .65f), TextAlignmentOptions.Left);
             hint.margin = new Vector4(14, 0, 14, 0);
             field.placeholder = hint;

@@ -1,0 +1,12 @@
+2026-09-13T03:49:37.0507246Z
+PASS old config retains values and receives new defaults
+PASS first menu button click opens panel
+PASS switch and model survive save/reopen
+PASS invalid draft never overwrites saved config
+PASS development defaults populate draft
+PASS key field masked and never prefilled
+PASS existing environment key resolves without exposing value
+PASS actual DeepSeek draft self-test: 自检成功：deepseek-flash 已连通（环境变量优先）。草稿未自动保存。
+PASS self-test leaves persisted draft unchanged
+PASS save explicitly applies defaults
+PASS config UI and live self-test; isolated config and save paths

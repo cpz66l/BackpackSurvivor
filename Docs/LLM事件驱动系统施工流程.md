@@ -119,7 +119,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 |---|---|---|---|---|
 | S0 | LLM 非流式最小请求 | Editor 菜单 → DeepSeek → Console | 环境变量已配置 | 已完成（UnityMCP + 真实 API 验证） |
 | S1 | 流式最小验证 | `stream: true` → 分片 → Console | S0 | 已完成（真实 SSE、UTF-8、工具参数与取消验证） |
-| S2 | 模型配置面板 | 主菜单 → Key 与四项上限配置 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
+| S2 | 模型配置面板 | 主菜单 → AI NPC 开关、模型、Key 与四项上限 → 配置文件 | S0 | 已完成（面板、持久化、环境变量优先与自检验证） |
 | S3 | 判定输入补齐 | Core DTO、身份事件、开箱计数与拖拽收束 → 冻结快照 | S0（仅工程结构，不依赖网络） | 已完成（受控 900 秒运行、死亡/重置与快照一致性验证） |
 | S4 | 判定器 | `Evaluate(quest, snapshot) → QuestOutcome` | S3 | 已完成（16 类型通过/失败边界、死亡语义、空快照、无效字段与精确品质 EditMode 验证） |
 | S5 | 事件池与抽签器 | QuestDatabase → QuestDrawer → QuestInstance | S4 | 部分验收（S7 已补 15 个占位事件与 pending 重启恢复；连续完成推进待补） |
@@ -192,7 +192,7 @@ Unity 的 asmdef 程序集**无法引用预定义程序集**（`Assembly-CSharp`
 **技术选择**：
 
 - 主菜单独立入口，与现有设置面板分开
-- 配置项：API Key、单次会话轮次上限、单会话总 token 上限、单次响应长度上限、脉冲响应长度上限
+- 配置项：AI NPC 总开关、DeepSeek 模型 ID、API Key、单次会话轮次上限、单会话总 token 上限、单次响应长度上限、脉冲响应长度上限。开发默认开启、deepseek-flash、20 / 40000 / 200 / 60；提供开发默认值按钮，显式保存生效。自检只测试草稿，不自动保存。
 - 执行密钥解析顺序：环境变量优先，配置文件兜底；面板上显示当前生效的是哪一条来源，避免"填了没生效"的困惑
 - 提供连通性自检按钮，复用 S0 的请求路径
 - 配置文件只写 `persistentDataPath`，**不进 `Resources/`、`StreamingAssets/` 或仓库**

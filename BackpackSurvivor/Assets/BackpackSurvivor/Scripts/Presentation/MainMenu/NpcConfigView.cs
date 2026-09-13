@@ -12,10 +12,13 @@ namespace BS.Presentation
     public sealed class NpcConfigView : MonoBehaviour
     {
         private const string Endpoint = "https://api.deepseek.com/chat/completions";
-        private const string Model = "deepseek-flash";
+        
         private const int TimeoutSeconds = 30;
 
         [SerializeField] private GameObject panelRoot;
+        [SerializeField] private Toggle npcEnabledToggle;
+        [SerializeField] private TMP_InputField modelInput;
+        [SerializeField] private Button defaultsButton;
         [SerializeField] private TMP_InputField apiKeyInput;
         [SerializeField] private TMP_InputField maxTurnsInput;
         [SerializeField] private TMP_InputField maxTokensInput;
@@ -29,15 +32,17 @@ namespace BS.Presentation
 
         private LlmModelConfig fileConfig;
         private bool requestInProgress;
+        private UnityWebRequest activeRequest;
+        public string Status => statusText == null ? "" : statusText.text;
 
         private void Awake()
         {
             if (panelRoot == null) panelRoot = gameObject;
-            if (panelRoot != null) panelRoot.SetActive(false);
         }
 
         private void OnEnable()
         {
+            if (defaultsButton != null) defaultsButton.onClick.AddListener(RestoreDefaults);
             if (applyButton != null) applyButton.onClick.AddListener(Apply);
             if (selfTestButton != null) selfTestButton.onClick.AddListener(SelfTest);
             if (closeButton != null) closeButton.onClick.AddListener(Close);
@@ -45,6 +50,9 @@ namespace BS.Presentation
 
         private void OnDisable()
         {
+            activeRequest?.Abort();
+            SetInput(apiKeyInput, string.Empty);
+            if (defaultsButton != null) defaultsButton.onClick.RemoveListener(RestoreDefaults);
             if (applyButton != null) applyButton.onClick.RemoveListener(Apply);
             if (selfTestButton != null) selfTestButton.onClick.RemoveListener(SelfTest);
             if (closeButton != null) closeButton.onClick.RemoveListener(Close);
@@ -53,24 +61,41 @@ namespace BS.Presentation
         public void Open()
         {
             fileConfig = LlmConfigService.LoadFile();
-            SetInput(apiKeyInput, string.Empty);
-            SetInput(maxTurnsInput, fileConfig.maxSessionTurns.ToString());
-            SetInput(maxTokensInput, fileConfig.maxTotalTokens.ToString());
-            SetInput(maxResponseInput, fileConfig.maxResponseCharacters.ToString());
-            SetInput(maxPulseInput, fileConfig.maxPulseCharacters.ToString());
-            SetStatus("配置仅保存到本机，不会写入游戏存档。", false);
+            Populate(fileConfig);
+            SetStatus("关闭 AI 后使用本地简报，合同照常进行。修改后点击保存。", false);
             RefreshSource();
-            if (panelRoot != null) panelRoot.SetActive(true);
+            if (panelRoot == null) panelRoot = gameObject;
+            panelRoot.SetActive(true);
+        }
+
+        private void Populate(LlmModelConfig config)
+        {
+            if (npcEnabledToggle) npcEnabledToggle.SetIsOnWithoutNotify(config.npcEnabled);
+            SetInput(modelInput, config.model);
+            SetInput(apiKeyInput, string.Empty);
+            SetInput(maxTurnsInput, config.maxSessionTurns.ToString());
+            SetInput(maxTokensInput, config.maxTotalTokens.ToString());
+            SetInput(maxResponseInput, config.maxResponseCharacters.ToString());
+            SetInput(maxPulseInput, config.maxPulseCharacters.ToString());
+
+        }
+
+        public void RestoreDefaults()
+        {
+            if (requestInProgress) return;
+            Populate(LlmModelConfig.CreateDefault());
+            SetStatus("已填入开发默认配置；保存后生效，保留已有密钥。", false);
         }
 
         public void Close()
         {
-            if (requestInProgress) return;
+            activeRequest?.Abort();
             if (panelRoot != null) panelRoot.SetActive(false);
         }
 
         public void Apply()
         {
+            if (requestInProgress) return;
             if (!TryBuildConfig(out LlmModelConfig config, out string error))
             {
                 SetStatus(error, true);
@@ -84,7 +109,8 @@ namespace BS.Presentation
             }
 
             fileConfig = config;
-            SetStatus("配置已保存到 persistentDataPath。", false);
+            Populate(config);
+            SetStatus("已保存：AI NPC " + (config.npcEnabled ? "开启 · " + config.model : "关闭 · 使用本地简报") + "。", false);
             RefreshSource();
         }
 
@@ -97,13 +123,7 @@ namespace BS.Presentation
                 return;
             }
 
-            if (!LlmConfigService.SaveFile(config, out error))
-            {
-                SetStatus("保存失败：" + error, true);
-                return;
-            }
-
-            ResolvedLlmConfig resolved = LlmConfigService.Resolve();
+            ResolvedLlmConfig resolved = LlmConfigService.Resolve(config);
             RefreshSource(resolved);
             if (string.IsNullOrWhiteSpace(resolved.ApiKey))
             {
@@ -118,7 +138,7 @@ namespace BS.Presentation
             {
                 RequestPayload payload = new RequestPayload
                 {
-                    model = Model,
+                    model = config.model,
                     messages = new[]
                     {
                         new ChatMessage { role = "system", content = "Return JSON only." },
@@ -130,6 +150,7 @@ namespace BS.Presentation
 
                 using (UnityWebRequest request = new UnityWebRequest(Endpoint, UnityWebRequest.kHttpVerbPOST))
                 {
+                    activeRequest = request;
                     request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(payload)));
                     request.downloadHandler = new DownloadHandlerBuffer();
                     request.timeout = TimeoutSeconds;
@@ -137,6 +158,7 @@ namespace BS.Presentation
                     request.SetRequestHeader("Authorization", "Bearer " + resolved.ApiKey);
                     await request.SendWebRequest();
 
+                    if (this == null || !isActiveAndEnabled) return;
                     if (request.result != UnityWebRequest.Result.Success)
                     {
                         string detail = request.error;
@@ -150,16 +172,18 @@ namespace BS.Presentation
                     bool valid = response != null && response.choices != null && response.choices.Length > 0 &&
                                  response.choices[0] != null && response.choices[0].message != null &&
                                  !string.IsNullOrWhiteSpace(response.choices[0].message.content);
-                    SetStatus(valid ? "自检成功：DeepSeek 已连通（" + LlmConfigService.GetKeySourceLabel(resolved.KeySource) + "）。" :
+                    if (valid) valid = JsonUtility.FromJson<ProbeResponse>(response.choices[0].message.content)?.ok == true;
+                    SetStatus(valid ? "自检成功：" + config.model + " 已连通（" + LlmConfigService.GetKeySourceLabel(resolved.KeySource) + "）。草稿未自动保存。" :
                         "自检失败：HTTP 200 但响应结构不可用。", !valid);
                 }
             }
             catch (Exception exception)
             {
-                SetStatus("自检失败：" + MaskSecrets(exception.Message, resolved.ApiKey), true);
+                if (this != null && isActiveAndEnabled) SetStatus("自检失败：" + MaskSecrets(exception.Message, resolved.ApiKey), true);
             }
             finally
             {
+                activeRequest = null;
                 requestInProgress = false;
                 if (selfTestButton != null) selfTestButton.interactable = true;
                 RefreshSource();
@@ -168,8 +192,13 @@ namespace BS.Presentation
 
         private bool TryBuildConfig(out LlmModelConfig config, out string error)
         {
-            config = fileConfig ?? LlmConfigService.LoadFile();
+            config = JsonUtility.FromJson<LlmModelConfig>(JsonUtility.ToJson(fileConfig ?? LlmConfigService.LoadFile()));
             error = string.Empty;
+            config.npcEnabled = npcEnabledToggle == null || npcEnabledToggle.isOn;
+            config.model = modelInput == null ? LlmModelConfig.DefaultModel : modelInput.text.Trim();
+            if (string.IsNullOrWhiteSpace(config.model) || config.model.Length > 100 ||
+                !System.Text.RegularExpressions.Regex.IsMatch(config.model, @"^[a-zA-Z0-9][a-zA-Z0-9._-]*$"))
+            { error = "请输入有效的 DeepSeek 模型 ID（字母、数字、点、横线或下划线）。"; return false; }
             string key = apiKeyInput == null ? string.Empty : apiKeyInput.text.Trim();
             if (!string.IsNullOrWhiteSpace(key)) config.apiKey = key;
             if (!TryReadInt(maxTurnsInput, "会话轮次", out config.maxSessionTurns, out error)) return false;
@@ -229,6 +258,7 @@ namespace BS.Presentation
             public ResponseFormat response_format;
             public Thinking thinking;
         }
+        [Serializable] private sealed class ProbeResponse { public bool ok; }
         [Serializable] private sealed class ResponseFormat { public string type; }
         [Serializable] private sealed class Thinking { public string type; }
         [Serializable] private sealed class ChatMessage { public string role; public string content; }
