@@ -116,7 +116,7 @@ Assets/BackpackSurvivor/Scripts/Npc/
     WavePulseController.cs       订阅 OnWaveStageChanged，发起可丢弃的脉冲请求
   Runtime/
     NpcDialogueService.cs        编排三类请求，维护共享人设前缀
-    MockNpcDialogue.cs           编辑器默认，读本地假响应
+    MockNpcDialogue.cs           显式测试选项，读本地假响应
     DeepSeekNpcDialogue.cs       BYOK 直连，流式
     NpcLimitSettings.cs          四项上限的读写
   Presentation/
@@ -740,7 +740,7 @@ public interface INpcDialogue
 
 两个正式实现与一个占位：
 
-- `MockNpcDialogue`：编辑器默认，从 `Data/Quest/NpcPersona.asset` 读取预制响应，零成本、零网络、可复现。关闭该资产的 `useMockInEditor` 可运行真实 DeepSeek；真实网络审计入口使用会话覆盖开关，结束后清除。
+- `MockNpcDialogue`：仅用于显式测试，从 `Data/Quest/NpcPersona.asset` 读取预制响应。开发默认 `useMockInEditor=false`，主菜单启用 AI 时直接使用 DeepSeek；关闭 AI 则采用本地简报并停用输入。默认玩家链路的验收不得借助 `UseLiveAudit` 覆盖，以免测试通过而普通 Play 仍走 Mock。
 - `DeepSeekNpcDialogue`：BYOK 直连，`UnityWebRequest` 保持在 Unity 同步上下文，`Task` 与逐句回调承载异步生命周期；营地最终轮走流式，脉冲与汇报走一次性。`NpcDialogueService` 实现业务接口，底层 `INpcTransport` 可注入真实或 Mock 传输用于边界验收。复用工程已安装的 Newtonsoft JSON 3.2.2，不新增第三方依赖。
 - `RelayNpcDialogue`：保留接口，将来接中转服务
 
@@ -924,3 +924,8 @@ public class CampaignSave
 ### 用户测试后的配置补充（2026-09-13）
 
 主菜单提供「AI NPC 设置」：总开关、DeepSeek 模型 ID、Key 与原有四项额度。开发默认开启、deepseek-flash、thinking 关闭；API 地址固定官方地址。保留环境变量优先；密钥不回填明文。恢复默认只填草稿，保存显式生效；自检验证当前草稿且不写盘。旧配置缺少新增字段时补默认值。关闭后营地使用本地简报、停止自由输入，波次和结算不请求模型，合同判定和推进不受影响。
+
+营地闲聊不强制执行工具轮，直接进行流式结构化回复；合同/进度等事实问询继续执行白名单只读工具轮，再生成最终回复。两条路径都保留 objectiveEcho/verdict 与字段引用校验。闲聊提示要求回应当前话题，不复读任务清单；允许中文问号、感叹号作为逐句显示边界。营地显示最近四轮对话，仅存在本次会话内存中；离场或重抽清除。开发审计显示传输模式、所选模型、原始响应和实际工具执行，玩家界面明确标注关闭或本地回退状态。
+
+
+2026-09-13 营地恢复边界补充：文案被 sentence/final 文本校验拒绝时，允许至多一次受限非流式改写；保留已显示安全句，新内容继续经过相同字段/目标索引/verdict/字数校验。仅修正文案，不修正错误的事实元数据或工具调用，不改变判定，不绕过令牌额度或取消；再次失败即本地降级。该路径及两次非法时的有界失败均需服务回归覆盖。

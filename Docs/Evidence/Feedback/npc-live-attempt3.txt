@@ -1,0 +1,3 @@
+2026-09-13T04:00:29.3511679Z
+failure=sentence_rejected
+FAIL InvalidOperationException: default live opening succeeds without test override

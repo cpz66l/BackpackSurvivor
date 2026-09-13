@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cfa6997b83b284592d54ed0af7e7a2, type: 3}
   m_Name: NpcPersona
   m_EditorClassIdentifier: Assembly-CSharp::BS.GamePlay.Npc.NpcPersona
-  useMockInEditor: 1
+  useMockInEditor: 0
   offlineBriefing: "\u6838\u5BF9\u5408\u540C\uFF0C\u51C6\u5907\u597D\u518D\u51FA\u53D1\u3002"
   restrictedReply: "\u5148\u628A\u6CE8\u610F\u529B\u653E\u56DE\u884C\u52A8\u6E05\u5355\u3002\u6309\u5408\u540C\u51C6\u5907\uFF0C\u73B0\u573A\u7A33\u4F4F\u8282\u594F\u3002"
   closingReply: "\u4ECA\u5929\u5148\u8C08\u5230\u8FD9\u91CC\u3002\u6838\u5BF9\u5408\u540C\uFF0C\u51C6\u5907\u597D\u5C31\u51FA\u53D1\u3002"

@@ -4,12 +4,15 @@ PASS unknown calls=1 displayed=1 fallback=unknown_or_forbidden_tool
 PASS arguments calls=1 displayed=1 fallback=invalid_tool_parameters
 PASS loop calls=2 displayed=1 fallback=empty_final
 PASS echo calls=2 displayed=1 fallback=objective_echo_mismatch
-PASS numeric calls=2 displayed=1 fallback=sentence_rejected
+PASS numeric calls=3 displayed=1 fallback=sentence_rejected
 PASS partial calls=2 displayed=2 fallback=final_http_or_incomplete_stream
 PASS verdict calls=2 displayed=3 fallback=verdict_mismatch
+PASS bounded validated rewrite and invalid rewrite fallback
+PASS disabled Camp/Pulse/Settlement: network=0; no quota consumed
+PASS casual chat, configured model, question streaming
 PASS seven restricted routes: network=0
 PASS turn budget
 PASS token budget network=0
 PASS session history prefix order
 PASS cancellation during active request
-PASS 14 service scenarios
+PASS 17 service scenarios

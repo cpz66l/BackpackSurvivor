@@ -1,0 +1,19 @@
+2026-09-13T03:55:17.7272732Z
+PASS default live opening succeeds without test override
+PASS casual emotional reply is live with no forced tool round
+你：准备开始行动，请简短提醒当前合同。
+调度员：行动前先看一眼清单。携带医疗物品至少 1 件，目标1：当前条件未满足。背包这边当前背包：空；尚未开始本局，节奏不急，把该带的先归位。
+
+你：今天有点紧张，你会怎么安慰我？
+调度员：紧张不是坏事，说明你把这次当真了。先深呼吸，别急着冲。携带医疗物品至少 1 件，目标1：当前条件未满足，当前背包：空；尚未开始本局。把清单过一遍，手上有事做，心就稳一半。
+PASS different casual topic gets a live reply
+PASS visible transcript retains current session conversation
+你：准备开始行动，请简短提醒当前合同。
+调度员：行动前先看一眼清单。携带医疗物品至少 1 件，目标1：当前条件未满足。背包这边当前背包：空；尚未开始本局，节奏不急，把该带的先归位。
+
+你：今天有点紧张，你会怎么安慰我？
+调度员：紧张不是坏事，说明你把这次当真了。先深呼吸，别急着冲。携带医疗物品至少 1 件，目标1：当前条件未满足，当前背包：空；尚未开始本局。把清单过一遍，手上有事做，心就稳一半。
+
+你：你喜欢喝咖啡还是茶？为什么？
+调度员：我这边只有速溶和凉白开，选哪个都像在赌运气。硬要说，偏茶——不容易喝到心慌，值班时手也能稳点。不过真到深夜，我还是会给自己冲一杯咖啡，就当给困意打个招呼。你平时靠什么提神？
+FAIL InvalidOperationException: factual question still uses audited read-only tools

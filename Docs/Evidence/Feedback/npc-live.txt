@@ -1,0 +1,27 @@
+2026-09-13T04:08:39.9220360Z
+PASS default live opening succeeds without test override
+PASS casual emotional reply is live with no forced tool round
+你：准备开始行动，请简短提醒当前合同。
+调度员：先看一眼手头这张合同。适应战区，目标就摆在清单上。达到等级 3。眼下条件还没到，目标1：当前条件未满足。别急，先把这趟走扎实。
+
+你：今天有点紧张，你会怎么安慰我？
+调度员：紧张是正常的，说明你在乎这趟。先深呼吸，把注意放在脚下这一步就好。这里没别人催你，我陪你盯清单。我们慢慢来，稳住反而更快。
+PASS different casual topic gets a live reply
+PASS visible transcript retains current session conversation
+你：准备开始行动，请简短提醒当前合同。
+调度员：先看一眼手头这张合同。适应战区，目标就摆在清单上。达到等级 3。眼下条件还没到，目标1：当前条件未满足。别急，先把这趟走扎实。
+
+你：今天有点紧张，你会怎么安慰我？
+调度员：紧张是正常的，说明你在乎这趟。先深呼吸，把注意放在脚下这一步就好。这里没别人催你，我陪你盯清单。我们慢慢来，稳住反而更快。
+
+你：你喜欢喝咖啡还是茶？为什么？
+调度员：我偏茶，热乎、稳当，喝下去不慌。咖啡留给要熬夜盯屏幕的时候，香是香，心跳也跟着快。你问这个，是给自己提神，还是想找个喘口气的由头？
+PASS factual question still uses audited read-only tools
+PASS all conversations preserve contract
+PASS development panel includes raw response and actual tool execution
+PASS save disabled setting to isolated config
+PASS disabled Camp shows local briefing without a request
+PASS disabled mode disables free chat input
+PASS switch preserves pending contract
+PASS AI disabled still launches same contract and displays tracker
+PASS default live chat, factual audit, disabled Camp and departure; isolated config/save

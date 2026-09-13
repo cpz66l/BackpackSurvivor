@@ -1,0 +1,4 @@
+2026-09-13T04:04:46.0688482Z
+PASS default live opening succeeds without test override
+failure=sentence_rejected
+FAIL InvalidOperationException: casual emotional reply is live with no forced tool round

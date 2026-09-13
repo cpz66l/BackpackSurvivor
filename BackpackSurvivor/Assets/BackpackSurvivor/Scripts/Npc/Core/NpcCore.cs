@@ -90,7 +90,10 @@ namespace BS.Npc
             bool bad=false;
             string prose=references.Replace(template," ");
             if (prose.Contains("[[") || prose.Contains("]]")) return false;
-            if (Regex.IsMatch(prose,@"[0-9０-９]|[一二三四五六七八九十百千万]+\s*(件|个|秒|分|级|点|只|次|元|层|%)")) return false;
+            // Adjective + 一点 is conversational degree, not a point value. Only
+            // remove that narrow form for numeric screening; all other guards use the original prose.
+            string numericProse=Regex.Replace(prose,@"(浓|淡|慢|快|轻松|放松|平静|暖和|凉快|温柔|稳)一点","$1");
+            if (Regex.IsMatch(numericProse,@"[0-9０-９]|[一二三四五六七八九十百千万]+\s*(件|个|秒|分|级|点|只|次|元|层|%)")) return false;
             if (new[]{"携带","击杀","开启","达到","价值","掉落","奖励","解锁","血量","伤害","完成了","已经达成"}.Any(prose.Contains)) return false;
             if (facts.knownItemNames!=null && facts.knownItemNames.Any(name=>prose.Contains(name))) return false;
             // Prose may introduce neutral flavour or advice. Any quoted object name must be a local reference.

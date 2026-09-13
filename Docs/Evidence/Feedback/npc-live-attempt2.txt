@@ -1,0 +1,10 @@
+2026-09-13T03:57:13.3754569Z
+PASS default live opening succeeds without test override
+PASS casual emotional reply is live with no forced tool round
+你：准备开始行动，请简短提醒当前合同。
+调度员：行动前先看一眼清单。携带医疗物品至少 1 件，目前目标1：当前条件未满足。背包还空着，别急，翻一翻再走也不迟。
+
+你：今天有点紧张，你会怎么安慰我？
+调度员：紧张是好事，说明你在意。去外面之前先喝口热水，把呼吸放慢。真到了辐射里，步子稳比跑得快管用。我在这儿盯着信号，别担心。
+failure=sentence_rejected
+FAIL InvalidOperationException: different casual topic gets a live reply

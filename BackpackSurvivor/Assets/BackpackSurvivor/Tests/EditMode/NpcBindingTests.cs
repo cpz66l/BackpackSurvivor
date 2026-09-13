@@ -29,6 +29,17 @@ public class NpcBindingTests
     [TestCase("<b>稳住</b>。")]
     [TestCase("收集{{count}}。")]
     public void UnboundClaimsNeverRender(string source){Assert.IsFalse(NpcResponseValidator.TryRenderSentence(source,Facts(),200,out _));}
+    [TestCase("咖啡，浓一点的那种。", true)]
+    [TestCase("放松一点。愿意聊聊吗？", true)]
+    [TestCase("慢一点儿，先歇口气。", true)]
+    [TestCase("稳一点总没坏处。", true)]
+    [TestCase("一点价值。", false)]
+    [TestCase("一百点。", false)]
+    [TestCase("你有一点。", false)]
+    [TestCase("浓一点，价值提高。", false)]
+    [TestCase("浓一点，样本。", false)]
+    public void ConversationalDegreeDoesNotWeakenFactGuards(string source, bool expected)
+    { Assert.AreEqual(expected,NpcResponseValidator.TryRenderSentence(source,Facts(),200,out _)); }
     [Test] public void CampCannotReusePriorBackpack()
     {
         var f=Facts();StringAssert.Contains("尚未开始本局",f.run);Assert.AreEqual(0,f.items.Length);StringAssert.Contains("空",f.backpack);

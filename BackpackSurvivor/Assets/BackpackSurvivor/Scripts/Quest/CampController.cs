@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BS.GamePlay.Save;
+using BS.Core.LLM;
 using BS.Quest;
 using TMPro;
 using UnityEngine;
@@ -28,6 +29,10 @@ namespace BS.GamePlay.Quest
         [SerializeField] GameObject auditPanel;
         [SerializeField] Button auditOpen, auditClose;
         NpcDialogueService dialogue;
+        bool aiEnabled;
+        string transportLabel;
+        readonly Queue<string> visibleHistory = new Queue<string>();
+        public string NpcStatus => factsText == null ? "" : factsText.text;
         CancellationTokenSource replyCancellation;
         int replyRevision;
         public string DialogueText => dialogueOutput == null ? "" : dialogueOutput.text;
@@ -62,7 +67,7 @@ namespace BS.GamePlay.Quest
             if (CurrentQuest == null && !SaveService.Instance.CurrentData.campaign.finalCompleted) Redraw();
             else Refresh();
             ResetDialogue();
-            AskNpc("准备开始行动，请简短提醒我。");
+            AskNpc("准备开始行动，请简短提醒当前合同。");
         }
         void OnDestroy()
         {
@@ -82,18 +87,31 @@ namespace BS.GamePlay.Quest
             CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision;
             DialogueBusy=true;
             if(dialogueInput) dialogueInput.interactable=false;
-            bool receivedSentence=false;
+            string shown="";
+            string prefix=string.Join("\n\n",visibleHistory);
+            string turn="你："+question+"\n调度员：";
+            if(dialogueOutput)dialogueOutput.text=(prefix.Length>0?prefix+"\n\n":"")+turn+"正在回复…";
+            UpdateAudit();
             try
             {
                 string local=CurrentQuest?.briefingBody ?? persona?.offlineBriefing;
                 string reply=await dialogue.StreamCampReplyAsync(question,CurrentQuest,local,sentence=>{
                     if(this!=null && !leaving && revision==replyRevision && dialogueOutput)
                     {
-                        if(!receivedSentence){dialogueOutput.text="";receivedSentence=true;}
-                        dialogueOutput.text+=sentence;
+                        shown+=sentence;
+                        PresentDialogue((prefix.Length>0?prefix+"\n\n":"")+turn+shown);
                     }
                 },replyCancellation.Token);
-                if(this!=null && !leaving && revision==replyRevision && dialogueOutput)dialogueOutput.text=reply;
+                if(this!=null && !leaving && revision==replyRevision && dialogueOutput)
+                {
+                    if(aiEnabled)
+                    {
+                        visibleHistory.Enqueue(turn+reply);
+                        while(visibleHistory.Count>4)visibleHistory.Dequeue();
+                        PresentDialogue(string.Join("\n\n",visibleHistory));
+                    }
+                    else PresentDialogue(reply);
+                }
             }
             catch(OperationCanceledException) { }
             finally
@@ -101,10 +119,16 @@ namespace BS.GamePlay.Quest
                 if(this!=null && revision==replyRevision)
                 {
                     DialogueBusy=false;
-                    if(dialogueInput){dialogueInput.interactable=!leaving;dialogueInput.text="";}
+                    if(dialogueInput){dialogueInput.interactable=!leaving&&aiEnabled;dialogueInput.text="";}
                     UpdateAudit();
                 }
             }
+        }
+        void PresentDialogue(string text)
+        {
+            dialogueOutput.text=text;
+            var scroll=dialogueOutput.GetComponentInParent<ScrollRect>();
+            if(scroll){Canvas.ForceUpdateCanvases();scroll.verticalNormalizedPosition=0;}
         }
         void CancelReply(){replyRevision++;replyCancellation?.Cancel();replyCancellation?.Dispose();replyCancellation=null;DialogueBusy=false;}
         void ResetDialogue()
@@ -115,18 +139,24 @@ namespace BS.GamePlay.Quest
             if(persona && persona.useMockInEditor)transport=new MockNpcDialogue(persona);
             if(UnityEditor.SessionState.GetBool("BS.Npc.UseLiveAudit",false))transport=new DeepSeekNpcDialogue();
 #endif
+            aiEnabled=LlmConfigService.LoadFile().npcEnabled;
+            transportLabel=transport is MockNpcDialogue ? "Mock 测试" : "DeepSeek 在线";
+            visibleHistory.Clear();
             dialogue=new NpcDialogueService(transport,null,persona?.restrictedReply,persona?.closingReply);
             dialogue.ItemDefinitions=database?.ItemDefinitions;
             dialogue.AuditChanged+=UpdateAudit;
-            if(dialogueInput)dialogueInput.interactable=true;
+            if(dialogueInput)dialogueInput.interactable=aiEnabled;
             if(dialogueOutput)dialogueOutput.text=CurrentQuest?.briefingBody??persona?.offlineBriefing;
+            UpdateAudit();
         }
         void OpenAudit(){if(auditPanel)auditPanel.SetActive(true);UpdateAudit();}
         void CloseAudit(){if(auditPanel)auditPanel.SetActive(false);}
         void UpdateAudit()
         {
+            string mode=!aiEnabled?"AI NPC 已关闭 · 本地简报":dialogue?.UsedFallback==true?"本地回退 · "+dialogue.LastFailure:transportLabel+(DialogueBusy?" · 正在回复…":"");
+            if(factsText)factsText.text="调度员 · "+mode+"\n当前背包：空 · 尚未开始本局\n死亡或未达成会保留合同，可重试或重抽。";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if(auditText && dialogue!=null) auditText.text="轮次 "+dialogue.Turns+" · tokens "+dialogue.Tokens+" · "+(dialogue.UsedFallback?"本地回退 "+dialogue.LastFailure:"回复处理中/已验证")+"\n"+dialogue.Audit;
+            if(auditText && dialogue!=null) auditText.text=mode+" · 轮次 "+dialogue.Turns+" · tokens "+dialogue.Tokens+" · "+(dialogue.UsedFallback?"本地回退 "+dialogue.LastFailure:"回复处理中/已验证")+"\n"+dialogue.Audit;
 #endif
         }
         public void Redraw()
