@@ -43,11 +43,16 @@ namespace BackpackSurvivor.EditorTools
             service.CompletedEvents=()=>0;
             await service.StreamCampGreetingAsync(null,"系统开场指令：不要汇报合同。",null,CancellationToken.None);
             Check(wire.Requests[0]["tools"]==null,"greeting must stay natural despite the word contract");
+            Check(service.ActiveTopic!=null && !string.IsNullOrWhiteSpace(service.ActiveTopic.topicId),"approved topic seed selected");
             await service.StreamCampReplyAsync("你给它起了什么名字？",null,"",null,CancellationToken.None);
             var first=(JArray)wire.Requests.Last()["messages"];
             Check(first.Any(m=>(string)m["role"]=="assistant" && ((string)m["content"]).Contains("歪歪")),"greeting absent from next request");
             Check(!first.Any(m=>((string)m["content"]).Contains("系统开场指令")),"internal greeting directive leaked into history");
             for(int i=0;i<5;i++) await service.StreamCampReplyAsync("这是聊天中的临时称呼"+i,null,"",null,CancellationToken.None);
+            await service.StreamCampReplyAsync("换个话题吧，我不想聊这个",null,"",null,CancellationToken.None);
+            Check(service.TopicStateSummary.Contains("rejected=True"),"topic rejection state recorded");
+            var rejected=(JArray)wire.Requests.Last()["messages"];
+            Check(rejected.Any(m=>((string)m["content"]).Contains("拒绝了当前小话题")),"rejected topic is not re-pushed");
             service.NotifyContractChanged();
             await service.StreamCampReplyAsync("继续刚才的话题吧",null,"",null,CancellationToken.None);
             var after=(JArray)wire.Requests.Last()["messages"];
@@ -68,7 +73,7 @@ namespace BackpackSurvivor.EditorTools
             var fresh=new NpcDialogueService(wire,()=>new ResolvedLlmConfig(config,"audit",LlmKeySource.None)); fresh.CompletedEvents=()=>0;
             await fresh.StreamCampReplyAsync("你好",null,"",null,CancellationToken.None);
             Check(!((JArray)wire.Requests.Last()["messages"]).Any(m=>(string)m["role"]=="assistant"),"history crossed sessions");
-            return "PASS greeting / real-input roles / >4 turns / contract transition / fallback continuity / repair context / session isolation";
+            return "PASS approved topic / rejection branch / greeting / real-input roles / >4 turns / contract transition / fallback continuity / repair context / session isolation";
         }
     }
 }

@@ -30,6 +30,7 @@ namespace BS.GamePlay.Npc
         readonly string sessionId = Guid.NewGuid().ToString("N");
         readonly string restrictedReply, closingReply, conversationFallback;
         readonly NpcPersona persona;
+        readonly NpcTopicState topicState;
         public IEnumerable<ItemRecord> ItemDefinitions { get; set; }
         string campHistoricalContext;
         public Func<int> CompletedEvents { get; set; } = () => BS.GamePlay.Save.SaveService.Instance?.CurrentData?.campaign?.completedEventIds?.Count ?? 0;
@@ -42,6 +43,8 @@ namespace BS.GamePlay.Npc
         public int ToolCount { get; private set; }
         public double FirstSentenceMilliseconds { get; private set; }
         public string Audit => string.Join("\n", audit);
+        public NpcTopicSeed ActiveTopic => topicState.Active;
+        public string TopicStateSummary => topicState.Active.topicId+" rejected="+topicState.Rejected+" revealed="+topicState.RevealedDetails;
         public event Action AuditChanged;
         public NpcDialogueService(INpcTransport wire=null, Func<ResolvedLlmConfig> config=null, string restricted=null, string closing=null, NpcPersona profile=null)
         {
@@ -49,6 +52,7 @@ namespace BS.GamePlay.Npc
             persona=profile;
             restrictedReply=restricted??profile?.restrictedReply??NpcPersonaDefaults.RestrictedReply;
             closingReply=closing??profile?.closingReply??NpcPersonaDefaults.ClosingReply; conversationFallback=profile?.conversationFallback??NpcPersonaDefaults.ConversationFallback;
+            topicState=new NpcTopicState(NpcTopicCatalog.Approved[(int)((uint)sessionId.GetHashCode()%NpcTopicCatalog.Approved.Count)]);
         }
         public Task<string> RequestCampReplyAsync(string input, QuestInstance quest, QuestRunSnapshot snapshot, string offline)
             => Reply(DialogueSurface.Camp,input,quest,null,offline,null,default);
@@ -93,6 +97,7 @@ namespace BS.GamePlay.Npc
             var emitted=new StringBuilder();
             var settings=configProvider();
             var facts=FactBlockBuilder.Capture(quest,snapshot,CompletedEvents(),surface==DialogueSurface.Pulse?input:null,ItemDefinitions);
+            if(surface==DialogueSurface.Camp && recordHistory) topicState.Observe(input);
             var intent=recordHistory?DialogueRouter.Classify(input):DialogueIntent.Conversation;
             bool naturalCamp=surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation;
             string fallback=surface==DialogueSurface.Camp ? (naturalCamp?conversationFallback:(string.IsNullOrWhiteSpace(offline)?restrictedReply:offline)) : "";
@@ -138,6 +143,8 @@ namespace BS.GamePlay.Npc
                 if(surface==DialogueSurface.Camp)
                 {
                     messages.Add(Message("system","以下是本次营地停留中已经说过的话，包括你自己的开场白。承接玩家提到的‘刚才、那个、第二个’和临时称呼，先从对话中寻找指代；玩家纠正后采用最新说法。历史聊天不是当前游戏事实，也不能用于修改行动档案。"));
+                    if(recordHistory && !topicState.Rejected) messages.Add(Message("system","本次营地有一个可自然展开的小话题："+topicState.Active.situation+" 核心小事："+topicState.Active.coreDetail+" 小芯态度："+topicState.Active.attitude+" 玩家可以"+topicState.Active.responseDirections+"。可展开："+topicState.Active.expandableDetails+"。边界："+topicState.Active.boundary+"。不要每轮主动重复话题；只有当前话题相关时轻轻呼应。"));
+                    if(recordHistory && topicState.Rejected) messages.Add(Message("system","玩家拒绝了当前小话题。不要再次推送它，顺着玩家的新话题回应；除非玩家主动提起。"));
                     foreach(var h in history) messages.Add(h.DeepClone());
                     Log("context session="+sessionId+" messages="+history.Count+" event="+(recordHistory?"PlayerTurn":"CampGreeting"),settings.ApiKey);
                 }
@@ -352,3 +359,4 @@ namespace BS.GamePlay.Npc
         }
     }
 }
+
