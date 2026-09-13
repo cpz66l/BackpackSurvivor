@@ -574,3 +574,18 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 ## S11 结算矩阵 · 判定边界（2026-09-13）
 
 新增 `SettlementMatrixRequiresVictoryAndCompletedObjectives`，验证胜利且目标完成、胜利但目标未完成、死亡但条件已满足、死亡且条件未满足四种情况；只有胜利且目标完成返回 `Completed`。UnityMCP EditMode 作业 `23eaac20b1564caf8371c47161045f2d`：27/27 Passed。该作业验证判定矩阵，不替代真实场景结算往返。
+
+
+## S9 用户反馈修复 · 合同追踪生命周期（2026-09-13）
+
+**核心链路与目的**：营地出击 → StartRun 绑定合同 → HUD 目标刷新，修复实际有合同却一直显示“暂无进行中的合同”。
+
+**技术选择**：每次刷新重新获取 CurrentQuest，不再在 Start 缓存可能尚未赋值的 null；订阅状态变化与 InventoryGrid.OnChanged，在暂停整理、丢弃物品时也刷新；敌人死亡延后一帧读取，消除订阅顺序影响。
+
+**改动文件**：QuestTrackerView.cs；QuestTrackerFeedbackAudit.cs 与 meta；Docs/Evidence/Feedback/tracker.txt、tracker-target.png、tracker-death.png。
+
+**验证结果**：UnityMCP 调用 S9 Verify Tracker Feedback。实际 Camp→Run 合同绑定通过；注入两种初始化顺序、暂停时添加/移除物品、死亡后失效文案和保留 pending 均通过，证据见 tracker.txt。测试使用临时独立存档。
+
+**未验证或已知限制**：物品和死亡通过测试注入，不能替代人工完整胜利局或所有目标类型实景验收。
+
+**超出范围未做**：此提交不改 NPC、配置面板和掉落权重。

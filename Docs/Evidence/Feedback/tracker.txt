@@ -1,0 +1,12 @@
+2026-09-13T03:41:31.9140363Z
+PASS actual Camp launch binds contract
+PASS isolated pending write
+PASS tracker Start before StartRun recovers
+PASS tracker enabled after StartRun recovers
+PASS paused inventory add checks target immediately
+PASS paused inventory remove clears target immediately
+HUD=合同 tracker-feedback · Tier 2 | ✓ 携带「测试物品」至少 1 件 | 当前进度 100% | 条件满足后仍需存活至胜利结算
+PASS death preserves explicit invalidation text
+PASS death keeps pending
+DEATH=合同 tracker-feedback · Tier 2 | ✓ 携带「测试物品」至少 1 件 | 当前进度 100% | 本局已失效：死亡不计完成
+PASS tracker lifecycle; injected order/item/outcome; isolated temporary save
