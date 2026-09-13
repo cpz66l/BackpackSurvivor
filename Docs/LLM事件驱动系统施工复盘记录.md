@@ -626,3 +626,14 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 **真实默认入口验证补充**：最终 NpcLiveFeedbackAudit 全链路通过：不使用 Live 覆盖；真实开场、情绪闲聊、咖啡/茶闲聊、连续会话记录、合同工具问答、审计原始响应与执行结果、关闭后本地简报和禁用输入、关闭后出击仍绑定同一合同并显示追踪器。使用临时配置/临时存档，退出 Play 后清除覆盖；不修改玩家原配置或存档。证据：Feedback/npc-live.txt、npc-tool-audit.txt、camp-default-live.png、camp-feedback-audit.png、camp-ai-disabled.png，已目视核对。触发输入框/按钮事件，不冒称物理鼠标键盘测试。最终合同问答触发过一次受限改写，审计完整保留该事实。
 
 **新增恢复边界**：仅营地的文案校验拒绝允许一次非流式受限改写，保持已显示安全片段；新文本必须重新通过目标索引、本地 verdict 和原有文案守卫。越权工具、错事实元数据、HTTP 失败不触发改写。追加请求仍受令牌额度及取消控制；失败后正常本地降级，因此可能增加一次请求延迟，不宣称全程零回退。
+
+
+## S8 中文输入反馈修复（2026-09-13）
+
+核心链路/目的：Windows IME 组合串 → TMP_InputField → 营地输入显示，消除字面 <u> 标签。技术选择：Builder 与 CampController.Start 同时设置 input.richText=false，由 TMP 同步文本组件标志；已有场景无需全量重建。依据为当前 UGUI 包 TMP_InputField.UpdateLabel：输入框自身 richText 决定是否插入下划线标记。
+
+改动文件：CampSceneBuilder.cs、CampController.cs、Editor/LLM/ImeCompositionAuditInput.cs 与仅 Editor 编译的 Presentation/Quest/ImeCompositionAuditInput.cs（BaseInput 测试替身），及 meta；Feedback2/ime* 证据。
+
+验证：在真实 Camp Play 场景通过 BaseInput 注入拼音组合串，旧标志组合可复现 <u>；修复后组合串正常显示、未进入提交文本，提交中文保持完整。截图和日志见 Feedback2/ime.txt、ime-composition.png、ime-chinese.png。使用临时配置/存档且关闭网络；测试替身需处于预定义运行程序集并以 UNITY_EDITOR 隔离，Editor 程序集的组件不能用于此运行注入。
+
+限制：没有模拟物理 Windows 输入法候选选择，需要用户实际键盘确认。不改聊天人设/记忆/协议。

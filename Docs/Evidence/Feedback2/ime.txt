@@ -1,0 +1,7 @@
+2026-09-13T07:18:00.5735645Z
+PASS generated scene migrates field and text flags together
+PASS control reproduces literal underline tags with old mismatched flags
+PASS composition renders without markup after fix
+PASS composition is not committed into submitted text
+PASS committed Chinese text remains intact
+PASS TMP composition pipeline simulation; physical Windows IME still needs user confirmation

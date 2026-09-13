@@ -80,7 +80,7 @@ namespace BackpackSurvivor.EditorTools
             var background=rect.GetComponent<BS.Presentation.UpgradeRoundedGraphic>();background.raycastTarget=true;
             var field=rect.gameObject.AddComponent<TMP_InputField>();field.targetGraphic=background;
             var text=V04HudArtBuilder.Label("Text",rect,"",0,0,width-24,height-8,22,V04HudArtBuilder.TextColor,TextAlignmentOptions.Left);
-            text.richText=false;text.textWrappingMode=TextWrappingModes.NoWrap;
+            field.richText=false;text.richText=false;text.textWrappingMode=TextWrappingModes.NoWrap;
             var hint=V04HudArtBuilder.Label("Placeholder",rect,placeholder,0,0,width-24,height-8,22,V04HudArtBuilder.Muted,TextAlignmentOptions.Left);
             field.textComponent=text;field.placeholder=hint;field.textViewport=rect;field.characterLimit=1000;
             field.lineType=TMP_InputField.LineType.SingleLine;return field;

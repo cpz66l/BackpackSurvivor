@@ -58,7 +58,13 @@ namespace BS.GamePlay.Quest
             launchButton.onClick.AddListener(Launch);
             redrawButton.onClick.AddListener(Redraw);
             menuButton.onClick.AddListener(ReturnToMenu);
-            if (dialogueInput != null) dialogueInput.onSubmit.AddListener(AskNpc);
+            if (dialogueInput != null)
+            {
+                // TMP inserts IME underline tags according to the field flag, not just the text component.
+                // Also migrate already-generated Camp scenes when they start.
+                dialogueInput.richText = false;
+                dialogueInput.onSubmit.AddListener(AskNpc);
+            }
             if(auditOpen) auditOpen.onClick.AddListener(OpenAudit);
             if(auditClose) auditClose.onClick.AddListener(CloseAudit);
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
