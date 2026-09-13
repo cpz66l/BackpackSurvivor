@@ -17,6 +17,8 @@ public class NpcCoreTests
         Assert.IsTrue(DialogueRouter.IsHistoryQuery("之前的历史记录"));
         Assert.AreEqual(DialogueIntent.Facts, DialogueRouter.Classify("之前的历史记录"));
         Assert.AreEqual(DialogueIntent.Facts, DialogueRouter.Classify("过去发生过什么"));
+        Assert.IsTrue(DialogueRouter.IsHistoryQuery("最高记录是多少"));
+        Assert.AreEqual(DialogueIntent.Facts, DialogueRouter.Classify("最高记录是多少"));
     }
     [Test] public void FreeTextAllowsNaturalNamesNumbersAndQuotes()
     {

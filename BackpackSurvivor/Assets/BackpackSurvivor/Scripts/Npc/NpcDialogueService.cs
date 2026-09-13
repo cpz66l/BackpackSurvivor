@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -118,6 +118,8 @@ namespace BS.GamePlay.Npc
             var emitted=new StringBuilder();
             var settings=configProvider();
             var facts=FactBlockBuilder.Capture(quest,snapshot,CompletedEvents(),surface==DialogueSurface.Pulse?input:null,ItemDefinitions);
+            var saveData=BS.GamePlay.Save.SaveService.Instance?.CurrentData;
+            facts.bestBackpackValue=saveData==null?"暂无最高背包价值记录":"最高背包价值：￥"+saveData.bestBackpackValue;
             if(surface==DialogueSurface.Camp && recordHistory) topicState.Observe(input);
             var intent=recordHistory?DialogueRouter.Classify(input):DialogueIntent.Conversation;
             bool naturalCamp=surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation;
@@ -159,7 +161,9 @@ namespace BS.GamePlay.Npc
                 {
                     bool asksProgress = input.IndexOf("进度",StringComparison.Ordinal)>=0 || input.IndexOf("完成",StringComparison.Ordinal)>=0 || input.IndexOf("满足",StringComparison.Ordinal)>=0 || input.IndexOf("条件",StringComparison.Ordinal)>=0;
                     messages.Add(Message("system", historyQuery
-                        ? "玩家明确询问上一趟或过去经历。先自然回应情绪，再只使用随后注入的本地历史来源；引用 recordId 或来源时说得像小芯，不要朗读整张存档，也不要把历史当成当前背包。没有记录的字段要说没有记录。"
+                        ? (input.Contains("最高记录")||input.Contains("最好成绩")||input.Contains("最高战绩")||input.Contains("最强战绩")
+                            ? "玩家询问最高记录或最好成绩。本地权威字段是随后事实中的 bestBackpackValue（历史最高胜利背包价值）；只能照此回答。没有统一总分、最快时间或最高击杀统计时，要明确说暂无这项记录，不能自行选一个字段冒充最高。先自然回应，再说明可查询的已记录内容。"
+                            : "玩家明确询问上一趟或过去经历。先自然回应情绪，再只使用随后注入的本地历史来源；引用 recordId 或来源时说得像小芯，不要朗读整张存档，也不要把历史当成当前背包。没有记录的字段要说没有记录。")
                         : asksProgress
                         ? "玩家明确追问进度或条件时，才说明相关条件与本地判定；只回答被问到的部分，不逐条复读所有未满足目标。"
                         : "玩家是在询问任务概览。只说明合同名称、目标要做什么和必要的行动方向；不要播报‘当前条件未满足’、‘目标一/目标二’或整张进度表，因为玩家知道尚未完成。不要主动输出背包、价值、击杀或其他状态。"));
