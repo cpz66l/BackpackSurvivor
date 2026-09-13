@@ -33,6 +33,7 @@ namespace BS.GamePlay.Npc
         readonly NpcTopicState topicState;
         public IEnumerable<ItemRecord> ItemDefinitions { get; set; }
         string campHistoricalContext;
+        JObject historicalData;
         public Func<int> CompletedEvents { get; set; } = () => BS.GamePlay.Save.SaveService.Instance?.CurrentData?.campaign?.completedEventIds?.Count ?? 0;
         bool busy, sessionClosed;
         public int Turns { get; private set; }
@@ -85,7 +86,27 @@ namespace BS.GamePlay.Npc
                 var recent=records.Where(x=>x!=null).Take(5).Select(x=>x.Copy()).ToList();
                 if (recent.Count>0) context["priorRuns"]=JArray.FromObject(recent);
             }
+            historicalData=context;
             campHistoricalContext=context.Count==0?null:context.ToString(Formatting.None);
+        }
+
+        string SelectHistoricalContext(string input)
+        {
+            if(historicalData==null || historicalData.Count==0 || !DialogueRouter.IsHistoryQuery(input)) return null;
+            var result=new JObject();
+            if(historicalData["lastSettlement"]!=null) result["lastSettlement"]=historicalData["lastSettlement"].DeepClone();
+            var records=historicalData["priorRuns"] as JArray;
+            if(records!=null && records.Count>0)
+            {
+                var selected=new JArray();
+                bool itemQuery=input.Contains("物品")||input.Contains("带回");
+                foreach(var record in records.Take(3))
+                {
+                    if(!itemQuery || (record["verifiedItems"]!=null && record["verifiedItems"].Any()) || (record["lostOrUnrecoveredItems"]!=null && record["lostOrUnrecoveredItems"].Any())) selected.Add(record.DeepClone());
+                }
+                if(selected.Count>0) result["priorRuns"]=selected;
+            }
+            return result.Count==0?null:result.ToString(Formatting.None);
         }
 
         async Task<string> Reply(DialogueSurface surface,string input,QuestInstance quest,QuestRunSnapshot snapshot,string offline,Action<string> sentence,CancellationToken ct,bool recordHistory=true)
@@ -100,6 +121,7 @@ namespace BS.GamePlay.Npc
             if(surface==DialogueSurface.Camp && recordHistory) topicState.Observe(input);
             var intent=recordHistory?DialogueRouter.Classify(input):DialogueIntent.Conversation;
             bool naturalCamp=surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation;
+            bool historyQuery=surface==DialogueSurface.Camp && recordHistory && DialogueRouter.IsHistoryQuery(input);
             string fallback=surface==DialogueSurface.Camp ? (naturalCamp?conversationFallback:(string.IsNullOrWhiteSpace(offline)?restrictedReply:offline)) : "";
             int limit=surface==DialogueSurface.Pulse?Math.Min(60,settings.Settings.maxPulseCharacters):settings.Settings.maxResponseCharacters;
             if(surface==DialogueSurface.Camp && !naturalCamp)
@@ -136,7 +158,9 @@ namespace BS.GamePlay.Npc
                 if(surface==DialogueSurface.Camp && intent==DialogueIntent.Facts)
                 {
                     bool asksProgress = input.IndexOf("进度",StringComparison.Ordinal)>=0 || input.IndexOf("完成",StringComparison.Ordinal)>=0 || input.IndexOf("满足",StringComparison.Ordinal)>=0 || input.IndexOf("条件",StringComparison.Ordinal)>=0;
-                    messages.Add(Message("system", asksProgress
+                    messages.Add(Message("system", historyQuery
+                        ? "玩家明确询问上一趟或过去经历。先自然回应情绪，再只使用随后注入的本地历史来源；引用 recordId 或来源时说得像小芯，不要朗读整张存档，也不要把历史当成当前背包。没有记录的字段要说没有记录。"
+                        : asksProgress
                         ? "玩家明确追问进度或条件时，才说明相关条件与本地判定；只回答被问到的部分，不逐条复读所有未满足目标。"
                         : "玩家是在询问任务概览。只说明合同名称、目标要做什么和必要的行动方向；不要播报‘当前条件未满足’、‘目标一/目标二’或整张进度表，因为玩家知道尚未完成。不要主动输出背包、价值、击杀或其他状态。"));
                 }
@@ -148,8 +172,9 @@ namespace BS.GamePlay.Npc
                     foreach(var h in history) messages.Add(h.DeepClone());
                     Log("context session="+sessionId+" messages="+history.Count+" event="+(recordHistory?"PlayerTurn":"CampGreeting"),settings.ApiKey);
                 }
-                if(surface==DialogueSurface.Camp && !naturalCamp && !string.IsNullOrWhiteSpace(campHistoricalContext))
-                    messages.Add(Message("system","上一趟结算记录（仅供营地回忆，不是当前背包，也不能替代当前合同）：\n"+campHistoricalContext));
+                string selectedHistory=historyQuery?SelectHistoricalContext(input):null;
+                if(historyQuery && !string.IsNullOrWhiteSpace(selectedHistory))
+                    messages.Add(Message("system","这是玩家明确询问的历史回忆。只使用这份本地来源资料，不把它当作当前背包或当前合同；回答时自然提到来源 recordId/上一趟，并说明没有记录的部分，不补写细节：\n"+selectedHistory));
                 if(!naturalCamp) messages.Add(Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)));
                 messages.Add(Message(recordHistory?"user":"system",surface==DialogueSurface.Pulse?"请对刚切换的当前阶段发出一句简短无线电提醒。":input));
                 // Casual conversation needs no forced data lookup; factual surfaces retain the audited tool round.
