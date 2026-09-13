@@ -12,6 +12,13 @@ public class NpcCoreTests
         Assert.IsTrue(DialogueRouter.TryRoute(DialogueSurface.Camp, out int campLimit));
         Assert.AreEqual(600, campLimit);
     }
+    [Test] public void FreeTextAllowsNaturalNamesNumbersAndQuotes()
+    {
+        Assert.IsTrue(NpcResponseValidator.TryRenderFreeText("我想了 3 个名字，下次再说。", 600, out var rendered));
+        Assert.AreEqual("我想了 3 个名字，下次再说。", rendered);
+        Assert.IsFalse(NpcResponseValidator.TryRenderFreeText("<u>你好</u>", 600, out _));
+        Assert.IsFalse(NpcResponseValidator.TryRenderFreeText("{{count}}", 600, out _));
+    }
     [Test] public void ValidatorRejectsPromisesAndAllowsPlainText()
     {
         Assert.IsTrue(NpcResponseValidator.IsSafe("合同条件以本地记录为准。"));

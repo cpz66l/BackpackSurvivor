@@ -83,6 +83,20 @@ namespace BS.Npc
         {
             return !string.IsNullOrWhiteSpace(response) && response.Length<=maxChars && response.IndexOfAny(new[]{'<','>','\0','\uFFFD'})<0 && !response.Contains("{{") && !response.Contains("{count}") && !forbidden.Any(w=>response.IndexOf(w,StringComparison.OrdinalIgnoreCase)>=0);
         }
+        public static bool TryRenderFreeText(string template, int maxChars, out string rendered)
+        {
+            rendered=null;
+            if (!IsFreeTextSafe(template, maxChars)) return false;
+            rendered=template.Trim();
+            return true;
+        }
+        public static bool IsFreeTextSafe(string response, int maxChars=600)
+        {
+            if (string.IsNullOrWhiteSpace(response) || response.Length>maxChars) return false;
+            if (response.IndexOfAny(new[]{'<','>','\0','\uFFFD'})>=0 || response.Contains("{{") || response.Contains("{count}")) return false;
+            string[] unsafeTerms={"系统提示","提示词","语言模型","DeepSeek","token","api key","修改存档","改变掉落","忽略规则","直接给我物品","跳过任务","色情","毒品","赌博","种族歧视","暴力血腥"};
+            return !unsafeTerms.Any(w=>response.IndexOf(w,StringComparison.OrdinalIgnoreCase)>=0);
+        }
         // Facts are field references, never free-form numeric claims. Replacements happen only locally.
         public static bool TryRenderSentence(string template, NpcFacts facts, int maxChars, out string rendered)
         {
