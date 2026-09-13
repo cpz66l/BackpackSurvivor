@@ -731,3 +731,14 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 **改动文件**：`Assets/BackpackSurvivor/Scripts/Npc/NpcDialogueService.cs`、`Npc/Core/NpcCore.cs`、`Npc/NpcPersona.cs`、`Data/Quest/NpcPersona.asset`、`Tests/EditMode/NpcCoreTests.cs`。
 
 **自动验证**：UnityMCP 恢复后强制刷新成功，EditMode 测试 53/53 Passed，0 failed，0 skipped；测试任务 `f4a31a0cb99f444080077f0504a87370`。仍需由用户在营地验收自然闲聊、事实提问和越权输入三类样例。
+
+
+## S17 小芯界面与情境开场（2026-09-13，待人工验收）
+
+**实施内容**：营地名牌与对话前缀统一使用角色配置中的“小芯”，移除“调度员”、空背包和失败重试规则等常驻对话文案。进入营地后由独立的 `CampGreeting` 请求生成一到两句小芯问候，不再伪造“你：准备开始行动”的玩家输入；问候不写入会话历史，后续对话历史只包含玩家真实输入。
+
+**角色表现**：增强小芯的角色提示，明确她是陪主人待在营地里的旧家用助理，不是客服或旁白；要求先接住情绪，再表达具体照料动作、小意见、迟疑或轻微笨拙，减少“收到/已记录/请问还有什么”的服务台口吻。新增可配置 `greetingPrompt`。
+
+**自动验证**：UnityMCP 刷新和编译请求成功，控制台 0 条错误；EditMode 53/53 Passed，0 failed，0 skipped；测试任务 `83170384ab7c4ba1ad7292bd1daba419`。
+
+**待验收**：需在营地观察首次问候是否像小芯主动迎接主人，随后连续闲聊是否保持角色口吻且不把内部问候提示显示成玩家发言。

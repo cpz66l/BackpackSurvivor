@@ -54,6 +54,8 @@ namespace BS.GamePlay.Npc
             => Reply(DialogueSurface.Camp,input,quest,null,offline,null,default);
         public Task<string> StreamCampReplyAsync(string input, QuestInstance quest, string offline, Action<string> sentence, CancellationToken ct)
             => Reply(DialogueSurface.Camp,input,quest,null,offline,sentence,ct);
+        public Task<string> StreamCampGreetingAsync(QuestInstance quest, string greeting, Action<string> sentence, CancellationToken ct)
+            => Reply(DialogueSurface.Camp,greeting,quest,null,"",sentence,ct,false);
         public Task<string> StreamCampReplyAsync(string input, QuestInstance quest, QuestRunSnapshot snapshot, string offline, Action<string> sentence, CancellationToken ct)
             => Reply(DialogueSurface.Camp,input,quest,snapshot,offline,sentence,ct);
         public Task<string> RequestPulseReplyAsync(string stage, QuestInstance quest, QuestRunSnapshot snapshot, string offline, CancellationToken ct=default)
@@ -77,7 +79,7 @@ namespace BS.GamePlay.Npc
             campHistoricalContext=context.Count==0?null:context.ToString(Formatting.None);
         }
 
-        async Task<string> Reply(DialogueSurface surface,string input,QuestInstance quest,QuestRunSnapshot snapshot,string offline,Action<string> sentence,CancellationToken ct)
+        async Task<string> Reply(DialogueSurface surface,string input,QuestInstance quest,QuestRunSnapshot snapshot,string offline,Action<string> sentence,CancellationToken ct,bool recordHistory=true)
         {
             if(busy) return "";
             busy=true; LastFailure=null; UsedFallback=false; StreamChunks=0; ToolCount=0; FirstSentenceMilliseconds=0;
@@ -198,7 +200,7 @@ namespace BS.GamePlay.Npc
                 if(emitted.Length==0) Emit(renderedAll);
                 else if(renderedAll.StartsWith(emitted.ToString(),StringComparison.Ordinal)) Emit(renderedAll.Substring(emitted.Length));
                 else throw new InvalidOperationException("stream_final_mismatch");
-                if(surface==DialogueSurface.Camp){history.Add(Message("user",input));history.Add(Message("assistant",content));}
+                if(surface==DialogueSurface.Camp && recordHistory){history.Add(Message("user",input));history.Add(Message("assistant",content));}
                 Log("PASS session="+sessionId+" turns="+Turns+" tokens="+Tokens+" chunks="+StreamChunks+" firstSentenceMs="+(int)FirstSentenceMilliseconds,settings.ApiKey);
                 return emitted.ToString();
             }

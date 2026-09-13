@@ -74,7 +74,7 @@ namespace BS.GamePlay.Quest
             if (CurrentQuest == null && !SaveService.Instance.CurrentData.campaign.finalCompleted) Redraw();
             else Refresh();
             ResetDialogue();
-            AskNpc("准备开始行动，请简短提醒当前合同。");
+            AskGreeting();
         }
         void OnDestroy()
         {
@@ -87,6 +87,22 @@ namespace BS.GamePlay.Quest
             CancelReply();
             if(dialogue!=null) dialogue.AuditChanged-=UpdateAudit;
         }
+        async void AskGreeting()
+        {
+            if (leaving || DialogueBusy || dialogue==null) return;
+            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision;
+            DialogueBusy=true;
+            if(dialogueInput) dialogueInput.interactable=false;
+            string shown="";
+            if(dialogueOutput) dialogueOutput.text="";
+            try
+            {
+                string prompt=persona?.greetingPrompt??NpcPersonaDefaults.GreetingPrompt;
+                await dialogue.StreamCampGreetingAsync(CurrentQuest,prompt,sentence=>{ if(this!=null&&!leaving&&revision==replyRevision&&dialogueOutput){shown+=sentence;PresentDialogue(shown);} },replyCancellation.Token);
+            }
+            catch(OperationCanceledException) { }
+            finally { if(this!=null&&revision==replyRevision){DialogueBusy=false;if(dialogueInput)dialogueInput.interactable=!leaving&&aiEnabled;UpdateAudit();} }
+        }
         public async void AskNpc(string question)
         {
             if (leaving || DialogueBusy || string.IsNullOrWhiteSpace(question)) return;
@@ -96,7 +112,7 @@ namespace BS.GamePlay.Quest
             if(dialogueInput) dialogueInput.interactable=false;
             string shown="";
             string prefix=string.Join("\n\n",visibleHistory);
-            string turn="你："+question+"\n调度员：";
+            string turn="你："+question+"\n"+(persona?.displayName??NpcPersonaDefaults.DisplayName)+"：";
             if(dialogueOutput)dialogueOutput.text=(prefix.Length>0?prefix+"\n\n":"")+turn+"正在回复…";
             UpdateAudit();
             try
@@ -162,7 +178,7 @@ namespace BS.GamePlay.Quest
         void UpdateAudit()
         {
             string mode=!aiEnabled?"AI NPC 已关闭 · 本地简报":dialogue?.UsedFallback==true?"本地回退 · "+dialogue.LastFailure:transportLabel+(DialogueBusy?" · 正在回复…":"");
-            if(factsText)factsText.text="调度员 · "+mode+"\n当前背包：空 · 尚未开始本局\n死亡或未达成会保留合同，可重试或重抽。";
+            if(factsText)factsText.text=(persona?.displayName??NpcPersonaDefaults.DisplayName)+" · "+mode;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if(auditText && dialogue!=null) auditText.text=mode+" · 轮次 "+dialogue.Turns+" · tokens "+dialogue.Tokens+" · "+(dialogue.UsedFallback?"本地回退 "+dialogue.LastFailure:"回复处理中/已验证")+"\n"+dialogue.Audit;
 #endif
@@ -190,7 +206,7 @@ namespace BS.GamePlay.Quest
                 q.briefingTitle + " · " + new string('★', Math.Max(1,Math.Min(5,q.tier))) + "\n\n" + q.briefingBody +
                 "\n\n必须存活带出，并满足以下全部必选条件：\n" + string.Join("\n", q.objectives.Select(c => "• " + ObjectiveText.Format(c))) +
                 "\n\n任务局专属池：" + string.Join(" / ", q.activeQuestOnlyItemIds);
-            factsText.text = "调度员\n当前背包：空 · 尚未开始本局\n死亡或未达成会保留合同，可重试或重抽。";
+            factsText.text = (persona?.displayName??NpcPersonaDefaults.DisplayName)+"\n"+(aiEnabled?"在营地等你。":"暂时休息中。") ;
             launchButton.interactable = q != null && !final && !leaving;
             redrawButton.interactable = database != null && !final && !leaving;
         }
