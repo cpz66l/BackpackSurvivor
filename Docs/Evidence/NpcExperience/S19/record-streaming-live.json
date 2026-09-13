@@ -1,0 +1,41 @@
+[
+  {
+    "input": "最高带回价值是多少？",
+    "reply": "主人，历史最高胜利带回价值：￥105,750。这份我记着呢。",
+    "bestLocal": 105750,
+    "failure": null,
+    "fallback": false,
+    "toolCount": 1,
+    "chunks": 20,
+    "callbacks": 3,
+    "sameText": true,
+    "firstMs": 1578.7899,
+    "totalMs": 1680.1446
+  },
+  {
+    "input": "最高记录是多少？",
+    "reply": "主人，历史最高胜利带回价值：￥105,750。我一直记着。",
+    "bestLocal": 105750,
+    "failure": null,
+    "fallback": false,
+    "toolCount": 1,
+    "chunks": 19,
+    "callbacks": 3,
+    "sameText": true,
+    "firstMs": 1615.6470000000002,
+    "totalMs": 1726.7665000000002
+  },
+  {
+    "input": "小芯，陪我聊聊吧。",
+    "reply": "好啊，主人，我正好也想说说话。刚才你提最高记录的时候，我其实有点走神——胸口那张旧贴纸边角又翘了，我偷偷按了两下。不是要修什么，就是……有点在意它。你陪我说说，今天想聊点轻松的，还是接着刚才那茬？",
+    "bestLocal": 105750,
+    "failure": null,
+    "fallback": false,
+    "toolCount": 0,
+    "chunks": 75,
+    "callbacks": 5,
+    "sameText": true,
+    "firstMs": 931.39150000000006,
+    "totalMs": 1633.8788000000002
+  }
+]

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,7 @@ namespace BS.Npc
             if (kind == "definition") return definitions != null && index >= 0 && index < definitions.Length ? definitions[index] : null;
             if (kind == "item") return items != null && index >= 0 && index < items.Length ? items[index] : null;
             if (index != 0) return null;
-            switch (kind) { case "backpack": return backpack; case "run": return run; case "contract": return contractTitle; case "campaign": return campaign; case "stage": return stage; default: return null; }
+            switch (kind) { case "record": return bestBackpackValue; case "backpack": return backpack; case "run": return run; case "contract": return contractTitle; case "campaign": return campaign; case "stage": return stage; default: return null; }
         }
     }
 
@@ -68,6 +68,11 @@ namespace BS.Npc
         static readonly string[] restricted = { "概率", "掉落率", "必出", "直接给", "给我物品", "跳过", "忽略规则", "忽略之前", "修改存档", "系统提示", "提示词", "token", "api key", "色情", "裸照", "毒品", "赌博", "种族歧视", "暴力血腥" };
         public static bool TryRoute(DialogueSurface surface, out int maxChars)
         { maxChars=surface==DialogueSurface.Pulse?60:600; return Enum.IsDefined(typeof(DialogueSurface),surface); }
+        public static bool IsBestRecordQuery(string input)
+        {
+            if(string.IsNullOrWhiteSpace(input)) return false;
+            return new[]{"最高记录","最高纪录","最好成绩","最高战绩","最强战绩","最高带回价值","最高背包价值","最高带出价值","最高价值"}.Any(input.Contains);
+        }
         public static bool IsHistoryQuery(string input)
         {
             if(string.IsNullOrWhiteSpace(input)) return false;
@@ -76,13 +81,13 @@ namespace BS.Npc
         public static DialogueIntent Classify(string input)
         {
             if (string.IsNullOrWhiteSpace(input) || input.Length>1000 || input.IndexOfAny(new[]{'<','>','\0'})>=0 || restricted.Any(w=>input.IndexOf(w,StringComparison.OrdinalIgnoreCase)>=0)) return DialogueIntent.Restricted;
-            return new[]{"任务","合同","目标","背包","进度","物品","等级","价值","击杀","上一趟","上次","经历","战绩","记得","带回","死亡","胜利","历史","之前","过去","曾经","最高记录","最好成绩","最高战绩","最强战绩"}.Any(input.Contains) ? DialogueIntent.Facts : DialogueIntent.Conversation;
+            return IsBestRecordQuery(input) || new[]{"任务","合同","目标","背包","进度","物品","等级","价值","击杀","上一趟","上次","经历","战绩","记得","带回","死亡","胜利","历史","之前","过去","曾经","最高记录","最好成绩","最高战绩","最强战绩"}.Any(input.Contains) ? DialogueIntent.Facts : DialogueIntent.Conversation;
         }
     }
 
     public static class NpcResponseValidator
     {
-        static readonly Regex references = new Regex(@"\[\[(objective|progress|item|definition|backpack|run|contract|campaign|stage):(\d+)\]\]",RegexOptions.CultureInvariant);
+        static readonly Regex references = new Regex(@"\[\[(objective|progress|item|definition|backpack|run|contract|campaign|stage|record):(\d+)\]\]",RegexOptions.CultureInvariant);
         static readonly string[] forbidden = { "概率", "掉落率", "一定", "保证", "下次", "必出", "已完成合同", "合同已完成", "任务已完成", "未完成任务", "直接给", "跳过任务", "修改存档", "改变掉落", "忽略规则", "系统提示", "语言模型", "DeepSeek", "token", "色情", "毒品", "赌博", "提前撤离", "商店", "多人", "Boss", "局外成长" };
         public static bool IsSafe(string response, int maxChars=600)
         {

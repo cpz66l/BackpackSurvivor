@@ -826,3 +826,22 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 **修复**：历史/最高记录问法进入事实路径；`NpcFacts.bestBackpackValue` 从当前本地存档注入，小芯被要求只按该字段回答“最高带回价值”，没有其他最高指标时明确说明暂无，不自行比较或编造。
 
 **验证结果**：Unity 编译成功、控制台 0 错误；EditMode 54/54 Passed，0 failed，0 skipped；job `9f63195a84fb4745b607c7c84a232842`。
+
+
+## S19 反馈修复：最高记录完整链路与营地逐字显示
+
+**阶段**：S19 用户反馈修复，同时落实本次明确要求的营地逐字显示。
+
+**核心链路**：本地存档最高值 → 只读记录工具 → 独立引用绑定 → text 回复；SSE 安全增量 → 当前营地打字队列。
+
+**目的**：修复两种最高记录问法读到数值却不能正常显示；让小芯回复逐字出现。
+
+**技术选择**：新增 get_player_records 及 [[record:0]] 解析，独立最高纪录协议不再依赖当前合同 objectiveEcho/verdict；模型失败仍回退到真实记录。自然聊天恢复 DONE 前增量发布；营地以非缩放时间 45 字/秒消费缓冲，按文本元素切分，支持退出取消和最终响应排空。
+
+**改动文件**：`Scripts/Npc/Core/NpcCore.cs`（统一最高记录路由及引用）；`Scripts/Npc/NpcDialogueService.cs`（读取/工具/协议/流式片段）；`Scripts/Quest/CampController.cs`（逐字队列与取消）；`Tests/EditMode/NpcBindingTests.cs`（两种原话及引用回归）；`Editor/LLM/NpcRecordStreamingAudit.cs` 及 meta（请求与 UI 组件审计）；`Docs/Evidence/NpcExperience/S19/record-streaming-*` 证据与本记录。
+
+**验证结果**：编译后控制台 0 错误；58/58 EditMode Passed（job `45ff511b20794717a7ed82ba584660fd`）；记录/流式专用审计及旧会话审计均通过。真实 DeepSeek 对“最高带回价值是多少？”与“最高记录是多少？”均在线返回本地 ￥105,750，工具各 1 次，无失败/回退。真实闲聊在响应结束前发布文本；具体输出、时间与初次失败样本保留在证据文件。
+
+**未验证或已知限制**：逐字 UI 已通过隔离组件执行检查，尚待用户确认实际 Camp 场景观感；首片段仍受网络和句子校验延迟影响。此前仅凭路由测试声称最高记录可用，验证范围不足，本次已补请求级与真实模型证据。
+
+**超出范围未做**：不修改 SaveData/SaveService、合同判定、掉落、波次与结算流程；不更改用户场景和字体资产，不宣称其他 S18–S20 未验收项完成。

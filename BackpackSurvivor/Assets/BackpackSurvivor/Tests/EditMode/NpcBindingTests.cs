@@ -47,6 +47,19 @@ public class NpcBindingTests
         Assert.AreEqual("局势升温阶段已开始。",text);
         Assert.IsFalse(NpcResponseValidator.TryRenderSentence("[[stage:0]]。",Facts(),60,out _));
     }
+    [TestCase("最高带回价值是多少？")]
+    [TestCase("最高记录是多少？")]
+    [TestCase("最高背包价值")]
+    public void BestRecordQuestionsUseSameRoute(string input)
+    { Assert.IsTrue(DialogueRouter.IsBestRecordQuery(input)); Assert.AreEqual(DialogueIntent.Facts,DialogueRouter.Classify(input)); }
+    [Test] public void HighestValueHasAnIndependentLocalReference()
+    {
+        var f=Facts(); f.bestBackpackValue="历史最高胜利带回价值：￥12,345";
+        Assert.IsTrue(NpcResponseValidator.TryRenderSentence("主人，[[record:0]]。",f,200,out string text));
+        StringAssert.Contains("12,345",text);
+        Assert.IsFalse(NpcResponseValidator.TryRenderSentence("[[record:1]]。",f,200,out _));
+        Assert.IsFalse(NpcResponseValidator.TryRenderSentence("最高价值为 99999。",f,200,out _));
+    }
     [Test] public void CampCannotReusePriorBackpack()
     {
         var f=Facts();StringAssert.Contains("尚未开始本局",f.run);Assert.AreEqual(0,f.items.Length);StringAssert.Contains("空",f.backpack);

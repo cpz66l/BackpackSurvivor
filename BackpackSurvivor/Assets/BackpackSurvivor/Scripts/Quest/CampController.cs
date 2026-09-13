@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Globalization;
 using BS.GamePlay.Npc;
 using BS.GamePlay.Run;
 
@@ -30,6 +32,11 @@ namespace BS.GamePlay.Quest
         [SerializeField] GameObject auditPanel;
         [SerializeField] Button auditOpen, auditClose;
         NpcDialogueService dialogue;
+        [SerializeField, Min(1f)] float dialogueCharactersPerSecond=45f;
+        string typingPrefix="", typingText="";
+        int typingPosition;
+        float typingBudget;
+        bool typingActive;
         bool aiEnabled;
         string transportLabel;
         readonly Queue<string> visibleHistory = new Queue<string>();
@@ -90,15 +97,16 @@ namespace BS.GamePlay.Quest
         async void AskGreeting()
         {
             if (leaving || DialogueBusy || dialogue==null) return;
-            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision;
+            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision; var replyToken=replyCancellation.Token;
             DialogueBusy=true;
             if(dialogueInput) dialogueInput.interactable=false;
             string shown="";
-            if(dialogueOutput) dialogueOutput.text="";
+            BeginTyping((persona?.displayName??NpcPersonaDefaults.DisplayName)+"：");
             try
             {
                 string prompt=persona?.greetingPrompt??NpcPersonaDefaults.GreetingPrompt;
-                string reply=await dialogue.StreamCampGreetingAsync(CurrentQuest,prompt,sentence=>{ if(this!=null&&!leaving&&revision==replyRevision&&dialogueOutput){shown+=sentence;PresentDialogue(shown);} },replyCancellation.Token);
+                string reply=await dialogue.StreamCampGreetingAsync(CurrentQuest,prompt,sentence=>{ if(this!=null&&!leaving&&revision==replyRevision&&dialogueOutput){shown+=sentence;QueueTyping(shown);} },replyToken);
+                await FinishTypingAsync(replyToken);
                 if(this!=null&&!leaving&&revision==replyRevision&&!string.IsNullOrWhiteSpace(reply))
                     visibleHistory.Enqueue((persona?.displayName??NpcPersonaDefaults.DisplayName)+"："+reply);
             }
@@ -109,13 +117,13 @@ namespace BS.GamePlay.Quest
         {
             if (leaving || DialogueBusy || string.IsNullOrWhiteSpace(question)) return;
             if(dialogue==null) ResetDialogue();
-            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision;
+            CancelReply(); replyCancellation=new CancellationTokenSource(); int revision=++replyRevision; var replyToken=replyCancellation.Token;
             DialogueBusy=true;
             if(dialogueInput) dialogueInput.interactable=false;
             string shown="";
             string prefix=string.Join("\n\n",visibleHistory);
             string turn="你："+question+"\n"+(persona?.displayName??NpcPersonaDefaults.DisplayName)+"：";
-            if(dialogueOutput)dialogueOutput.text=(prefix.Length>0?prefix+"\n\n":"")+turn+"正在回复…";
+            BeginTyping((prefix.Length>0?prefix+"\n\n":"")+turn);
             UpdateAudit();
             try
             {
@@ -124,9 +132,10 @@ namespace BS.GamePlay.Quest
                     if(this!=null && !leaving && revision==replyRevision && dialogueOutput)
                     {
                         shown+=sentence;
-                        PresentDialogue((prefix.Length>0?prefix+"\n\n":"")+turn+shown);
+                        QueueTyping(shown);
                     }
-                },replyCancellation.Token);
+                },replyToken);
+                await FinishTypingAsync(replyToken);
                 if(this!=null && !leaving && revision==replyRevision && dialogueOutput)
                 {
                     if(aiEnabled)
@@ -149,13 +158,37 @@ namespace BS.GamePlay.Quest
                 }
             }
         }
+        void BeginTyping(string prefix)
+        {
+            typingPrefix=prefix; typingText=""; typingPosition=0; typingBudget=0; typingActive=true;
+            if(dialogueOutput) { dialogueOutput.richText=false; PresentDialogue(prefix); }
+        }
+        void QueueTyping(string text) { typingText=text; }
+        void Update() => AdvanceTyping(Time.unscaledDeltaTime);
+        void AdvanceTyping(float elapsed)
+        {
+            if(!typingActive || !dialogueOutput || typingPosition>=typingText.Length) { typingBudget=0; return; }
+            typingBudget+=elapsed*Mathf.Max(1f,dialogueCharactersPerSecond);
+            int count=Mathf.FloorToInt(typingBudget); typingBudget-=count;
+            while(count-->0 && typingPosition<typingText.Length)
+                typingPosition+=StringInfo.GetNextTextElement(typingText,typingPosition).Length;
+            PresentDialogue(typingPrefix+typingText.Substring(0,typingPosition));
+        }
+        async Task FinishTypingAsync(CancellationToken ct)
+        {
+            while(this!=null && typingActive && typingPosition<typingText.Length)
+                await Task.Delay(10,ct);
+            ct.ThrowIfCancellationRequested();
+            typingActive=false;
+        }
+        void OnDisable() { CancelReply(); }
         void PresentDialogue(string text)
         {
             dialogueOutput.text=text;
             var scroll=dialogueOutput.GetComponentInParent<ScrollRect>();
             if(scroll){Canvas.ForceUpdateCanvases();scroll.verticalNormalizedPosition=0;}
         }
-        void CancelReply(){replyRevision++;replyCancellation?.Cancel();replyCancellation?.Dispose();replyCancellation=null;DialogueBusy=false;}
+        void CancelReply(){typingActive=false;typingText="";typingPosition=0;replyRevision++;replyCancellation?.Cancel();replyCancellation?.Dispose();replyCancellation=null;DialogueBusy=false;}
         void ResetDialogue()
         {
             CancelReply();if(dialogue!=null)dialogue.AuditChanged-=UpdateAudit;
