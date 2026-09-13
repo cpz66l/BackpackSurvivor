@@ -730,4 +730,4 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 
 **改动文件**：`Assets/BackpackSurvivor/Scripts/Npc/NpcDialogueService.cs`、`Npc/Core/NpcCore.cs`、`Npc/NpcPersona.cs`、`Data/Quest/NpcPersona.asset`、`Tests/EditMode/NpcCoreTests.cs`。
 
-**自动验证**：UnityMCP 本轮刷新请求返回 HTTP 502，尚未取得新的编译和 EditMode 结果；已完成代码静态检查与 `git diff --check`（仅保留用户原有字体资产的行尾/空白警告）。因此 S16 暂不标记完成，需恢复 UnityMCP 后重新编译，并由用户在营地人工验收自然闲聊、事实提问和越权输入三类样例。
+**自动验证**：UnityMCP 恢复后强制刷新成功，EditMode 测试 53/53 Passed，0 failed，0 skipped；测试任务 `f4a31a0cb99f444080077f0504a87370`。仍需由用户在营地验收自然闲聊、事实提问和越权输入三类样例。
