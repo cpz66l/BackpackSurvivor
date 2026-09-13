@@ -5,6 +5,7 @@ namespace BS.GamePlay.Save
     [System.Serializable]
     public class SaveData
     {
+        public string operatorId;
         public int totalRuns;   //总局数
         public int totalWins;   //总胜利局数
         public int bestBackpackValue;   //最高背包价值
@@ -17,6 +18,7 @@ namespace BS.GamePlay.Save
         public static SaveData CreateDefault()
         {
             SaveData defaultData = new SaveData();
+            defaultData.operatorId = System.Guid.NewGuid().ToString("N");
             defaultData.totalRuns = 0;
             defaultData.totalWins = 0;
             defaultData.bestBackpackValue = 0;
@@ -40,4 +42,5 @@ namespace BS.GamePlay.Save
         public int drawCount;
         public int lastTag = -1;
         public List<string> recentEventIds = new List<string>();
+        public List<RunMemoryRecord> runMemoryRecords = new List<RunMemoryRecord>();
     }

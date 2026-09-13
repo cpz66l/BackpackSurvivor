@@ -63,6 +63,8 @@ namespace BS.GamePlay.Save
 
                 CurrentData = data;
                 if (CurrentData.campaign == null) CurrentData.campaign = new CampaignSave();
+                if (string.IsNullOrWhiteSpace(CurrentData.operatorId)) CurrentData.operatorId = Guid.NewGuid().ToString("N");
+                if (CurrentData.campaign.runMemoryRecords == null) CurrentData.campaign.runMemoryRecords = new System.Collections.Generic.List<RunMemoryRecord>();
                 CurrentData.lastPlayedVersion = "v0.3.10";
                 Save();
             }
@@ -151,6 +153,35 @@ namespace BS.GamePlay.Save
             next.campaign.finalCompleted |= final;
             if (!CampaignFile.TryWrite(SavePath, JsonUtility.ToJson(next, true), out error)) return false;
             CurrentData = next;
+            return true;
+        }
+
+        public bool TryCommitRunSettlement(QuestInstance quest, bool complete, bool final, RunMemoryRecord memory, out string error)
+        {
+            error=null;
+            var next=JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(CurrentData ?? SaveData.CreateDefault()));
+            if (next.campaign == null) next.campaign = new CampaignSave();
+            if (string.IsNullOrWhiteSpace(next.operatorId)) next.operatorId = Guid.NewGuid().ToString("N");
+            if (next.campaign.runMemoryRecords == null) next.campaign.runMemoryRecords = new System.Collections.Generic.List<RunMemoryRecord>();
+            if (memory != null && !string.IsNullOrWhiteSpace(memory.recordId) && !next.campaign.runMemoryRecords.Exists(x=>x!=null && x.recordId==memory.recordId))
+            {
+                memory.operatorId=next.operatorId;
+                next.campaign.runMemoryRecords.Add(memory.Copy());
+                while(next.campaign.runMemoryRecords.Count>5) next.campaign.runMemoryRecords.RemoveAt(0);
+            }
+            if (complete && quest != null && !string.IsNullOrWhiteSpace(quest.eventId))
+            {
+                if (next.campaign.completedEventIds == null) next.campaign.completedEventIds = new System.Collections.Generic.List<string>();
+                if (!next.campaign.completedEventIds.Contains(quest.eventId))
+                {
+                    next.campaign.completedEventIds.Add(quest.eventId);
+                    next.campaign.pendingQuest=null;
+                    if (!final) next.campaign.tier=Math.Max(next.campaign.tier,quest.tier+1);
+                    next.campaign.finalCompleted |= final;
+                }
+            }
+            if (!CampaignFile.TryWrite(SavePath,JsonUtility.ToJson(next,true),out error)) return false;
+            CurrentData=next;
             return true;
         }
 

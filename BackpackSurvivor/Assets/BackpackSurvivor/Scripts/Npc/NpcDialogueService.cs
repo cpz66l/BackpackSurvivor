@@ -31,6 +31,7 @@ namespace BS.GamePlay.Npc
         readonly string restrictedReply, closingReply;
         readonly NpcPersona persona;
         public IEnumerable<ItemRecord> ItemDefinitions { get; set; }
+        string campHistoricalContext;
         public Func<int> CompletedEvents { get; set; } = () => BS.GamePlay.Save.SaveService.Instance?.CurrentData?.campaign?.completedEventIds?.Count ?? 0;
         bool busy, sessionClosed;
         public int Turns { get; private set; }
@@ -53,10 +54,28 @@ namespace BS.GamePlay.Npc
             => Reply(DialogueSurface.Camp,input,quest,null,offline,null,default);
         public Task<string> StreamCampReplyAsync(string input, QuestInstance quest, string offline, Action<string> sentence, CancellationToken ct)
             => Reply(DialogueSurface.Camp,input,quest,null,offline,sentence,ct);
+        public Task<string> StreamCampReplyAsync(string input, QuestInstance quest, QuestRunSnapshot snapshot, string offline, Action<string> sentence, CancellationToken ct)
+            => Reply(DialogueSurface.Camp,input,quest,snapshot,offline,sentence,ct);
         public Task<string> RequestPulseReplyAsync(string stage, QuestInstance quest, QuestRunSnapshot snapshot, string offline, CancellationToken ct=default)
             => Reply(DialogueSurface.Pulse,stage,quest,snapshot,"",null,ct);
         public Task<string> RequestDebriefAsync(QuestInstance quest, QuestRunSnapshot snapshot, CancellationToken ct=default)
             => Reply(DialogueSurface.Settlement,"请简短总结刚结束的行动。",quest,snapshot,"",null,ct);
+
+        public void SetCampHistoricalContext(QuestInstance quest, QuestRunSnapshot snapshot, IEnumerable<RunMemoryRecord> records=null)
+        {
+            var context=new JObject();
+            if (quest != null && snapshot != null)
+            {
+                var historical=FactBlockBuilder.Capture(quest,snapshot,CompletedEvents(),null,ItemDefinitions);
+                context["lastSettlement"]=JObject.FromObject(historical);
+            }
+            if (records != null)
+            {
+                var recent=records.Where(x=>x!=null).Take(5).Select(x=>x.Copy()).ToList();
+                if (recent.Count>0) context["priorRuns"]=JArray.FromObject(recent);
+            }
+            campHistoricalContext=context.Count==0?null:context.ToString(Formatting.None);
+        }
 
         async Task<string> Reply(DialogueSurface surface,string input,QuestInstance quest,QuestRunSnapshot snapshot,string offline,Action<string> sentence,CancellationToken ct)
         {
@@ -101,6 +120,8 @@ namespace BS.GamePlay.Npc
                 if(surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation)
                     messages.Add(Message("system","本轮是自由闲聊：只回应玩家当前话题，不复读合同、目标、背包或进度，不在 text 中插入事实引用。objectiveEcho 与 verdict 仍照常填写。若玩家含糊地问玩法，请先澄清，不猜测。"));
                 if(surface==DialogueSurface.Camp) foreach(var h in history) messages.Add(h.DeepClone());
+                if(surface==DialogueSurface.Camp && !string.IsNullOrWhiteSpace(campHistoricalContext))
+                    messages.Add(Message("system","上一趟结算记录（仅供营地回忆，不是当前背包，也不能替代当前合同）：\n"+campHistoricalContext));
                 messages.Add(Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)));
                 messages.Add(Message("user",surface==DialogueSurface.Pulse?"请对刚切换的当前阶段发出一句简短无线电提醒。":input));
                 // Casual conversation needs no forced data lookup; factual surfaces retain the audited tool round.

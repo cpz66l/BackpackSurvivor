@@ -684,3 +684,39 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 **未验证或已知限制**：尚未进行真实 DeepSeek 三面文案人工验收；`ResultView` 与波次服务目前使用共享默认人设，后续若需要策划资产热更新再增加显式配置注入。没有加入跨局记忆和结算临时快照，这两项属于 S14、S15。
 
 **超出范围未做**：不改合同判定、掉落、存档推进、营地 3D、不保存聊天历史，不开始 S14/S15。
+
+## S14 营地上一局结算快照（2026-09-13）
+
+**核心链路与目的**：`GameSession.EndRun` 冻结合同与快照 → `RunSessionContext` 保存当前进程内的上一局结算 → `CampController` 以“历史上下文”注入小芯。当前营地合同和空背包事实保持独立，回到主菜单或开始新局时清除临时快照。
+
+**技术选择**：新增 `RunSessionContext`，只保存内存中的 `QuestInstance` 与 `QuestRunSnapshot` 副本；结算完成本地判定后写入，`StartRun`、营地返回主菜单、暂停菜单返回主菜单和主菜单开始新行动时清除。`NpcDialogueService.SetCampHistoricalContext` 将快照转成只读事实块，并明确标记为上一趟历史，不替代当前事实块，不写入聊天历史或存档。
+
+**改动文件**：`Assets/BackpackSurvivor/Scripts/GamePlay/Run/RunSessionContext.cs`、`GameSession.cs`、`Assets/BackpackSurvivor/Scripts/Npc/NpcDialogueService.cs`、`Assets/BackpackSurvivor/Scripts/Quest/CampController.cs`、`Assets/BackpackSurvivor/Scripts/Presentation/MainMenu/MainMenuController.cs`、`Pause/PauseMenuView.cs`，以及施工流程和复盘记录。
+
+**验证结果**：
+
+- 操作：UnityMCP 强制刷新并请求编译；EditMode 测试；UnityMCP CodeDom 生命周期检查。
+- 结果：Unity 编译通过；52/52 EditMode Passed，0 failed，0 skipped；`RunSessionContext` 设置副本、读取和清除检查返回 true。
+- 证据：UnityMCP test job `478b291c1c6946c4a049d35a0c7d7ba2`；生命周期执行结果 `true`；编译后 `read_console` 返回 0 条错误。
+
+**未验证或已知限制**：尚未在真实结算→营地流程中进行人工对话验收；历史快照目前只作为只读上下文供模型使用，S15 才会生成跨局持久行动记录。未改 ResultView 的结算显示文案。
+
+**超出范围未做**：不写存档、不保存聊天全文、不增加途中物品事件、不开始 S15。
+
+## S15 跨局结构化行动记忆（2026-09-13）
+
+**核心链路与目的**：本地结算事实 → `RunMemoryRecord` → `CampaignSave.runMemoryRecords` → 营地历史上下文 → 小芯读取。聊天原文、玩家陈述和模型输出不写入记忆；死亡后 `operatorId` 保持不变。
+
+**技术选择**：在 `BS.Quest.Core` 增加 `RunMemoryRecord`、`MemoryObjectiveResult` 和 `VerifiedRunEvent`，保存合同副本、版本、结果、目标结果、结束物品、未带回物品、已确认事件和来源版本。`SaveService.TryCommitRunSettlement` 在同一个临时存档副本中幂等写入行动记录并推进已完成合同，最近记录上限为五趟。`GameSession.EndRun` 依据冻结快照和 `QuestEvaluator` 生成记录；模型与玩家文本不参与生成。营地将临时上一局快照和持久化最近行动记录分成明确的历史区块注入事实上下文，波次与结算不读取跨局记录。
+
+**改动文件**：`Assets/BackpackSurvivor/Scripts/Quest/Core/RunMemoryRecord.cs`、`SaveData.cs`、`SaveService.cs`、`GameSession.cs`、`NpcDialogueService.cs`、`CampController.cs`，以及施工流程和复盘记录。
+
+**验证结果**：
+
+- 操作：UnityMCP 强制刷新并请求编译；EditMode 测试；临时存档事务 CodeDom 检查。
+- 结果：Unity 编译通过；52/52 EditMode Passed，0 failed，0 skipped；临时事务检查确认行动记录写入、合同完成推进和 pending 清除同时成功。
+- 证据：UnityMCP test job `5b714e76aed74df787c079c8f00e92fe`；事务执行结果 `true`；编译后 `read_console` 返回 0 条错误。临时测试存档已删除。
+
+**未验证或已知限制**：尚未进行完整人工的“结束游戏后重新启动营地”体验验收；当前记录只包含结束快照和结算时可确认的目标事件，途中拾取/丢弃事件仍未接入，因此不声称知道未采集的中途经历。最近五趟记录暂未增加单独的长期里程碑表。
+
+**超出范围未做**：不保存聊天全文；不自动记忆玩家偏好；不增加向量数据库或外部记忆服务；不做营地 3D；不改变本地判定和掉落。

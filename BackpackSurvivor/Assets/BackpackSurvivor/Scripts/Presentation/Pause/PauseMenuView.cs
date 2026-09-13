@@ -99,6 +99,7 @@ namespace BS.Presentation
         private void HandleMainMenuClicked()
         {
             if (isLeavingScene || gameSession == null || gameSession.State != GameState.Paused) return;
+            RunSessionContext.ClearSettlement();
             BeginSceneLoad(mainMenuSceneName);
         }
 

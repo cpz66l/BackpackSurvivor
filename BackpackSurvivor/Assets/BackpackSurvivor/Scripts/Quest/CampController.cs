@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Threading;
 using BS.GamePlay.Npc;
+using BS.GamePlay.Run;
 
 namespace BS.GamePlay.Quest
 {
@@ -150,6 +151,7 @@ namespace BS.GamePlay.Quest
             visibleHistory.Clear();
             dialogue=new NpcDialogueService(transport,null,persona?.restrictedReply,persona?.closingReply,persona);
             dialogue.ItemDefinitions=database?.ItemDefinitions;
+            dialogue.SetCampHistoricalContext(RunSessionContext.LastQuest,RunSessionContext.LastSnapshot,SaveService.Instance?.CurrentData?.campaign?.runMemoryRecords);
             dialogue.AuditChanged+=UpdateAudit;
             if(dialogueInput)dialogueInput.interactable=aiEnabled;
             if(dialogueOutput)dialogueOutput.text=CurrentQuest?.briefingBody??persona?.offlineBriefing;
@@ -201,6 +203,6 @@ namespace BS.GamePlay.Quest
             Time.timeScale=1f;
             SceneManager.LoadScene("01-Run_ArtFull");
         }
-        public void ReturnToMenu() { if (leaving) return; leaving=true; CancelReply(); SceneManager.LoadScene("MainMenu"); }
+        public void ReturnToMenu() { if (leaving) return; leaving=true; CancelReply(); RunSessionContext.ClearSettlement(); SceneManager.LoadScene("MainMenu"); }
     }
 }

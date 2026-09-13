@@ -1,4 +1,5 @@
-﻿using BS.Core;
+using BS.Core;
+using BS.GamePlay.Run;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -85,6 +86,7 @@ namespace BS.Presentation
         {
             if (isLeavingScene) return;
             isLeavingScene = true;
+            RunSessionContext.ClearSettlement();
             PlayButtonClickAcrossScene();
             Time.timeScale = 1f;
             SceneManager.LoadScene(runSceneName);

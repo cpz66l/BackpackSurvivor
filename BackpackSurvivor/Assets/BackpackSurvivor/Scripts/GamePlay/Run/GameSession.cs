@@ -128,6 +128,7 @@ namespace BS.GamePlay.Run
         //初始化
         public void StartRun()
         {
+            RunSessionContext.ClearSettlement();
             playerRunStats.ResetToDefault();
             TargetRegistry.Clear();
             LootChest.ResetRuntimeState();
@@ -321,15 +322,16 @@ namespace BS.GamePlay.Run
             // mutated by UI or persistence while the run is settling, so it must not
             // replace the authoritative in-run contract.
             var questAtSettlement = currentQuest?.Copy();
+            RunMemoryRecord memory = BuildRunMemoryRecord(questAtSettlement, snapshot, null);
             if (questAtSettlement != null)
             {
                 lastQuestOutcome = QuestEvaluator.Evaluate(questAtSettlement, snapshot);
-                if (lastQuestOutcome.Completed)
-                {
-                    if (!SaveService.Instance.TryCompleteQuest(questAtSettlement, questAtSettlement.isFinal, out string saveError))
-                        Debug.LogWarning("[Quest] completion not committed: " + saveError);
-                }
+                memory = BuildRunMemoryRecord(questAtSettlement, snapshot, lastQuestOutcome);
             }
+            bool completed = lastQuestOutcome != null && lastQuestOutcome.Completed;
+            if (SaveService.Instance != null && !SaveService.Instance.TryCommitRunSettlement(questAtSettlement, completed, questAtSettlement != null && questAtSettlement.isFinal, memory, out string saveError))
+                Debug.LogWarning("[Quest] settlement memory/completion not committed: " + saveError);
+            RunSessionContext.SetSettlement(questAtSettlement, snapshot);
             QuestTelemetry.Record(questAtSettlement, snapshot, lastQuestOutcome);
             int backpackValue = snapshot.backpackValue;
             int totalXpAtSettlement = TotalXp;
@@ -354,6 +356,36 @@ namespace BS.GamePlay.Run
                 SaveService.Instance?.ApplyVictoryResult(runResult);
 
             OnRunEnded?.Invoke(runResult);//带入结算参数数据包
+        }
+
+        RunMemoryRecord BuildRunMemoryRecord(QuestInstance quest, QuestRunSnapshot snapshot, QuestOutcome outcome)
+        {
+            if (quest == null || snapshot == null) return null;
+            var memory=new RunMemoryRecord
+            {
+                recordId=Guid.NewGuid().ToString("N"),
+                runNumber=SaveService.Instance?.CurrentData?.totalRuns ?? 0,
+                contractId=quest.eventId,
+                contractTitle=quest.briefingTitle,
+                definitionVersion=quest.definitionVersion,
+                tier=quest.tier,
+                outcome=snapshot.outcome,
+                sourceVersion="v0.3.10"
+            };
+            if (snapshot.items != null) memory.verifiedItems.AddRange(snapshot.items);
+            if (snapshot.outcome == RunOutcome.Died && snapshot.items != null) memory.lostOrUnrecoveredItems.AddRange(snapshot.items);
+            memory.verifiedEvents.Add(new VerifiedRunEvent { eventId="run_settled", order=0, type="run_settled", source="local_snapshot" });
+            if (outcome != null && outcome.Details != null)
+            {
+                for (int i=0;i<outcome.Details.Count;i++)
+                {
+                    var detail=outcome.Details[i];
+                    memory.objectives.Add(new MemoryObjectiveResult { type=(int)detail.type, optional=detail.optional, satisfied=detail.satisfied, progress01=detail.progress01 });
+                    if (detail.satisfied) memory.verifiedEvents.Add(new VerifiedRunEvent { eventId="objective_"+i, order=i+1, type="objective_satisfied", objectiveIndex=i, source="local_evaluator" });
+                }
+                memory.campaignChanges.Add(outcome.Completed ? "contract_completed" : "contract_retained");
+            }
+            return memory;
         }
     }
 }
