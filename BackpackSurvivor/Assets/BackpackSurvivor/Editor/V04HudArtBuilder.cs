@@ -74,6 +74,7 @@ namespace BackpackSurvivor.EditorTools
             Pin(tracker, new Vector2(0, .5f), new Vector2(0, .5f), new Vector2(28, 10));
             var trackerText = Label("Text", tracker, "暂无进行中的合同", 12, 0, 306, 172, 17, TextColor, TextAlignmentOptions.TopLeft);
             trackerText.textWrappingMode = TextWrappingModes.Normal;
+            trackerText.enableAutoSizing=true;trackerText.fontSizeMin=12;trackerText.fontSizeMax=17;
             var trackerView = tracker.gameObject.AddComponent<QuestTrackerView>();
             var trackerData = new SerializedObject(trackerView); Bind(trackerData, "text", trackerText); trackerData.ApplyModifiedPropertiesWithoutUndo();
 

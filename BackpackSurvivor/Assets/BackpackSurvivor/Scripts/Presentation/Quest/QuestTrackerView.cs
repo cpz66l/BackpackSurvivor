@@ -21,7 +21,11 @@ namespace BS.Presentation
         int lastSecond = -1;
         public string DisplayText => text == null ? "" : text.text;
 
-        void Awake() { session = FindAnyObjectByType<GameSession>(); }
+        void Awake()
+        {
+            session = FindAnyObjectByType<GameSession>();
+            if(text){text.enableAutoSizing=true;text.fontSizeMin=12;text.fontSizeMax=17;}
+        }
         void OnEnable()
         {
             if (session == null) session = FindAnyObjectByType<GameSession>();
@@ -102,8 +106,8 @@ namespace BS.Presentation
             if (result == null) { text.text = heading + "\n等待局内数据"; return; }
             var lines = new List<string>();
             for (int i = 0; i < result.Details.Count && i < quest.objectives.Count; i++)
-                lines.Add((result.Details[i].satisfied ? "✓ " : "○ ") + ObjectiveText.Format(quest.objectives[i]));
-            text.text = heading + "\n" + string.Join("\n", lines) + "\n当前进度 " + result.Progress01.ToString("P0") +
+                lines.Add((result.Details[i].satisfied ? "✓ " : "○ ") + ObjectiveText.Format(quest.objectives[i])+"\n  "+ObjectiveText.CurrentProgress(quest.objectives[i],snapshot));
+            text.text = heading + "\n" + string.Join("\n", lines) + "\n已满足 " + result.Details.FindAll(d=>d.satisfied).Count + " / " + result.Details.Count + " 条" +
                 (snapshot.outcome == RunOutcome.Died ? "\n本局已失效：死亡不计完成" : "\n条件满足后仍需存活至胜利结算");
         }
     }

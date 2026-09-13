@@ -637,3 +637,14 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 验证：在真实 Camp Play 场景通过 BaseInput 注入拼音组合串，旧标志组合可复现 <u>；修复后组合串正常显示、未进入提交文本，提交中文保持完整。截图和日志见 Feedback2/ime.txt、ime-composition.png、ime-chinese.png。使用临时配置/存档且关闭网络；测试替身需处于预定义运行程序集并以 UNITY_EDITOR 隔离，Editor 程序集的组件不能用于此运行注入。
 
 限制：没有模拟物理 Windows 输入法候选选择，需要用户实际键盘确认。不改聊天人设/记忆/协议。
+
+
+## S9 数字进度反馈（2026-09-13）
+
+核心链路/目的：现有背包/击杀/开箱/等级/时间事件 → 实时快照 → 当前值/目标值，让部分完成也能被看见。技术选择：ObjectiveText 增加纯展示读取，覆盖 16 类目标；勾选和完成仍只使用 QuestEvaluator，不改变判定。原百分比改称“已满足 X/Y 条”，避免误当数值累计进度。已有追踪框保持位置尺寸并适配字号，Builder 同步默认设置。
+
+改动文件：ObjectiveText.cs、QuestTrackerView.cs、V04HudArtBuilder.cs；ObjectiveProgressTextTests.cs、QuestTrackerNumericAudit.cs 及 meta；Feedback2/tracker-numeric*、测试记录。
+
+验证：51/51 EditMode 通过，作业 02cf16e749184256acd42c864a169c55；包含当前值筛选、精确品质开箱、价值上下界与回退读数。实际 Camp→Run 后，暂停添加测试物品显示 1/2 与 5,200/8,000，移除回到 0/2；死亡显示失效。测试使用临时独立配置和存档，物品与死亡是注入，不冒称人工拾取胜利局。截图与日志见 Feedback2。
+
+限制/未做：未覆盖全部目标的人工实景操作；不改判定和掉落，不覆盖用户已有 Run 布局调整。
