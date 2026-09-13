@@ -78,7 +78,7 @@ NPC 对话是营地里的核心交互，但它不能成为游戏的前置条件�
 - 首版只有 `Survived + Satisfied` 才算合同完成、清除合同并推进；存活但未达成、死亡但死亡前曾满足、死亡且未满足都不完成合同。后三种仍保留本地判定细节供结算汇报使用，重试、重抽和次数暂不设紧限制，待流程打通后再收束。流程不能由 NPC 或 `GameState` 枚举隐式推导。
 - 任意结算结果都回到调度营地；未完成合同继续作为 pending 合同保留。营地首版提供“重试当前合同”和“重抽合同”两个动作：重试沿用同一快照，重抽替换未完成的 pending 合同且不记为完成，不设紧次数上限。
 - **死亡不掉落已完成事件的进度**。装备照旧全部丢失，但事件解锁层级不倒退，否则长线循环会苦到没人愿意重开。
-- **对话历史不跨局保存**。每次进入营地开启新会话，先保证玩法跑通；跨局记忆留到后续迭代。
+- **聊天历史不跨局保存，但结构化行动记录跨局保存**。每次进入营地开启新的聊天会话；结算返回营地时，当前游戏会话暂存上一局结算快照，回到主菜单、关闭游戏或重新建立会话时清除。跨局只保存本地确认的行动事实，不保存聊天原文，不允许模型自行写入记忆。
 
 ## 4. 模块划分
 
@@ -864,7 +864,45 @@ public class CampaignSave
 }
 ```
 
-跨局对话记忆（包括"最近几局发生了什么"的摘要）不在首版范围内，因此不写入存档。合同玩法状态不属于对话记忆：pending 合同必须由接受时记录的事件定义版本、seed、完整权威条件快照和全量任务专属物品名单恢复。强退、重启或网络中断都不视为完成，pending 合同保留；只有一次成功写档确认完成后才清除它。后续需求可以发布或调整新事件定义，但不能用新定义覆盖已经接受的 pending 合同。
+合同玩法状态与 NPC 记忆分开保存：pending 合同必须由接受时记录的事件定义版本、seed、完整权威条件快照和全量任务专属物品名单恢复。强退、重启或网络中断都不视为完成，pending 合同保留；只有一次成功写档确认完成后才清除它。后续需求可以发布或调整新事件定义，但不能用新定义覆盖已经接受的 pending 合同。
+
+首版允许保存本地结构化行动记录，用于让小芯记住同一位回收员经历过的合同与关键事件。聊天原文、模型摘要、玩家未被系统确认的说法和玩家偏好不写入存档。
+
+```csharp
+[Serializable]
+public class RunMemoryRecord
+{
+    public string recordId;                 // 一趟行动唯一标识，用于幂等写入
+    public int runNumber;
+    public string operatorId;               // 死亡后下一局仍保持不变
+    public string contractId;
+    public string definitionVersion;
+    public int tier;
+    public RunOutcome outcome;
+    public List<MemoryObjectiveResult> objectives;
+    public List<MemoryItemRecord> verifiedItems;
+    public List<VerifiedRunEvent> verifiedEvents;
+    public List<MemoryItemRecord> lostOrUnrecoveredItems;
+    public List<string> campaignChanges;
+    public string sourceVersion;
+}
+
+[Serializable]
+public class VerifiedRunEvent
+{
+    public string eventId;
+    public int order;
+    public string type;
+    public string relatedItemId;
+    public int objectiveIndex;
+    public int stage;
+    public string source;                   // 本地快照 / 本地事件 / 未知
+}
+```
+
+记录只从本地判定、冻结快照和已接入的游戏事件生成。未实现途中拾取与丢弃采集前，不得声称小芯知道玩家曾经拿起又放下某件物品。建议保存最近五趟完整记录，以及合同完成、终局和方舟相关里程碑；读取旧记录时必须依据 `sourceVersion` 做兼容处理。
+
+当前游戏会话另持有 `LastRunSettlementSnapshot`，内容包括结束合同、结果、目标结果、结束背包、关键事件和汇报上下文。该快照只服务从结算回到营地的短暂连续对话，不写入跨会话存档。
 
 两个实现约束：
 
@@ -874,7 +912,7 @@ public class CampaignSave
 
 对话相关的数据**不写入存档**：
 
-- 营地会话历史随场景退出即销毁，不跨局保存（见第 3 节）
+- 营地聊天会话历史随场景退出即销毁，不跨局保存（见第 3 节）；结构化 `RunMemoryRecord` 是行动记录，不是聊天历史
 - 模型配置（四项上限，以及发布版用的 BYOK Key）单独存放在 `persistentDataPath` 下的配置文件，不进 `save_data.json`，避免 Key 与玩家存档混在一起被连带备份或上传；开发机的 Key 走环境变量，不写入该文件
 
 ## 13. 呈现层

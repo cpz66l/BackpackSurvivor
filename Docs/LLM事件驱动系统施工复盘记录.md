@@ -665,3 +665,22 @@ UnityMCP 刷新后 Console 错误数为 0；S7 完整往返证据仍为 PASS。S
 未验证或限制：网络超过 TTL 或输出不合规仍会丢弃；不以单次五阶段通过证明长期成功率。物理输入法候选选字与正常战斗节奏需用户试玩确认。用户原有 Run 与字库改动保留，不混入本次功能提交；UI 截图以用户当前布局为准。
 
 超出范围未做：未讨论或调整 NPC 人设/长期记忆，不调权重或更改任务完成条件。
+
+## S13 小芯人设与三面语气（2026-09-13）
+
+**核心链路与目的**：`NpcPersona` / 默认角色配置 → `NpcDialogueService` 三面上下文 → DeepSeek 在线、受限改写与本地降级统一使用小芯的人设。目标是让小芯保持可爱、略显笨拙、认真并具体关心主人，同时不改变本地合同判定。
+
+**技术选择**：新增 `NpcPersonaDefaults` 作为三个对话面和无显式资产注入调用点的共同默认来源；`NpcPersona` 增加显示名、稳定人设、营地/脉冲/结算语气字段，并保留旧资产字段的兼容默认值。营地实例把配置传入服务；重写请求复用同一角色设定和场合语气。波次与结算暂不引入场景对象依赖，使用相同默认配置。
+
+**改动文件**：`Assets/BackpackSurvivor/Scripts/Npc/NpcPersona.cs`、`NpcDialogueService.cs`、`Assets/BackpackSurvivor/Scripts/Quest/CampController.cs`、`Assets/BackpackSurvivor/Data/Quest/NpcPersona.asset`，以及两份方案文档。
+
+**验证结果**：
+
+- 操作：UnityMCP `refresh_unity(scope=scripts, compile=request)`；Unity Test Runner EditMode。
+- 结果：Unity 编译通过；52/52 EditMode Passed，0 failed，0 skipped。
+- 证据：UnityMCP test job `5065e89b7cdf4be8afaa9d656649c91f`；编译后 `read_console` 返回 0 条错误。
+- 边界用例：既有营地空背包事实、三面路由、受限输入、文案改写、取消与本地判定测试全部保持通过。
+
+**未验证或已知限制**：尚未进行真实 DeepSeek 三面文案人工验收；`ResultView` 与波次服务目前使用共享默认人设，后续若需要策划资产热更新再增加显式配置注入。没有加入跨局记忆和结算临时快照，这两项属于 S14、S15。
+
+**超出范围未做**：不改合同判定、掉落、存档推进、营地 3D、不保存聊天历史，不开始 S14/S15。

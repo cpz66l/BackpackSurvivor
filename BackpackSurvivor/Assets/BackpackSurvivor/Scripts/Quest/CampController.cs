@@ -148,7 +148,7 @@ namespace BS.GamePlay.Quest
             aiEnabled=LlmConfigService.LoadFile().npcEnabled;
             transportLabel=transport is MockNpcDialogue ? "Mock 测试" : "DeepSeek 在线";
             visibleHistory.Clear();
-            dialogue=new NpcDialogueService(transport,null,persona?.restrictedReply,persona?.closingReply);
+            dialogue=new NpcDialogueService(transport,null,persona?.restrictedReply,persona?.closingReply,persona);
             dialogue.ItemDefinitions=database?.ItemDefinitions;
             dialogue.AuditChanged+=UpdateAudit;
             if(dialogueInput)dialogueInput.interactable=aiEnabled;

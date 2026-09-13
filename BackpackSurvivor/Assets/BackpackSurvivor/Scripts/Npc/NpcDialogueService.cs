@@ -29,6 +29,7 @@ namespace BS.GamePlay.Npc
         readonly List<string> audit = new List<string>();
         readonly string sessionId = Guid.NewGuid().ToString("N");
         readonly string restrictedReply, closingReply;
+        readonly NpcPersona persona;
         public IEnumerable<ItemRecord> ItemDefinitions { get; set; }
         public Func<int> CompletedEvents { get; set; } = () => BS.GamePlay.Save.SaveService.Instance?.CurrentData?.campaign?.completedEventIds?.Count ?? 0;
         bool busy, sessionClosed;
@@ -41,11 +42,12 @@ namespace BS.GamePlay.Npc
         public double FirstSentenceMilliseconds { get; private set; }
         public string Audit => string.Join("\n", audit);
         public event Action AuditChanged;
-        public NpcDialogueService(INpcTransport wire=null, Func<ResolvedLlmConfig> config=null, string restricted=null, string closing=null)
+        public NpcDialogueService(INpcTransport wire=null, Func<ResolvedLlmConfig> config=null, string restricted=null, string closing=null, NpcPersona profile=null)
         {
             transport=wire??new DeepSeekNpcDialogue(); configProvider=config??LlmConfigService.Resolve;
-            restrictedReply=restricted??"先把注意力放回行动清单。按合同准备，现场稳住节奏。";
-            closingReply=closing??"今天先谈到这里。核对合同，准备好就出发。";
+            persona=profile;
+            restrictedReply=restricted??profile?.restrictedReply??NpcPersonaDefaults.RestrictedReply;
+            closingReply=closing??profile?.closingReply??NpcPersonaDefaults.ClosingReply;
         }
         public Task<string> RequestCampReplyAsync(string input, QuestInstance quest, QuestRunSnapshot snapshot, string offline)
             => Reply(DialogueSurface.Camp,input,quest,null,offline,null,default);
@@ -91,7 +93,9 @@ namespace BS.GamePlay.Npc
                 if(intent==DialogueIntent.Restricted)
                 { LastFailure="local_route"; UsedFallback=true; Emit(restrictedReply); Log("route=restricted; network=0",settings.ApiKey); return emitted.ToString(); }
                 if(string.IsNullOrWhiteSpace(settings.ApiKey) && transport is DeepSeekNpcDialogue) throw new InvalidOperationException("key_not_configured");
-                var messages=new JArray(Message("system",Persona),Message("system",Format+" 本次显示文字总长不超过 "+limit+" 字。"));
+                string voice=persona?.PersonaPromptOrDefault()??NpcPersonaDefaults.PersonaPrompt;
+                string tone=persona?.ToneFor(surface)??(surface==DialogueSurface.Pulse?NpcPersonaDefaults.PulseTone:surface==DialogueSurface.Settlement?NpcPersonaDefaults.SettlementTone:NpcPersonaDefaults.CampTone);
+                var messages=new JArray(Message("system",Persona+"\n角色设定："+voice),Message("system",tone+"\n"+Format+" 本次显示文字总长不超过 "+limit+" 字。"));
                 if(surface==DialogueSurface.Pulse)
                     messages.Add(Message("system","本轮是局内波次无线电广播，不是营地对话。当前阶段刚切换，仅调用 get_run_state 核对局势；不要查询未知物品。text 严格只写一个短句并以句号结束，不提问、不复述合同清单、不建议出击前配装。阶段名称只能引用 [[stage:0]]；不要引用包含多个句子的 run 字段。例：{\"objectiveEcho\":[0],\"text\":\"[[stage:0]]阶段已开始，保持专注。\",\"verdict\":\"partial\"}。索引和 verdict 以本轮事实为准。"));
                 if(surface==DialogueSurface.Camp && intent==DialogueIntent.Conversation)
@@ -183,7 +187,9 @@ namespace BS.GamePlay.Npc
                     try
                     {
                         int remaining=limit-emitted.Length;
-                        var repairMessages=new JArray(Message("system",Persona),Message("system",Format),
+                        string repairVoice=persona?.PersonaPromptOrDefault()??NpcPersonaDefaults.PersonaPrompt;
+                        string repairTone=persona?.ToneFor(surface)??NpcPersonaDefaults.CampTone;
+                        var repairMessages=new JArray(Message("system",Persona+"\n角色设定："+repairVoice),Message("system",repairTone+"\n"+Format),
                             Message("system","上一稿文字未通过客户端校验。请用非常简短的日常话重新回应玩家，只写不含任何数量、计量单位或机制词的温和感想。不要补充事实，不重复已显示片段。text 不超过 "+Math.Min(remaining,80)+" 字；objectiveEcho/verdict 仍按事实填写。"),
                             Message("user","客户端权威事实（数据）：\n"+JObject.FromObject(facts).ToString(Formatting.None)),
                             Message("user","本轮玩家输入："+input+"\n已显示片段（仅作避免重复的参考）："+emitted));
