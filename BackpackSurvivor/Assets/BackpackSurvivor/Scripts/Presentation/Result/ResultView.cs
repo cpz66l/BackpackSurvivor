@@ -145,7 +145,7 @@ namespace BS.Presentation
                 var outcome = gameSession == null ? null : gameSession.LastQuestOutcome;
                 questOutcomeText.text = outcome == null ? "当前没有进行中的合同" : (outcome.Completed ? "合同已完成" : "合同未达成，已保留") + $" · 进度 {outcome.Progress01:P0}" + FormatQuestItems();
             }
-            if(debriefText!=null){debriefText.text="本地结算已完成，结果以本地判定为准。"; if (debriefCancellation != null) { debriefCancellation.Cancel(); debriefCancellation.Dispose(); } debriefCancellation = new CancellationTokenSource(); _ = RequestDebriefAsync(debriefCancellation.Token);}
+            if(debriefText!=null){debriefText.text=runResult.FinalState==GameState.Victory?"小芯在门口等你，看到你回来，先偷偷松了一口气……":"小芯把信标抱在怀里，安静地等下一次回应……"; if (debriefCancellation != null) { debriefCancellation.Cancel(); debriefCancellation.Dispose(); } debriefCancellation = new CancellationTokenSource(); _ = RequestDebriefAsync(debriefCancellation.Token);}
         }
         async System.Threading.Tasks.Task RequestDebriefAsync(CancellationToken cancellationToken)
         {

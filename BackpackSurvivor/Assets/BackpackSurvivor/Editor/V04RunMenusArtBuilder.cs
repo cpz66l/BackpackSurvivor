@@ -140,7 +140,7 @@ namespace BackpackSurvivor.EditorTools
             scroll.viewport = viewport; scroll.content = details; scroll.horizontal = false;
             scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 36;
             FlowText("DebriefHeading", details, "小芯 · 行动评语", 22, White, FontStyles.Bold);
-            TextMeshProUGUI debrief = FlowText("Debrief", details, "小芯正在整理这趟行动的记录……", 24, White);
+            TextMeshProUGUI debrief = FlowText("Debrief", details, "小芯在门口等你，看到你回来，先偷偷松了一口气……", 24, White);
             TextMeshProUGUI questOutcome = FlowText("QuestOutcome", details, "当前没有进行中的合同", 22, Muted);
             Text("ScrollHint", dialog, "评语与带出清单 · 滚动查看", 0, -329, 1036, 22, 16, Muted);
             Divider("FooterDivider", dialog, -349, 1036);
