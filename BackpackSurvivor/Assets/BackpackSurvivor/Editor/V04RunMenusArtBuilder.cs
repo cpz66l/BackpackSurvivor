@@ -61,6 +61,25 @@ namespace BackpackSurvivor.EditorTools
             return matches[0];
         }
 
+        [MenuItem("Tools/Backpack Survivor/Art/V0.4/Apply Result UI Only")]
+        public static void ApplyResultToActiveScene()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Build result UI outside Play Mode.");
+            Scene scene = SceneManager.GetActiveScene();
+            GameSession session = FindSingle<GameSession>(scene);
+            ResultView view = FindSingle<ResultView>(scene);
+            Canvas canvas = view.GetComponentInParent<Canvas>();
+            if (canvas == null || canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+                throw new InvalidOperationException("ResultView requires the gameplay overlay Canvas.");
+            font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
+            if (font == null) throw new InvalidOperationException("Missing shared Chinese UI font.");
+            RemoveOwned(canvas.transform, ResultRootName);
+            BuildResult(canvas.transform, session, view);
+            EditorUtility.SetDirty(view);
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+
         private static void BuildPause(Transform canvas, GameSession session)
         {
             RectTransform root = Modal(PauseRootName, canvas, 220);
@@ -81,11 +100,11 @@ namespace BackpackSurvivor.EditorTools
         private static void BuildResult(Transform canvas, GameSession session, ResultView resultView)
         {
             RectTransform root = Modal(ResultRootName, canvas, 230);
-            RectTransform dialog = Rect("ResultDialog", root, 0, 0, 1160, 744);
+            RectTransform dialog = Rect("ResultDialog", root, 0, 0, 1160, 900);
             Rounded(dialog, Panel, 12, 1.5f, Line, true);
-            TextMeshProUGUI title = Text("Heading", dialog, "行动结束", 0, 292, 1036, 78, 52, White, FontStyles.Bold);
-            TextMeshProUGUI subtitle = Text("State", dialog, "本次行动已结束", 0, 230, 1036, 44, 26, Muted);
-            Divider("HeaderDivider", dialog, 192, 1036);
+            TextMeshProUGUI title = Text("Heading", dialog, "行动结束", 0, 372, 1036, 78, 52, White, FontStyles.Bold);
+            TextMeshProUGUI subtitle = Text("State", dialog, "本次行动已结束", 0, 310, 1036, 44, 26, Muted);
+            Divider("HeaderDivider", dialog, 276, 1036);
 
             string[] labels = { "生存时间", "达到等级", "击杀数量", "获得金币", "背包价值", "传说装备" };
             string[] names = { "Elapsed", "Level", "Kills", "Gold", "BackpackValue", "LegendaryCount" };
@@ -93,7 +112,7 @@ namespace BackpackSurvivor.EditorTools
             for (int i = 0; i < values.Length; i++)
             {
                 float x = (i % 3 - 1) * 352f;
-                float y = 102 - (i / 3) * 150f;
+                float y = 196 - (i / 3) * 144f;
                 RectTransform stat = Rect("Stat_" + names[i], dialog, x, y, 332, 128);
                 Rounded(stat, new Color(.045f, .083f, .117f, .76f), 7, 1.2f, new Color(.30f, .41f, .51f, .8f), false);
                 Text("Label", stat, labels[i], 0, 30, 294, 42, 27, Muted);
@@ -102,16 +121,44 @@ namespace BackpackSurvivor.EditorTools
                 values[i] = value;
             }
 
-            TextMeshProUGUI summary = Text("SupplementaryStats", dialog, "总经验  0    ·    传说装备价值  ￥0", 0, -160, 1036, 44, 25, Muted);
+            TextMeshProUGUI summary = Text("SupplementaryStats", dialog, "总经验  0    ·    传说装备价值  ￥0", 0, -40, 1036, 36, 25, Muted);
             summary.enableAutoSizing = true; summary.fontSizeMin = 20; summary.fontSizeMax = 25;
-            TextMeshProUGUI questOutcome = Text("QuestOutcome", dialog, "当前没有进行中的合同", 0, -200, 1036, 36, 22, Muted);
-            TextMeshProUGUI debrief = Text("Debrief", dialog, "本地结算已完成，结果以本地判定为准。", 0, -236, 1036, 32, 20, Muted);
-            Divider("FooterDivider", dialog, -224, 1036);
-            Button restart = MenuButton("Restart", dialog, "返回营地", -245, -278, 450, 88, true);
-            Button mainMenu = MenuButton("MainMenu", dialog, "查看合同", 245, -278, 450, 88, false);
+            RectTransform viewport = Rect("ResultDetails", dialog, 0, -194, 1036, 244);
+            Image hitArea = viewport.gameObject.AddComponent<Image>();
+            hitArea.color = new Color(.045f, .083f, .117f, .76f);
+            viewport.gameObject.AddComponent<RectMask2D>();
+            ScrollRect scroll = viewport.gameObject.AddComponent<ScrollRect>();
+            RectTransform details = Rect("Content", viewport, 0, 0, 0, 0);
+            details.anchorMin = new Vector2(0, 1); details.anchorMax = Vector2.one;
+            details.pivot = new Vector2(.5f, 1);
+            VerticalLayoutGroup layout = details.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(18, 18, 12, 12); layout.spacing = 12;
+            layout.childControlWidth = layout.childControlHeight = true;
+            layout.childForceExpandWidth = true; layout.childForceExpandHeight = false;
+            ContentSizeFitter fitter = details.gameObject.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            scroll.viewport = viewport; scroll.content = details; scroll.horizontal = false;
+            scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 36;
+            FlowText("DebriefHeading", details, "小芯 · 行动评语", 22, White, FontStyles.Bold);
+            TextMeshProUGUI debrief = FlowText("Debrief", details, "小芯正在整理这趟行动的记录……", 24, White);
+            TextMeshProUGUI questOutcome = FlowText("QuestOutcome", details, "当前没有进行中的合同", 22, Muted);
+            Text("ScrollHint", dialog, "评语与带出清单 · 滚动查看", 0, -329, 1036, 22, 16, Muted);
+            Divider("FooterDivider", dialog, -349, 1036);
+            Button restart = MenuButton("Restart", dialog, "返回营地", -245, -394, 450, 72, true);
+            Button mainMenu = MenuButton("MainMenu", dialog, "查看合同", 245, -394, 450, 72, false);
             resultView.ConfigurePresentation(session, root.gameObject, dialog, title, subtitle, values, summary,
                 restart, mainMenu, new Color(.56f, .88f, .72f, 1f), new Color(.95f, .73f, .65f, 1f), questOutcome, debrief);
             root.gameObject.SetActive(false);
+        }
+
+        private static TextMeshProUGUI FlowText(string name, Transform parent, string content,
+            float size, Color color, FontStyles style = FontStyles.Normal)
+        {
+            TextMeshProUGUI text = Text(name, parent, content, 0, 0, 1000, 32, size, color, style);
+            text.alignment = TextAlignmentOptions.TopLeft;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.overflowMode = TextOverflowModes.Overflow;
+            return text;
         }
 
         private static RectTransform Modal(string name, Transform parent, int sortingOrder)
