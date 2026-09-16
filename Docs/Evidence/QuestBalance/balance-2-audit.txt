@@ -1,0 +1,27 @@
+2026-09-16T04:50:16.4780434Z
+prototype-t1-1: 携带医疗物品至少 2 件
+prototype-t1-2: 累计击杀至少 900; 击杀精英至少 30
+PASS elite below/exact/death: prototype-t1-2
+prototype-t1-3: 达到等级 30
+prototype-t2-1: 携带手枪 / 步枪 / 霰弹枪合计至少 2 件; 背包价值至少 28,000
+prototype-t2-2: 携带稀有及以上物品至少 2 件; 背包价值至少 25,000
+prototype-t2-3: 开启不普通宝箱至少 2 个（仅计该品质）; 击杀精英至少 80
+PASS elite below/exact/death: prototype-t2-3
+prototype-t3-1: 携带「污染区研究样本」至少 1 件; 不携带医疗物品
+prototype-t3-2: 携带史诗及以上物品至少 1 件; 背包价值至少 50,000
+prototype-t3-3: 携带任意 Lv2 及以上装备至少 2 件; 击杀精英至少 140
+PASS elite below/exact/death: prototype-t3-3
+prototype-t4-1: 携带任意 Lv3 及以上装备至少 1 件; 击杀精英至少 220
+PASS elite below/exact/death: prototype-t4-1
+prototype-t4-2: 携带手枪 / 步枪 / 霰弹枪合计至少 3 件; 击杀精英至少 220
+PASS elite below/exact/death: prototype-t4-2
+prototype-t4-3: 开启史诗宝箱至少 2 个（仅计该品质）; 背包价值至少 75,000
+prototype-t5-1: 携带方舟计划核心 / 星火反应炉合计至少 1 件; 背包价值至少 100,000; 击杀精英至少 300
+PASS elite below/exact/death: prototype-t5-1
+prototype-t5-2: 携带方舟计划核心 / 星火反应炉合计至少 1 件; 背包价值至少 100,000; 击杀精英至少 220; 开启史诗宝箱至少 4 个（仅计该品质）
+PASS elite below/exact/death: prototype-t5-2
+prototype-t5-3: 携带方舟计划核心 / 星火反应炉合计至少 1 件; 背包价值至少 110,000; 击杀精英至少 180; 携带任意 Lv3 及以上装备至少 1 件
+PASS elite below/exact/death: prototype-t5-3
+PASS T5 combination/pool/frozen JSON: prototype-t5-1
+PASS T5 combination/pool/frozen JSON: prototype-t5-2
+PASS T5 combination/pool/frozen JSON: prototype-t5-3

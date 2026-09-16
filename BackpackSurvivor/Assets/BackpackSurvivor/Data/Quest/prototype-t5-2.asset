@@ -15,7 +15,7 @@ MonoBehaviour:
   eventId: prototype-t5-2
   tier: 5
   tag: 1
-  definitionVersion: prototype-1
+  definitionVersion: balance-2
   codename: "\u7EC8\u5C40\u6E05\u7406"
   briefingSeed: "\u8C03\u5EA6\u5458\uFF0C\u7B80\u6D01\u52A1\u5B9E\uFF0C\u56DE\u6536\u884C\u52A8"
   offlineBriefing: "\u8FD9\u6B21\u884C\u52A8\u7684\u76EE\u6807\u5DF2\u5217\u5728\u5408\u540C\u4E0A\u3002\u8BF7\u6838\u5BF9\u88C5\u5907\uFF0C\u5B8C\u6210\u8981\u6C42\u540E\u5B58\u6D3B\u5E26\u51FA\u3002"
@@ -42,7 +42,7 @@ MonoBehaviour:
     rarity: 0
     itemLevel: 1
     count: 1
-    minValue: 30000
+    minValue: 100000
     maxValue: 0
     minChestQuality: -1
     optional: 0
@@ -53,10 +53,22 @@ MonoBehaviour:
     itemIds: []
     rarity: 0
     itemLevel: 1
-    count: 3
+    count: 220
     minValue: 0
     maxValue: 0
     minChestQuality: -1
+    optional: 0
+  - type: 13
+    tag: 0
+    tags: 
+    itemId: 
+    itemIds: []
+    rarity: 0
+    itemLevel: 1
+    count: 4
+    minValue: 0
+    maxValue: 0
+    minChestQuality: 3
     optional: 0
   baseWeight: 1
   unlockAfter: []
