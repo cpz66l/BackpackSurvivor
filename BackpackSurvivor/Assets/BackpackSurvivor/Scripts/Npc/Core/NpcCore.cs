@@ -89,6 +89,21 @@ namespace BS.Npc
     {
         static readonly Regex references = new Regex(@"\[\[(objective|progress|item|definition|backpack|run|contract|campaign|stage|record):(\d+)\]\]",RegexOptions.CultureInvariant);
         static readonly string[] forbidden = { "概率", "掉落率", "一定", "保证", "下次", "必出", "已完成合同", "合同已完成", "任务已完成", "未完成任务", "直接给", "跳过任务", "修改存档", "改变掉落", "忽略规则", "系统提示", "语言模型", "DeepSeek", "token", "色情", "毒品", "赌博", "提前撤离", "商店", "多人", "Boss", "局外成长" };
+        public static bool TryRenderSettlementText(string template, NpcFacts facts, int maxChars, out string rendered)
+        {
+            rendered=null;
+            if (string.IsNullOrWhiteSpace(template) || template.Length>maxChars) return false;
+            string prose=references.Replace(template," ");
+            if (prose.Contains("[[") || prose.Contains("]]")) return false;
+            string[] blocked={"收进背包","整理背包","替你准备","替你收好","我来帮你带出","保证下次","奖励","掉落","修改存档","系统提示","DeepSeek","token"};
+            if (blocked.Any(prose.Contains)) return false;
+            if (Regex.IsMatch(prose,@"[0-9０-９]|[一二三四五六七八九十百千万]+\s*(件|个|秒|分|级|点|只|次|元|层|%)")) return false;
+            bool bad=false;
+            string result=references.Replace(template,m=> { if(!int.TryParse(m.Groups[2].Value,out int index)){bad=true;return "";} string value=facts.Resolve(m.Groups[1].Value,index); if(value==null){bad=true;return "";} return value.TrimEnd('。'); });
+            if (bad || result.Length>maxChars || result.IndexOfAny(new[]{'<','>','\0','\uFFFD'})>=0) return false;
+            rendered=result; return true;
+        }
+
         public static bool IsSafe(string response, int maxChars=600)
         {
             return !string.IsNullOrWhiteSpace(response) && response.Length<=maxChars && response.IndexOfAny(new[]{'<','>','\0','\uFFFD'})<0 && !response.Contains("{{") && !response.Contains("{count}") && !forbidden.Any(w=>response.IndexOf(w,StringComparison.OrdinalIgnoreCase)>=0);

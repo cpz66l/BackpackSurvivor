@@ -9,6 +9,11 @@
 [Mm]emoryCaptures/
 [Rr]ecordings/
 BackpackSurvivor/ProfilerCaptures/
+# 大体积证据截图就地保留，只提交 Docs/Evidence 下的轻量版本，与 ProfilerEvidence 的既有策略一致
+BackpackSurvivor/Captures/
+
+# Local AI assistant tool state kept out of the repository
+.workbuddy/
 
 # IDE and generated project files
 .vs/
@@ -59,6 +64,7 @@ Docs/第*课-*.md
 
 # Private portfolio preparation materials kept local only
 Docs/作品材料-*.md
+Docs/面试复盘*.md
 Docs/Video/
 
 # Local art iteration scratch scenes
